@@ -2,8 +2,7 @@
 #define DOE_H
 
 /** This class provides functionality for determining the date of Easter. */
-class CDoe
-{
+class CDoe {
 private:
 	float year;
 

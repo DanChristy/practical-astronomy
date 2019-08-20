@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <vector>
 #include "doe.h"
 
 CDoe::CDoe(float year)
@@ -27,4 +28,19 @@ std::string CDoe::GetEaster()
 	int month = n;
 
 	return std::to_string(month) + "/" + std::to_string(day) + "/" + std::to_string((int)this->year);
+}
+
+extern "C"
+{
+	CDoe *CDoe_new(float year)
+	{
+		return new CDoe(year);
+	}
+
+	char *CDoe_GetEaster(CDoe *doe)
+	{
+		std::string easterString = doe->GetEaster();
+
+		return easterString.data();
+	}
 }

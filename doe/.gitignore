@@ -1,3 +1,4 @@
-cppclient
+client-cpp
+doeshared.so
 *.o
 *.orig

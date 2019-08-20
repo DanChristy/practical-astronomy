@@ -1,0 +1,4 @@
+*.o
+*.so
+*.orig
+client-cpp

@@ -5,28 +5,28 @@ FORMATTER = astyle -t --style=stroustrup
 default:
 	@echo 'Targets:'
 	@echo ' run'
-	@echo ' cppclient  (application)'
+	@echo ' client-cpp  (application)'
 	@echo ' format'
 	@echo ' clean'
 
-run: cppclient
-	@./cppclient
+run: client-cpp
+	@./client-cpp
 
-cppclient: cppclient.o doe.o
-	$(COMPILER) -o cppclient cppclient.o doe.o
+client-cpp: client-cpp.o doe.o
+	$(COMPILER) -o client-cpp client-cpp.o doe.o
 
-cppclient.o: cppclient.cpp doe.h
-	$(COMPILER) -c cppclient.cpp
+client-cpp.o: client-cpp.cpp doe.h
+	$(COMPILER) -c client-cpp.cpp
 
 doe.o: doe.cpp doe.h
 	$(COMPILER) -c doe.cpp
 
 format:
-	$(FORMATTER) cppclient.cpp
+	$(FORMATTER) client-cpp.cpp
 	$(FORMATTER) doe.cpp
 	$(FORMATTER) doe.h
 
 clean:
 	$(DELETER) *.o
 	$(DELETER) *.orig
-	$(DELETER) cppclient
+	$(DELETER) client-cpp

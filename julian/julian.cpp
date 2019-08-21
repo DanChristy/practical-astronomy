@@ -22,18 +22,16 @@ bool isGregorian(int month, int day, int year)
 	return (day > 15) ? true : false;
 }
 
-CJulian::CJulian(int month, float day, int year)
+CJulian::CJulian()
 {
-	this->greenwich_month = month;
-	this->greenwich_day = day;
-	this->greenwich_year = year;
+	// No initialization needed, for now.
 }
 
-float CJulian::GetJulian()
+float CJulian::GreenwichToJulian(int month, float day, int year)
 {
-	int y = this->greenwich_year;
-	int m = this->greenwich_month;
-	float d = this->greenwich_day;
+	int y = year;
+	int m = month;
+	float d = day;
 	int yd = (m < 3) ? (y - 1) : y;
 	int md = (m < 3) ? (m + 12) : m;
 	int A = yd / 100;
@@ -47,13 +45,13 @@ float CJulian::GetJulian()
 
 extern "C"
 {
-	CJulian *CJulian_new(int month, float day, int year)
+	CJulian *CJulian_new()
 	{
-		return new CJulian(month, day, year);
+		return new CJulian();
 	}
 
-	float CJulian_GetJulian(CJulian *julian)
+	float CJulian_GreenwichToJulian(CJulian *julian, int month, float day, int year)
 	{
-		return julian->GetJulian();
+		return julian->GreenwichToJulian(month, day, year);
 	}
 }

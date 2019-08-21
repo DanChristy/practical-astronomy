@@ -18,9 +18,9 @@ int main(int argc, char **argv)
 		inputYear = atoi(argv[3]);
 	}
 
-	CJulian julian(inputMonth, inputDay, inputYear);
+	CJulian julian;
 
-	cout << std::fixed << "Julian date is " << julian.GetJulian() << endl;
+	cout << std::fixed << "Julian date is " << julian.GreenwichToJulian(inputMonth, inputDay, inputYear) << endl;
 
 	return 0;
 }

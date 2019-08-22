@@ -20,4 +20,4 @@ class Julian(object):
 julian = Julian()
 julianDate = julian.GreenwichToJulian(6, 19.75, 2009)
 
-print ("Julian date is {julianDate}".format(julianDate=julianDate))
+print ("Julian date for 6/19.75/2009 is {julianDate}".format(julianDate=julianDate))

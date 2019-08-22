@@ -43,6 +43,30 @@ float CJulian::GreenwichToJulian(int month, float day, int year)
 	return JD;
 }
 
+GreenwichDate CJulian::JulianToGreenwich(float julianDate)
+{
+	GreenwichDate greenwichDate;
+
+	int l = julianDate + 0.5;
+	float F = julianDate + 0.5 - l;
+	int A = ((float)l - 1867216.25) / 36524.25;
+	int B = (l > 2299160) ? l + 1 + A - (int)(A / 4) : l;
+	int C = B + 1524;
+	int D = (C - 122.1) / 365.25;
+	int E = 365.25 * D;
+	int G = (C - E) / 30.6001;
+
+	float d = C - E + F - (int)(30.6001 * G);
+	int m = ((float)G < 13.5) ? G - 1 : G - 13;
+	int y = ((float)m > 2.5) ? D - 4716 : D - 4715;
+
+	greenwichDate.month = m;
+	greenwichDate.day = d;
+	greenwichDate.year = y;
+
+	return greenwichDate;
+}
+
 extern "C"
 {
 	CJulian *CJulian_new()
@@ -53,5 +77,10 @@ extern "C"
 	float CJulian_GreenwichToJulian(CJulian *julian, int month, float day, int year)
 	{
 		return julian->GreenwichToJulian(month, day, year);
+	}
+
+	GreenwichDate CJulian_JulianToGreenwich(CJulian *julian, float julianDate)
+	{
+		return julian->JulianToGreenwich(julianDate);
 	}
 }

@@ -20,7 +20,13 @@ int main(int argc, char **argv)
 
 	CJulian julian;
 
-	cout << std::fixed << "Julian date is " << julian.GreenwichToJulian(inputMonth, inputDay, inputYear) << endl;
+	float julianDate = julian.GreenwichToJulian(inputMonth, inputDay, inputYear);
+
+	cout << std::fixed << "Julian date for " << inputMonth << "/" << inputDay << "/" << inputYear << " is " << julianDate << endl;
+
+	GreenwichDate greenwichDate = julian.JulianToGreenwich(julianDate);
+
+	cout << std::fixed << "Converting back to Greenwich Date gives " << greenwichDate.month << "/" << greenwichDate.day << "/" << greenwichDate.year << std::endl;
 
 	return 0;
 }

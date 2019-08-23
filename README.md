@@ -6,4 +6,4 @@ Done:
 
 * Date of Easter
 * Julian Date -> Greenwich Date to Julian
-* Julian Date -> Julian to Greenwich Date. _(No Python test yet. I need to work out how to get the GreenwichDate C struct into Python.)_
+* Julian Date -> Julian to Greenwich Date.

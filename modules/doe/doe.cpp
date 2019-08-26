@@ -3,16 +3,16 @@
 #include <vector>
 #include "doe.h"
 
-CDoe::CDoe(float year)
+CDoe::CDoe()
 {
-	this->year = year;
+	// no initialization needed, for now
 }
 
-std::string CDoe::GetEaster()
+std::string CDoe::GetEaster(float year)
 {
-	int a = (int)this->year % 19;
-	int b = (int)this->year / 100;
-	int c = (int)this->year % 100;
+	int a = (int)year % 19;
+	int b = (int)year / 100;
+	int c = (int)year % 100;
 	int d = b / 4;
 	int e = b % 4;
 	int f = (b + 8) / 25;
@@ -27,19 +27,19 @@ std::string CDoe::GetEaster()
 	int day = p + 1;
 	int month = n;
 
-	return std::to_string(month) + "/" + std::to_string(day) + "/" + std::to_string((int)this->year);
+	return std::to_string(month) + "/" + std::to_string(day) + "/" + std::to_string((int)year);
 }
 
 extern "C"
 {
-	CDoe *CDoe_new(float year)
+	CDoe *CDoe_new()
 	{
-		return new CDoe(year);
+		return new CDoe();
 	}
 
-	char *CDoe_GetEaster(CDoe *doe)
+	char *CDoe_GetEaster(CDoe *doe, float year)
 	{
-		std::string easterString = doe->GetEaster();
+		std::string easterString = doe->GetEaster(year);
 
 		return easterString.data();
 	}

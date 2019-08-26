@@ -13,9 +13,9 @@ int main(int argc, char **argv)
 		inputYear = strtof(argv[1], 0);
 	}
 
-	CDoe doe(inputYear);
+	CDoe doe;
 
-	cout << "Easter date is " << doe.GetEaster() << endl;
+	cout << "Easter date is " << doe.GetEaster(inputYear) << endl;
 
 	return 0;
 }

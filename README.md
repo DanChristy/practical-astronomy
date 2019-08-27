@@ -7,3 +7,4 @@ Done:
 * Date of Easter
 * Julian Date -> Greenwich Date to Julian.
 * Julian Date -> Julian to Greenwich Date.
+* Julian Date -> Get Day-of-Week from Julian.

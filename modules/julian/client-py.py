@@ -16,6 +16,9 @@ class Julian(object):
 
 		julianlib.CJulian_JulianToGreenwich.argtypes = [ctypes.c_void_p, ctypes.c_float]
 		julianlib.CJulian_JulianToGreenwich.restype = GreenwichDate
+
+		julianlib.CJulian_GetDayOfWeek.argtypes = [ctypes.c_void_p, ctypes.c_float]
+		julianlib.CJulian_GetDayOfWeek.restype = ctypes.c_char_p
 		
 		self.obj = julianlib.CJulian_new()
 
@@ -25,10 +28,15 @@ class Julian(object):
 	def JulianToGreenwich(self, julianDate):
 		return julianlib.CJulian_JulianToGreenwich(self.obj, julianDate)
 
+	def GetDayOfWeek(self, julianDate):
+		return julianlib.CJulian_GetDayOfWeek(self.obj, julianDate)
+
 julian = Julian()
 julianDate = julian.GreenwichToJulian(6, 19.75, 2009)
 greenwichDate = julian.JulianToGreenwich(julianDate)
 
 print("Julian date for 6/19.75/2009 is {julianDate}".format(julianDate=julianDate))
+
+print("Day of the week for 6/19.75/2009 is {dayName}".format(dayName=julian.GetDayOfWeek(julianDate).decode('utf-8')))
 
 print("Converting back to Greenwich Date gives {gwMonth}/{gwDay}/{gwYear}".format(gwMonth=greenwichDate.month, gwDay=greenwichDate.day, gwYear=greenwichDate.year))

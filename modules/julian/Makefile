@@ -29,12 +29,12 @@ client-cpp.o: client-cpp.cpp julian.h
 	$(COMPILER) -c client-cpp.cpp
 
 julian.o: julian.cpp julian.h
-	$(COMPILER) -c julian.cpp
+	$(COMPILER) -fpermissive -c julian.cpp
 
 shared: julianshared.so
 
 julianshared.so: julian.cpp
-	$(COMPILER) -std=c++11 -Wall -fPIC -c julian.cpp
+	$(COMPILER) -fpermissive -std=c++11 -Wall -fPIC -c julian.cpp
 	$(COMPILER) -std=c++11 -shared -Wl,-soname,julianshared.so.1 -o julianshared.so julian.o
 
 format:

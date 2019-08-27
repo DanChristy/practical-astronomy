@@ -18,5 +18,8 @@ public:
 
 	/** Return a GreenwichDate object for the Julian Date specified.  */
 	GreenwichDate JulianToGreenwich(float julianDate);
+
+	/** Return the day of the week (e.g., "Sunday") for the Julian Date specified. */
+	std::string GetDayOfWeek(float julianDate);
 };
 #endif

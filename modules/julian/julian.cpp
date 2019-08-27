@@ -67,6 +67,40 @@ GreenwichDate CJulian::JulianToGreenwich(float julianDate)
 	return greenwichDate;
 }
 
+std::string CJulian::GetDayOfWeek(float julianDate)
+{
+	int n = (int)(julianDate + 1.5) % 7;
+
+	std::string dayName = "";
+	switch (n) {
+	case 0:
+		dayName = "Sunday";
+		break;
+	case 1:
+		dayName = "Monday";
+		break;
+	case 2:
+		dayName = "Tuesday";
+		break;
+	case 3:
+		dayName = "Wednesday";
+		break;
+	case 4:
+		dayName = "Thursday";
+		break;
+	case 5:
+		dayName = "Friday";
+		break;
+	case 6:
+		dayName = "Saturday";
+		break;
+	default:
+		break;
+	}
+
+	return dayName;
+}
+
 extern "C"
 {
 	CJulian *CJulian_new()
@@ -82,5 +116,12 @@ extern "C"
 	GreenwichDate CJulian_JulianToGreenwich(CJulian *julian, float julianDate)
 	{
 		return julian->JulianToGreenwich(julianDate);
+	}
+
+	char *CJulian_GetDayOfWeek(CJulian *julian, float julianDate)
+	{
+		std::string dayName = julian->GetDayOfWeek(julianDate);
+
+		return dayName.data();
 	}
 }

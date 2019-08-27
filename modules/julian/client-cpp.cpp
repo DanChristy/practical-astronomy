@@ -24,6 +24,8 @@ int main(int argc, char **argv)
 
 	cout << std::fixed << "Julian date for " << inputMonth << "/" << inputDay << "/" << inputYear << " is " << julianDate << endl;
 
+	cout << "The day of the week for " << inputMonth << "/" << inputDay << "/" << inputYear << " is " << julian.GetDayOfWeek(julianDate) << std::endl;
+
 	GreenwichDate greenwichDate = julian.JulianToGreenwich(julianDate);
 
 	cout << std::fixed << "Converting back to Greenwich Date gives " << greenwichDate.month << "/" << greenwichDate.day << "/" << greenwichDate.year << std::endl;

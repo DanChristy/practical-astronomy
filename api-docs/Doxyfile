@@ -1,5 +1,5 @@
 PROJECT_NAME           = "Practical Astronomy"
-OUTPUT_DIRECTORY       = .
+OUTPUT_DIRECTORY       = ..
 OPTIMIZE_OUTPUT_FOR_C  = NO
 OPTIMIZE_OUTPUT_JAVA   = NO
 OPTIMIZE_FOR_FORTRAN   = NO
@@ -10,7 +10,7 @@ INPUT                  = ../modules
 RECURSIVE              = YES
 EXAMPLE_PATTERNS       = *
 GENERATE_HTML          = YES
-HTML_OUTPUT            = html
+HTML_OUTPUT            = docs
 DOCSET_FEEDNAME        = "Doxygen generated docs"
 DOCSET_BUNDLE_ID       = org.doxygen.Project
 DOCSET_PUBLISHER_ID    = org.doxygen.Publisher

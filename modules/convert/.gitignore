@@ -1,0 +1,4 @@
+client-cpp
+convertshared.so
+*.o
+*.orig

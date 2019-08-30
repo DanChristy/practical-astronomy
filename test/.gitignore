@@ -1,0 +1,8 @@
+*.o
+*.so
+*.orig
+
+# binaries
+convert
+doe
+julian

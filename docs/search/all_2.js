@@ -1,9 +1,8 @@
 var searchData=
 [
-  ['dateofeaster',['dateOfEaster',['../namespaceclient-py.html#a52ae61d9f27197c993f2a33a114d3806',1,'client-py']]],
-  ['day',['day',['../structGreenwichDate.html#aa056825b6e9399237f8331eb919c7880',1,'GreenwichDate']]],
-  ['doe',['Doe',['../classclient-py_1_1Doe.html',1,'Doe'],['../namespaceclient-py.html#a95d740f4ba6cd5943255331ffcdaef5b',1,'client-py.doe()']]],
-  ['doe_2ecpp',['doe.cpp',['../doe_8cpp.html',1,'']]],
-  ['doe_2eh',['doe.h',['../doe_8h.html',1,'']]],
-  ['doelib',['doelib',['../namespaceclient-py.html#a132f3d2f4ff1c0cb834ca913ef969983',1,'client-py']]]
+  ['generaltimetodecimal',['GeneralTimeToDecimal',['../classCConvert.html#aebc7e6f712395c01ac80540712a84977',1,'CConvert::GeneralTimeToDecimal(int hours, int minutes, int seconds, std::string period)'],['../classCConvert.html#a473259e61929a6975359aa360271d4cb',1,'CConvert::GeneralTimeToDecimal(int hours, int minutes, int seconds)']]],
+  ['getdayofweek',['GetDayOfWeek',['../classCJulian.html#abbaa84406e99026690387c7d83690f22',1,'CJulian']]],
+  ['geteaster',['GetEaster',['../classCDoe.html#aabf295edcaf263e3c2a2ff5d1b788f72',1,'CDoe']]],
+  ['greenwichdate',['GreenwichDate',['../structGreenwichDate.html',1,'']]],
+  ['greenwichtojulian',['GreenwichToJulian',['../classCJulian.html#a0825773b9acc69c4d605627b944da674',1,'CJulian']]]
 ];

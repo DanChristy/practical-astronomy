@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['isgregorian',['isGregorian',['../julian_8cpp.html#a87be94ee7d786c938fa8e83145d1cf3d',1,'julian.cpp']]]
+  ['juliantogreenwich',['JulianToGreenwich',['../classCJulian.html#a09dc89585d00cec3940192517c60a63a',1,'CJulian']]]
 ];

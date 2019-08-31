@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['isgregorian',['isGregorian',['../julian_8cpp.html#a87be94ee7d786c938fa8e83145d1cf3d',1,'julian.cpp']]]
+  ['hours',['hours',['../structGeneralTime.html#af23005df06fc3cd4264e5eee2dfa2f8c',1,'GeneralTime']]]
 ];

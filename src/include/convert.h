@@ -1,3 +1,7 @@
+#ifndef SHARED_H
+#include "shared.h"
+#endif
+
 #ifndef CONVERT_H
 #define CONVERT_H
 
@@ -7,9 +11,9 @@ public:
 	CConvert();
 
 	/** Convert 12-hour general time to decimal time */
-	float GeneralTimeToDecimal(int hours, int minutes, int seconds, std::string period);
+	float GeneralTimeToDecimal(GeneralTime generalTime, std::string period);
 
 	/** Convert 24-hour general time to decimal time */
-	float GeneralTimeToDecimal(int hours, int minutes, int seconds);
+	float GeneralTimeToDecimal(GeneralTime generalTime);
 };
 #endif

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['month',['month',['../structGreenwichDate.html#aedb06abe5aff12fa3e7e0e71a374edfb',1,'GreenwichDate']]]
+  ['hours',['hours',['../structGeneralTime.html#af23005df06fc3cd4264e5eee2dfa2f8c',1,'GeneralTime']]]
 ];

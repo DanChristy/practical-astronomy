@@ -1,8 +1,8 @@
 var searchData=
 [
   ['cconvert',['CConvert',['../classCConvert.html#ac398a1ad8301adbd4a74cae2d04e3796',1,'CConvert']]],
-  ['cconvert_5fgeneral12hourtimetodecimal',['CConvert_General12HourTimeToDecimal',['../convert_8cpp.html#a85629937f106883ee4e766d46dba6ff8',1,'convert.cpp']]],
-  ['cconvert_5fgeneral24hourtimetodecimal',['CConvert_General24HourTimeToDecimal',['../convert_8cpp.html#a57861da49896ced736c4f13c2aa93cce',1,'convert.cpp']]],
+  ['cconvert_5fgeneral12hourtimetodecimal',['CConvert_General12HourTimeToDecimal',['../convert_8cpp.html#a3247f18f9d94fb509bab7b369f9fd04a',1,'convert.cpp']]],
+  ['cconvert_5fgeneral24hourtimetodecimal',['CConvert_General24HourTimeToDecimal',['../convert_8cpp.html#ac0b65eb39611fcc8a71b93cb02db855a',1,'convert.cpp']]],
   ['cconvert_5fnew',['CConvert_new',['../convert_8cpp.html#ad7ad38bdb5ba70e9d9ec9022d182dbdc',1,'convert.cpp']]],
   ['cdoe',['CDoe',['../classCDoe.html#aed69e2b7cd459fba96b8ab98c9d49229',1,'CDoe']]],
   ['cdoe_5fgeteaster',['CDoe_GetEaster',['../doe_8cpp.html#a06697b4cb3c01ff352660e580cc272a9',1,'doe.cpp']]],

@@ -24,13 +24,14 @@ julian.o: julian.cpp include/julian.h
 	$(COMPILER) $(OBJ_ARGS) julian.cpp
 
 format:
+	$(FORMATTER) include/shared.h
 	$(FORMATTER) convert.cpp
 	$(FORMATTER) include/convert.h
 	$(FORMATTER) doe.cpp
 	$(FORMATTER) include/doe.h
 	$(FORMATTER) julian.cpp
 	$(FORMATTER) include/julian.h
-
+	
 clean:
 	$(DELETER) *.o *.so
 	$(DELETER) *.orig

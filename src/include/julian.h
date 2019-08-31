@@ -1,12 +1,9 @@
+#ifndef SHARED_H
+#include "shared.h"
+#endif
+
 #ifndef JULIAN_H
 #define JULIAN_H
-
-/** Simple Greenwich Date structure (month, fractional day, year) */
-struct GreenwichDate {
-	int month;
-	float day;
-	int year;
-};
 
 /** This class provides functionality for working with Julian and Greenwich dates. */
 class CJulian {

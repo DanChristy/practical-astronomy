@@ -8,7 +8,7 @@ int main(int argc, char **argv)
 {
 	CConvert convert;
 
-	GeneralTime generalTime = {18, 31, 27};
+	GeneralTime generalTime(18, 31, 27);
 
 	cout << "Decimal time for 18:31:27 is " << convert.GeneralTimeToDecimal(generalTime) << endl;
 

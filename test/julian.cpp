@@ -7,28 +7,26 @@ using namespace std;
 int main(int argc, char **argv)
 {
 	// defaults
-	int inputMonth = 6;
-	float inputDay = 19.75;
-	int inputYear = 2009;
+	GreenwichDate greenwichDate(6, 19.75, 2009);
 
 	// If a month, day, and year was specified on the command line, use that instead
 	if (argc == 4) {
-		inputMonth = atoi(argv[1]);
-		inputDay = atof(argv[2]);
-		inputYear = atoi(argv[3]);
+		greenwichDate.month = atoi(argv[1]);
+		greenwichDate.day = atof(argv[2]);
+		greenwichDate.year = atoi(argv[3]);
 	}
 
 	CJulian julian;
 
-	float julianDate = julian.GreenwichToJulian(inputMonth, inputDay, inputYear);
+	float julianDate = julian.GreenwichToJulian(greenwichDate);
 
-	cout << std::fixed << "Julian date for " << inputMonth << "/" << inputDay << "/" << inputYear << " is " << julianDate << endl;
+	cout << std::fixed << "Julian date for " << greenwichDate.month << "/" << greenwichDate.day << "/" << greenwichDate.year << " is " << julianDate << endl;
 
-	cout << "The day of the week for " << inputMonth << "/" << inputDay << "/" << inputYear << " is " << julian.GetDayOfWeek(julianDate) << std::endl;
+	cout << "The day of the week for " << greenwichDate.month << "/" << greenwichDate.day << "/" << greenwichDate.year << " is " << julian.GetDayOfWeek(julianDate) << std::endl;
 
-	GreenwichDate greenwichDate = julian.JulianToGreenwich(julianDate);
+	GreenwichDate greenwichDateFromJulian = julian.JulianToGreenwich(julianDate);
 
-	cout << std::fixed << "Converting back to Greenwich Date gives " << greenwichDate.month << "/" << greenwichDate.day << "/" << greenwichDate.year << std::endl;
+	cout << std::fixed << "Converting back to Greenwich Date gives " << greenwichDateFromJulian.month << "/" << greenwichDateFromJulian.day << "/" << greenwichDateFromJulian.year << std::endl;
 
 	return 0;
 }

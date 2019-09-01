@@ -11,7 +11,7 @@ public:
 	CJulian();
 
 	/** Return a float representing the Julian date for the Greenwich month, day, and year specified.  */
-	float GreenwichToJulian(int month, float day, int year);
+	float GreenwichToJulian(GreenwichDate greenwichDate);
 
 	/** Return a GreenwichDate object for the Julian Date specified.  */
 	GreenwichDate JulianToGreenwich(float julianDate);

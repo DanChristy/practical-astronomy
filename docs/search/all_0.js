@@ -9,7 +9,7 @@ var searchData=
   ['cdoe_5fnew',['CDoe_new',['../doe_8cpp.html#a18aa2b0d1862c6e496d7b6f46710bbee',1,'doe.cpp']]],
   ['cjulian',['CJulian',['../classCJulian.html',1,'CJulian'],['../classCJulian.html#ac07ba71d0579447541dc15c5ea308f2a',1,'CJulian::CJulian()']]],
   ['cjulian_5fgetdayofweek',['CJulian_GetDayOfWeek',['../julian_8cpp.html#a5b40e743bb617dc625e42cb7cfd16a31',1,'julian.cpp']]],
-  ['cjulian_5fgreenwichtojulian',['CJulian_GreenwichToJulian',['../julian_8cpp.html#aa696197f0e912a798951e11b22d70aa4',1,'julian.cpp']]],
+  ['cjulian_5fgreenwichtojulian',['CJulian_GreenwichToJulian',['../julian_8cpp.html#a2cfae2586bf766ad0ad305c278dc4ae6',1,'julian.cpp']]],
   ['cjulian_5fjuliantogreenwich',['CJulian_JulianToGreenwich',['../julian_8cpp.html#a30c450b048910facd95416002c826e03',1,'julian.cpp']]],
   ['cjulian_5fnew',['CJulian_new',['../julian_8cpp.html#a02f843fc484818fbb3137a7f20a55ba6',1,'julian.cpp']]],
   ['convert_2ecpp',['convert.cpp',['../convert_8cpp.html',1,'']]],

@@ -11,3 +11,4 @@ Done:
 * Julian Date -> Julian to Greenwich Date.
 * Julian Date -> Get Day-of-Week from Julian.
 * Convert -> General Time (12-hour and 24-hour) to Decimal Time.
+* Convert -> Decimal Time to General Time (24-hour)

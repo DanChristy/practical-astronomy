@@ -1,6 +1,7 @@
 var NAVTREE =
 [
   [ "Practical Astronomy", "index.html", [
+    [ "Glossary", "md__home_jimc_projects_practical-astronomy_src_docs_glossary.html", null ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
       [ "Class Index", "classes.html", null ],

@@ -15,5 +15,8 @@ public:
 
 	/** Convert 24-hour general time to decimal time */
 	float GeneralTimeToDecimal(GeneralTime generalTime);
+
+	/** Convert decimal time to 24-hour general time */
+	GeneralTime DecimalToGeneralTime(float decimalTime);
 };
 #endif

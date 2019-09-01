@@ -1,6 +1,7 @@
 var searchData=
 [
   ['cconvert',['CConvert',['../classCConvert.html#ac398a1ad8301adbd4a74cae2d04e3796',1,'CConvert']]],
+  ['cconvert_5fdecimaltogeneraltime',['CConvert_DecimalToGeneralTime',['../convert_8cpp.html#a649e8956d77d33e97ded6674f9556948',1,'convert.cpp']]],
   ['cconvert_5fgeneral12hourtimetodecimal',['CConvert_General12HourTimeToDecimal',['../convert_8cpp.html#a3247f18f9d94fb509bab7b369f9fd04a',1,'convert.cpp']]],
   ['cconvert_5fgeneral24hourtimetodecimal',['CConvert_General24HourTimeToDecimal',['../convert_8cpp.html#ac0b65eb39611fcc8a71b93cb02db855a',1,'convert.cpp']]],
   ['cconvert_5fnew',['CConvert_new',['../convert_8cpp.html#ad7ad38bdb5ba70e9d9ec9022d182dbdc',1,'convert.cpp']]],

@@ -1,4 +1,5 @@
 #include <iostream>
+#include <math.h>
 #include <string>
 #include <vector>
 #include "include/convert.h"
@@ -26,6 +27,17 @@ float CConvert::GeneralTimeToDecimal(GeneralTime generalTime)
 	return returnValue;
 }
 
+GeneralTime CConvert::DecimalToGeneralTime(float decimalTime)
+{
+	float hours = floor(decimalTime);
+	float minutes = (decimalTime - hours) * 60;
+	float seconds = (minutes - floor(minutes)) * 60;
+
+	GeneralTime generalTime((int)hours, (int)minutes, (int)seconds);
+
+	return generalTime;
+}
+
 extern "C"
 {
 	CConvert *CConvert_new()
@@ -41,5 +53,10 @@ extern "C"
 	float CConvert_General24HourTimeToDecimal(CConvert *convert, GeneralTime generalTime)
 	{
 		return convert->GeneralTimeToDecimal(generalTime);
+	}
+
+	GeneralTime CConvert_DecimalToGeneralTime(CConvert *convert, float decimalTime)
+	{
+		return convert->DecimalToGeneralTime(decimalTime);
 	}
 }

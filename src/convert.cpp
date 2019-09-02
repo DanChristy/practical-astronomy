@@ -29,9 +29,14 @@ float CConvert::GeneralTimeToDecimal(GeneralTime generalTime)
 
 GeneralTime CConvert::DecimalToGeneralTime(float decimalTime)
 {
-	float hours = floor(decimalTime);
-	float minutes = (decimalTime - hours) * 60;
-	float seconds = (minutes - floor(minutes)) * 60;
+	float total_seconds = decimalTime * 3600;
+	float seconds_2_dp = floor(((int)total_seconds % 60) * 1000) / 1000;
+	float corrected_seconds = (seconds_2_dp == 60) ? 0 : seconds_2_dp;
+	float corrected_remainder = (seconds_2_dp == 60) ? total_seconds + 60 : total_seconds;
+	float minutes = int(floor(corrected_remainder / 60)) % 60;
+	float hours = floor(corrected_remainder / 3600);
+	hours = (decimalTime < 0) ? (-1 * hours) : hours;
+	float seconds = corrected_seconds;
 
 	GeneralTime generalTime((int)hours, (int)minutes, (int)seconds);
 

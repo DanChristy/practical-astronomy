@@ -1,5 +1,5 @@
 COMPILER = g++
-OBJ_ARGS = -fpermissive -c
+OBJ_ARGS = -fPIC -fpermissive -c
 SHARED_ARGS = -std=c++11 -shared -Wl,-soname,
 DELETER = -rm -f
 FORMATTER = astyle -t --style=stroustrup

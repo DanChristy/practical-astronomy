@@ -1,12 +1,12 @@
 #!/usr/bin/python3
 
 import lib.pa_conversions as PC
-import lib.pa_shared as PS
+import lib.pa_models as PM
 
 def testJulian(month,day,year):
 	myConvert = PC.CConvert()
 
-	dateToCheck = PS.CivilDate(month,day,year)
+	dateToCheck = PM.CivilDate(month,day,year)
 
 	julianDate = myConvert.GreenwichDateToJulianDate(dateToCheck)
 

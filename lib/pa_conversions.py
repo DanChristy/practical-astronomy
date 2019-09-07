@@ -1,5 +1,6 @@
 import math
-from . import pa_shared
+from . import pa_models
+from . import pa_util
 
 ## This class provides conversion functions.
 class CConvert(object):
@@ -14,11 +15,11 @@ class CConvert(object):
 
 		if workingMonth <= 2:
 			workingMonth = workingMonth - 1
-			workingMonth = workingMonth * 62 if pa_shared.IsLeapYear(workingYear) else workingMonth * 63
+			workingMonth = workingMonth * 62 if pa_util.IsLeapYear(workingYear) else workingMonth * 63
 			workingMonth = math.floor(workingMonth / 2)
 		else:
 			workingMonth = math.floor((workingMonth + 1) * 30.6)
-			workingMonth = workingMonth - 62 if pa_shared.IsLeapYear(workingYear) else workingMonth - 63
+			workingMonth = workingMonth - 62 if pa_util.IsLeapYear(workingYear) else workingMonth - 63
 		
 		returnValue = workingMonth + workingDay
 
@@ -59,7 +60,7 @@ class CConvert(object):
 		returnMonth = self.JulianDateMonth(julianDate)
 		returnYear = self.JulianDateYear(julianDate)
 
-		return pa_shared.CivilDate(returnMonth, returnDay, returnYear)
+		return pa_models.CivilDate(returnMonth, returnDay, returnYear)
 
 	## \brief Convert a Julian Date to Day-of-Week (e.g., Sunday)
 	def JulianDateToWeekdayName(self, julianDate):

@@ -1,5 +1,5 @@
 import math
-from . import pa_shared
+from . import pa_models
 
 ## This class provides Date-of-Easter functions.
 class CDateOfEaster(object):
@@ -30,6 +30,6 @@ class CDateOfEaster(object):
 		returnMonth = n
 		returnYear = year
 
-		returnValue = pa_shared.CivilDate(returnMonth, returnDay, returnYear)
+		returnValue = pa_models.CivilDate(returnMonth, returnDay, returnYear)
 
 		return returnValue

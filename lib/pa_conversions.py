@@ -14,22 +14,12 @@ class CConvert(object):
 
 		if workingMonth <= 2:
 			workingMonth = workingMonth - 1
-			if pa_shared.IsLeapYear(workingYear):
-				workingMonth = workingMonth * 62
-			else:
-				workingMonth = workingMonth * 62
-			workingMonth = workingMonth / 2
-			workingMonth = math.floor(workingMonth)
+			workingMonth = workingMonth * 62 if pa_shared.IsLeapYear(workingYear) else workingMonth * 63
+			workingMonth = math.floor(workingMonth / 2)
 		else:
-			workingMonth = workingMonth + 1
-			workingMonth = workingMonth * 30.6
-			workingMonth = math.floor(workingMonth)
-			if pa_shared.IsLeapYear(workingYear):
-				workingMonth = workingMonth - 62
-			else:
-				workingMonth = workingMonth - 63
+			workingMonth = math.floor((workingMonth + 1) * 30.6)
+			workingMonth = workingMonth - 62 if pa_shared.IsLeapYear(workingYear) else workingMonth - 63
 		
 		returnValue = workingMonth + workingDay
 
 		return returnValue
-

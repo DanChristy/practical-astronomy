@@ -8,7 +8,7 @@ class CDateOfEaster(object):
 
 	## \brief Gets the date of Easter for the year specified.
 	# @param  year  Year for which you'd like the date of Easter.
-	# @returns  GreenwichDate, a simple month/day/year structure.
+	# @returns  CivilDate, a simple month/day/year structure.
 	def GetDateOfEaster(self, year):
 
 		a = year % 19
@@ -30,6 +30,6 @@ class CDateOfEaster(object):
 		returnMonth = n
 		returnYear = year
 
-		returnValue = pa_shared.GreenwichDate(returnMonth, returnDay, returnYear)
+		returnValue = pa_shared.CivilDate(returnMonth, returnDay, returnYear)
 
 		return returnValue

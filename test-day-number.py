@@ -6,9 +6,9 @@ import lib.pa_shared as PS
 def checkDate(month,day,year):
 	myConvert = PC.CConvert()
 
-	dateToCheck = PS.GreenwichDate(month,day,year)
+	dateToCheck = PS.CivilDate(month,day,year)
 
-	dayNumber = myConvert.GreenwichDateToDayNumber(dateToCheck)
+	dayNumber = myConvert.CivilDateToDayNumber(dateToCheck)
 
 	print("Day number for {month}/{day}/{year} is {daynum}".format(month=dateToCheck.month, day=dateToCheck.day, year=dateToCheck.year, daynum=dayNumber))
 

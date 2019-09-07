@@ -7,10 +7,10 @@ class CConvert(object):
 		pass
 
 	## \brief Returns the day number for the date specified.
-	def GreenwichDateToDayNumber(self, greenwichDate):
-		workingMonth = greenwichDate.month
-		workingDay = greenwichDate.day
-		workingYear = greenwichDate.year
+	def CivilDateToDayNumber(self, civilDate):
+		workingMonth = civilDate.month
+		workingDay = civilDate.day
+		workingYear = civilDate.year
 
 		if workingMonth <= 2:
 			workingMonth = workingMonth - 1

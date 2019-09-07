@@ -4,7 +4,9 @@ Implementation, in Python 3, of algorithms from "[Practical Astronomy with your 
 
 If you're interested in this topic, please buy the book!  It provides far more detail and context.
 
-Done:
+## Done
+
+### Date/Time Functions
 
 * Date of Easter
 * Convert -> Civil Date to Day Number
@@ -14,3 +16,8 @@ Done:
 * Extract -> Day part of Julian Date
 * Extract -> Month part of Julian Date
 * Extract -> Year part of Julian Date
+* Convert -> Civil Time to Decimal Hours
+* Convert -> Decimal Hours to Civil Time
+* Extract -> Hour part of Decimal Hours
+* Extract -> Minutes part of Decimal Hours
+* Extract -> Seconds part of Decimal Hours

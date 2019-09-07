@@ -4,3 +4,10 @@ class CivilDate(object):
 		self.month = month
 		self.day = day
 		self.year = year
+
+## This class holds a simple Civil Time (hours, minutes, and seconds)
+class CivilTime(object):
+	def __init__(self, hours, minutes, seconds):
+		self.hours = hours
+		self.minutes = minutes
+		self.seconds = seconds

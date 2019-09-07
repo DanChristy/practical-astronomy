@@ -118,3 +118,52 @@ class CConvert(object):
 
 		returnValue = D - 4716 if H > 2.5 else D - 4715
 		return returnValue
+
+	## \brief Convert a Civil Time to Decimal Hours
+	def CivilTimeToDecimalHours(self, civilTime):
+		inputHours = civilTime.hours
+		inputMinutes = civilTime.minutes
+		inputSeconds = civilTime.seconds
+
+		A = abs(inputSeconds) / 60
+		B = (abs(inputMinutes) + A) / 60
+		C = abs(inputHours) + B
+		
+		return -C if ((inputHours < 0) or (inputMinutes < 0) or (inputSeconds < 0)) else C
+
+	## \brief Return the hour part of a Decimal Hours
+	def DecimalHourHour(self, decimalHours):
+		A = abs(decimalHours)
+		B = A * 3600
+		C = round(B - 60 * math.floor(B / 60), 2)
+		D = 0 if C == 60 else C
+		E = B + 60 if C == 60 else B
+
+		return -(math.floor(E / 3600)) if decimalHours < 0 else math.floor(E / 3600)
+
+	## \brief Return the minutes part of a Decimal Hours
+	def DecimalHourMinutes(self, decimalHours):
+		A = abs(decimalHours)
+		B = A * 3600
+		C = round(B - 60 * math.floor(B / 60), 2)
+		D = 0 if C == 60 else C
+		E = B + 60 if C == 60 else B
+
+		return math.floor(E / 60) % 60
+
+	## \brief Return the seconds part of a Decimal Hours
+	def DecimalHourSeconds(self, decimalHours):
+		A = abs(decimalHours)
+		B = A * 3600
+		C = round(B - 60 * math.floor(B / 60), 2)
+		D = 0 if C == 60 else C
+
+		return math.floor(D)
+
+	## \brief Convert Decimal Hours to Civil Time
+	def DecimalHoursToCivilTime(self, decimalHours):
+		hours = self.DecimalHourHour(decimalHours)
+		minutes = self.DecimalHourMinutes(decimalHours)
+		seconds = self.DecimalHourSeconds(decimalHours)
+
+		return pa_models.CivilTime(hours, minutes, seconds)

@@ -8,3 +8,5 @@ Done:
 
 * Date of Easter
 * Convert -> Civil Date to Day Number
+* Convert -> Greenwich Date to Julian Date
+* Convert -> Julian Date to Greenwich Date

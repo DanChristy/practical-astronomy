@@ -1,10 +1,10 @@
 var indexSectionsWithContent =
 {
-  0: "_cdgimpy",
+  0: "_cdgijmpy",
   1: "c",
   2: "p",
   3: "p",
-  4: "_cgi",
+  4: "_cgij",
   5: "dmy"
 };
 

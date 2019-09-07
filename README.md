@@ -7,3 +7,4 @@ If you're interested in this topic, please buy the book!  It provides far more d
 Done:
 
 * Date of Easter
+* Convert -> Greenwich Date to Day Number

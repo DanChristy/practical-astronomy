@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['generaltime',['GeneralTime',['../structGeneralTime.html',1,'']]],
-  ['greenwichdate',['GreenwichDate',['../structGreenwichDate.html',1,'']]]
+  ['greenwichdate',['GreenwichDate',['../classpa__shared_1_1GreenwichDate.html',1,'pa_shared']]]
 ];

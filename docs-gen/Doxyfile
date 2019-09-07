@@ -1,12 +1,12 @@
 PROJECT_NAME           = "Practical Astronomy"
 OUTPUT_DIRECTORY       = ..
 OPTIMIZE_OUTPUT_FOR_C  = NO
-OPTIMIZE_OUTPUT_JAVA   = NO
+OPTIMIZE_OUTPUT_JAVA   = YES
 OPTIMIZE_FOR_FORTRAN   = NO
 OPTIMIZE_OUTPUT_VHDL   = NO
 EXTRACT_ALL            = YES
 HIDE_SCOPE_NAMES       = YES
-INPUT                  = ../src
+INPUT                  = ../lib
 RECURSIVE              = YES
 EXAMPLE_PATTERNS       = *
 GENERATE_HTML          = YES

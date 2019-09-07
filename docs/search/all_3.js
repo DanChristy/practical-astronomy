@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['hours',['hours',['../structGeneralTime.html#af23005df06fc3cd4264e5eee2dfa2f8c',1,'GeneralTime']]]
+  ['getdateofeaster',['GetDateOfEaster',['../classpa__date__of__easter_1_1CDateOfEaster.html#aa392bab32c98057818ce39094b7f781b',1,'pa_date_of_easter::CDateOfEaster']]],
+  ['greenwichdate',['GreenwichDate',['../classpa__shared_1_1GreenwichDate.html',1,'pa_shared']]]
 ];

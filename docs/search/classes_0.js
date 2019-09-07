@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['cconvert',['CConvert',['../classCConvert.html',1,'']]],
-  ['cdoe',['CDoe',['../classCDoe.html',1,'']]],
-  ['cjulian',['CJulian',['../classCJulian.html',1,'']]]
+  ['cdateofeaster',['CDateOfEaster',['../classpa__date__of__easter_1_1CDateOfEaster.html',1,'pa_date_of_easter']]]
 ];

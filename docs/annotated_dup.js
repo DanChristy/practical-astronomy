@@ -1,8 +1,5 @@
 var annotated_dup =
 [
-    [ "CConvert", "classCConvert.html", "classCConvert" ],
-    [ "CDoe", "classCDoe.html", "classCDoe" ],
-    [ "CJulian", "classCJulian.html", "classCJulian" ],
-    [ "GeneralTime", "structGeneralTime.html", "structGeneralTime" ],
-    [ "GreenwichDate", "structGreenwichDate.html", "structGreenwichDate" ]
+    [ "pa_date_of_easter", "namespacepa__date__of__easter.html", "namespacepa__date__of__easter" ],
+    [ "pa_shared", "namespacepa__shared.html", "namespacepa__shared" ]
 ];

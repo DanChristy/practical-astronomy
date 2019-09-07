@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['minutes',['minutes',['../structGeneralTime.html#ab693b677bdc9ded12b06daf49778101c',1,'GeneralTime']]],
-  ['month',['month',['../structGreenwichDate.html#aedb06abe5aff12fa3e7e0e71a374edfb',1,'GreenwichDate']]]
+  ['year',['year',['../classpa__shared_1_1GreenwichDate.html#ae0489283a56946bd2d49b032e07b93c1',1,'pa_shared::GreenwichDate']]]
 ];

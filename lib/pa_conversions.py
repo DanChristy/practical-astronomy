@@ -55,6 +55,29 @@ class CConvert(object):
 
 	## \brief Convert a Julian Date to Greenwich Date (civil date with no timezone info)
 	def JulianDateToGreenwichDate(self, julianDate):
+		returnDay = self.JulianDateDay(julianDate)
+		returnMonth = self.JulianDateMonth(julianDate)
+		returnYear = self.JulianDateYear(julianDate)
+
+		return pa_shared.CivilDate(returnMonth, returnDay, returnYear)
+
+	## \brief Convert a Julian Date to Day-of-Week (e.g., Sunday)
+	def JulianDateToWeekdayName(self, julianDate):
+		J = math.floor(julianDate - 0.5) + 0.5
+		N = (J + 1.5) % 7
+		
+		if N == 0: return "Sunday"
+		if N == 1: return "Monday"
+		if N == 2: return "Tuesday"
+		if N == 3: return "Wednesday"
+		if N == 4: return "Thursday"
+		if N == 5: return "Friday"
+		if N == 6: return "Saturday"
+
+		return "Unknown"
+
+	## \brief Returns the day part of a Julian Date
+	def JulianDateDay(self, julianDate):
 		I = math.floor(julianDate + 0.5)
 		F = julianDate + 0.5 - I
 		A = math.floor((I - 1867216.25) / 36524.25)
@@ -64,8 +87,33 @@ class CConvert(object):
 		E = math.floor(365.25 * D)
 		G = math.floor((C - E) / 30.6001)
 
-		returnDay = C - E + F - math.floor(30.6001 * G)
-		returnMonth = G - 1 if G < 13.5 else G - 13
-		returnYear = D - 4716 if returnMonth > 2.5 else D - 4715
+		return C - E + F - math.floor(30.6001 * G)
 
-		return pa_shared.CivilDate(returnMonth, returnDay, returnYear)
+	## \brief Returns the month part of a Julian Date
+	def JulianDateMonth(self, julianDate):
+		I = math.floor(julianDate + 0.5)
+		F = julianDate + 0.5 - I
+		A = math.floor((I - 1867216.25) / 36524.25)
+		B = I + 1 + A - math.floor(A / 4) if I > 2299160 else I
+		C = B + 1524
+		D = math.floor((C - 122.1) / 365.25)
+		E = math.floor(365.25 * D)
+		G = math.floor((C - E) / 30.6001)
+
+		returnValue = G - 1 if G < 13.5 else G - 13
+		return returnValue
+
+	## \brief Returns the year part of a Julian Date
+	def JulianDateYear(self, julianDate):
+		I = math.floor(julianDate + 0.5)
+		F = julianDate + 0.5 - I
+		A = math.floor((I - 1867216.25) / 36524.25)
+		B = I + 1 + A - math.floor(A / 4) if I > 2299160 else I
+		C = B + 1524
+		D = math.floor((C - 122.1) / 365.25)
+		E = math.floor(365.25 * D)
+		G = math.floor((C - E) / 30.6001)
+		H = G - 1 if G < 13.5 else G - 13
+
+		returnValue = D - 4716 if H > 2.5 else D - 4715
+		return returnValue

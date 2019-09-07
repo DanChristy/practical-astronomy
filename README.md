@@ -10,3 +10,7 @@ Done:
 * Convert -> Civil Date to Day Number
 * Convert -> Greenwich Date to Julian Date
 * Convert -> Julian Date to Greenwich Date
+* Convert -> Julian Date to Day-of-Week
+* Extract -> Day part of Julian Date
+* Extract -> Month part of Julian Date
+* Extract -> Year part of Julian Date

@@ -8,11 +8,13 @@ var classpa__conversions_1_1CConvert =
     [ "DecimalHourSeconds", "classpa__conversions_1_1CConvert.html#ae342cf8bf0547c2533a1798f55725cc4", null ],
     [ "DecimalHoursToCivilTime", "classpa__conversions_1_1CConvert.html#ae3cfdad1efc96ee299e5a3d7ec66c4aa", null ],
     [ "GreenwichDateToJulianDate", "classpa__conversions_1_1CConvert.html#af45427b32e211d75231962f394caf889", null ],
+    [ "GreenwichSiderealTimeToUniversalTime", "classpa__conversions_1_1CConvert.html#a71a965096adbcf932af51b045e7a7a25", null ],
     [ "JulianDateDay", "classpa__conversions_1_1CConvert.html#a0eb66138b357d75b11b05f1fe6980c4b", null ],
     [ "JulianDateMonth", "classpa__conversions_1_1CConvert.html#aac2c7d0f60897953f629e644f13e76e2", null ],
     [ "JulianDateToGreenwichDate", "classpa__conversions_1_1CConvert.html#a3358e8f1148d8e85851e884ecd17a810", null ],
     [ "JulianDateToWeekdayName", "classpa__conversions_1_1CConvert.html#ac04ad2c2f9e446db25059fda56f835b0", null ],
     [ "JulianDateYear", "classpa__conversions_1_1CConvert.html#a2e2e92d5b1fa599f28ed745ea9b0094a", null ],
     [ "LocalCivilTimeToUniversalTime", "classpa__conversions_1_1CConvert.html#a264ff61608cf2b3158be145106d883ab", null ],
+    [ "UniversalTimeToGreenwichSiderealTime", "classpa__conversions_1_1CConvert.html#a9871fa76aa835e528ff7fb1328dea712", null ],
     [ "UniversalTimeToLocalCivilTime", "classpa__conversions_1_1CConvert.html#a3185eb103b5cdff21e499da8bd9a2b4c", null ]
 ];

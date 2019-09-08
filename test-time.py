@@ -4,6 +4,7 @@ import lib.pa_conversions as PC
 import lib.pa_models as PM
 
 def testCivilTimeToDecimalHours(hours, minutes, seconds):
+	print("\n___CivilTimeToDecimalHours___")
 	myConvert = PC.CConvert()
 	timeToCheck = PM.CivilTime(hours, minutes, seconds)
 
@@ -20,6 +21,7 @@ def testCivilTimeToDecimalHours(hours, minutes, seconds):
 	print("The seconds part of {dH} is {secondsPart}".format(dH=decimalHours, secondsPart=myConvert.DecimalHourSeconds(decimalHours)))
 
 def testLocalCivilTimeToUniversalTime(hours, minutes, seconds, isDaylightSavings, zoneCorrection, day, month, year):
+	print("\n___LocalCivilTimeToUniversalTime___")
 	print("INPUT:")
 	print(" [Local Civil Time] {hours}:{minutes}:{seconds}".format(hours=hours,minutes=minutes,seconds=seconds))
 	print(" Daylight Savings = {isDS}".format(isDS=isDaylightSavings))
@@ -44,7 +46,29 @@ def testLocalCivilTimeToUniversalTime(hours, minutes, seconds, isDaylightSavings
 	print(" [Local Civil Time] {hours}:{minutes}:{seconds}".format(hours=revertLocalCivilTimeOutput.utHours,minutes=revertLocalCivilTimeOutput.utMinutes,seconds=revertLocalCivilTimeOutput.utSeconds))
 	print(" [Local Date] {month}/{day}/{year}".format(month=revertLocalCivilTimeOutput.gwMonth,day=revertLocalCivilTimeOutput.gwDay,year=revertLocalCivilTimeOutput.gwYear))
 
+def testUniversalTimeToGreenwichSiderealTime(hours,minutes,seconds,day,month,year):
+	print("\n___UniversalTimeToGreenwichSiderealTime___")
+	print("INPUT:")
+	print(" [UTC] {hours}:{minutes}:{seconds}".format(hours=hours,minutes=minutes,seconds=seconds))
+	print(" [Greenwich Date] {month}/{day}/{year}".format(month=month,day=day,year=year))
+
+	myConvert = PC.CConvert()
+	universalTime = PM.CivilTime(hours, minutes, seconds)
+	greenwichDate = PM.CivilDate(month, day, year)
+
+	resultSiderealTime = myConvert.UniversalTimeToGreenwichSiderealTime(universalTime, greenwichDate)
+
+	print("OUTPUT:")
+	print(" [Sidereal Time] {hours}:{minutes}:{seconds}".format(hours=resultSiderealTime.hours,minutes=resultSiderealTime.minutes,seconds=resultSiderealTime.seconds))
+
+	revertUniversalTime = myConvert.GreenwichSiderealTimeToUniversalTime(resultSiderealTime, greenwichDate)
+	
+	print("REVERT:")
+	print(" [UTC] {hours}:{minutes}:{seconds}".format(hours=revertUniversalTime.hours,minutes=revertUniversalTime.minutes,seconds=revertUniversalTime.seconds))
+
 
 testCivilTimeToDecimalHours(18,31,27)
-print("------")
+
 testLocalCivilTimeToUniversalTime(3,37,0,True,4,1,7,2013)
+
+testUniversalTimeToGreenwichSiderealTime(14,36,51.67,22,4,1980)

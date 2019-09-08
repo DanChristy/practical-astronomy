@@ -158,7 +158,7 @@ class CConvert(object):
 		C = round(B - 60 * math.floor(B / 60), 2)
 		D = 0 if C == 60 else C
 
-		return math.floor(D)
+		return D
 
 	## \brief Convert Decimal Hours to Civil Time
 	def DecimalHoursToCivilTime(self, decimalHours):
@@ -200,3 +200,41 @@ class CConvert(object):
 		LCT = 24 * (localDay - integerDay)
 
 		return pa_models.UniversalTime(self.DecimalHourHour(LCT),self.DecimalHourMinutes(LCT),self.DecimalHourSeconds(LCT),integerDay,localMonth,localYear)
+
+	## \brief Convert Universal Time to Greenwich Sidereal Time
+	def UniversalTimeToGreenwichSiderealTime(self, universalTime, greenwichDate):
+		JD = self.GreenwichDateToJulianDate(greenwichDate)
+		S = JD - 2451545
+		T = S / 36525
+		T01 = 6.697374558+(2400.051336*T)+(0.000025862*T*T)
+		T02 = T01-(24*math.floor(T01/24))
+		UT = self.CivilTimeToDecimalHours(universalTime)
+		A = UT*1.002737909
+		GST1 = T02 + A
+		GST2 = GST1 - (24*math.floor(GST1/24))
+
+		gstHours = self.DecimalHourHour(GST2)
+		gstMinutes = self.DecimalHourMinutes(GST2)
+		gstSeconds = self.DecimalHourSeconds(GST2)
+				
+		return pa_models.CivilTime(gstHours,gstMinutes,gstSeconds)
+
+	## \brief Convert Greenwich Sidereal Time to Universal Time
+	def GreenwichSiderealTimeToUniversalTime(self, siderealTime, greenwichDate):
+		JD = self.GreenwichDateToJulianDate(greenwichDate)
+		S = JD - 2451545
+		T = S / 36525
+		T01 = 6.697374558 + (2400.051336*T) + (0.000025862*T*T)
+		T02 = T01-(24*math.floor(T01/24))
+		gstHours = self.CivilTimeToDecimalHours(siderealTime)
+		A = gstHours-T02
+		B = A-(24*math.floor(A/24))
+		UT = B*0.9972695663	
+		
+		utHours = self.DecimalHourHour(UT)
+		utMinutes = self.DecimalHourMinutes(UT)
+		utSeconds = self.DecimalHourSeconds(UT)
+
+		warningFlag = "Warning" if UT < 0.065574 else "OK"  # TODO: Log this somewhere...
+
+		return pa_models.CivilTime(utHours,utMinutes,utSeconds)

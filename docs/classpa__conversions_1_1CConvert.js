@@ -12,5 +12,6 @@ var classpa__conversions_1_1CConvert =
     [ "JulianDateMonth", "classpa__conversions_1_1CConvert.html#aac2c7d0f60897953f629e644f13e76e2", null ],
     [ "JulianDateToGreenwichDate", "classpa__conversions_1_1CConvert.html#a3358e8f1148d8e85851e884ecd17a810", null ],
     [ "JulianDateToWeekdayName", "classpa__conversions_1_1CConvert.html#ac04ad2c2f9e446db25059fda56f835b0", null ],
-    [ "JulianDateYear", "classpa__conversions_1_1CConvert.html#a2e2e92d5b1fa599f28ed745ea9b0094a", null ]
+    [ "JulianDateYear", "classpa__conversions_1_1CConvert.html#a2e2e92d5b1fa599f28ed745ea9b0094a", null ],
+    [ "LocalCivilTimeToUniversalTime", "classpa__conversions_1_1CConvert.html#a264ff61608cf2b3158be145106d883ab", null ]
 ];

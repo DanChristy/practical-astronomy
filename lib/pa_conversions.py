@@ -167,3 +167,22 @@ class CConvert(object):
 		seconds = self.DecimalHourSeconds(decimalHours)
 
 		return pa_models.CivilTime(hours, minutes, seconds)
+
+	## \brief Convert local Civil Time to Universal Time
+	def LocalCivilTimeToUniversalTime(self, localCivilTime, isDaylightSavings, zoneCorrection, localDate):
+		LCT = self.CivilTimeToDecimalHours(localCivilTime)
+
+		daylightSavingsOffset = 1 if isDaylightSavings == True else 0
+		UTinterim = LCT - daylightSavingsOffset - zoneCorrection
+		GDayInterim = localDate.day + (UTinterim / 24)
+		
+		greenwichInput = pa_models.CivilDate(localDate.month,GDayInterim,localDate.year)
+		JD = self.GreenwichDateToJulianDate(greenwichInput)
+		
+		GDay = self.JulianDateDay(JD)
+		GMonth = self.JulianDateMonth(JD)
+		GYear = self.JulianDateYear(JD)
+		
+		UT = 24 * (GDay - math.floor(GDay))
+		
+		return pa_models.UniversalTime(self.DecimalHourHour(UT),self.DecimalHourMinutes(UT),self.DecimalHourSeconds(UT),math.floor(GDay),GMonth,GYear)

@@ -11,3 +11,13 @@ class CivilTime(object):
 		self.hours = hours
 		self.minutes = minutes
 		self.seconds = seconds
+
+## This class holds a Universal Time object (month, day, year and hours, minutes, seconds)
+class UniversalTime(object):
+	def __init__(self, utHours, utMinutes, utSeconds, gwDay, gwMonth, gwYear):
+		self.utHours = utHours
+		self.utMinutes = utMinutes
+		self.utSeconds = utSeconds
+		self.gwDay = gwDay
+		self.gwMonth = gwMonth
+		self.gwYear = gwYear

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['year',['year',['../classpa__models_1_1CivilDate.html#ae0489283a56946bd2d49b032e07b93c1',1,'pa_models::CivilDate']]]
+  ['seconds',['seconds',['../classpa__models_1_1CivilTime.html#a50a97477ff59a28b3dd9315b21e66a23',1,'pa_models::CivilTime']]]
 ];

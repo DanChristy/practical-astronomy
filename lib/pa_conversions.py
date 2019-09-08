@@ -186,3 +186,17 @@ class CConvert(object):
 		UT = 24 * (GDay - math.floor(GDay))
 		
 		return pa_models.UniversalTime(self.DecimalHourHour(UT),self.DecimalHourMinutes(UT),self.DecimalHourSeconds(UT),math.floor(GDay),GMonth,GYear)
+
+	## \brief Convert Universal Time to local Civil Time
+	def UniversalTimeToLocalCivilTime(self, universalTime, isDayLightSavings, zoneCorrection, greenwichDate):
+		UT = self.CivilTimeToDecimalHours(universalTime)
+		zoneTime = UT + zoneCorrection
+		localTime = zoneTime + (1 if isDayLightSavings == True else 0)
+		localJDPlusLocalTime = self.GreenwichDateToJulianDate(greenwichDate) + (localTime / 24)
+		localDay = self.JulianDateDay(localJDPlusLocalTime)
+		integerDay = math.floor(localDay)
+		localMonth = self.JulianDateMonth(localJDPlusLocalTime)
+		localYear = self.JulianDateYear(localJDPlusLocalTime)
+		LCT = 24 * (localDay - integerDay)
+
+		return pa_models.UniversalTime(self.DecimalHourHour(LCT),self.DecimalHourMinutes(LCT),self.DecimalHourSeconds(LCT),integerDay,localMonth,localYear)

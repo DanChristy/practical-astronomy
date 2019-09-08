@@ -36,6 +36,14 @@ def testLocalCivilTimeToUniversalTime(hours, minutes, seconds, isDaylightSavings
 	print(" [UTC] {hours}:{minutes}:{seconds}".format(hours=resultUT.utHours,minutes=resultUT.utMinutes,seconds=resultUT.utSeconds))
 	print(" [Greenwich Date] {month}/{day}/{year}".format(month=resultUT.gwMonth,day=resultUT.gwDay,year=resultUT.gwYear))
 
+	universalTime = PM.CivilTime(resultUT.utHours,resultUT.utMinutes,resultUT.utSeconds)
+	greenwichDate = PM.CivilDate(resultUT.gwMonth,resultUT.gwDay,resultUT.gwYear)
+	revertLocalCivilTimeOutput = myConvert.UniversalTimeToLocalCivilTime(universalTime,isDaylightSavings,zoneCorrection,greenwichDate)
+
+	print("REVERT:")
+	print(" [Local Civil Time] {hours}:{minutes}:{seconds}".format(hours=revertLocalCivilTimeOutput.utHours,minutes=revertLocalCivilTimeOutput.utMinutes,seconds=revertLocalCivilTimeOutput.utSeconds))
+	print(" [Local Date] {month}/{day}/{year}".format(month=revertLocalCivilTimeOutput.gwMonth,day=revertLocalCivilTimeOutput.gwDay,year=revertLocalCivilTimeOutput.gwYear))
+
 
 testCivilTimeToDecimalHours(18,31,27)
 print("------")

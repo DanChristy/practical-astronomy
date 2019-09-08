@@ -24,3 +24,4 @@ Extract | Hour part of Decimal Hours
 Extract | Minutes part of Decimal Hours
 Extract | Seconds part of Decimal Hours
 Convert | Local Civil Time to Universal Time
+Convert | Universal Time to Local Civil Time

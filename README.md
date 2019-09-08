@@ -9,8 +9,8 @@ If you're interested in this topic, please buy the book!  It provides far more d
 ### Date/Time Functions
 
 Type | Description
----------|----------
-- | Date of Easter
+-----|------------
+N/A | Date of Easter
 Convert | Civil Date to Day Number
 Convert | Greenwich Date to Julian Date
 Convert | Julian Date to Greenwich Date

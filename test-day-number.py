@@ -1,14 +1,14 @@
 #!/usr/bin/python3
 
-import lib.pa_conversions as PC
+import lib.pa_datetime as PD
 import lib.pa_models as PM
 
 def checkDate(month,day,year):
-	myConvert = PC.CConvert()
+	myDateTime = PD.CDateTime()
 
 	dateToCheck = PM.CivilDate(month,day,year)
 
-	dayNumber = myConvert.CivilDateToDayNumber(dateToCheck)
+	dayNumber = myDateTime.CivilDateToDayNumber(dateToCheck)
 
 	print("Day number for {month}/{day}/{year} is {daynum}".format(month=dateToCheck.month, day=dateToCheck.day, year=dateToCheck.year, daynum=dayNumber))
 

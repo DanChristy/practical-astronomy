@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 
-import lib.pa_date_of_easter as DOE
+import lib.pa_datetime as DOE
 
-myDateOfEaster = DOE.CDateOfEaster()
+myDateOfEaster = DOE.CDateTime()
 
 easterDate = myDateOfEaster.GetDateOfEaster(2009)
 

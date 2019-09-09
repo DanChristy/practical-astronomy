@@ -66,9 +66,30 @@ def testUniversalTimeToGreenwichSiderealTime(hours,minutes,seconds,day,month,yea
 	print("REVERT:")
 	print(" [UTC] {hours}:{minutes}:{seconds}".format(hours=revertUniversalTime.hours,minutes=revertUniversalTime.minutes,seconds=revertUniversalTime.seconds))
 
+def testGreenwichSiderealTimeToLocalSiderealTime(hours,minutes,seconds,geographicalLongitude):
+	print("\n___GreenwichSiderealTimeToLocalSiderealTime___")
+	print("INPUT:")
+	print(" [GST] {hours}:{minutes}:{seconds}".format(hours=hours,minutes=minutes,seconds=seconds))
+	print(" [Geographical Longitude] {geogLong}".format(geogLong=geographicalLongitude))
+
+	myDateTime = PD.CDateTime()
+	greenwichSiderealTime = PM.CivilTime(hours, minutes, seconds)
+
+	resultLocalSiderealTime = myDateTime.GreenwichSiderealTimeToLocalSiderealTime(greenwichSiderealTime, geographicalLongitude)
+
+	print("OUTPUT:")
+	print(" [Local Sidereal Time] {hours}:{minutes}:{seconds}".format(hours=resultLocalSiderealTime.hours,minutes=resultLocalSiderealTime.minutes,seconds=resultLocalSiderealTime.seconds))
+
+	revertGST = myDateTime.LocalSiderealTimeToGreenwichSiderealTime(resultLocalSiderealTime,geographicalLongitude)
+
+	print("REVERT:")
+	print(" [GST] {hours}:{minutes}:{seconds}".format(hours=revertGST.hours,minutes=revertGST.minutes,seconds=revertGST.seconds))
+
 
 testCivilTimeToDecimalHours(18,31,27)
 
 testLocalCivilTimeToUniversalTime(3,37,0,True,4,1,7,2013)
 
 testUniversalTimeToGreenwichSiderealTime(14,36,51.67,22,4,1980)
+
+testGreenwichSiderealTimeToLocalSiderealTime(4,40,5.23,-64)

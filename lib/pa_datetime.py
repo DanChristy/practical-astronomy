@@ -266,3 +266,29 @@ class CDateTime(object):
 		warningFlag = "Warning" if UT < 0.065574 else "OK"  # TODO: Log this somewhere...
 
 		return pa_models.CivilTime(utHours,utMinutes,utSeconds)
+
+	## \brief Convert Greenwich Sidereal Time to Local Sidereal Time
+	def GreenwichSiderealTimeToLocalSiderealTime(self, siderealTime, geographicalLongitude):
+		GST = self.CivilTimeToDecimalHours(siderealTime)
+		offset = geographicalLongitude /15
+		lstHours1 = GST + offset
+		lstHours2 = lstHours1-(24*math.floor(lstHours1/24))
+		
+		lstHours = self.DecimalHourHour(lstHours2)
+		lstMinutes = self.DecimalHourMinutes(lstHours2)
+		lstSeconds = self.DecimalHourSeconds(lstHours2)
+
+		return pa_models.CivilTime(lstHours,lstMinutes,lstSeconds)
+
+	## \brief Convert Local Sidereal Time to Greenwich Sidereal Time
+	def LocalSiderealTimeToGreenwichSiderealTime(self, localSiderealTime, geographicalLongitude):
+		GST = self.CivilTimeToDecimalHours(localSiderealTime)
+		longHours = geographicalLongitude / 15
+		GST1 = GST - longHours
+		GST2 = GST1 - (24*math.floor(GST1/24))
+		
+		gstHours = self.DecimalHourHour(GST2)
+		gstMinutes = self.DecimalHourMinutes(GST2)
+		gstSeconds = self.DecimalHourSeconds(GST2)
+
+		return pa_models.CivilTime(gstHours,gstMinutes,gstSeconds)

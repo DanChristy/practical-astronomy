@@ -24,3 +24,9 @@ Extract | Seconds part of Decimal Hours
 Convert | Local Civil Time <-> to Universal Time
 Convert | Universal Time <-> Greenwich Sidereal Time
 Convert | Greenwich Sidereal Time <-> Local Sidereal Time
+
+### Coordinate Functions
+
+Type | Description
+-----|------------
+Convert | Angle <-> Decimal Degrees

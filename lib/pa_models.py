@@ -21,3 +21,10 @@ class UniversalTime(object):
 		self.gwDay = gwDay
 		self.gwMonth = gwMonth
 		self.gwYear = gwYear
+
+## This class holds an Angle object (degrees, minutes, seconds)
+class Angle(object):
+	def __init__(self, degrees, minutes, seconds):
+		self.degrees = degrees
+		self.minutes = minutes
+		self.seconds = seconds

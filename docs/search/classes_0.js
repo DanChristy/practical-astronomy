@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['cdatetime',['CDateTime',['../classpa__datetime_1_1CDateTime.html',1,'pa_datetime']]],
-  ['civildate',['CivilDate',['../classpa__models_1_1CivilDate.html',1,'pa_models']]],
-  ['civiltime',['CivilTime',['../classpa__models_1_1CivilTime.html',1,'pa_models']]]
+  ['angle',['Angle',['../classpa__models_1_1Angle.html',1,'pa_models']]]
 ];

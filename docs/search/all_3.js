@@ -1,12 +1,10 @@
 var searchData=
 [
-  ['getdateofeaster',['GetDateOfEaster',['../classpa__datetime_1_1CDateTime.html#aa392bab32c98057818ce39094b7f781b',1,'pa_datetime::CDateTime']]],
-  ['glossary_2emd',['glossary.md',['../glossary_8md.html',1,'']]],
-  ['greenwichdatetojuliandate',['GreenwichDateToJulianDate',['../classpa__datetime_1_1CDateTime.html#af45427b32e211d75231962f394caf889',1,'pa_datetime::CDateTime']]],
-  ['greenwichsiderealtimetolocalsiderealtime',['GreenwichSiderealTimeToLocalSiderealTime',['../classpa__datetime_1_1CDateTime.html#a9a7424d33187ca58cfcc46dfbc13ef88',1,'pa_datetime::CDateTime']]],
-  ['greenwichsiderealtimetouniversaltime',['GreenwichSiderealTimeToUniversalTime',['../classpa__datetime_1_1CDateTime.html#a71a965096adbcf932af51b045e7a7a25',1,'pa_datetime::CDateTime']]],
-  ['gwday',['gwDay',['../classpa__models_1_1UniversalTime.html#a14d8bc41b2bcc6f77a86d13b21568884',1,'pa_models::UniversalTime']]],
-  ['gwmonth',['gwMonth',['../classpa__models_1_1UniversalTime.html#a30c415a783a6712f326fe8d2b352ac69',1,'pa_models::UniversalTime']]],
-  ['gwyear',['gwYear',['../classpa__models_1_1UniversalTime.html#a4cf7f56128da790ac59825b9ec874ddb',1,'pa_models::UniversalTime']]],
-  ['glossary_20of_20terms',['Glossary of Terms',['../md__home_jimc_projects_practical-astronomy_lib_docs_glossary.html',1,'']]]
+  ['day',['day',['../classpa__models_1_1CivilDate.html#ae8bf5a756cf15252b4e514a258bbbde9',1,'pa_models::CivilDate']]],
+  ['decimaldegreestoangle',['DecimalDegreesToAngle',['../classpa__coordinate_1_1CCoordinate.html#a21ed4e29915ca061bf617bc2c4d73b40',1,'pa_coordinate::CCoordinate']]],
+  ['decimalhourhour',['DecimalHourHour',['../classpa__datetime_1_1CDateTime.html#aeaa4c35b5493107e12f87e0eb6df35e6',1,'pa_datetime::CDateTime']]],
+  ['decimalhourminutes',['DecimalHourMinutes',['../classpa__datetime_1_1CDateTime.html#af3e6d9635f11034421f4029dbfcdf686',1,'pa_datetime::CDateTime']]],
+  ['decimalhourseconds',['DecimalHourSeconds',['../classpa__datetime_1_1CDateTime.html#ae342cf8bf0547c2533a1798f55725cc4',1,'pa_datetime::CDateTime']]],
+  ['decimalhourstociviltime',['DecimalHoursToCivilTime',['../classpa__datetime_1_1CDateTime.html#ae3cfdad1efc96ee299e5a3d7ec66c4aa',1,'pa_datetime::CDateTime']]],
+  ['degrees',['degrees',['../classpa__models_1_1Angle.html#a530fa41b94ad114baefb62fa14120c31',1,'pa_models::Angle']]]
 ];

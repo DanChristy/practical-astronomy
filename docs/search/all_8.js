@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['minutes',['minutes',['../classpa__models_1_1CivilTime.html#af5dbdc01944a3c8569aa2ea8aeeb402c',1,'pa_models::CivilTime']]],
-  ['month',['month',['../classpa__models_1_1CivilDate.html#ade079186a24b67d34714f590c039cd28',1,'pa_models::CivilDate']]]
+  ['localciviltimetouniversaltime',['LocalCivilTimeToUniversalTime',['../classpa__datetime_1_1CDateTime.html#a264ff61608cf2b3158be145106d883ab',1,'pa_datetime::CDateTime']]],
+  ['localsiderealtimetogreenwichsiderealtime',['LocalSiderealTimeToGreenwichSiderealTime',['../classpa__datetime_1_1CDateTime.html#ae40176a08c086eeea057022a3a15616a',1,'pa_datetime::CDateTime']]]
 ];

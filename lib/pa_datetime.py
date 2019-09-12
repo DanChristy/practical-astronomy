@@ -1,5 +1,5 @@
 import math
-from . import pa_util
+from . import pa_util as PU
 from . import pa_datetime_macro as PDM
 
 ## @brief Gets the date of Easter for the year specified.
@@ -31,17 +31,17 @@ def GetDateOfEaster(year):
 def CivilDateToDayNumber(month, day, year):
 	if month <= 2:
 		month = month - 1
-		month = month * 62 if pa_util.IsLeapYear(year) else month * 63
+		month = month * 62 if PU.IsLeapYear(year) else month * 63
 		month = math.floor(month / 2)
 	else:
 		month = math.floor((month + 1) * 30.6)
-		month = month - 62 if pa_util.IsLeapYear(year) else month - 63
+		month = month - 62 if PU.IsLeapYear(year) else month - 63
 	
 	return month + day
 
 ## @brief Convert a Greenwich Date/Civil Date (day,month,year) to Julian Date
 def GreenwichDateToJulianDate(day, month, year):
-	return PDM._CDJD(day,month,year)
+	return PDM.CDJD(day,month,year)
 
 ## @brief Convert a Julian Date to Greenwich Date/Civil Date (day,month,year)
 def JulianDateToGreenwichDate(julianDate):
@@ -53,41 +53,41 @@ def JulianDateToGreenwichDate(julianDate):
 
 ## @brief Returns the day part of a Julian Date
 def JulianDateDay(julianDate):
-	return PDM._JDCDay(julianDate)
+	return PDM.JDCDay(julianDate)
 
 ## @brief Returns the month part of a Julian Date
 def JulianDateMonth(julianDate):
-	return PDM._JDCMonth(julianDate)
+	return PDM.JDCMonth(julianDate)
 
 ## @brief Returns the year part of a Julian Date
 def JulianDateYear(julianDate):
-	return PDM._JDCYear(julianDate)
+	return PDM.JDCYear(julianDate)
 
 ## @brief Convert a Julian Date to Day-of-Week (e.g., Sunday)
 def JulianDateToWeekdayName(julianDate):
-	return PDM._FDOW(julianDate)
+	return PDM.FDOW(julianDate)
 
 ## @brief Convert a Civil Time (hours,minutes,seconds) to Decimal Hours
 def CivilTimeToDecimalHours(hours,minutes,seconds):
-	return PDM._HMSDH(hours,minutes,seconds)
+	return PDM.HMSDH(hours,minutes,seconds)
 
 ## @brief Return the hour part of a Decimal Hours
 def DecimalHourHour(decimalHours):
-	return PDM._DHHour(decimalHours)
+	return PDM.DHHour(decimalHours)
 
 ## @brief Return the minutes part of a Decimal Hours
 def DecimalHourMinutes(decimalHours):
-	return PDM._DHMin(decimalHours)
+	return PDM.DHMin(decimalHours)
 
 ## @brief Return the seconds part of a Decimal Hours
 def DecimalHourSeconds(decimalHours):
-	return PDM._DHSec(decimalHours)
+	return PDM.DHSec(decimalHours)
 
 ## @brief Convert Decimal Hours to Civil Time
 def DecimalHoursToCivilTime(decimalHours):
-	hours = PDM._DHHour(decimalHours)
-	minutes = PDM._DHMin(decimalHours)
-	seconds = PDM._DHSec(decimalHours)
+	hours = PDM.DHHour(decimalHours)
+	minutes = PDM.DHMin(decimalHours)
+	seconds = PDM.DHSec(decimalHours)
 
 	return hours,minutes,seconds
 
@@ -100,7 +100,7 @@ def LocalCivilTimeToUniversalTime(lctHours,lctMinutes,lctSeconds,isDaylightSavin
 	UTinterim = LCT - daylightSavingsOffset - zoneCorrection
 	GDayInterim = localDay + (UTinterim / 24)
 
-	JD = PDM._CDJD(GDayInterim,localMonth,localYear)
+	JD = PDM.CDJD(GDayInterim,localMonth,localYear)
 	
 	GDay = JulianDateDay(JD)
 	GMonth = JulianDateMonth(JD)

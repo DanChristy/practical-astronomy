@@ -1,24 +1,20 @@
 #!/usr/bin/python3
 
 import lib.pa_datetime as PD
-import lib.pa_models as PM
 
 def testCivilTimeToDecimalHours(hours, minutes, seconds):
 	print("\n___CivilTimeToDecimalHours___")
-	myDateTime = PD.CDateTime()
-	timeToCheck = PM.CivilTime(hours, minutes, seconds)
+	decimalHours = PD.CivilTimeToDecimalHours(hours,minutes,seconds)
 
-	decimalHours = myDateTime.CivilTimeToDecimalHours(timeToCheck)
+	print("Decimal hours for {hours}:{minutes}:{seconds} is {decimalHours}".format(hours=hours, minutes=minutes, seconds=seconds, decimalHours=decimalHours))
 
-	print("Decimal hours for {hours}:{minutes}:{seconds} is {decimalHours}".format(hours=timeToCheck.hours, minutes=timeToCheck.minutes, seconds=timeToCheck.seconds, decimalHours=decimalHours))
+	revertHours,revertMinutes,revertSeconds = PD.DecimalHoursToCivilTime(decimalHours)
 
-	civilTime = myDateTime.DecimalHoursToCivilTime(decimalHours)
+	print("Converting {decimalHours} back to Civil Time gives {hours}:{minutes}:{seconds}".format(decimalHours=decimalHours, hours=revertHours, minutes=revertMinutes, seconds=revertSeconds))
 
-	print("Converting {decimalHours} back to Civil Time gives {hours}:{minutes}:{seconds}".format(decimalHours=decimalHours, hours=civilTime.hours, minutes=civilTime.minutes, seconds=civilTime.seconds))
-
-	print("   The hour part of {dH} is {hourPart}".format(dH=decimalHours, hourPart=myDateTime.DecimalHourHour(decimalHours)))
-	print("The minutes part of {dH} is {minutesPart}".format(dH=decimalHours, minutesPart=myDateTime.DecimalHourMinutes(decimalHours)))
-	print("The seconds part of {dH} is {secondsPart}".format(dH=decimalHours, secondsPart=myDateTime.DecimalHourSeconds(decimalHours)))
+	print("   The hour part of {dH} is {hourPart}".format(dH=decimalHours, hourPart=PD.DecimalHourHour(decimalHours)))
+	print("The minutes part of {dH} is {minutesPart}".format(dH=decimalHours, minutesPart=PD.DecimalHourMinutes(decimalHours)))
+	print("The seconds part of {dH} is {secondsPart}".format(dH=decimalHours, secondsPart=PD.DecimalHourSeconds(decimalHours)))
 
 def testLocalCivilTimeToUniversalTime(hours, minutes, seconds, isDaylightSavings, zoneCorrection, day, month, year):
 	print("\n___LocalCivilTimeToUniversalTime___")
@@ -28,23 +24,17 @@ def testLocalCivilTimeToUniversalTime(hours, minutes, seconds, isDaylightSavings
 	print(" Zone Correction = {zoneCorrection}".format(zoneCorrection=zoneCorrection))
 	print(" [Local Date] {month}/{day}/{year}".format(month=month,day=day,year=year))
 
-	myDateTime = PD.CDateTime()
-	localCivilTime = PM.CivilTime(hours, minutes, seconds)
-	localDate = PM.CivilDate(month, day, year)
-
-	resultUT = myDateTime.LocalCivilTimeToUniversalTime(localCivilTime, isDaylightSavings, zoneCorrection, localDate)
+	utHours,utMinutes,utSeconds,gwDay,gwMonth,gwYear = PD.LocalCivilTimeToUniversalTime(hours,minutes,seconds,isDaylightSavings,zoneCorrection,day,month,year)
 
 	print("OUTPUT:")
-	print(" [UTC] {hours}:{minutes}:{seconds}".format(hours=resultUT.utHours,minutes=resultUT.utMinutes,seconds=resultUT.utSeconds))
-	print(" [Greenwich Date] {month}/{day}/{year}".format(month=resultUT.gwMonth,day=resultUT.gwDay,year=resultUT.gwYear))
+	print(" [UTC] {hours}:{minutes}:{seconds}".format(hours=utHours,minutes=utMinutes,seconds=utSeconds))
+	print(" [Greenwich Date] {month}/{day}/{year}".format(month=gwMonth,day=gwDay,year=gwYear))
 
-	universalTime = PM.CivilTime(resultUT.utHours,resultUT.utMinutes,resultUT.utSeconds)
-	greenwichDate = PM.CivilDate(resultUT.gwMonth,resultUT.gwDay,resultUT.gwYear)
-	revertLocalCivilTimeOutput = myDateTime.UniversalTimeToLocalCivilTime(universalTime,isDaylightSavings,zoneCorrection,greenwichDate)
+	revertLCTHours,revertLCTMinutes,revertLCTSeconds,revertDay,revertMonth,revertYear = PD.UniversalTimeToLocalCivilTime(utHours,utMinutes,utSeconds,isDaylightSavings,zoneCorrection,gwDay,gwMonth,gwYear)
 
 	print("REVERT:")
-	print(" [Local Civil Time] {hours}:{minutes}:{seconds}".format(hours=revertLocalCivilTimeOutput.utHours,minutes=revertLocalCivilTimeOutput.utMinutes,seconds=revertLocalCivilTimeOutput.utSeconds))
-	print(" [Local Date] {month}/{day}/{year}".format(month=revertLocalCivilTimeOutput.gwMonth,day=revertLocalCivilTimeOutput.gwDay,year=revertLocalCivilTimeOutput.gwYear))
+	print(" [Local Civil Time] {hours}:{minutes}:{seconds}".format(hours=revertLCTHours,minutes=revertLCTMinutes,seconds=revertLCTSeconds))
+	print(" [Local Date] {month}/{day}/{year}".format(month=revertMonth,day=revertDay,year=revertYear))
 
 def testUniversalTimeToGreenwichSiderealTime(hours,minutes,seconds,day,month,year):
 	print("\n___UniversalTimeToGreenwichSiderealTime___")
@@ -52,19 +42,16 @@ def testUniversalTimeToGreenwichSiderealTime(hours,minutes,seconds,day,month,yea
 	print(" [UTC] {hours}:{minutes}:{seconds}".format(hours=hours,minutes=minutes,seconds=seconds))
 	print(" [Greenwich Date] {month}/{day}/{year}".format(month=month,day=day,year=year))
 
-	myDateTime = PD.CDateTime()
-	universalTime = PM.CivilTime(hours, minutes, seconds)
-	greenwichDate = PM.CivilDate(month, day, year)
-
-	resultSiderealTime = myDateTime.UniversalTimeToGreenwichSiderealTime(universalTime, greenwichDate)
+	gstHours,gstMinutes,gstSeconds = PD.UniversalTimeToGreenwichSiderealTime(hours,minutes,seconds,day,month,year)
 
 	print("OUTPUT:")
-	print(" [Sidereal Time] {hours}:{minutes}:{seconds}".format(hours=resultSiderealTime.hours,minutes=resultSiderealTime.minutes,seconds=resultSiderealTime.seconds))
+	print(" [Sidereal Time] {hours}:{minutes}:{seconds}".format(hours=gstHours,minutes=gstMinutes,seconds=gstSeconds))
 
-	revertUniversalTime = myDateTime.GreenwichSiderealTimeToUniversalTime(resultSiderealTime, greenwichDate)
+	utHours,utMinutes,utSeconds,warningFlag = PD.GreenwichSiderealTimeToUniversalTime(gstHours,gstMinutes,gstSeconds,day,month,year)
 	
 	print("REVERT:")
-	print(" [UTC] {hours}:{minutes}:{seconds}".format(hours=revertUniversalTime.hours,minutes=revertUniversalTime.minutes,seconds=revertUniversalTime.seconds))
+	print(" [UTC] {hours}:{minutes}:{seconds}".format(hours=utHours,minutes=utMinutes,seconds=utSeconds))
+	print(" [Warning Flag] {warningFlag}".format(warningFlag=warningFlag))
 
 def testGreenwichSiderealTimeToLocalSiderealTime(hours,minutes,seconds,geographicalLongitude):
 	print("\n___GreenwichSiderealTimeToLocalSiderealTime___")
@@ -72,18 +59,15 @@ def testGreenwichSiderealTimeToLocalSiderealTime(hours,minutes,seconds,geographi
 	print(" [GST] {hours}:{minutes}:{seconds}".format(hours=hours,minutes=minutes,seconds=seconds))
 	print(" [Geographical Longitude] {geogLong}".format(geogLong=geographicalLongitude))
 
-	myDateTime = PD.CDateTime()
-	greenwichSiderealTime = PM.CivilTime(hours, minutes, seconds)
-
-	resultLocalSiderealTime = myDateTime.GreenwichSiderealTimeToLocalSiderealTime(greenwichSiderealTime, geographicalLongitude)
+	lstHours,lstMinutes,lstSeconds = PD.GreenwichSiderealTimeToLocalSiderealTime(hours,minutes,seconds,geographicalLongitude)
 
 	print("OUTPUT:")
-	print(" [Local Sidereal Time] {hours}:{minutes}:{seconds}".format(hours=resultLocalSiderealTime.hours,minutes=resultLocalSiderealTime.minutes,seconds=resultLocalSiderealTime.seconds))
+	print(" [Local Sidereal Time] {hours}:{minutes}:{seconds}".format(hours=lstHours,minutes=lstMinutes,seconds=lstSeconds))
 
-	revertGST = myDateTime.LocalSiderealTimeToGreenwichSiderealTime(resultLocalSiderealTime,geographicalLongitude)
+	gstHours,gstMinutes,gstSeconds = PD.LocalSiderealTimeToGreenwichSiderealTime(lstHours,lstMinutes,lstSeconds,geographicalLongitude)
 
 	print("REVERT:")
-	print(" [GST] {hours}:{minutes}:{seconds}".format(hours=revertGST.hours,minutes=revertGST.minutes,seconds=revertGST.seconds))
+	print(" [GST] {hours}:{minutes}:{seconds}".format(hours=gstHours,minutes=gstMinutes,seconds=gstSeconds))
 
 
 testCivilTimeToDecimalHours(18,31,27)

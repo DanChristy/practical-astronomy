@@ -1,16 +1,11 @@
 #!/usr/bin/python3
 
 import lib.pa_datetime as PD
-import lib.pa_models as PM
 
 def checkDate(month,day,year):
-	myDateTime = PD.CDateTime()
+	dayNumber = PD.CivilDateToDayNumber(month,day,year)
 
-	dateToCheck = PM.CivilDate(month,day,year)
-
-	dayNumber = myDateTime.CivilDateToDayNumber(dateToCheck)
-
-	print("Day number for {month}/{day}/{year} is {daynum}".format(month=dateToCheck.month, day=dateToCheck.day, year=dateToCheck.year, daynum=dayNumber))
+	print("Day number for {month}/{day}/{year} is {daynum}".format(month=month, day=day, year=year, daynum=dayNumber))
 
 checkDate(1,1,2000)
 checkDate(3,1,2000)

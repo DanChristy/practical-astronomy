@@ -1,16 +1,7 @@
 var dir_97aefd0d527b934f1d99a682da8fe6a9 =
 [
-    [ "pa_coordinate.py", "pa__coordinate_8py.html", [
-      [ "CCoordinate", "classpa__coordinate_1_1CCoordinate.html", "classpa__coordinate_1_1CCoordinate" ]
-    ] ],
-    [ "pa_datetime.py", "pa__datetime_8py.html", [
-      [ "CDateTime", "classpa__datetime_1_1CDateTime.html", "classpa__datetime_1_1CDateTime" ]
-    ] ],
-    [ "pa_models.py", "pa__models_8py.html", [
-      [ "CivilDate", "classpa__models_1_1CivilDate.html", "classpa__models_1_1CivilDate" ],
-      [ "CivilTime", "classpa__models_1_1CivilTime.html", "classpa__models_1_1CivilTime" ],
-      [ "UniversalTime", "classpa__models_1_1UniversalTime.html", "classpa__models_1_1UniversalTime" ],
-      [ "Angle", "classpa__models_1_1Angle.html", "classpa__models_1_1Angle" ]
-    ] ],
+    [ "pa_coordinate.py", "pa__coordinate_8py.html", "pa__coordinate_8py" ],
+    [ "pa_datetime.py", "pa__datetime_8py.html", "pa__datetime_8py" ],
+    [ "pa_datetime_macro.py", "pa__datetime__macro_8py.html", "pa__datetime__macro_8py" ],
     [ "pa_util.py", "pa__util_8py.html", "pa__util_8py" ]
 ];

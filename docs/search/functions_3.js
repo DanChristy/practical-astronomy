@@ -1,8 +1,8 @@
 var searchData=
 [
-  ['decimaldegreestoangle',['DecimalDegreesToAngle',['../classpa__coordinate_1_1CCoordinate.html#a21ed4e29915ca061bf617bc2c4d73b40',1,'pa_coordinate::CCoordinate']]],
-  ['decimalhourhour',['DecimalHourHour',['../classpa__datetime_1_1CDateTime.html#aeaa4c35b5493107e12f87e0eb6df35e6',1,'pa_datetime::CDateTime']]],
-  ['decimalhourminutes',['DecimalHourMinutes',['../classpa__datetime_1_1CDateTime.html#af3e6d9635f11034421f4029dbfcdf686',1,'pa_datetime::CDateTime']]],
-  ['decimalhourseconds',['DecimalHourSeconds',['../classpa__datetime_1_1CDateTime.html#ae342cf8bf0547c2533a1798f55725cc4',1,'pa_datetime::CDateTime']]],
-  ['decimalhourstociviltime',['DecimalHoursToCivilTime',['../classpa__datetime_1_1CDateTime.html#ae3cfdad1efc96ee299e5a3d7ec66c4aa',1,'pa_datetime::CDateTime']]]
+  ['decimaldegreestoangle',['DecimalDegreesToAngle',['../namespacepa__coordinate.html#a5f26a36191abd2386200fb15b963e129',1,'pa_coordinate']]],
+  ['decimalhourhour',['DecimalHourHour',['../namespacepa__datetime.html#a5a2ffc20c6e5ed184fdbf8bd71aa669e',1,'pa_datetime']]],
+  ['decimalhourminutes',['DecimalHourMinutes',['../namespacepa__datetime.html#aab0230d6f6f49fc046682e4044ff9a2f',1,'pa_datetime']]],
+  ['decimalhourseconds',['DecimalHourSeconds',['../namespacepa__datetime.html#a9d7ef2d5f6d10382655afcb0ede0c4fc',1,'pa_datetime']]],
+  ['decimalhourstociviltime',['DecimalHoursToCivilTime',['../namespacepa__datetime.html#ab4684decfd71811e4383e8ee4ddea900',1,'pa_datetime']]]
 ];

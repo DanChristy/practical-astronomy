@@ -121,11 +121,11 @@ def DHSec(decimalHours):
 
 ## @brief Convert Local Civil Time to Universal Time
 def LctUT(lctHours,lctMinutes,lctSeconds,daylightSaving,zoneCorrection,localDay,localMonth,localYear):
-	A = _HMSDH(lctHours,lctMinutes,lctSeconds)
+	A = HMSDH(lctHours,lctMinutes,lctSeconds)
 	B = A - daylightSaving - zoneCorrection
 	C = localDay + (B/24)
-	D = _CDJD(C, localMonth, localYear)
-	E = _JDCDay(D)
+	D = CDJD(C, localMonth, localYear)
+	E = JDCDay(D)
 	E1 = math.floor(E)
 	
 	return 24 * (E - E1)

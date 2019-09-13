@@ -10,7 +10,7 @@ default:
 all: test-easter test-day-number test-julian test-time test-coordinate
 
 test-easter:
-	@./test-date-of-easter.py
+	@./test-date-of-easter.py -v
 
 test-day-number:
 	@./test-day-number.py

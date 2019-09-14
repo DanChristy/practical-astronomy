@@ -5,5 +5,6 @@ var searchData=
   ['greenwichdatetojuliandate',['GreenwichDateToJulianDate',['../namespacepa__datetime.html#af83d6d22fa83c828b3b0b23901c54ca3',1,'pa_datetime']]],
   ['greenwichsiderealtimetolocalsiderealtime',['GreenwichSiderealTimeToLocalSiderealTime',['../namespacepa__datetime.html#a2adcec0c4a2f718c96ccae16ac65d41c',1,'pa_datetime']]],
   ['greenwichsiderealtimetouniversaltime',['GreenwichSiderealTimeToUniversalTime',['../namespacepa__datetime.html#abd3488a93b94fe65b1a026974df3de3f',1,'pa_datetime']]],
+  ['gstlst',['GSTLST',['../namespacepa__macro.html#a9a1cd9f093aefad456f2f3a11404cbf0',1,'pa_macro']]],
   ['glossary_20of_20terms',['Glossary of Terms',['../md__home_jimc_projects_practical-astronomy_lib_docs_glossary.html',1,'']]]
 ];

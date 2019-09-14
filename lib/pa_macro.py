@@ -129,3 +129,78 @@ def LctUT(lctHours,lctMinutes,lctSeconds,daylightSaving,zoneCorrection,localDay,
 	E1 = math.floor(E)
 	
 	return 24 * (E - E1)
+
+## @brief Determine Greenwich Day for Local Time
+def LctGDay(lct_hours, lct_minutes, lct_seconds, daylight_saving, zone_correction, local_day, local_month, local_year):
+	A = HMSDH(lct_hours,lct_minutes,lct_seconds)
+	B = A - daylight_saving - zone_correction
+	C = local_day + (B/24)
+	D = CDJD(C,local_month,local_year)
+	E = JDCDay(D)
+	
+	return math.floor(E)
+
+## @brief Determine Greenwich Month for Local Time
+def LctGMonth(lct_hours, lct_minutes, lct_seconds, daylight_saving, zone_correction, local_day, local_month, local_year):
+	A = HMSDH(lct_hours,lct_minutes,lct_seconds)
+	B = A - daylight_saving - zone_correction
+	C = local_day + (B/24)
+	D = CDJD(C,local_month,local_year)
+	
+	return JDCMonth(D)
+
+## @brief Determine Greenwich Year for Local Time
+def LctGYear(lct_hours, lct_minutes, lct_seconds, daylight_saving, zone_correction, local_day, local_month, local_year):
+	A = HMSDH(lct_hours,lct_minutes,lct_seconds)
+	B = A - daylight_saving - zone_correction
+	C = local_day + (B/24)
+	D = CDJD(C,local_month,local_year)
+	
+	return JDCYear(D)
+
+## @brief Convert Universal Time to Greenwich Sidereal Time
+def UTGST(u_hours,u_minutes,u_seconds,greenwich_day,greenwich_month,greenwich_year):
+	A = CDJD(greenwich_day,greenwich_month,greenwich_year)
+	B = A - 2451545
+	C = B / 36525
+	D = 6.697374558 + (2400.051336 * C) + (0.000025862 * C * C)
+	E = D - (24 * math.floor(D / 24))
+	F = HMSDH(u_hours,u_minutes,u_seconds)
+	G = F * 1.002737909
+	H = E + G
+	
+	return H - (24 * math.floor(H / 24))
+
+## @brief Convert Greenwich Sidereal Time to Local Sidereal Time
+def GSTLST(greenwich_hours,greenwich_minutes,greenwich_seconds,geographical_longitude):
+	A = HMSDH(greenwich_hours,greenwich_minutes,greenwich_seconds)
+	B = geographical_longitude / 15
+	C = A + B
+
+	return C - (24 * math.floor(C / 24))
+
+## @brief Convert Right Ascension to Hour Angle
+def RAHA(ra_hours, ra_minutes, ra_seconds, lct_hours, lct_minutes, lct_seconds, daylight_saving, zone_correction, local_day, local_month, local_year, geographical_longitude):
+	A = LctUT(lct_hours, lct_minutes, lct_seconds, daylight_saving, zone_correction, local_day, local_month, local_year)
+	B = LctGDay(lct_hours, lct_minutes, lct_seconds, daylight_saving, zone_correction, local_day, local_month, local_year)
+	C = LctGMonth(lct_hours, lct_minutes, lct_seconds, daylight_saving, zone_correction, local_day, local_month, local_year)
+	D = LctGYear(lct_hours, lct_minutes, lct_seconds, daylight_saving, zone_correction, local_day, local_month, local_year)
+	E = UTGST(A, 0, 0, B, C, D)
+	F = GSTLST(E, 0, 0, geographical_longitude)
+	G = HMSDH(ra_hours, ra_minutes, ra_seconds)
+	H = F - G
+	
+	return 24 + H if H < 0 else H
+
+## @brief Convert Hour Angle to Right Ascension
+def HARA(hour_angle_hours,hour_angle_minutes,hour_angle_seconds,lct_hours,lct_minutes,lct_seconds,daylight_saving,zone_correction,local_day,local_month,local_year,geographical_longitude):
+	A = LctUT(lct_hours, lct_minutes, lct_seconds, daylight_saving, zone_correction, local_day, local_month, local_year)
+	B = LctGDay(lct_hours, lct_minutes, lct_seconds, daylight_saving, zone_correction, local_day, local_month, local_year)
+	C = LctGMonth(lct_hours, lct_minutes, lct_seconds, daylight_saving, zone_correction, local_day, local_month, local_year)
+	D = LctGYear(lct_hours, lct_minutes, lct_seconds, daylight_saving, zone_correction, local_day, local_month, local_year)
+	E = UTGST(A, 0, 0, B, C, D)
+	F = GSTLST(E, 0, 0, geographical_longitude)
+	G = HMSDH(hour_angle_hours,hour_angle_minutes,hour_angle_seconds)
+	H = F - G
+
+	return 24 + H if H < 0 else H

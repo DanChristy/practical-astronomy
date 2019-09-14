@@ -30,3 +30,4 @@ Convert | Greenwich Sidereal Time <-> Local Sidereal Time
 Type | Description
 -----|------------
 Convert | Angle <-> Decimal Degrees
+Convert | Right Ascension <-> Hour Angle

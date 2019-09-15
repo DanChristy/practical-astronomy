@@ -103,6 +103,22 @@ class test_equatorial_coordinates_horizon_coordinates(UT.TestCase):
 		self.assertEqual(declination_minutes,13,"Declination Minutes")
 		self.assertEqual(declination_seconds,10,"Declination Seconds")
 
+class test_ecliptic(UT.TestCase):
+	def setUp(self):
+		pass
+
+	def test_mean_obliquity_of_the_ecliptic(self):
+		g_day = 6
+		g_month = 7
+		g_year = 2009
+
+		obliquity = PC.mean_obliquity_of_the_ecliptic(g_day,g_month,g_year)
+		obliquity = round(obliquity,8)
+
+		print("[Greenwich Date] {g_month}/{g_day}/{g_year} = [Obliquity] {obliquity}".format(g_month=g_month,g_day=g_day,g_year=g_year,obliquity=obliquity))
+
+		self.assertEqual(obliquity,23.43805531,"Obliquity")
+
 
 if __name__ == '__main__':
 	UT.main()

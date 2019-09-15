@@ -79,3 +79,13 @@ def horizon_coordinates_to_equatorial_coordinates(azimuth_degrees,azimuth_minute
 	declination_seconds = PM.DDSec(declination_in_decimal_degrees)
 
 	return hour_angle_hours,hour_angle_minutes,hour_angle_seconds,declination_degrees,declination_minutes,declination_seconds
+
+## @brief Calculate Mean Obliquity of the Ecliptic for a Greenwich Date
+def mean_obliquity_of_the_ecliptic(greenwich_day,greenwich_month,greenwich_year):
+	JD = PM.CDJD(greenwich_day,greenwich_month,greenwich_year)
+	MJD = JD - 2451545
+	T = MJD / 36525
+	DE1 = T * (46.815 + T * (0.0006 - (T * 0.00181)))
+	DE2 = DE1 / 3600
+
+	return 23.439292 - DE2

@@ -10,7 +10,7 @@ If you're interested in this topic, please buy the book!  It provides far more d
 
 Type | Description
 -----|------------
-N/A | Date of Easter
+Calculate | Date of Easter
 Convert | Civil Date to Day Number
 Convert | Greenwich Date <-> Julian Date
 Convert | Julian Date to Day-of-Week
@@ -28,3 +28,4 @@ Type | Description
 Convert | Angle <-> Decimal Degrees
 Convert | Right Ascension <-> Hour Angle
 Convert | Equatorial Coordinates <-> Horizon Coordinates
+Calculate | Obliquity of the Ecliptic

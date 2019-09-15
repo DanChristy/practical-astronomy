@@ -47,3 +47,35 @@ def hour_angle_to_right_ascension(hour_angle_hours,hour_angle_minutes,hour_angle
 	right_ascension_seconds = PM.DHSec(right_ascension)
 
 	return right_ascension_hours,right_ascension_minutes,right_ascension_seconds
+
+## @brief Convert Equatorial Coordinates to Horizon Coordinates
+def equatorial_coordinates_to_horizon_coordinates(hour_angle_hours,hour_angle_minutes,hour_angle_seconds,declination_degrees,declination_minutes,declination_seconds,geographical_latitude):
+	azimuth_in_decimal_degrees = PM.EQAz(hour_angle_hours,hour_angle_minutes,hour_angle_seconds,declination_degrees,declination_minutes,declination_seconds,geographical_latitude)
+
+	altitude_in_decimal_degrees = PM.EQAlt(hour_angle_hours,hour_angle_minutes,hour_angle_seconds,declination_degrees,declination_minutes,declination_seconds,geographical_latitude)
+
+	azimuth_degrees = PM.DDDeg(azimuth_in_decimal_degrees)
+	azimuth_minutes = PM.DDMin(azimuth_in_decimal_degrees)
+	azimuth_seconds = PM.DDSec(azimuth_in_decimal_degrees)
+
+	altitude_degrees = PM.DDDeg(altitude_in_decimal_degrees)
+	altitude_minutes = PM.DDMin(altitude_in_decimal_degrees)
+	altitude_seconds = PM.DDSec(altitude_in_decimal_degrees)
+
+	return azimuth_degrees,azimuth_minutes,azimuth_seconds,altitude_degrees,altitude_minutes,altitude_seconds
+
+## @brief Convert Horizon Coordinates to Equatorial Coordinates
+def horizon_coordinates_to_equatorial_coordinates(azimuth_degrees,azimuth_minutes,azimuth_seconds,altitude_degrees,altitude_minutes,altitude_seconds,geographical_latitude):
+	hour_angle_in_decimal_degrees = PM.HORHa(azimuth_degrees,azimuth_minutes,azimuth_seconds,altitude_degrees,altitude_minutes,altitude_seconds,geographical_latitude)
+
+	declination_in_decimal_degrees = PM.HORDec(azimuth_degrees,azimuth_minutes,azimuth_seconds,altitude_degrees,altitude_minutes,altitude_seconds,geographical_latitude)
+
+	hour_angle_hours = PM.DHHour(hour_angle_in_decimal_degrees)
+	hour_angle_minutes = PM.DHMin(hour_angle_in_decimal_degrees)
+	hour_angle_seconds = PM.DHSec(hour_angle_in_decimal_degrees)
+
+	declination_degrees = PM.DDDeg(declination_in_decimal_degrees)
+	declination_minutes = PM.DDMin(declination_in_decimal_degrees)
+	declination_seconds = PM.DDSec(declination_in_decimal_degrees)
+
+	return hour_angle_hours,hour_angle_minutes,hour_angle_seconds,declination_degrees,declination_minutes,declination_seconds

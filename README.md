@@ -14,13 +14,9 @@ N/A | Date of Easter
 Convert | Civil Date to Day Number
 Convert | Greenwich Date <-> Julian Date
 Convert | Julian Date to Day-of-Week
-Extract | Day part of Julian Date
-Extract | Month part of Julian Date
-Extract | Year part of Julian Date
+Extract | Day, Month, and Year parts of Julian Date
 Convert | Civil Time <-> to Decimal Hours
-Extract | Hour part of Decimal Hours
-Extract | Minutes part of Decimal Hours
-Extract | Seconds part of Decimal Hours
+Extract | Hour, Minutes, and Seconds parts of Decimal Hours
 Convert | Local Civil Time <-> to Universal Time
 Convert | Universal Time <-> Greenwich Sidereal Time
 Convert | Greenwich Sidereal Time <-> Local Sidereal Time
@@ -31,3 +27,4 @@ Type | Description
 -----|------------
 Convert | Angle <-> Decimal Degrees
 Convert | Right Ascension <-> Hour Angle
+Convert | Equatorial Coordinates <-> Horizon Coordinates

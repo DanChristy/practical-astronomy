@@ -204,3 +204,119 @@ def HARA(hour_angle_hours,hour_angle_minutes,hour_angle_seconds,lct_hours,lct_mi
 	H = F - G
 
 	return 24 + H if H < 0 else H
+
+## @brief Convert Degrees Minutes Seconds to Decimal Degrees
+def DMSDD(degrees,minutes,seconds):
+	A = abs(seconds) / 60
+	B = (abs(minutes) + A) / 60
+	C = abs(degrees) + B
+
+	return -C if degrees < 0 or minutes < 0 or seconds < 0 else C
+
+## @brief Return Degrees part of Decimal Degrees
+def DDDeg(decimal_degrees):
+	A = abs(decimal_degrees)
+	B = A * 3600
+	C = round(B - 60 * math.floor(B / 60),2)
+	D = 0 if C == 60 else C
+	E = B = 60 if C == 60 else B
+
+	return -math.floor(E/3600) if decimal_degrees < 0 else math.floor(E/3600)
+
+## @brief Return Minutes part of Decimal Degrees
+def DDMin(decimal_degrees):
+	A = abs(decimal_degrees)
+	B = A * 3600
+	C = round(B - 60 * math.floor(B / 60),2)
+	D = 0 if C == 60 else C
+	E = B = 60 if C == 60 else B
+
+	return math.floor(E/60) % 60
+
+## @brief Return Seconds part of Decimal Degrees
+def DDSec(decimal_degrees):
+	A = abs(decimal_degrees)
+	B = A * 3600
+	C = round(B - 60 * math.floor(B / 60),2)
+	D = 0 if C == 60 else C
+
+	return D
+
+## @brief Convert Decimal Degrees to Degree-Hours
+def DDDH(decimal_degrees):
+	return decimal_degrees / 15
+
+## @brief Convert W to Degrees
+def Degrees(W):
+	return W * 57.29577951
+
+## @brief Custom ATAN2 function
+def Atan2(X, Y):
+	B = 3.1415926535
+	if abs(X) < 1e-20:
+		if Y < 0:
+			A = -B / 2
+		else:
+			A = B / 2
+	else:
+		A = math.atan(Y/X)
+
+	if X < 0:
+		A = B + A
+	
+	if A < 0:
+		A = A + 2 * B
+
+	return A
+
+## @brief Convert Equatorial Coordinates to Azimuth (in decimal degrees)
+def EQAz(hour_angle_hours,hour_angle_minutes,hour_angle_seconds,declination_degrees,declination_minutes,declination_seconds,geographical_latitude):
+	A = HMSDH(hour_angle_hours,hour_angle_minutes,hour_angle_seconds)
+	B = A * 15
+	C = math.radians(B)
+	D = DMSDD(declination_degrees,declination_minutes,declination_seconds)
+	E = math.radians(D)
+	F = math.radians(geographical_latitude)
+	G = math.sin(E) * math.sin(F) + math.cos(E) * math.cos(F) * math.cos(C)
+	H = -math.cos(E) * math.cos(F) * math.sin(C)
+	I = math.sin(E) - (math.sin(F) * G)
+	J = Degrees(Atan2(I,H))
+	
+	return J - 360 * math.floor(J / 360)
+
+## @brief Convert Equatorial Coordinates to Altitude (in decimal degrees)
+def EQAlt(hour_angle_hours,hour_angle_minutes,hour_angle_seconds,declination_degrees,declination_minutes,declination_seconds,geographical_latitude):
+	A = HMSDH(hour_angle_hours,hour_angle_minutes,hour_angle_seconds)
+	B = A * 15
+	C = math.radians(B)
+	D = DMSDD(declination_degrees,declination_minutes,declination_seconds)
+	E = math.radians(D)
+	F = math.radians(geographical_latitude)
+	G = math.sin(E) * math.sin(F) + math.cos(E) * math.cos(F) * math.cos(C)
+
+	return Degrees(math.asin(G))
+
+## @brief Convert Horizon Coordinates to Declination (in decimal degrees)
+def HORDec(azimuth_degrees,azimuth_minutes,azimuth_seconds,altitude_degrees,altitude_minutes,altitude_seconds,geographical_latitude):
+	A = DMSDD(azimuth_degrees,azimuth_minutes,azimuth_seconds)
+	B = DMSDD(altitude_degrees,altitude_minutes,altitude_seconds)
+	C = math.radians(A)
+	D = math.radians(B)
+	E = math.radians(geographical_latitude)
+	F = math.sin(D) * math.sin(E) + math.cos(D) * math.cos(E) * math.cos(C)
+	
+	return Degrees(math.asin(F))
+
+## @brief Convert Horizon Coordinates to Hour Angle (in decimal degrees)
+def HORHa(azimuth_degrees,azimuth_minutes,azimuth_seconds,altitude_degrees,altitude_minutes,altitude_seconds,geographical_latitude):
+	A = DMSDD(azimuth_degrees,azimuth_minutes,azimuth_seconds)
+	B = DMSDD(altitude_degrees,altitude_minutes,altitude_seconds)
+	C = math.radians(A)
+	D = math.radians(B)
+	E = math.radians(geographical_latitude)
+	F = math.sin(D) * math.sin(E) + math.cos(D) * math.cos(E) * math.cos(C)
+	G = -math.cos(D) * math.cos(E) * math.sin(C)
+	H = math.sin(D) - math.sin(E) * F
+	I = DDDH(Degrees(Atan2(H, G)))
+	
+	return I - 24 * math.floor(I / 24)

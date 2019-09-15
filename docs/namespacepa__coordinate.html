@@ -100,6 +100,12 @@ Functions</h2></td></tr>
 <tr class="memitem:a55bd20f1a92e57cb18d79c3a7bffd74c"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepa__coordinate.html#a55bd20f1a92e57cb18d79c3a7bffd74c">hour_angle_to_right_ascension</a> (hour_angle_hours, hour_angle_minutes, hour_angle_seconds, lct_hours, lct_minutes, lct_seconds, is_daylight_saving, zone_correction, local_day, local_month, local_year, geographical_longitude)</td></tr>
 <tr class="memdesc:a55bd20f1a92e57cb18d79c3a7bffd74c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert Hour Angle to Right Ascension.  <a href="#a55bd20f1a92e57cb18d79c3a7bffd74c">More...</a><br /></td></tr>
 <tr class="separator:a55bd20f1a92e57cb18d79c3a7bffd74c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac52fc32e3d7cc494095fc37808e5f67e"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepa__coordinate.html#ac52fc32e3d7cc494095fc37808e5f67e">equatorial_coordinates_to_horizon_coordinates</a> (hour_angle_hours, hour_angle_minutes, hour_angle_seconds, declination_degrees, declination_minutes, declination_seconds, geographical_latitude)</td></tr>
+<tr class="memdesc:ac52fc32e3d7cc494095fc37808e5f67e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert Equatorial Coordinates to Horizon Coordinates.  <a href="#ac52fc32e3d7cc494095fc37808e5f67e">More...</a><br /></td></tr>
+<tr class="separator:ac52fc32e3d7cc494095fc37808e5f67e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3bf9408acb4efee0aaceb3090d54fb69"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepa__coordinate.html#a3bf9408acb4efee0aaceb3090d54fb69">horizon_coordinates_to_equatorial_coordinates</a> (azimuth_degrees, azimuth_minutes, azimuth_seconds, altitude_degrees, altitude_minutes, altitude_seconds, geographical_latitude)</td></tr>
+<tr class="memdesc:a3bf9408acb4efee0aaceb3090d54fb69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert Horizon Coordinates to Equatorial Coordinates.  <a href="#a3bf9408acb4efee0aaceb3090d54fb69">More...</a><br /></td></tr>
+<tr class="separator:a3bf9408acb4efee0aaceb3090d54fb69"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="a6503410dcaeeecb77f1232201e55544b"></a>
@@ -156,6 +162,126 @@ Functions</h2></td></tr>
 
 <p>Convert Decimal Degrees to an Angle (degrees, minutes, and seconds) </p>
 <dl class="section return"><dt>Returns</dt><dd>degrees, minutes, seconds </dd></dl>
+
+</div>
+</div>
+<a id="ac52fc32e3d7cc494095fc37808e5f67e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac52fc32e3d7cc494095fc37808e5f67e">&#9670;&nbsp;</a></span>equatorial_coordinates_to_horizon_coordinates()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def pa_coordinate.equatorial_coordinates_to_horizon_coordinates </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>hour_angle_hours</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>hour_angle_minutes</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>hour_angle_seconds</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>declination_degrees</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>declination_minutes</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>declination_seconds</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>geographical_latitude</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Convert Equatorial Coordinates to Horizon Coordinates. </p>
+
+</div>
+</div>
+<a id="a3bf9408acb4efee0aaceb3090d54fb69"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3bf9408acb4efee0aaceb3090d54fb69">&#9670;&nbsp;</a></span>horizon_coordinates_to_equatorial_coordinates()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def pa_coordinate.horizon_coordinates_to_equatorial_coordinates </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>azimuth_degrees</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>azimuth_minutes</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>azimuth_seconds</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>altitude_degrees</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>altitude_minutes</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>altitude_seconds</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>geographical_latitude</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Convert Horizon Coordinates to Equatorial Coordinates. </p>
 
 </div>
 </div>

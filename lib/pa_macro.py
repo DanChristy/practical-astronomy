@@ -246,6 +246,10 @@ def DDSec(decimal_degrees):
 def DDDH(decimal_degrees):
 	return decimal_degrees / 15
 
+## @brief Convert Degree-Hours to Decimal Degrees
+def DHDD(degree_hours):
+	return degree_hours * 15
+
 ## @brief Convert W to Degrees
 def Degrees(W):
 	return W * 57.29577951
@@ -320,3 +324,59 @@ def HORHa(azimuth_degrees,azimuth_minutes,azimuth_seconds,altitude_degrees,altit
 	I = DDDH(Degrees(Atan2(H, G)))
 	
 	return I - 24 * math.floor(I / 24)
+
+## @brief Nutation of Obliquity
+def NutatObl(greenwich_day,greenwich_month,greenwich_year):
+	DJ = CDJD(greenwich_day,greenwich_month,greenwich_year) - 2415020
+	T = DJ / 36525
+	T2 = T * T
+
+	A = 100.0021358 * T
+	B = 360 * (A - math.floor(A))
+
+	L1 = 279.6967 + 0.000303 * T2 + B
+	l2 = 2 * math.radians(L1)
+
+	A = 1336.855231 * T
+	B = 360 * (A - math.floor(A))
+
+	D1 = 270.4342 - 0.001133 * T2 + B
+	D2 = 2 * math.radians(D1)
+
+	A = 99.99736056 * T
+	B = 360 * (A - math.floor(A))
+
+	M1 = 358.4758 - 0.00015 * T2 + B
+	M1 = math.radians(M1)
+
+	A = 1325.552359 * T
+	B = 360 * (A - math.floor(A))
+
+	M2 = 296.1046 + 0.009192 * T2 + B
+	M2 = math.radians(M2)
+
+	A = 5.372616667 * T
+	B = 360 * (A - math.floor(A))
+
+	N1 = 259.1833 + 0.002078 * T2 - B
+	N1 = math.radians(N1)
+
+	N2 = 2 * N1
+
+	DDO = (9.21 + 0.00091 * T) * math.cos(N1)
+	DDO = DDO + (0.5522 - 0.00029 * T) * math.cos(l2) - 0.0904 * math.cos(N2)
+	DDO = DDO + 0.0884 * math.cos(D2) + 0.0216 * math.cos(l2 + M1)
+	DDO = DDO + 0.0183 * math.cos(D2 - N1) + 0.0113 * math.cos(D2 + M2)
+	DDO = DDO - 0.0093 * math.cos(l2 - M1) - 0.0066 * math.cos(l2 - N1)
+
+	return DDO / 3600
+
+## @brief Obliquity of the Ecliptic for a Greenwich Date
+def Obliq(greenwich_day,greenwich_month,greenwich_year):
+	A = CDJD(greenwich_day,greenwich_month,greenwich_year)
+	B = A - 2415020
+	C = (B / 36525) - 1
+	D = C * (46.815 + C * (0.0006 - (C * 0.00181)))
+	E = D / 3600
+	
+	return 23.43929167 - E + NutatObl(greenwich_day,greenwich_month,greenwich_year)

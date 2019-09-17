@@ -7,6 +7,7 @@ var pa__macro_8py =
     [ "DDMin", "pa__macro_8py.html#a817457982ec933ef842b8401dbf780a5", null ],
     [ "DDSec", "pa__macro_8py.html#a078724e3d490ce011b11fc19f384bb44", null ],
     [ "Degrees", "pa__macro_8py.html#a63e507514b4ba7cf9f4ab80f18a0894c", null ],
+    [ "DHDD", "pa__macro_8py.html#a59bfc9582529b83f824682fbc957182a", null ],
     [ "DHHour", "pa__macro_8py.html#af2f7dcb8ae3ef2fdaeb3e6adc8dd0232", null ],
     [ "DHMin", "pa__macro_8py.html#a63ae4f2efc98d5d365bb61b5021431a6", null ],
     [ "DHSec", "pa__macro_8py.html#acca0ab906589cd9968346336e0b7322b", null ],
@@ -26,6 +27,8 @@ var pa__macro_8py =
     [ "LctGMonth", "pa__macro_8py.html#ad643a1f70b6762d0b253376f8c072378", null ],
     [ "LctGYear", "pa__macro_8py.html#af895ad2817c673147446f89c0d233d55", null ],
     [ "LctUT", "pa__macro_8py.html#a85021ec2b0197f9b7fb5b481a472e9fe", null ],
+    [ "NutatObl", "pa__macro_8py.html#af3dd7bd131d9fbe9addd966cd331ea2b", null ],
+    [ "Obliq", "pa__macro_8py.html#aee2d191f57babfc696b1af0a558fee55", null ],
     [ "RAHA", "pa__macro_8py.html#a2a6a8fd6969c30207b04b11e9ff65987", null ],
     [ "UTGST", "pa__macro_8py.html#ac77a1dfb6a2672e6feb0ef570a285d27", null ]
 ];

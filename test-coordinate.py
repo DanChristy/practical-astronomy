@@ -105,7 +105,15 @@ class test_equatorial_coordinates_horizon_coordinates(UT.TestCase):
 
 class test_ecliptic(UT.TestCase):
 	def setUp(self):
-		pass
+		self.ecliptic_longitude_degrees = 139
+		self.ecliptic_longitude_minutes = 41
+		self.ecliptic_longitude_seconds = 10
+		self.ecliptic_latitude_degrees = 4
+		self.ecliptic_latitude_minutes = 52
+		self.ecliptic_latitude_seconds = 31
+		self.greenwich_day = 6
+		self.greenwich_month = 7
+		self.greenwich_year = 2009
 
 	def test_mean_obliquity_of_the_ecliptic(self):
 		g_day = 6
@@ -118,6 +126,32 @@ class test_ecliptic(UT.TestCase):
 		print("[Greenwich Date] {g_month}/{g_day}/{g_year} = [Obliquity] {obliquity}".format(g_month=g_month,g_day=g_day,g_year=g_year,obliquity=obliquity))
 
 		self.assertEqual(obliquity,23.43805531,"Obliquity")
+
+	def test_ecliptic_coordinate_to_equatorial_coordinate(self):
+		ra_hours,ra_minutes,ra_seconds,dec_degrees,dec_minutes,dec_seconds = PC.ecliptic_coordinate_to_equatorial_coordinate(self.ecliptic_longitude_degrees,self.ecliptic_longitude_minutes,self.ecliptic_longitude_seconds,self.ecliptic_latitude_degrees,self.ecliptic_latitude_minutes,self.ecliptic_latitude_seconds,self.greenwich_day,self.greenwich_month,self.greenwich_year)
+
+		print("[LON] {lon_deg}d {lon_min}m {lon_sec}s [LAT] {lat_deg}d {lat_min}m {lat_sec}s [GD] {g_month}/{g_day}/{g_year} = [RA] {ra_hours}:{ra_minutes}:{ra_seconds} [DEC] {dec_degrees}d {dec_minutes}m {dec_seconds}s".format(lon_deg=self.ecliptic_longitude_degrees,lon_min=self.ecliptic_longitude_minutes,lon_sec=self.ecliptic_longitude_seconds,lat_deg=self.ecliptic_latitude_degrees,lat_min=self.ecliptic_latitude_minutes,lat_sec=self.ecliptic_latitude_seconds,g_month=self.greenwich_month,g_day=self.greenwich_day,g_year=self.greenwich_year,ra_hours=ra_hours,ra_minutes=ra_minutes,ra_seconds=ra_seconds,dec_degrees=dec_degrees,dec_minutes=dec_minutes,dec_seconds=dec_seconds))
+
+		self.assertEqual(ra_hours,9,"RA Hours")
+		self.assertEqual(ra_minutes,34,"RA Minutes")
+		self.assertEqual(ra_seconds,53.4,"RA Seconds")
+		self.assertEqual(dec_degrees,19,"Dec Degrees")
+		self.assertEqual(dec_minutes,32,"Dec Minutes")
+		self.assertEqual(dec_seconds,8.52,"Dec Seconds")
+
+	def test_equatorial_coordinate_to_ecliptic_coordinate(self):
+		ra_hours,ra_minutes,ra_seconds,dec_degrees,dec_minutes,dec_seconds = PC.ecliptic_coordinate_to_equatorial_coordinate(self.ecliptic_longitude_degrees,self.ecliptic_longitude_minutes,self.ecliptic_longitude_seconds,self.ecliptic_latitude_degrees,self.ecliptic_latitude_minutes,self.ecliptic_latitude_seconds,self.greenwich_day,self.greenwich_month,self.greenwich_year)
+
+		ecl_long_deg,ecl_long_min,ecl_long_sec,ecl_lat_deg,ecl_lat_min,ecl_lat_sec = PC.equatorial_coordinate_to_ecliptic_coordinate(ra_hours,ra_minutes,ra_seconds,dec_degrees,dec_minutes,dec_seconds,self.greenwich_day,self.greenwich_month,self.greenwich_year)
+
+		print("[RA] {ra_hours}:{ra_minutes}:{ra_seconds} [DEC] {dec_degrees}d {dec_minutes}m {dec_seconds}s [GD] {g_month}/{g_day}/{g_year} = [LON] {lon_deg}d {lon_min}m {lon_sec}s [LAT] {lat_deg}d {lat_min}m {lat_sec}s".format(ra_hours=ra_hours,ra_minutes=ra_minutes,ra_seconds=ra_seconds,dec_degrees=dec_degrees,dec_minutes=dec_minutes,dec_seconds=dec_seconds,g_month=self.greenwich_month,g_day=self.greenwich_day,g_year=self.greenwich_year,lon_deg=ecl_long_deg,lon_min=ecl_long_min,lon_sec=ecl_long_sec,lat_deg=ecl_lat_deg,lat_min=ecl_lat_min,lat_sec=ecl_lat_sec))
+
+		self.assertEqual(ecl_long_deg,139,"Ecliptic Longitude Degrees")
+		self.assertEqual(ecl_long_min,41,"Ecliptic Longitude Minutes")
+		self.assertEqual(ecl_long_sec,9.97,"Ecliptic Longitude Seconds")
+		self.assertEqual(ecl_lat_deg,4,"Ecliptic Latitude Degrees")
+		self.assertEqual(ecl_lat_min,52,"Ecliptic Latitude Minutes")
+		self.assertEqual(ecl_lat_sec,30.99,"Ecliptic Latitude Seconds")
 
 
 if __name__ == '__main__':

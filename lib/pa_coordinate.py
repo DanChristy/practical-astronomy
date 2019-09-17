@@ -89,3 +89,56 @@ def mean_obliquity_of_the_ecliptic(greenwich_day,greenwich_month,greenwich_year)
 	DE2 = DE1 / 3600
 
 	return 23.439292 - DE2
+
+## @brief Convert Ecliptic Coordinates to Equatorial Coordinates
+def ecliptic_coordinate_to_equatorial_coordinate(ecliptic_longitude_degrees,ecliptic_longitude_minutes,ecliptic_longitude_seconds,ecliptic_latitude_degrees,ecliptic_latitude_minutes,ecliptic_latitude_seconds,greenwich_day,greenwich_month,greenwich_year):
+	eclon_deg = PM.DMSDD(ecliptic_longitude_degrees,ecliptic_longitude_minutes,ecliptic_longitude_seconds)
+	eclat_deg = PM.DMSDD(ecliptic_latitude_degrees,ecliptic_latitude_minutes,ecliptic_latitude_seconds)
+	eclon_rad = math.radians(eclon_deg)
+	eclat_rad = math.radians(eclat_deg)
+	obliq_deg = PM.Obliq(greenwich_day,greenwich_month,greenwich_year)
+	obliq_rad = math.radians(obliq_deg)
+	sin_dec = math.sin(eclat_rad) * math.cos(obliq_rad) + math.cos(eclat_rad) * math.sin(obliq_rad) * math.sin(eclon_rad)
+	dec_rad = math.asin(sin_dec)
+	dec_deg = PM.Degrees(dec_rad)
+	y = math.sin(eclon_rad) * math.cos(obliq_rad) - math.tan(eclat_rad) * math.sin(obliq_rad)
+	x = math.cos(eclon_rad)
+	ra_rad = PM.Atan2(x,y)
+	ra_deg1 = PM.Degrees(ra_rad)
+	ra_deg2 = ra_deg1 - 360 * math.floor(ra_deg1/360)
+	ra_hours = PM.DDDH(ra_deg2)
+
+	out_ra_hours = PM.DHHour(ra_hours)
+	out_ra_minutes = PM.DHMin(ra_hours)
+	out_ra_seconds = PM.DHSec(ra_hours)
+	out_dec_degrees = PM.DDDeg(dec_deg)
+	out_dec_minutes = PM.DDMin(dec_deg)
+	out_dec_seconds = PM.DDSec(dec_deg)
+
+	return out_ra_hours,out_ra_minutes,out_ra_seconds,out_dec_degrees,out_dec_minutes,out_dec_seconds
+
+## @brief Convert Equatorial Coordinates to Ecliptic Coordinates
+def equatorial_coordinate_to_ecliptic_coordinate(ra_hours,ra_minutes,ra_seconds,dec_degrees,dec_minutes,dec_seconds,gw_day,gw_month,gw_year):
+	ra_deg = PM.DHDD(PM.HMSDH(ra_hours,ra_minutes,ra_seconds))
+	dec_deg = PM.DMSDD(dec_degrees,dec_minutes,dec_seconds)
+	ra_rad = math.radians(ra_deg)
+	dec_rad = math.radians(dec_deg)
+	obliq_deg = PM.Obliq(gw_day,gw_month,gw_year)
+	obliq_rad = math.radians(obliq_deg)
+	sin_ecl_lat = math.sin(dec_rad) * math.cos(obliq_rad) - math.cos(dec_rad) * math.sin(obliq_rad) * math.sin(ra_rad)
+	ecl_lat_rad = math.asin(sin_ecl_lat)
+	ecl_lat_deg = PM.Degrees(ecl_lat_rad)
+	y = math.sin(ra_rad) * math.cos(obliq_rad) + math.tan(dec_rad) * math.sin(obliq_rad)
+	x = math.cos(ra_rad)
+	ecl_long_rad = PM.Atan2(x,y)
+	ecl_long_deg1 = PM.Degrees(ecl_long_rad)
+	ecl_long_deg2 = ecl_long_deg1 - 360 * math.floor(ecl_long_deg1/360)
+
+	out_ecl_long_deg = PM.DDDeg(ecl_long_deg2)
+	out_ecl_long_min = PM.DDMin(ecl_long_deg2)
+	out_ecl_long_sec = PM.DDSec(ecl_long_deg2)
+	out_ecl_lat_deg = PM.DDDeg(ecl_lat_deg)
+	out_ecl_lat_min = PM.DDMin(ecl_lat_deg)
+	out_ecl_lat_sec = PM.DDSec(ecl_lat_deg)
+
+	return out_ecl_long_deg,out_ecl_long_min,out_ecl_long_sec,out_ecl_lat_deg,out_ecl_lat_min,out_ecl_lat_sec

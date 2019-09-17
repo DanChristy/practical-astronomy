@@ -109,6 +109,12 @@ Functions</h2></td></tr>
 <tr class="memitem:a9df16e874b567885215c14d9592005d1"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepa__coordinate.html#a9df16e874b567885215c14d9592005d1">mean_obliquity_of_the_ecliptic</a> (greenwich_day, greenwich_month, greenwich_year)</td></tr>
 <tr class="memdesc:a9df16e874b567885215c14d9592005d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate Mean Obliquity of the Ecliptic for a Greenwich Date.  <a href="#a9df16e874b567885215c14d9592005d1">More...</a><br /></td></tr>
 <tr class="separator:a9df16e874b567885215c14d9592005d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb5c0eea5dfebdd2fe0f1133aaf32d5f"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepa__coordinate.html#adb5c0eea5dfebdd2fe0f1133aaf32d5f">ecliptic_coordinate_to_equatorial_coordinate</a> (ecliptic_longitude_degrees, ecliptic_longitude_minutes, ecliptic_longitude_seconds, ecliptic_latitude_degrees, ecliptic_latitude_minutes, ecliptic_latitude_seconds, greenwich_day, greenwich_month, greenwich_year)</td></tr>
+<tr class="memdesc:adb5c0eea5dfebdd2fe0f1133aaf32d5f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert Ecliptic Coordinates to Equatorial Coordinates.  <a href="#adb5c0eea5dfebdd2fe0f1133aaf32d5f">More...</a><br /></td></tr>
+<tr class="separator:adb5c0eea5dfebdd2fe0f1133aaf32d5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f502336452e6e5af051db6f5e88e41d"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepa__coordinate.html#a5f502336452e6e5af051db6f5e88e41d">equatorial_coordinate_to_ecliptic_coordinate</a> (ra_hours, ra_minutes, ra_seconds, dec_degrees, dec_minutes, dec_seconds, gw_day, gw_month, gw_year)</td></tr>
+<tr class="memdesc:a5f502336452e6e5af051db6f5e88e41d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert Equatorial Coordinates to Ecliptic Coordinates.  <a href="#a5f502336452e6e5af051db6f5e88e41d">More...</a><br /></td></tr>
+<tr class="separator:a5f502336452e6e5af051db6f5e88e41d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="a6503410dcaeeecb77f1232201e55544b"></a>
@@ -165,6 +171,150 @@ Functions</h2></td></tr>
 
 <p>Convert Decimal Degrees to an Angle (degrees, minutes, and seconds) </p>
 <dl class="section return"><dt>Returns</dt><dd>degrees, minutes, seconds </dd></dl>
+
+</div>
+</div>
+<a id="adb5c0eea5dfebdd2fe0f1133aaf32d5f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adb5c0eea5dfebdd2fe0f1133aaf32d5f">&#9670;&nbsp;</a></span>ecliptic_coordinate_to_equatorial_coordinate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def pa_coordinate.ecliptic_coordinate_to_equatorial_coordinate </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>ecliptic_longitude_degrees</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>ecliptic_longitude_minutes</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>ecliptic_longitude_seconds</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>ecliptic_latitude_degrees</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>ecliptic_latitude_minutes</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>ecliptic_latitude_seconds</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>greenwich_day</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>greenwich_month</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>greenwich_year</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Convert Ecliptic Coordinates to Equatorial Coordinates. </p>
+
+</div>
+</div>
+<a id="a5f502336452e6e5af051db6f5e88e41d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5f502336452e6e5af051db6f5e88e41d">&#9670;&nbsp;</a></span>equatorial_coordinate_to_ecliptic_coordinate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def pa_coordinate.equatorial_coordinate_to_ecliptic_coordinate </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>ra_hours</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>ra_minutes</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>ra_seconds</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>dec_degrees</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>dec_minutes</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>dec_seconds</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>gw_day</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>gw_month</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>gw_year</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Convert Equatorial Coordinates to Ecliptic Coordinates. </p>
 
 </div>
 </div>

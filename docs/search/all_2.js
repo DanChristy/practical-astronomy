@@ -10,6 +10,7 @@ var searchData=
   ['decimalhourseconds',['DecimalHourSeconds',['../namespacepa__datetime.html#a9d7ef2d5f6d10382655afcb0ede0c4fc',1,'pa_datetime']]],
   ['decimalhourstociviltime',['DecimalHoursToCivilTime',['../namespacepa__datetime.html#ab4684decfd71811e4383e8ee4ddea900',1,'pa_datetime']]],
   ['degrees',['Degrees',['../namespacepa__macro.html#a63e507514b4ba7cf9f4ab80f18a0894c',1,'pa_macro']]],
+  ['dhdd',['DHDD',['../namespacepa__macro.html#a59bfc9582529b83f824682fbc957182a',1,'pa_macro']]],
   ['dhhour',['DHHour',['../namespacepa__macro.html#af2f7dcb8ae3ef2fdaeb3e6adc8dd0232',1,'pa_macro']]],
   ['dhmin',['DHMin',['../namespacepa__macro.html#a63ae4f2efc98d5d365bb61b5021431a6',1,'pa_macro']]],
   ['dhsec',['DHSec',['../namespacepa__macro.html#acca0ab906589cd9968346336e0b7322b',1,'pa_macro']]],

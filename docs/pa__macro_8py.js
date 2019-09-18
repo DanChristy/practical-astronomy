@@ -30,5 +30,9 @@ var pa__macro_8py =
     [ "NutatObl", "pa__macro_8py.html#af3dd7bd131d9fbe9addd966cd331ea2b", null ],
     [ "Obliq", "pa__macro_8py.html#aee2d191f57babfc696b1af0a558fee55", null ],
     [ "RAHA", "pa__macro_8py.html#a2a6a8fd6969c30207b04b11e9ff65987", null ],
-    [ "UTGST", "pa__macro_8py.html#ac77a1dfb6a2672e6feb0ef570a285d27", null ]
+    [ "UTGST", "pa__macro_8py.html#ac77a1dfb6a2672e6feb0ef570a285d27", null ],
+    [ "UTLcDay", "pa__macro_8py.html#aed435171e4deb88bdedc72fb50de61f2", null ],
+    [ "UTLcMonth", "pa__macro_8py.html#a4285d51831df49ea550bb471e0f3a6ad", null ],
+    [ "UTLct", "pa__macro_8py.html#a67d933f260017697b2e088c9161dd9e4", null ],
+    [ "UTLcYear", "pa__macro_8py.html#a7018f0d716b61bd44189849716033665", null ]
 ];

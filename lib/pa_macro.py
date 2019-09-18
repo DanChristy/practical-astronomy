@@ -130,6 +130,46 @@ def LctUT(lctHours,lctMinutes,lctSeconds,daylightSaving,zoneCorrection,localDay,
 	
 	return 24 * (E - E1)
 
+## @brief Convert Universal Time to Local Civil Time
+def UTLct(uHours,uMinutes,uSeconds,daylightSaving,zoneCorrection,greenwichDay,greenwichMonth,greenwichYear):
+	A = HMSDH(uHours,uMinutes,uSeconds)
+	B = A + zoneCorrection
+	C = B + daylightSaving
+	D = CDJD(greenwichDay,greenwichMonth,greenwichYear) + (C / 24)
+	E = JDCDay(D)
+	E1 = math.floor(E)
+	
+	return 24 * (E - E1)
+
+## @brief Get Local Civil Day for Universal Time
+def UTLcDay(uHours,uMinutes,uSeconds,daylightSaving,zoneCorrection,greenwichDay,greenwichMonth,greenwichYear):
+	A = HMSDH(uHours,uMinutes,uSeconds)
+	B = A + zoneCorrection
+	C = B + daylightSaving
+	D = CDJD(greenwichDay,greenwichMonth,greenwichYear) + (C / 24)
+	E = JDCDay(D)
+	E1 = math.floor(E)
+	
+	return E1
+
+## @brief Get Local Civil Month for Universal Time
+def UTLcMonth(uHours,uMinutes,uSeconds,daylightSaving,zoneCorrection,greenwichDay,greenwichMonth,greenwichYear):
+	A = HMSDH(uHours,uMinutes,uSeconds)
+	B = A + zoneCorrection
+	C = B + daylightSaving
+	D = CDJD(greenwichDay,greenwichMonth,greenwichYear) + (C / 24)
+	
+	return JDCMonth(D)
+
+## @brief Get Local Civil Year for Universal Time
+def UTLcYear(uHours,uMinutes,uSeconds,daylightSaving,zoneCorrection,greenwichDay,greenwichMonth,greenwichYear):
+	A = HMSDH(uHours,uMinutes,uSeconds)
+	B = A + zoneCorrection
+	C = B + daylightSaving
+	D = CDJD(greenwichYear,greenwichMonth,greenwichYear) + (C / 24)
+	
+	return JDCYear(D)
+
 ## @brief Determine Greenwich Day for Local Time
 def LctGDay(lct_hours, lct_minutes, lct_seconds, daylight_saving, zone_correction, local_day, local_month, local_year):
 	A = HMSDH(lct_hours,lct_minutes,lct_seconds)

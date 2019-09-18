@@ -2,7 +2,7 @@ import math
 from . import pa_macro as PM
 
 ## @brief Convert an Angle (degrees, minutes, and seconds) to Decimal Degrees
-def AngleToDecimalDegrees(degrees, minutes, seconds):
+def angle_to_decimal_degrees(degrees, minutes, seconds):
 	A = abs(seconds)/60
 	B = (abs(minutes)+A)/60
 	C = abs(degrees)+B
@@ -12,7 +12,7 @@ def AngleToDecimalDegrees(degrees, minutes, seconds):
 
 ## @brief Convert Decimal Degrees to an Angle (degrees, minutes, and seconds)
 ## @returns degrees, minutes, seconds
-def DecimalDegreesToAngle(decimalDegrees):
+def decimal_degrees_to_angle(decimalDegrees):
 	unsignedDecimal = abs(decimalDegrees)
 	totalSeconds = unsignedDecimal * 3600
 	seconds2dp = round(totalSeconds % 60, 2)

@@ -3,23 +3,23 @@
 import unittest as UT
 import lib.pa_datetime as DOE
 
-def testInput(isVerbose):
+def test_input(isVerbose):
 	inputYear = 2009
 
-	easterMonth,easterDay,easterYear = DOE.GetDateOfEaster(inputYear)
+	easterMonth,easterDay,easterYear = DOE.get_date_of_easter(inputYear)
 	if isVerbose == True:
 		print("__Test Date of Easter functions__")
 		print("[Test Inputs] Given a year of {inputYear}, the date of Easter is {outputMonth}/{outputDay}/{outputYear}".format(inputYear=inputYear,outputMonth=easterMonth,outputDay=easterDay,outputYear=easterYear))
 
 	return inputYear,easterMonth,easterDay,easterYear
 
-class DoeTestCase(UT.TestCase):
+class test_doe(UT.TestCase):
 	@classmethod
 	def setUpClass(cls):
-		testInput(True)
+		test_input(True)
 
 	def setUp(self):
-		inputYear,easterMonth,easterDay,easterYear = testInput(False)
+		inputYear,easterMonth,easterDay,easterYear = test_input(False)
 		self.easterMonth = easterMonth
 		self.easterDay = easterDay
 		self.easterYear = easterYear

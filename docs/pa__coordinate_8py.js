@@ -1,7 +1,7 @@
 var pa__coordinate_8py =
 [
-    [ "AngleToDecimalDegrees", "pa__coordinate_8py.html#a6503410dcaeeecb77f1232201e55544b", null ],
-    [ "DecimalDegreesToAngle", "pa__coordinate_8py.html#a5f26a36191abd2386200fb15b963e129", null ],
+    [ "angle_to_decimal_degrees", "pa__coordinate_8py.html#a254ea5ef13b49a04c882c0246bc4050c", null ],
+    [ "decimal_degrees_to_angle", "pa__coordinate_8py.html#a474e2869b95666be1eee615006614f50", null ],
     [ "ecliptic_coordinate_to_equatorial_coordinate", "pa__coordinate_8py.html#adb5c0eea5dfebdd2fe0f1133aaf32d5f", null ],
     [ "equatorial_coordinate_to_ecliptic_coordinate", "pa__coordinate_8py.html#a5f502336452e6e5af051db6f5e88e41d", null ],
     [ "equatorial_coordinates_to_horizon_coordinates", "pa__coordinate_8py.html#ac52fc32e3d7cc494095fc37808e5f67e", null ],

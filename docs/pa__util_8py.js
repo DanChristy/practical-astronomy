@@ -1,4 +1,4 @@
 var pa__util_8py =
 [
-    [ "IsLeapYear", "pa__util_8py.html#acaa9a206e85ffcf74675642d5a152a70", null ]
+    [ "is_leap_year", "pa__util_8py.html#a6bb69ee13e2b4720d79258018f060fc8", null ]
 ];

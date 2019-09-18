@@ -4,11 +4,11 @@ import unittest as UT
 import lib.pa_datetime as PD
 
 def test_gen(month,day,year):
-	dayNumber = PD.CivilDateToDayNumber(month,day,year)
+	dayNumber = PD.civil_date_to_day_number(month,day,year)
 	print("Test input: {month}/{day}/{year}, test output: {dayNum}".format(month=month,day=day,year=year,dayNum=dayNumber))
 	return dayNumber
 
-class TestDayNumbers(UT.TestCase):
+class test_day_numbers(UT.TestCase):
 	def test_1_1_2000(self):
 		self.assertEqual(test_gen(1,1,2000),1)
 

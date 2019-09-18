@@ -1,6 +1,6 @@
 var searchData=
 [
   ['cdjd',['CDJD',['../namespacepa__macro.html#a451f545d3b8d59d912b24a1cebb16ebc',1,'pa_macro']]],
-  ['civildatetodaynumber',['CivilDateToDayNumber',['../namespacepa__datetime.html#a6c989b24d47f62adb2bc956a44249f35',1,'pa_datetime']]],
-  ['civiltimetodecimalhours',['CivilTimeToDecimalHours',['../namespacepa__datetime.html#aa3548510a849e8157075e64166277d9f',1,'pa_datetime']]]
+  ['civil_5fdate_5fto_5fday_5fnumber',['civil_date_to_day_number',['../namespacepa__datetime.html#ac6ab82ce401b647455c0d6a2c3034082',1,'pa_datetime']]],
+  ['civil_5ftime_5fto_5fdecimal_5fhours',['civil_time_to_decimal_hours',['../namespacepa__datetime.html#afbe4887db0adb97a2b6726f93357f74e',1,'pa_datetime']]]
 ];

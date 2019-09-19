@@ -153,6 +153,41 @@ class test_ecliptic(UT.TestCase):
 		self.assertEqual(ecl_lat_min,52,"Ecliptic Latitude Minutes")
 		self.assertEqual(ecl_lat_sec,30.99,"Ecliptic Latitude Seconds")
 
+class test_galactic(UT.TestCase):
+	def setUp(self):
+		self.ra_hours = 10
+		self.ra_minutes = 21
+		self.ra_seconds = 0
+		self.dec_degrees = 10
+		self.dec_minutes = 3
+		self.dec_seconds = 11
+
+	def test_equatorial_coordinate_to_galactic_coordinate(self):
+		gal_long_deg,gal_long_min,gal_long_sec,gal_lat_deg,gal_lat_min,gal_lat_sec = PC.equatorial_coordinate_to_galactic_coordinate(self.ra_hours,self.ra_minutes,self.ra_seconds,self.dec_degrees,self.dec_minutes,self.dec_seconds)
+
+		print("[EQ] [RA] {ra_hours}:{ra_minutes}:{ra_seconds} [DEC] {dec_degrees}d {dec_minutes}m {dec_seconds}s = [GAL] [LON] {gal_long_deg}d {gal_long_min}m {gal_long_sec}s [LAT] {gal_lat_deg}d {gal_lat_min}m {gal_lat_sec}s".format(ra_hours=self.ra_hours,ra_minutes=self.ra_minutes,ra_seconds=self.ra_seconds,dec_degrees=self.dec_degrees,dec_minutes=self.dec_minutes,dec_seconds=self.dec_seconds,gal_long_deg=gal_long_deg,gal_long_min=gal_long_min,gal_long_sec=gal_long_sec,gal_lat_deg=gal_lat_deg,gal_lat_min=gal_lat_min,gal_lat_sec=gal_lat_sec))
+
+		self.assertEqual(gal_long_deg,232,"Galactic Longitude Degrees")
+		self.assertEqual(gal_long_min,14,"Galactic Longitude Minutes")
+		self.assertEqual(gal_long_sec,52.38,"Galactic Longitude Seconds")
+		self.assertEqual(gal_lat_deg,51,"Galactic Latitude Degrees")
+		self.assertEqual(gal_lat_min,7,"Galactic Latitude Minutes")
+		self.assertEqual(gal_lat_sec,20.16,"Galactic Latitude Seconds")
+
+	def test_galactic_coordinate_to_equatorial_coordinate(self):
+		gal_long_deg,gal_long_min,gal_long_sec,gal_lat_deg,gal_lat_min,gal_lat_sec = PC.equatorial_coordinate_to_galactic_coordinate(self.ra_hours,self.ra_minutes,self.ra_seconds,self.dec_degrees,self.dec_minutes,self.dec_seconds)
+
+		ra_hours,ra_minutes,ra_seconds,dec_degrees,dec_minutes,dec_seconds = PC.galactic_coordinate_to_equatorial_coordinate(gal_long_deg,gal_long_min,gal_long_sec,gal_lat_deg,gal_lat_min,gal_lat_sec)
+
+		print("[GAL] [LON] {gal_long_deg}d {gal_long_min}m {gal_long_sec}s [LAT] {gal_lat_deg}d {gal_lat_min}m {gal_lat_sec}s = [EQ] [RA] {ra_hours}:{ra_minutes}:{ra_seconds} [DEC] {dec_degrees}d {dec_minutes}m {dec_seconds}s".format(gal_long_deg=gal_long_deg,gal_long_min=gal_long_min,gal_long_sec=gal_long_sec,gal_lat_deg=gal_lat_deg,gal_lat_min=gal_lat_min,gal_lat_sec=gal_lat_sec,ra_hours=ra_hours,ra_minutes=ra_minutes,ra_seconds=ra_seconds,dec_degrees=dec_degrees,dec_minutes=dec_minutes,dec_seconds=dec_seconds))
+
+		self.assertEqual(ra_hours,10,"Right Ascension Hours")
+		self.assertEqual(ra_minutes,21,"Right Ascension Minutes")
+		self.assertEqual(ra_seconds,0,"Right Ascension Seconds")
+		self.assertEqual(dec_degrees,10,"Declination Degrees")
+		self.assertEqual(dec_minutes,3,"Declination Degrees")
+		self.assertEqual(dec_seconds,11,"Declination Seconds")
+
 
 if __name__ == '__main__':
 	UT.main()

@@ -15,9 +15,9 @@ Convert | Civil Date to Day Number
 Convert | Greenwich Date <-> Julian Date
 Convert | Julian Date to Day-of-Week
 Extract | Day, Month, and Year parts of Julian Date
-Convert | Civil Time <-> to Decimal Hours
+Convert | Civil Time <-> Decimal Hours
 Extract | Hour, Minutes, and Seconds parts of Decimal Hours
-Convert | Local Civil Time <-> to Universal Time
+Convert | Local Civil Time <-> Universal Time
 Convert | Universal Time <-> Greenwich Sidereal Time
 Convert | Greenwich Sidereal Time <-> Local Sidereal Time
 
@@ -30,3 +30,4 @@ Convert | Right Ascension <-> Hour Angle
 Convert | Equatorial Coordinates <-> Horizon Coordinates
 Calculate | Obliquity of the Ecliptic
 Convert | Ecliptic Coordinates <-> Equatorial Coordinates
+Convert | Equatorial Coordinates <-> Galactic Coordinates

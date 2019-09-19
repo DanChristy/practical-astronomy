@@ -142,3 +142,51 @@ def equatorial_coordinate_to_ecliptic_coordinate(ra_hours,ra_minutes,ra_seconds,
 	out_ecl_lat_sec = PM.DDSec(ecl_lat_deg)
 
 	return out_ecl_long_deg,out_ecl_long_min,out_ecl_long_sec,out_ecl_lat_deg,out_ecl_lat_min,out_ecl_lat_sec
+
+## @brief Convert Equatorial Coordinates to Galactic Coordinates
+def equatorial_coordinate_to_galactic_coordinate(ra_hours,ra_minutes,ra_seconds,dec_degrees,dec_minutes,dec_seconds):
+	ra_deg = PM.DHDD(PM.HMSDH(ra_hours,ra_minutes,ra_seconds))
+	dec_deg = PM.DMSDD(dec_degrees,dec_minutes,dec_seconds)
+	ra_rad = math.radians(ra_deg)
+	dec_rad = math.radians(dec_deg)
+	sin_b = math.cos(dec_rad) * math.cos(math.radians(27.4)) * math.cos(ra_rad - math.radians(192.25)) + math.sin(dec_rad) * math.sin(math.radians(27.4))
+	b_radians = math.asin(sin_b)
+	b_deg = PM.Degrees(b_radians)
+	y = math.sin(dec_rad) - sin_b * math.sin(math.radians(27.4))
+	x = math.cos(dec_rad) * math.sin(ra_rad - math.radians(192.25)) * math.cos(math.radians(27.4))
+	long_deg1 = PM.Degrees(PM.Atan2(x,y)) + 33
+	long_deg2 = long_deg1 - 360 * math.floor(long_deg1/360)
+
+	gal_long_deg = PM.DDDeg(long_deg2)
+	gal_long_min = PM.DDMin(long_deg2)
+	gal_long_sec = PM.DDSec(long_deg2)
+	gal_lat_deg = PM.DDDeg(b_deg)
+	gal_lat_min = PM.DDMin(b_deg)
+	gal_lat_sec = PM.DDSec(b_deg)
+
+	return gal_long_deg,gal_long_min,gal_long_sec,gal_lat_deg,gal_lat_min,gal_lat_sec
+
+## @brief Convert Galactic Coordinates to Equatorial Coordinates
+def galactic_coordinate_to_equatorial_coordinate(gal_long_deg,gal_long_min,gal_long_sec,gal_lat_deg,gal_lat_min,gal_lat_sec):
+	glong_deg = PM.DMSDD(gal_long_deg,gal_long_min,gal_long_sec)
+	glat_deg = PM.DMSDD(gal_lat_deg,gal_lat_min,gal_lat_sec)
+	glong_rad = math.radians(glong_deg)
+	glat_rad = math.radians(glat_deg)
+	sin_dec = math.cos(glat_rad) * math.cos(math.radians(27.4)) * math.sin(glong_rad - math.radians(33)) + math.sin(glat_rad) * math.sin(math.radians(27.4))
+	dec_radians = math.asin(sin_dec)
+	dec_deg = PM.Degrees(dec_radians)
+	y = math.cos(glat_rad) *math.cos(glong_rad - math.radians(33))
+	x = math.sin(glat_rad) * math.cos(math.radians(27.4)) - math.cos(glat_rad) * math.sin(math.radians(27.4)) * math.sin(glong_rad - math.radians(33))
+	
+	ra_deg1 = PM.Degrees(PM.Atan2(x,y)) + 192.25
+	ra_deg2 = ra_deg1 - 360 * math.floor(ra_deg1/360)
+	ra_hours1 = PM.DDDH(ra_deg2)
+
+	ra_hours = PM.DHHour(ra_hours1)
+	ra_minutes = PM.DHMin(ra_hours1)
+	ra_seconds = PM.DHSec(ra_hours1)
+	dec_degrees = PM.DDDeg(dec_deg)
+	dec_minutes = PM.DDMin(dec_deg)
+	dec_seconds = PM.DDSec(dec_deg)
+
+	return ra_hours,ra_minutes,ra_seconds,dec_degrees,dec_minutes,dec_seconds

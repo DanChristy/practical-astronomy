@@ -4,5 +4,6 @@ var searchData=
   ['eqalt',['EQAlt',['../namespacepa__macro.html#a7732cc1faf6abc0fbf6c1ddbd003e823',1,'pa_macro']]],
   ['eqaz',['EQAz',['../namespacepa__macro.html#a63b694bfff60c5158703ebdf55d3a0c4',1,'pa_macro']]],
   ['equatorial_5fcoordinate_5fto_5fecliptic_5fcoordinate',['equatorial_coordinate_to_ecliptic_coordinate',['../namespacepa__coordinate.html#a5f502336452e6e5af051db6f5e88e41d',1,'pa_coordinate']]],
+  ['equatorial_5fcoordinate_5fto_5fgalactic_5fcoordinate',['equatorial_coordinate_to_galactic_coordinate',['../namespacepa__coordinate.html#a74b960cf5e91f4935f4edaae9fe90c5e',1,'pa_coordinate']]],
   ['equatorial_5fcoordinates_5fto_5fhorizon_5fcoordinates',['equatorial_coordinates_to_horizon_coordinates',['../namespacepa__coordinate.html#ac52fc32e3d7cc494095fc37808e5f67e',1,'pa_coordinate']]]
 ];

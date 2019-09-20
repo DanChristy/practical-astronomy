@@ -188,6 +188,30 @@ class test_galactic(UT.TestCase):
 		self.assertEqual(dec_minutes,3,"Declination Degrees")
 		self.assertEqual(dec_seconds,11,"Declination Seconds")
 
+class test_object_angles(UT.TestCase):
+	def test_angle_between_two_objects(self):
+		ra_long_1_hour_deg = 5
+		ra_long_1_min = 13
+		ra_long_1_sec = 31.7
+		dec_lat_1_deg = -8
+		dec_lat_1_min = 13
+		dec_lat_1_sec = 30
+		ra_long_2_hour_deg = 6
+		ra_long_2_min = 44
+		ra_long_2_sec = 13.4
+		dec_lat_2_deg = -16
+		dec_lat_2_min = 41
+		dec_lat_2_sec = 11
+		hour_or_degree = "H"
+
+		angle_deg,angle_min,angle_sec = PC.angle_between_two_objects(ra_long_1_hour_deg,ra_long_1_min,ra_long_1_sec,dec_lat_1_deg,dec_lat_1_min,dec_lat_1_sec,ra_long_2_hour_deg,ra_long_2_min,ra_long_2_sec,dec_lat_2_deg,dec_lat_2_min,dec_lat_2_sec,hour_or_degree)
+
+		print ("[OBJ 1] [RA LON] {ra_long_1_hour_deg}h/d {ra_long_1_min}m {ra_long_1_sec}s [DEC LAT] {dec_lat_1_deg}d {dec_lat_1_min}m {dec_lat_1_sec}s [OBJ 2] [RA LON] {ra_long_2_hour_deg}h/d {ra_long_2_min}m {ra_long_2_sec}s [DEC LAT] {dec_lat_2_deg}d {dec_lat_2_min}m {dec_lat_2_sec}s [TYPE] {hour_or_degree} = [ANGLE] {angle_deg}d {angle_min}m {angle_sec}s".format(ra_long_1_hour_deg=ra_long_1_hour_deg,ra_long_1_min=ra_long_1_min,ra_long_1_sec=ra_long_1_sec,dec_lat_1_deg=dec_lat_1_deg,dec_lat_1_min=dec_lat_1_min,dec_lat_1_sec=dec_lat_1_sec,ra_long_2_hour_deg=ra_long_2_hour_deg,ra_long_2_min=ra_long_2_min,ra_long_2_sec=ra_long_2_sec,dec_lat_2_deg=dec_lat_2_deg,dec_lat_2_min=dec_lat_2_min,dec_lat_2_sec=dec_lat_2_sec,hour_or_degree=hour_or_degree,angle_deg=angle_deg,angle_min=angle_min,angle_sec=angle_sec))
+
+		self.assertEqual(angle_deg,23,"Angle Degrees")
+		self.assertEqual(angle_min,40,"Angle Minutes")
+		self.assertEqual(angle_sec,25.86,"Angle Seconds")
+
 
 if __name__ == '__main__':
 	UT.main()

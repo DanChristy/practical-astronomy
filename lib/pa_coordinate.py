@@ -190,3 +190,28 @@ def galactic_coordinate_to_equatorial_coordinate(gal_long_deg,gal_long_min,gal_l
 	dec_seconds = PM.DDSec(dec_deg)
 
 	return ra_hours,ra_minutes,ra_seconds,dec_degrees,dec_minutes,dec_seconds
+
+## @brief Calculate the angle between two celestial objects
+def angle_between_two_objects(ra_long_1_hour_deg,ra_long_1_min,ra_long_1_sec,dec_lat_1_deg,dec_lat_1_min,dec_lat_1_sec,ra_long_2_hour_deg,ra_long_2_min,ra_long_2_sec,dec_lat_2_deg,dec_lat_2_min,dec_lat_2_sec,hour_or_degree):
+	ra_long_1_decimal = PM.HMSDH(ra_long_1_hour_deg,ra_long_1_min,ra_long_1_sec) if hour_or_degree == "H" else PM.DMSDD(ra_long_1_hour_deg,ra_long_1_min,ra_long_1_sec)
+	ra_long_1_deg = PM.DHDD(ra_long_1_decimal) if hour_or_degree == "H" else ra_long_1_decimal
+	ra_long_1_rad = math.radians(ra_long_1_deg)
+	dec_lat_1_deg1 = PM.DMSDD(dec_lat_1_deg,dec_lat_1_min,dec_lat_1_sec)
+	dec_lat_1_rad = math.radians(dec_lat_1_deg1)
+
+	ra_long_2_decimal = PM.HMSDH(ra_long_2_hour_deg,ra_long_2_min,ra_long_2_sec) if hour_or_degree == "H" else PM.DMSDD(ra_long_2_hour_deg,ra_long_2_min,ra_long_2_sec)
+	ra_long_2_deg = PM.DHDD(ra_long_2_decimal) if hour_or_degree == "H" else ra_long_2_decimal
+	ra_long_2_rad = math.radians(ra_long_2_deg)
+	dec_lat_2_deg1 = PM.DMSDD(dec_lat_2_deg,dec_lat_2_min,dec_lat_2_sec)
+	dec_lat_2_rad = math.radians(dec_lat_2_deg1)
+
+	cos_d = math.sin(dec_lat_1_rad) * math.sin(dec_lat_2_rad) + math.cos(dec_lat_1_rad) * math.cos(dec_lat_2_rad) * math.cos(ra_long_1_rad - ra_long_2_rad)
+	d_rad = math.acos(cos_d)
+	d_deg = PM.Degrees(d_rad)
+
+	angle_deg = PM.DDDeg(d_deg)
+	angle_min = PM.DDMin(d_deg)
+	angle_sec = PM.DDSec(d_deg)
+
+	return angle_deg,angle_min,angle_sec
+	

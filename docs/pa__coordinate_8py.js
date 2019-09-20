@@ -1,5 +1,6 @@
 var pa__coordinate_8py =
 [
+    [ "angle_between_two_objects", "pa__coordinate_8py.html#a6ea49862f6e8f40d0c5463d07b38c307", null ],
     [ "angle_to_decimal_degrees", "pa__coordinate_8py.html#a254ea5ef13b49a04c882c0246bc4050c", null ],
     [ "decimal_degrees_to_angle", "pa__coordinate_8py.html#a474e2869b95666be1eee615006614f50", null ],
     [ "ecliptic_coordinate_to_equatorial_coordinate", "pa__coordinate_8py.html#adb5c0eea5dfebdd2fe0f1133aaf32d5f", null ],

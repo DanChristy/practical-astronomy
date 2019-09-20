@@ -31,3 +31,4 @@ Convert | Equatorial Coordinates <-> Horizon Coordinates
 Calculate | Obliquity of the Ecliptic
 Convert | Ecliptic Coordinates <-> Equatorial Coordinates
 Convert | Equatorial Coordinates <-> Galactic Coordinates
+Calculate | Angle between two objects

@@ -2,6 +2,7 @@ var pa__coordinate_8py =
 [
     [ "angle_between_two_objects", "pa__coordinate_8py.html#a6ea49862f6e8f40d0c5463d07b38c307", null ],
     [ "angle_to_decimal_degrees", "pa__coordinate_8py.html#a254ea5ef13b49a04c882c0246bc4050c", null ],
+    [ "correct_for_precession", "pa__coordinate_8py.html#aee79944decd91afc027940d4629868a2", null ],
     [ "decimal_degrees_to_angle", "pa__coordinate_8py.html#a474e2869b95666be1eee615006614f50", null ],
     [ "ecliptic_coordinate_to_equatorial_coordinate", "pa__coordinate_8py.html#adb5c0eea5dfebdd2fe0f1133aaf32d5f", null ],
     [ "equatorial_coordinate_to_ecliptic_coordinate", "pa__coordinate_8py.html#a5f502336452e6e5af051db6f5e88e41d", null ],

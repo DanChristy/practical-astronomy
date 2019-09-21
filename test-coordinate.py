@@ -242,6 +242,33 @@ class test_rise_set(UT.TestCase):
 		self.assertEqual(az_rise,64.36,"AZ Rise")
 		self.assertEqual(az_set,295.64,"AZ Set")
 
+class test_precession(UT.TestCase):
+	def setUp(self):
+		self.ra_hour = 9
+		self.ra_minutes = 10
+		self.ra_seconds = 43
+		self.dec_deg = 14
+		self.dec_minutes = 23
+		self.dec_seconds = 25
+		self.epoch1_day = 0.923
+		self.epoch1_month = 1
+		self.epoch1_year = 1950
+		self.epoch2_day = 1
+		self.epoch2_month = 6
+		self.epoch2_year = 1979
+
+	def test_precession(self):
+		corrected_ra_hour,corrected_ra_minutes,corrected_ra_seconds,corrected_dec_deg,corrected_dec_minutes,corrected_dec_seconds = PC.correct_for_precession(self.ra_hour,self.ra_minutes,self.ra_seconds,self.dec_deg,self.dec_minutes,self.dec_seconds,self.epoch1_day,self.epoch1_month,self.epoch1_year,self.epoch2_day,self.epoch2_month,self.epoch2_year)
+
+		print("[RA] {ra_hour}:{ra_minutes}:{ra_seconds} [DEC] {dec_deg}d {dec_minutes}m {dec_seconds}s [EPOCH 1] {epoch1_month}/{epoch1_day}/{epoch1_year} [EPOCH 2] {epoch2_month}/{epoch2_day}/{epoch2_year} = [Corrected] [RA] {corrected_ra_hour}:{corrected_ra_minutes}:{corrected_ra_seconds} [DEC] {corrected_dec_deg}d {corrected_dec_minutes}m {corrected_dec_seconds}s".format(ra_hour=self.ra_hour,ra_minutes=self.ra_minutes,ra_seconds=self.ra_seconds,dec_deg=self.dec_deg,dec_minutes=self.dec_minutes,dec_seconds=self.dec_seconds,epoch1_day=self.epoch1_day,epoch1_month=self.epoch1_month,epoch1_year=self.epoch1_year,epoch2_day=self.epoch2_day,epoch2_month=self.epoch2_month,epoch2_year=self.epoch2_year,corrected_ra_hour=corrected_ra_hour,corrected_ra_minutes=corrected_ra_minutes,corrected_ra_seconds=corrected_ra_seconds,corrected_dec_deg=corrected_dec_deg,corrected_dec_minutes=corrected_dec_minutes,corrected_dec_seconds=corrected_dec_seconds))
+
+		self.assertEqual(corrected_ra_hour,9,"Corrected Right Ascension Hour")
+		self.assertEqual(corrected_ra_minutes,12,"Corrected Right Ascension Minutes")
+		self.assertEqual(corrected_ra_seconds,20.18,"Corrected Right Ascension Seconds")
+		self.assertEqual(corrected_dec_deg,14,"Corrected Declination Hour")
+		self.assertEqual(corrected_dec_minutes,16,"Corrected Declination Minutes")
+		self.assertEqual(corrected_dec_seconds,9.12,"Corrected Declination Seconds")
+
 
 if __name__ == '__main__':
 	UT.main()

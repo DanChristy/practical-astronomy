@@ -262,3 +262,27 @@ def rising_and_setting(ra_hours,ra_minutes,ra_seconds,dec_deg,dec_min,dec_sec,gw
 	az_set = round(az_set_deg,2) if rise_set_status == "OK" else None
 
 	return rise_set_status,ut_rise_hour,ut_rise_min,ut_set_hour,ut_set_min,az_rise,az_set
+
+## @brief Calculate precession (corrected coordinates between two epochs)
+# @return corrected RA hour, corrected RA minutes, corrected RA seconds, corrected Declination degrees, corrected Declination minutes, corrected Declination seconds
+def correct_for_precession(ra_hour,ra_minutes,ra_seconds,dec_deg,dec_minutes,dec_seconds,epoch1_day,epoch1_month,epoch1_year,epoch2_day,epoch2_month,epoch2_year):
+	ra_1_rad = math.radians(PM.DHDD(PM.HMSDH(ra_hour,ra_minutes,ra_seconds)))
+	dec_1_rad = math.radians(PM.DMSDD(dec_deg,dec_minutes,dec_seconds))
+	t_centuries = (PM.CDJD(epoch1_day,epoch1_month,epoch1_year)-2415020)/36525
+	m_sec = 3.07234+(0.00186*t_centuries)
+	n_arcsec = 20.0468-(0.0085*t_centuries)
+	n_years = (PM.CDJD(epoch2_day,epoch2_month,epoch2_year)-PM.CDJD(epoch1_day,epoch1_month,epoch1_year))/365.25
+	s1_hours = ((m_sec+(n_arcsec*math.sin(ra_1_rad)*math.tan(dec_1_rad)/15))*n_years)/3600
+	ra_2_hours = PM.HMSDH(ra_hour,ra_minutes,ra_seconds)+s1_hours
+	s2_deg = (n_arcsec*math.cos(ra_1_rad)*n_years)/3600
+	dec_2_deg = PM.DMSDD(dec_deg,dec_minutes,dec_seconds)+s2_deg
+
+	corrected_ra_hour = PM.DHHour(ra_2_hours)
+	corrected_ra_minutes = PM.DHMin(ra_2_hours)
+	corrected_ra_seconds = PM.DHSec(ra_2_hours)
+	corrected_dec_deg = PM.DDDeg(dec_2_deg)
+	corrected_dec_minutes = PM.DDMin(dec_2_deg)
+	corrected_dec_seconds = PM.DDSec(dec_2_deg)
+
+	return corrected_ra_hour,corrected_ra_minutes,corrected_ra_seconds,corrected_dec_deg,corrected_dec_minutes,corrected_dec_seconds
+

@@ -130,6 +130,9 @@ Functions</h2></td></tr>
 <tr class="memitem:aee79944decd91afc027940d4629868a2"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepa__coordinate.html#aee79944decd91afc027940d4629868a2">correct_for_precession</a> (ra_hour, ra_minutes, ra_seconds, dec_deg, dec_minutes, dec_seconds, epoch1_day, epoch1_month, epoch1_year, epoch2_day, epoch2_month, epoch2_year)</td></tr>
 <tr class="memdesc:aee79944decd91afc027940d4629868a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate precession (corrected coordinates between two epochs)  <a href="#aee79944decd91afc027940d4629868a2">More...</a><br /></td></tr>
 <tr class="separator:aee79944decd91afc027940d4629868a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3ac5a2dcb6204976f63c8fa8b17cbe58"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepa__coordinate.html#a3ac5a2dcb6204976f63c8fa8b17cbe58">nutation_in_ecliptic_longitude_and_obliquity</a> (greenwich_day, greenwich_month, greenwich_year)</td></tr>
+<tr class="memdesc:a3ac5a2dcb6204976f63c8fa8b17cbe58"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate nutation for two values: ecliptic longitude and obliquity, for a Greenwich date.  <a href="#a3ac5a2dcb6204976f63c8fa8b17cbe58">More...</a><br /></td></tr>
+<tr class="separator:a3ac5a2dcb6204976f63c8fa8b17cbe58"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="a6ea49862f6e8f40d0c5463d07b38c307"></a>
@@ -871,6 +874,43 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Calculate Mean Obliquity of the Ecliptic for a Greenwich Date. </p>
+
+</div>
+</div>
+<a id="a3ac5a2dcb6204976f63c8fa8b17cbe58"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3ac5a2dcb6204976f63c8fa8b17cbe58">&#9670;&nbsp;</a></span>nutation_in_ecliptic_longitude_and_obliquity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def pa_coordinate.nutation_in_ecliptic_longitude_and_obliquity </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>greenwich_day</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>greenwich_month</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>greenwich_year</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Calculate nutation for two values: ecliptic longitude and obliquity, for a Greenwich date. </p>
+<dl class="section return"><dt>Returns</dt><dd>nutation in ecliptic longitude (degrees), nutation in obliquity (degrees) </dd></dl>
 
 </div>
 </div>

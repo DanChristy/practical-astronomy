@@ -286,3 +286,24 @@ def correct_for_precession(ra_hour,ra_minutes,ra_seconds,dec_deg,dec_minutes,dec
 
 	return corrected_ra_hour,corrected_ra_minutes,corrected_ra_seconds,corrected_dec_deg,corrected_dec_minutes,corrected_dec_seconds
 
+## @brief Calculate nutation for two values: ecliptic longitude and obliquity, for a Greenwich date.
+# @return nutation in ecliptic longitude (degrees), nutation in obliquity (degrees)
+def nutation_in_ecliptic_longitude_and_obliquity(greenwich_day, greenwich_month, greenwich_year):
+	jd_days = PM.CDJD(greenwich_day,greenwich_month,greenwich_year)
+	t_centuries = (jd_days - 2415020) /36525
+	a_deg = 100.0021358 * t_centuries
+	l_1_deg = 279.6967 + (0.000303 * t_centuries * t_centuries)
+	l_deg1 = l_1_deg + 360 * (a_deg - math.floor(a_deg))
+	l_deg2 = l_deg1 - 360 * math.floor(l_deg1/360)
+	l_rad = math.radians(l_deg2)
+	b_deg = 5.372617 * t_centuries
+	n_deg1 = 259.1833 - 360 * (b_deg - math.floor(b_deg))
+	n_deg2 = n_deg1 - 360 * (math.floor(n_deg1/360))
+	n_rad = math.radians(n_deg2)
+	nut_in_long_arcsec = -17.2 * math.sin(n_rad) - 1.3 * math.sin(2 * l_rad)
+	nut_in_obl_arcsec = 9.2 * math.cos(n_rad) + 0.5 * math.cos(2 * l_rad)
+
+	nut_in_long_deg = nut_in_long_arcsec / 3600
+	nut_in_obl_deg = nut_in_obl_arcsec / 3600
+
+	return nut_in_long_deg,nut_in_obl_deg

@@ -269,6 +269,23 @@ class test_precession(UT.TestCase):
 		self.assertEqual(corrected_dec_minutes,16,"Corrected Declination Minutes")
 		self.assertEqual(corrected_dec_seconds,9.12,"Corrected Declination Seconds")
 
+class test_nutation(UT.TestCase):
+	def setUp(self):
+		self.greenwich_day = 1
+		self.greenwich_month = 9
+		self.greenwich_year = 1988
+
+	def test_nutation(self):
+		nut_in_long_deg,nut_in_obl_deg = PC.nutation_in_ecliptic_longitude_and_obliquity(self.greenwich_day,self.greenwich_month,self.greenwich_year)
+
+		nut_in_long_deg = round(nut_in_long_deg,9)
+		nut_in_obl_deg = round(nut_in_obl_deg,7)
+
+		print("[GWDATE] {greenwich_month}/{greenwich_day}/{greenwich_year} = [NUTATION] [LON] {nut_in_long_deg} [OBL] {nut_in_obl_deg}".format(greenwich_month=self.greenwich_month,greenwich_day=self.greenwich_day,greenwich_year=self.greenwich_year,nut_in_long_deg=nut_in_long_deg,nut_in_obl_deg=nut_in_obl_deg))
+
+		self.assertEqual(nut_in_long_deg,0.001525808,"Nutation in Longitude (degrees)")
+		self.assertEqual(nut_in_obl_deg,0.0025671,"Nutation in Obliquity (degrees)")
+
 
 if __name__ == '__main__':
 	UT.main()

@@ -1,7 +1,8 @@
 var NAVTREE =
 [
   [ "Practical Astronomy", "index.html", [
-    [ "Glossary of Terms", "md__home_jimc_projects_practical-astronomy_lib_docs_glossary.html", null ],
+    [ "Welcome", "index.html", null ],
+    [ "Glossary of Terms", "md_src_glossary.html", null ],
     [ "Packages", null, [
       [ "Packages", "namespaces.html", "namespaces" ],
       [ "Package Functions", "namespacemembers.html", [

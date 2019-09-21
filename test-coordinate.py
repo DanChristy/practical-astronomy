@@ -212,6 +212,34 @@ class test_object_angles(UT.TestCase):
 		self.assertEqual(angle_min,40,"Angle Minutes")
 		self.assertEqual(angle_sec,25.86,"Angle Seconds")
 
+class test_rise_set(UT.TestCase):
+	def setUp(self):
+		self.ra_hours = 23
+		self.ra_minutes = 39
+		self.ra_seconds = 20
+		self.dec_deg = 21
+		self.dec_min = 42
+		self.dec_sec = 0
+		self.gw_date_day = 24
+		self.gw_date_month = 8
+		self.gw_date_year = 2010
+		self.geog_long_deg = 64
+		self.geog_lat_deg = 30
+		self.vert_shift_deg = 0.5667
+
+	def test_rising_and_setting(self):
+		rise_set_status,ut_rise_hour,ut_rise_min,ut_set_hour,ut_set_min,az_rise,az_set = PC.rising_and_setting(self.ra_hours,self.ra_minutes,self.ra_seconds,self.dec_deg,self.dec_min,self.dec_sec,self.gw_date_day,self.gw_date_month,self.gw_date_year,self.geog_long_deg,self.geog_lat_deg,self.vert_shift_deg)
+
+		print("[RA] {ra_hours}:{ra_minutes}:{ra_seconds} [DEC] {dec_deg}d {dec_min}m {dec_sec}s [GWD] {gw_date_month}/{gw_date_day}/{gw_date_year} [LON] {geog_long_deg} [LAT] {geog_lat_deg} [VS] {vert_shift_deg} = [STATUS] {rise_set_status} [UT] [RISE] {ut_rise_hour}:{ut_rise_min} [SET] {ut_set_hour}:{ut_set_min} [AZ] [RISE] {az_rise} [SET] {az_set}".format(ra_hours=self.ra_hours,ra_minutes=self.ra_minutes,ra_seconds=self.ra_seconds,dec_deg=self.dec_deg,dec_min=self.dec_min,dec_sec=self.dec_sec,gw_date_day=self.gw_date_day,gw_date_month=self.gw_date_month,gw_date_year=self.gw_date_year,geog_long_deg=self.geog_long_deg,geog_lat_deg=self.geog_lat_deg,vert_shift_deg=self.vert_shift_deg,rise_set_status=rise_set_status,ut_rise_hour=ut_rise_hour,ut_rise_min=ut_rise_min,ut_set_hour=ut_set_hour,ut_set_min=ut_set_min,az_rise=az_rise,az_set=az_set))
+
+		self.assertEqual(rise_set_status,"OK","Rise/Set Status")
+		self.assertEqual(ut_rise_hour,14,"UT Rise Hour")
+		self.assertEqual(ut_rise_min,16,"UT Rise Minute")
+		self.assertEqual(ut_set_hour,4,"UT Set Hour")
+		self.assertEqual(ut_set_min,10,"UT Set Minute")
+		self.assertEqual(az_rise,64.36,"AZ Rise")
+		self.assertEqual(az_set,295.64,"AZ Set")
+
 
 if __name__ == '__main__':
 	UT.main()

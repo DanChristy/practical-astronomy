@@ -145,6 +145,12 @@ Functions</h2></td></tr>
 <tr class="memitem:a9a1cd9f093aefad456f2f3a11404cbf0"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepa__macro.html#a9a1cd9f093aefad456f2f3a11404cbf0">GSTLST</a> (greenwich_hours, greenwich_minutes, greenwich_seconds, geographical_longitude)</td></tr>
 <tr class="memdesc:a9a1cd9f093aefad456f2f3a11404cbf0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert Greenwich Sidereal Time to Local Sidereal Time.  <a href="#a9a1cd9f093aefad456f2f3a11404cbf0">More...</a><br /></td></tr>
 <tr class="separator:a9a1cd9f093aefad456f2f3a11404cbf0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af6efc3cde72985849919d84a40007ad8"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepa__macro.html#af6efc3cde72985849919d84a40007ad8">LSTGST</a> (local_hours, local_minutes, local_seconds, longitude)</td></tr>
+<tr class="memdesc:af6efc3cde72985849919d84a40007ad8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert Local Sidereal Time to Greenwich Sidereal Time.  <a href="#af6efc3cde72985849919d84a40007ad8">More...</a><br /></td></tr>
+<tr class="separator:af6efc3cde72985849919d84a40007ad8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a933cb9031fd51a5140282136fd1457fa"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepa__macro.html#a933cb9031fd51a5140282136fd1457fa">GSTUT</a> (greenwich_sidereal_hours, greenwich_sidereal_minutes, greenwich_sidereal_seconds, greenwich_day, greenwich_month, greenwich_year)</td></tr>
+<tr class="memdesc:a933cb9031fd51a5140282136fd1457fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert Greenwich Sidereal Time to Universal Time.  <a href="#a933cb9031fd51a5140282136fd1457fa">More...</a><br /></td></tr>
+<tr class="separator:a933cb9031fd51a5140282136fd1457fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2a6a8fd6969c30207b04b11e9ff65987"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepa__macro.html#a2a6a8fd6969c30207b04b11e9ff65987">RAHA</a> (ra_hours, ra_minutes, ra_seconds, lct_hours, lct_minutes, lct_seconds, daylight_saving, zone_correction, local_day, local_month, local_year, geographical_longitude)</td></tr>
 <tr class="memdesc:a2a6a8fd6969c30207b04b11e9ff65987"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert Right Ascension to Hour Angle.  <a href="#a2a6a8fd6969c30207b04b11e9ff65987">More...</a><br /></td></tr>
 <tr class="separator:a2a6a8fd6969c30207b04b11e9ff65987"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -656,6 +662,60 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Convert Greenwich Sidereal Time to Local Sidereal Time. </p>
+
+</div>
+</div>
+<a id="a933cb9031fd51a5140282136fd1457fa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a933cb9031fd51a5140282136fd1457fa">&#9670;&nbsp;</a></span>GSTUT()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def pa_macro.GSTUT </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>greenwich_sidereal_hours</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>greenwich_sidereal_minutes</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>greenwich_sidereal_seconds</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>greenwich_day</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>greenwich_month</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>greenwich_year</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Convert Greenwich Sidereal Time to Universal Time. </p>
 
 </div>
 </div>
@@ -1226,6 +1286,48 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Convert Local Civil Time to Universal Time. </p>
+
+</div>
+</div>
+<a id="af6efc3cde72985849919d84a40007ad8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af6efc3cde72985849919d84a40007ad8">&#9670;&nbsp;</a></span>LSTGST()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def pa_macro.LSTGST </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>local_hours</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>local_minutes</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>local_seconds</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>longitude</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Convert Local Sidereal Time to Greenwich Sidereal Time. </p>
 
 </div>
 </div>

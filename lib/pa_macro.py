@@ -219,6 +219,27 @@ def GSTLST(greenwich_hours,greenwich_minutes,greenwich_seconds,geographical_long
 
 	return C - (24 * math.floor(C / 24))
 
+## @brief Convert Local Sidereal Time to Greenwich Sidereal Time
+def LSTGST(local_hours,local_minutes,local_seconds,longitude):
+	A = HMSDH(local_hours,local_minutes,local_seconds)
+	B = longitude / 15
+	C = A - B
+	
+	return C - (24 * math.floor(C / 24))
+
+## @brief Convert Greenwich Sidereal Time to Universal Time
+def GSTUT(greenwich_sidereal_hours,greenwich_sidereal_minutes,greenwich_sidereal_seconds,greenwich_day,greenwich_month,greenwich_year):
+	A = CDJD(greenwich_day,greenwich_month,greenwich_year)
+	B = A - 2451545
+	C = B / 36525
+	D = 6.697374558 + (2400.051336 * C) + (0.000025862 * C * C)
+	E = D - (24 * math.floor(D / 24))
+	F = HMSDH(greenwich_sidereal_hours,greenwich_sidereal_minutes,greenwich_sidereal_seconds)
+	G = F - E
+	H = G - (24 * math.floor(G / 24))
+	
+	return H * 0.9972695663
+
 ## @brief Convert Right Ascension to Hour Angle
 def RAHA(ra_hours, ra_minutes, ra_seconds, lct_hours, lct_minutes, lct_seconds, daylight_saving, zone_correction, local_day, local_month, local_year, geographical_longitude):
 	A = LctUT(lct_hours, lct_minutes, lct_seconds, daylight_saving, zone_correction, local_day, local_month, local_year)

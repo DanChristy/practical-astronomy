@@ -214,4 +214,51 @@ def angle_between_two_objects(ra_long_1_hour_deg,ra_long_1_min,ra_long_1_sec,dec
 	angle_sec = PM.DDSec(d_deg)
 
 	return angle_deg,angle_min,angle_sec
-	
+
+## @brief Rising and setting times
+# @param ra_hours		Right Ascension, in hours.
+# @param ra_minutes		Right Ascension, in minutes.
+# @param ra_seconds		Right Ascension, in seconds.
+# @param dec_deg		Declination, in degrees.
+# @param dec_min		Declination, in minutes.
+# @param dec_sec		Declination, in seconds.
+# @param gw_date_day	Greenwich Date, day part.
+# @param gw_date_month	Greenwich Date, month part.
+# @param gw_date_year	Greenwich Date, year part.
+# @param geog_long_deg	Geographical Longitude, in degrees.
+# @param geog_lat_deg	Geographical Latitude, in degrees.
+# @param vert_shift_deg	Vertical Shift, in degrees.
+# @return
+# @arg @b rise_set_status	"Never Rises", "Circumpolar", or "OK".
+# @arg @b ut_rise_hour		Rise time, UT, hour part.
+# @arg @b ut_rise_min		Rise time, UT, minute part.
+# @arg @b ut_set_hour		Set time, UT, hour part.
+# @arg @b ut_set_min		Set time, UT, minute part.
+# @arg @b az_rise			Azimuth angle, at rise.
+# @arg @b az_set			Azimuth angle, at set.
+def rising_and_setting(ra_hours,ra_minutes,ra_seconds,dec_deg,dec_min,dec_sec,gw_date_day,gw_date_month,gw_date_year,geog_long_deg,geog_lat_deg,vert_shift_deg):
+	ra_hours1 = PM.HMSDH(ra_hours,ra_minutes,ra_seconds)
+	dec_rad = math.radians(PM.DMSDD(dec_deg,dec_min,dec_sec))
+	vertical_displ_radians = math.radians(vert_shift_deg)
+	geo_lat_radians = math.radians(geog_lat_deg)
+	cos_h = -(math.sin(vertical_displ_radians) + math.sin(geo_lat_radians) * math.sin(dec_rad)) / (math.cos(geo_lat_radians) * math.cos(dec_rad))
+	h_hours = PM.DDDH(PM.Degrees(math.acos(cos_h)))
+	lst_rise_hours = (ra_hours1-h_hours)-24*math.floor((ra_hours1-h_hours)/24)
+	lst_set_hours = (ra_hours1+h_hours)-24*math.floor((ra_hours1+h_hours)/24)
+	a_deg = PM.Degrees(math.acos((math.sin(dec_rad)+math.sin(vertical_displ_radians)*math.sin(geo_lat_radians))/(math.cos(vertical_displ_radians)*math.cos(geo_lat_radians))))
+	az_rise_deg = a_deg - 360 * math.floor(a_deg/360)
+	az_set_deg = (360-a_deg)-360*math.floor((360-a_deg)/360)
+	ut_rise_hours1 = PM.GSTUT(PM.LSTGST(lst_rise_hours,0,0,geog_long_deg),0,0,gw_date_day,gw_date_month,gw_date_year)
+	ut_set_hours1 = PM.GSTUT(PM.LSTGST(lst_set_hours,0,0,geog_long_deg),0,0,gw_date_day,gw_date_month,gw_date_year)
+	ut_rise_adjusted_hours = ut_rise_hours1 + 0.008333
+	ut_set_adjusted_hours = ut_set_hours1 + 0.008333
+
+	rise_set_status = "never rises" if cos_h > 1 else "circumpolar" if cos_h < -1 else "OK"
+	ut_rise_hour = PM.DHHour(ut_rise_adjusted_hours) if rise_set_status == "OK" else None
+	ut_rise_min = PM.DHMin(ut_rise_adjusted_hours) if rise_set_status == "OK" else None
+	ut_set_hour = PM.DHHour(ut_set_adjusted_hours) if rise_set_status == "OK" else None
+	ut_set_min = PM.DHMin(ut_set_adjusted_hours) if rise_set_status == "OK" else None
+	az_rise = round(az_rise_deg,2) if rise_set_status == "OK" else None
+	az_set = round(az_set_deg,2) if rise_set_status == "OK" else None
+
+	return rise_set_status,ut_rise_hour,ut_rise_min,ut_set_hour,ut_set_min,az_rise,az_set

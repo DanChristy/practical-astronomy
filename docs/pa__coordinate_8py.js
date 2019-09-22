@@ -2,6 +2,7 @@ var pa__coordinate_8py =
 [
     [ "angle_between_two_objects", "pa__coordinate_8py.html#a6ea49862f6e8f40d0c5463d07b38c307", null ],
     [ "angle_to_decimal_degrees", "pa__coordinate_8py.html#a254ea5ef13b49a04c882c0246bc4050c", null ],
+    [ "atmospheric_refraction", "pa__coordinate_8py.html#a6e24a564541d9b2215251df60848c3fb", null ],
     [ "correct_for_aberration", "pa__coordinate_8py.html#abaee18abbc680e491639a81267d738d7", null ],
     [ "correct_for_precession", "pa__coordinate_8py.html#aee79944decd91afc027940d4629868a2", null ],
     [ "decimal_degrees_to_angle", "pa__coordinate_8py.html#a474e2869b95666be1eee615006614f50", null ],

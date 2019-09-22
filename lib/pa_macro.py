@@ -530,3 +530,52 @@ def EccentricAnomaly(AM,EC):
 		AE = AE - D
 
 	return AE
+
+def Refract(Y2,SW,PR,TR):
+	Y = math.radians(Y2)
+	
+	D = -1 if SW[0].lower() == "t" else 1
+
+	if D == -1:
+		Y3 = Y
+		Y1 = Y
+		R1 = 0
+
+		while 1 == 1:
+			Y = Y1 + R1
+			Q = Y
+			
+			RF = Refract_L3035(PR,TR,Y,D)
+
+			if Y < -0.087:
+				return 0
+			
+			R2 = RF
+
+			if (R2 == 0) or (abs(R2 - R1) < 0.000001):
+				Q = Y3
+				return Degrees(Q + RF)
+
+			R1 = R2
+
+	RF = Refract_L3035(PR,TR,Y,D)
+
+	if Y < -0.087:
+		return 0
+
+	Q = Y
+
+	return Degrees(Q + RF)
+			
+def Refract_L3035(PR,TR,Y,D):
+	if Y < 0.2617994:
+		if Y < -0.087:
+			return 0
+
+		YD = Degrees(Y)
+		A = ((0.00002 * YD + 0.0196) * YD + 0.1594) * PR
+		B = (273 + TR) * ((0.0845 * YD + 0.505) * YD + 1)
+
+		return math.radians(-(A / B) * D)
+
+	return -D * 0.00007888888 * PR / ((273 + TR) * math.tan(Y))

@@ -136,6 +136,9 @@ Functions</h2></td></tr>
 <tr class="memitem:abaee18abbc680e491639a81267d738d7"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepa__coordinate.html#abaee18abbc680e491639a81267d738d7">correct_for_aberration</a> (ut_hour, ut_minutes, ut_seconds, gw_day, gw_month, gw_year, true_ecl_long_deg, true_ecl_long_min, true_ecl_long_sec, true_ecl_lat_deg, true_ecl_lat_min, true_ecl_lat_sec)</td></tr>
 <tr class="memdesc:abaee18abbc680e491639a81267d738d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Correct ecliptic coordinates for the effects of aberration.  <a href="#abaee18abbc680e491639a81267d738d7">More...</a><br /></td></tr>
 <tr class="separator:abaee18abbc680e491639a81267d738d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e24a564541d9b2215251df60848c3fb"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepa__coordinate.html#a6e24a564541d9b2215251df60848c3fb">atmospheric_refraction</a> (true_ra_hour, true_ra_min, true_ra_sec, true_dec_deg, true_dec_min, true_dec_sec, coordinate_type, geog_long_deg, geog_lat_deg, daylight_saving_hours, timezone_hours, lcd_day, lcd_month, lcd_year, lct_hour, lct_min, lct_sec, atmospheric_pressure_mbar, atmospheric_temperature_celsius)</td></tr>
+<tr class="memdesc:a6e24a564541d9b2215251df60848c3fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate corrected RA/Dec, accounting for atmospheric refraction.  <a href="#a6e24a564541d9b2215251df60848c3fb">More...</a><br /></td></tr>
+<tr class="separator:a6e24a564541d9b2215251df60848c3fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="a6ea49862f6e8f40d0c5463d07b38c307"></a>
@@ -267,6 +270,139 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Convert an Angle (degrees, minutes, and seconds) to Decimal Degrees. </p>
+
+</div>
+</div>
+<a id="a6e24a564541d9b2215251df60848c3fb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e24a564541d9b2215251df60848c3fb">&#9670;&nbsp;</a></span>atmospheric_refraction()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def pa_coordinate.atmospheric_refraction </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>true_ra_hour</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>true_ra_min</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>true_ra_sec</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>true_dec_deg</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>true_dec_min</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>true_dec_sec</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>coordinate_type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>geog_long_deg</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>geog_lat_deg</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>daylight_saving_hours</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>timezone_hours</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>lcd_day</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>lcd_month</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>lcd_year</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>lct_hour</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>lct_min</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>lct_sec</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>atmospheric_pressure_mbar</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>atmospheric_temperature_celsius</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Calculate corrected RA/Dec, accounting for atmospheric refraction. </p>
+<p>NOTE: Valid values for coordinate_type are "TRUE" and "APPARENT". </p><dl class="section return"><dt>Returns</dt><dd>corrected RA hours,minutes,seconds and corrected Declination degrees,minutes,seconds </dd></dl>
 
 </div>
 </div>

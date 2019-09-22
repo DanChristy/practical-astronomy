@@ -313,6 +313,40 @@ class test_aberration(UT.TestCase):
 		self.assertEqual(apparent_ecl_lat_min,32,"Apparent Ecliptic Latitude Minutes")
 		self.assertEqual(apparent_ecl_lat_sec,56.33,"Apparent Ecliptic Latitude Seconds")
 
+class test_atmospheric_refraction(UT.TestCase):
+	def setUp(self):
+		self.true_ra_hour = 23
+		self.true_ra_min = 14
+		self.true_ra_sec = 0
+		self.true_dec_deg = 40
+		self.true_dec_min = 10
+		self.true_dec_sec = 0
+		self.coordinate_type = "TRUE"
+		self.geog_long_deg = 0.17
+		self.geog_lat_deg = 51.2036110
+		self.daylight_saving_hours = 0
+		self.timezone_hours = 0
+		self.lcd_day = 23
+		self.lcd_month = 3
+		self.lcd_year = 1987
+		self.lct_hour = 1
+		self.lct_min = 1
+		self.lct_sec = 24
+		self.atmospheric_pressure_mbar = 1012
+		self.atmospheric_temperature_celsius = 21.7
+
+	def test_atmospheric_refraction(self):
+		corrected_ra_hour,corrected_ra_min,corrected_ra_sec,corrected_dec_deg,corrected_dec_min,corrected_dec_sec = PC.atmospheric_refraction(self.true_ra_hour,self.true_ra_min,self.true_ra_sec,self.true_dec_deg,self.true_dec_min,self.true_dec_sec,self.coordinate_type,self.geog_long_deg,self.geog_lat_deg,self.daylight_saving_hours,self.timezone_hours,self.lcd_day,self.lcd_month,self.lcd_year,self.lct_hour,self.lct_min,self.lct_sec,self.atmospheric_pressure_mbar,self.atmospheric_temperature_celsius)
+
+		print("[Refraction] [RA] {true_ra_hour}:{true_ra_min}:{true_ra_sec} [DEC] {true_dec_deg}d {true_dec_min}m {true_dec_sec}s [COORD TYPE] {coordinate_type} [GEOG LON/LAT] {geog_long_deg}d/{geog_lat_deg}d [DS HOURS] {daylight_saving_hours} [TZ HOURS] {timezone_hours} [LCD] {lcd_month}/{lcd_day}/{lcd_year} [LCT] {lct_hour}:{lct_min}:{lct_sec} [ATM] [PRESS MBR] {atmospheric_pressure_mbar} [TEMP C] {atmospheric_temperature_celsius} = [CORRECTED] [RA] {corrected_ra_hour}:{corrected_ra_min}:{corrected_ra_sec} [DEC] {corrected_dec_deg}d {corrected_dec_min}m {corrected_dec_sec}s".format(true_ra_hour=self.true_ra_hour,true_ra_min=self.true_ra_min,true_ra_sec=self.true_ra_sec,true_dec_deg=self.true_dec_deg,true_dec_min=self.true_dec_min,true_dec_sec=self.true_dec_sec,coordinate_type=self.coordinate_type,geog_long_deg=self.geog_long_deg,geog_lat_deg=self.geog_lat_deg,daylight_saving_hours=self.daylight_saving_hours,timezone_hours=self.timezone_hours,lcd_day=self.lcd_day,lcd_month=self.lcd_month,lcd_year=self.lcd_year,lct_hour=self.lct_hour,lct_min=self.lct_min,lct_sec=self.lct_sec,atmospheric_pressure_mbar=self.atmospheric_pressure_mbar,atmospheric_temperature_celsius=self.atmospheric_temperature_celsius,corrected_ra_hour=corrected_ra_hour,corrected_ra_min=corrected_ra_min,corrected_ra_sec=corrected_ra_sec,corrected_dec_deg=corrected_dec_deg,corrected_dec_min=corrected_dec_min,corrected_dec_sec=corrected_dec_sec))
+
+		self.assertEqual(corrected_ra_hour,23,"Corrected RA Hours")
+		self.assertEqual(corrected_ra_min,13,"Corrected RA Minutes")
+		self.assertEqual(corrected_ra_sec,44.74,"Corrected RA Seconds")
+		self.assertEqual(corrected_dec_deg,40,"Corrected Declination Degrees")
+		self.assertEqual(corrected_dec_min,19,"Corrected Declination Minutes")
+		self.assertEqual(corrected_dec_sec,45.76,"Corrected Declination Seconds")
+
 
 if __name__ == '__main__':
 	UT.main()

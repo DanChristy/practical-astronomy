@@ -327,3 +327,28 @@ def correct_for_aberration(ut_hour,ut_minutes,ut_seconds,gw_day,gw_month,gw_year
 	apparent_ecl_lat_sec = PM.DDSec(apparent_lat_deg)
 
 	return apparent_ecl_long_deg,apparent_ecl_long_min,apparent_ecl_long_sec,apparent_ecl_lat_deg,apparent_ecl_lat_min,apparent_ecl_lat_sec
+
+## @brief Calculate corrected RA/Dec, accounting for atmospheric refraction.
+# NOTE: Valid values for coordinate_type are "TRUE" and "APPARENT".
+# @return corrected RA hours,minutes,seconds and corrected Declination degrees,minutes,seconds
+def atmospheric_refraction(true_ra_hour,true_ra_min,true_ra_sec,true_dec_deg,true_dec_min,true_dec_sec,coordinate_type,geog_long_deg,geog_lat_deg,daylight_saving_hours,timezone_hours,lcd_day,lcd_month,lcd_year,lct_hour,lct_min,lct_sec,atmospheric_pressure_mbar,atmospheric_temperature_celsius):
+	ha_hour = PM.RAHA(true_ra_hour,true_ra_min,true_ra_sec,lct_hour,lct_min,lct_sec,daylight_saving_hours,timezone_hours,lcd_day,lcd_month,lcd_year,geog_long_deg)
+
+	azimuth_deg = PM.EQAz(ha_hour,0,0,true_dec_deg,true_dec_min,true_dec_sec,geog_lat_deg)
+
+	altitude_deg = PM.EQAlt(ha_hour,0,0,true_dec_deg,true_dec_min,true_dec_sec,geog_lat_deg)
+	
+	corrected_altitude_deg = PM.Refract(altitude_deg,coordinate_type,atmospheric_pressure_mbar,atmospheric_temperature_celsius)
+
+	corrected_ha_hour = PM.HORHa(azimuth_deg,0,0,corrected_altitude_deg,0,0,geog_lat_deg)
+	corrected_ra_hour1 = PM.HARA(corrected_ha_hour,0,0,lct_hour,lct_min,lct_sec,daylight_saving_hours,timezone_hours,lcd_day,lcd_month,lcd_year,geog_long_deg)
+	corrected_dec_deg1 = PM.HORDec(azimuth_deg,0,0,corrected_altitude_deg,0,0,geog_lat_deg)
+
+	corrected_ra_hour = PM.DHHour(corrected_ra_hour1)
+	corrected_ra_min = PM.DHMin(corrected_ra_hour1)
+	corrected_ra_sec = PM.DHSec(corrected_ra_hour1)
+	corrected_dec_deg = PM.DDDeg(corrected_dec_deg1)
+	corrected_dec_min = PM.DDMin(corrected_dec_deg1)
+	corrected_dec_sec = PM.DDSec(corrected_dec_deg1)
+
+	return corrected_ra_hour,corrected_ra_min,corrected_ra_sec,corrected_dec_deg,corrected_dec_min,corrected_dec_sec

@@ -286,6 +286,33 @@ class test_nutation(UT.TestCase):
 		self.assertEqual(nut_in_long_deg,0.001525808,"Nutation in Longitude (degrees)")
 		self.assertEqual(nut_in_obl_deg,0.0025671,"Nutation in Obliquity (degrees)")
 
+class test_aberration(UT.TestCase):
+	def setUp(self):
+		self.ut_hour = 0
+		self.ut_minutes = 0
+		self.ut_seconds = 0
+		self.gw_day = 8
+		self.gw_month = 9
+		self.gw_year = 1988
+		self.true_ecl_long_deg = 352
+		self.true_ecl_long_min = 37
+		self.true_ecl_long_sec = 10.1
+		self.true_ecl_lat_deg = -1
+		self.true_ecl_lat_min = 32
+		self.true_ecl_lat_sec = 56.4
+
+	def test_correct_for_aberration(self):
+		apparent_ecl_long_deg,apparent_ecl_long_min,apparent_ecl_long_sec,apparent_ecl_lat_deg,apparent_ecl_lat_min,apparent_ecl_lat_sec = PC.correct_for_aberration(self.ut_hour,self.ut_minutes,self.ut_seconds,self.gw_day,self.gw_month,self.gw_year,self.true_ecl_long_deg,self.true_ecl_long_min,self.true_ecl_long_sec,self.true_ecl_lat_deg,self.true_ecl_lat_min,self.true_ecl_lat_sec)
+
+		print("[Aberration] [UT] {ut_hour}:{ut_minutes}:{ut_seconds} [GWD] {gw_month}/{gw_day}/{gw_year} [ECL] [LON] {true_ecl_long_deg}d {true_ecl_long_min}m {true_ecl_long_sec}s [LAT] {true_ecl_lat_deg}d {true_ecl_lat_min}m {true_ecl_lat_sec}s = [Apparent ECL] [LON] {apparent_ecl_long_deg}d {apparent_ecl_long_min}m {apparent_ecl_long_sec}s [LAT] {apparent_ecl_lat_deg}d {apparent_ecl_lat_min}m {apparent_ecl_lat_sec}s".format(ut_hour=self.ut_hour,ut_minutes=self.ut_minutes,ut_seconds=self.ut_seconds,gw_month=self.gw_month,gw_day=self.gw_day,gw_year=self.gw_year,true_ecl_long_deg=self.true_ecl_long_deg,true_ecl_long_min=self.true_ecl_long_min,true_ecl_long_sec=self.true_ecl_long_sec,true_ecl_lat_deg=self.true_ecl_lat_deg,true_ecl_lat_min=self.true_ecl_lat_min,true_ecl_lat_sec=self.true_ecl_lat_sec,apparent_ecl_long_deg=apparent_ecl_long_deg,apparent_ecl_long_min=apparent_ecl_long_min,apparent_ecl_long_sec=apparent_ecl_long_sec,apparent_ecl_lat_deg=apparent_ecl_lat_deg,apparent_ecl_lat_min=apparent_ecl_lat_min,apparent_ecl_lat_sec=apparent_ecl_lat_sec))
+
+		self.assertEqual(apparent_ecl_long_deg,352,"Apparent Ecliptic Longitude Degrees")
+		self.assertEqual(apparent_ecl_long_min,37,"Apparent Ecliptic Longitude Minutes")
+		self.assertEqual(apparent_ecl_long_sec,30.45,"Apparent Ecliptic Longitude Seconds")
+		self.assertEqual(apparent_ecl_lat_deg,-1,"Apparent Ecliptic Latitude Degrees")
+		self.assertEqual(apparent_ecl_lat_min,32,"Apparent Ecliptic Latitude Minutes")
+		self.assertEqual(apparent_ecl_lat_sec,56.33,"Apparent Ecliptic Latitude Seconds")
+
 
 if __name__ == '__main__':
 	UT.main()

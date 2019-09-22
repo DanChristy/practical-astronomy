@@ -441,3 +441,92 @@ def Obliq(greenwich_day,greenwich_month,greenwich_year):
 	E = D / 3600
 	
 	return 23.43929167 - E + NutatObl(greenwich_day,greenwich_month,greenwich_year)
+
+def SunLong(LCH,LCM,LCS,DS,ZC,LD,LM,LY):
+	AA = LctGDay(LCH, LCM, LCS, DS, ZC, LD, LM, LY)
+	BB = LctGMonth(LCH, LCM, LCS, DS, ZC, LD, LM, LY)
+	CC = LctGYear(LCH, LCM, LCS, DS, ZC, LD, LM, LY)
+	UT = LctUT(LCH, LCM, LCS, DS, ZC, LD, LM, LY)
+	DJ = CDJD(AA, BB, CC) - 2415020
+	T = (DJ / 36525) + (UT / 876600)
+	T2 = T * T
+	A = 100.0021359 * T
+	B = 360 * (A - math.floor(A))
+	
+	L = 279.69668 + 0.0003025 * T2 + B
+	A = 99.99736042 * T
+	B = 360 * (A - math.floor(A))
+	
+	M1 = 358.47583 - (0.00015 + 0.0000033 * T) * T2 + B
+	EC = 0.01675104 - 0.0000418 * T - 0.000000126 * T2
+
+	AM = math.radians(M1)
+	AT = TrueAnomaly(AM, EC)
+	AE = EccentricAnomaly(AM, EC)
+
+	A = 62.55209472 * T
+	B = 360 * (A - math.floor(A))
+
+	A1 = math.radians(153.23 + B)
+	A = 125.1041894 * T
+	B = 360 * (A - math.floor(A))
+
+	B1 = math.radians(216.57 + B)
+	A = 91.56766028 * T
+	B = 360 * (A - math.floor(A))
+
+	C1 = math.radians(312.69 + B)
+	A = 1236.853095 * T
+	B = 360 * (A - math.floor(A))
+
+	D1 = math.radians(350.74 - 0.00144 * T2 + B)
+	E1 = math.radians(231.19 + 20.2 * T)
+	A = 183.1353208 * T
+	B = 360 * (A - math.floor(A))
+	H1 = math.radians(353.4 + B)
+
+	D2 = 0.00134 * math.cos(A1) + 0.00154 * math.cos(B1) + 0.002 * math.cos(C1)
+	D2 = D2 + 0.00179 * math.sin(D1) + 0.00178 * math.sin(E1)
+	D3 = 0.00000543 * math.sin(A1) + 0.00001575 * math.sin(B1)
+	D3 = D3 + 0.00001627 * math.sin(C1) + 0.00003076 * math.cos(D1)
+	D3 = D3 + 0.00000927 * math.sin(H1)
+
+	SR = AT + math.radians(L - M1 + D2)
+	TP = 6.283185308
+
+	SR = SR - TP * math.floor(SR / TP)
+
+	return Degrees(SR)
+
+def TrueAnomaly(AM,EC):
+	TP = 6.283185308
+	M = AM - TP * math.floor(AM / TP)
+	AE = M
+
+	while 1 == 1:
+		D = AE - (EC * math.sin(AE)) - M
+		if abs(D) < 0.000001:
+			break
+		D = D / (1 - (EC * math.cos(AE)))
+		AE = AE - D
+
+	A = math.sqrt((1 + EC) / (1 - EC)) * math.tan(AE / 2)
+	AT = 2 * math.atan(A)
+
+	return AT
+
+def EccentricAnomaly(AM,EC):
+	TP = 6.283185308
+	M = AM - TP * math.floor(AM / TP)
+	AE = M
+
+	while 1 == 1:
+		D = AE - (EC * math.sin(AE)) - M
+
+		if abs(D) < 0.000001:
+			break
+
+		D = D / (1 - (EC * math.cos(AE)))
+		AE = AE - D
+
+	return AE

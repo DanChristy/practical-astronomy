@@ -307,3 +307,23 @@ def nutation_in_ecliptic_longitude_and_obliquity(greenwich_day, greenwich_month,
 	nut_in_obl_deg = nut_in_obl_arcsec / 3600
 
 	return nut_in_long_deg,nut_in_obl_deg
+
+## @brief Correct ecliptic coordinates for the effects of aberration.
+# @return apparent ecliptic longitude (degrees, minutes, seconds), apparent ecliptic latitude (degrees, minutes, seconds)
+def correct_for_aberration(ut_hour,ut_minutes,ut_seconds,gw_day,gw_month,gw_year,true_ecl_long_deg,true_ecl_long_min,true_ecl_long_sec,true_ecl_lat_deg,true_ecl_lat_min,true_ecl_lat_sec):
+	true_long_deg = PM.DMSDD(true_ecl_long_deg,true_ecl_long_min,true_ecl_long_sec)
+	true_lat_deg = PM.DMSDD(true_ecl_lat_deg,true_ecl_lat_min,true_ecl_lat_sec)
+	sun_true_long_deg = PM.SunLong(ut_hour,ut_minutes,ut_seconds,0,0,gw_day,gw_month,gw_year)
+	dlong_arcsec = -20.5 * math.cos(math.radians(sun_true_long_deg-true_long_deg))/math.cos(math.radians(true_lat_deg))
+	dlat_arcsec = -20.5 * math.sin(math.radians(sun_true_long_deg-true_long_deg))*math.sin(math.radians(true_lat_deg))
+	apparent_long_deg = true_long_deg + (dlong_arcsec/3600)
+	apparent_lat_deg = true_lat_deg + (dlat_arcsec / 3600)
+
+	apparent_ecl_long_deg = PM.DDDeg(apparent_long_deg)
+	apparent_ecl_long_min = PM.DDMin(apparent_long_deg)
+	apparent_ecl_long_sec = PM.DDSec(apparent_long_deg)
+	apparent_ecl_lat_deg = PM.DDDeg(apparent_lat_deg)
+	apparent_ecl_lat_min = PM.DDMin(apparent_lat_deg)
+	apparent_ecl_lat_sec = PM.DDSec(apparent_lat_deg)
+
+	return apparent_ecl_long_deg,apparent_ecl_long_min,apparent_ecl_long_sec,apparent_ecl_lat_deg,apparent_ecl_lat_min,apparent_ecl_lat_sec

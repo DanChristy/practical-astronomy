@@ -347,6 +347,40 @@ class test_atmospheric_refraction(UT.TestCase):
 		self.assertEqual(corrected_dec_min,19,"Corrected Declination Minutes")
 		self.assertEqual(corrected_dec_sec,45.76,"Corrected Declination Seconds")
 
+class test_geocentric_parallax(UT.TestCase):
+	def setUp(self):
+		self.ra_hour = 22
+		self.ra_min = 35
+		self.ra_sec = 19
+		self.dec_deg = -7
+		self.dec_min = 41
+		self.dec_sec = 13
+		self.coordinate_type = "TRUE"
+		self.equatorial_hor_parallax_deg = 1.019167
+		self.geog_long_deg = -100
+		self.geog_lat_deg = 50
+		self.height_m = 60
+		self.daylight_saving = 0
+		self.timezone_hours = -6
+		self.lcd_day = 26
+		self.lcd_month = 2
+		self.lcd_year = 1979
+		self.lct_hour = 10
+		self.lct_min = 45
+		self.lct_sec = 0
+	
+	def test_corrections_for_geocentric_parallax(self):
+		corrected_ra_hour,corrected_ra_min,corrected_ra_sec,corrected_dec_deg,corrected_dec_min,corrected_dec_sec = PC.corrections_for_geocentric_parallax(self.ra_hour,self.ra_min,self.ra_sec,self.dec_deg,self.dec_min,self.dec_sec,self.coordinate_type,self.equatorial_hor_parallax_deg,self.geog_long_deg,self.geog_lat_deg,self.height_m,self.daylight_saving,self.timezone_hours,self.lcd_day,self.lcd_month,self.lcd_year,self.lct_hour,self.lct_min,self.lct_sec)
+
+		print("[Geocentric Parallax] [RA] {ra_hour}:{ra_min}:{ra_sec} [DEC] {dec_deg}d {dec_min}m {dec_sec}s [COORD TYPE] {coordinate_type} [EQ HOR PARA DEG] {equatorial_hor_parallax_deg} [GEOG] [LON] {geog_long_deg} [LAT] {geog_lat_deg} [HEIGHT] {height_m} [DS] {daylight_saving} [TZ] {timezone_hours} [LCD] {lcd_month}/{lcd_day}/{lcd_year} [LCT] {lct_hour}:{lct_min}:{lct_sec} = [CORRECTED] [RA] {corrected_ra_hour}:{corrected_ra_min}:{corrected_ra_sec} [DEC] {corrected_dec_deg}d {corrected_dec_min}m {corrected_dec_sec}s".format(ra_hour=self.ra_hour,ra_min=self.ra_min,ra_sec=self.ra_sec,dec_deg=self.dec_deg,dec_min=self.dec_min,dec_sec=self.dec_sec,coordinate_type=self.coordinate_type,equatorial_hor_parallax_deg=self.equatorial_hor_parallax_deg,geog_long_deg=self.geog_long_deg,geog_lat_deg=self.geog_lat_deg,height_m=self.height_m,daylight_saving=self.daylight_saving,timezone_hours=self.timezone_hours,lcd_day=self.lcd_day,lcd_month=self.lcd_month,lcd_year=self.lcd_year,lct_hour=self.lct_hour,lct_min=self.lct_min,lct_sec=self.lct_sec,corrected_ra_hour=corrected_ra_hour,corrected_ra_min=corrected_ra_min,corrected_ra_sec=corrected_ra_sec,corrected_dec_deg=corrected_dec_deg,corrected_dec_min=corrected_dec_min,corrected_dec_sec=corrected_dec_sec))
+
+		self.assertEqual(corrected_ra_hour,22,"Corrected RA Hours")
+		self.assertEqual(corrected_ra_min,36,"Corrected RA Minutes")
+		self.assertEqual(corrected_ra_sec,43.22,"Corrected RA Seconds")
+		self.assertEqual(corrected_dec_deg,-8,"Corrected Declination Degrees")
+		self.assertEqual(corrected_dec_min,32,"Corrected Declination Minutes")
+		self.assertEqual(corrected_dec_sec,17.4,"Corrected Declination Seconds")
+
 
 if __name__ == '__main__':
 	UT.main()

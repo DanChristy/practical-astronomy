@@ -352,3 +352,24 @@ def atmospheric_refraction(true_ra_hour,true_ra_min,true_ra_sec,true_dec_deg,tru
 	corrected_dec_sec = PM.DDSec(corrected_dec_deg1)
 
 	return corrected_ra_hour,corrected_ra_min,corrected_ra_sec,corrected_dec_deg,corrected_dec_min,corrected_dec_sec
+
+## @brief Calculate corrected RA/Dec, accounting for geocentric parallax.
+# NOTE: Valid values for coordinate_type are "TRUE" and "APPARENT".
+# @return corrected RA hours,minutes,seconds and corrected Declination degrees,minutes,seconds
+def corrections_for_geocentric_parallax(ra_hour,ra_min,ra_sec,dec_deg,dec_min,dec_sec,coordinate_type,equatorial_hor_parallax_deg,geog_long_deg,geog_lat_deg,height_m,daylight_saving,timezone_hours,lcd_day,lcd_month,lcd_year,lct_hour,lct_min,lct_sec):
+	ha_hours = PM.RAHA(ra_hour,ra_min,ra_sec,lct_hour,lct_min,lct_sec,daylight_saving,timezone_hours,lcd_day,lcd_month,lcd_year,geog_long_deg)
+
+	corrected_ha_hours = PM.ParallaxHA(ha_hours,0,0,dec_deg,dec_min,dec_sec,coordinate_type,geog_lat_deg,height_m,equatorial_hor_parallax_deg)
+
+	corrected_ra_hours = PM.HARA(corrected_ha_hours,0,0,lct_hour,lct_min,lct_sec,daylight_saving,timezone_hours,lcd_day,lcd_month,lcd_year,geog_long_deg)
+
+	corrected_dec_deg1 = PM.ParallaxDec(ha_hours,0,0,dec_deg,dec_min,dec_sec,coordinate_type,geog_lat_deg,height_m,equatorial_hor_parallax_deg)
+
+	corrected_ra_hour = PM.DHHour(corrected_ra_hours)
+	corrected_ra_min = PM.DHMin(corrected_ra_hours)
+	corrected_ra_sec = PM.DHSec(corrected_ra_hours)
+	corrected_dec_deg = PM.DDDeg(corrected_dec_deg1)
+	corrected_dec_min = PM.DDMin(corrected_dec_deg1)
+	corrected_dec_sec = PM.DDSec(corrected_dec_deg1)
+
+	return corrected_ra_hour,corrected_ra_min,corrected_ra_sec,corrected_dec_deg,corrected_dec_min,corrected_dec_sec

@@ -5,6 +5,7 @@ var pa__coordinate_8py =
     [ "atmospheric_refraction", "pa__coordinate_8py.html#a6e24a564541d9b2215251df60848c3fb", null ],
     [ "correct_for_aberration", "pa__coordinate_8py.html#abaee18abbc680e491639a81267d738d7", null ],
     [ "correct_for_precession", "pa__coordinate_8py.html#aee79944decd91afc027940d4629868a2", null ],
+    [ "corrections_for_geocentric_parallax", "pa__coordinate_8py.html#a71aeafca0e8e028b70a5a5d9b636e934", null ],
     [ "decimal_degrees_to_angle", "pa__coordinate_8py.html#a474e2869b95666be1eee615006614f50", null ],
     [ "ecliptic_coordinate_to_equatorial_coordinate", "pa__coordinate_8py.html#adb5c0eea5dfebdd2fe0f1133aaf32d5f", null ],
     [ "equatorial_coordinate_to_ecliptic_coordinate", "pa__coordinate_8py.html#a5f502336452e6e5af051db6f5e88e41d", null ],

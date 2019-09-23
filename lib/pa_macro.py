@@ -290,7 +290,7 @@ def DDMin(decimal_degrees):
 	B = A * 3600
 	C = round(B - 60 * math.floor(B / 60),2)
 	D = 0 if C == 60 else C
-	E = B = 60 if C == 60 else B
+	E = B + 60 if C == 60 else B
 
 	return math.floor(E/60) % 60
 
@@ -579,3 +579,141 @@ def Refract_L3035(PR,TR,Y,D):
 		return math.radians(-(A / B) * D)
 
 	return -D * 0.00007888888 * PR / ((273 + TR) * math.tan(Y))
+
+def ParallaxHA(HH,HM,HS,DD,DM,DS,SW,GP,HT,HP):
+	A = math.radians(GP)
+	C1 = math.cos(A)
+	S1 = math.sin(A)
+
+	U = math.atan(0.996647 * S1 / C1)
+	
+	C2 = math.cos(U)
+	S2 = math.sin(U)
+	B = HT / 6378160
+
+	RS = (0.996647 * S2) + (B * S1)
+	
+	RC = C2 + (B * C1)
+	TP = 6.283185308
+
+	RP = 1 / math.sin(math.radians(HP))
+
+	X = math.radians(DHDD(HMSDH(HH, HM, HS)))
+	X1 = X
+
+	Y = math.radians(DMSDD(DD, DM, DS))
+	Y1 = Y
+
+	D = 1 if SW[0].lower() == "t" else -1
+
+	if D == 1:
+		P,Q = ParallaxHA_L2870(X,Y,RC,RP,RS,TP)
+		return DDDH(Degrees(P))
+
+	P1 = 0
+	Q1 = 0
+	while 1==1:
+		P,Q = ParallaxHA_L2870(X,Y,RC,RP,RS,TP)
+		
+		P2 = P - X
+		Q2 = Q - Y
+
+		AA = abs(P2 - P1)
+		BB = abs(Q2 - Q1)
+
+		if (AA < 0.000001) and (BB < 0.000001):
+			P = X1 - P2
+			Q = Y1 - Q2
+			X = X1
+			Y = Y1
+			return DDDH(Degrees(P))
+		
+		X = X1 - P2
+		Y = Y1 - Q2
+		P1 = P2
+		Q1 = Q2
+
+def ParallaxHA_L2870(X,Y,RC,RP,RS,TP):
+	CX = math.cos(X)
+	SY = math.sin(Y)
+	CY = math.cos(Y)
+
+	AA = (RC * math.sin(X)) / ((RP * CY) - (RC * CX))
+	
+	DX = math.atan(AA)
+	P = X + DX
+	CP = math.cos(P)
+
+	P = P - TP * math.floor(P / TP)
+	Q = math.atan(CP * (RP * SY - RS) / (RP * CY * CX - RC))
+
+	return P,Q
+
+def ParallaxDec(HH,HM,HS,DD,DM,DS,SW,GP,HT,HP):
+	A = math.radians(GP)
+	C1 = math.cos(A)
+	S1 = math.sin(A)
+
+	U = math.atan(0.996647 * S1 / C1)
+	
+	C2 = math.cos(U)
+	S2 = math.sin(U)
+	B = HT / 6378160
+	RS = (0.996647 * S2) + (B * S1)
+	
+	RC = C2 + (B * C1)
+	TP = 6.283185308
+
+	RP = 1 / math.sin(math.radians(HP))
+
+	X = math.radians(DHDD(HMSDH(HH, HM, HS)))
+	X1 = X
+
+	Y = math.radians(DMSDD(DD, DM, DS))
+	Y1 = Y
+
+	D = 1 if SW[0].lower() == "t" else -1
+
+	if D == 1:
+		P,Q = ParallaxDec_L2870(X,Y,RC,RP,RS,TP)
+		return Degrees(Q)
+
+	P1 = 0
+	Q1 = 0
+
+	while 1 == 1:
+		P,Q = ParallaxDec_L2870(X,Y,RC,RP,RS,TP)
+		
+		P2 = P - X
+		Q2 = Q - Y
+
+		AA = abs(P2 - P1)
+		BB = abs(Q2 - Q1)
+
+		if (AA < 0.000001) and (BB < 0.000001):
+			P = X1 - P2
+			Q = Y1 - Q2
+			X = X1
+			Y = Y1
+			return Degrees(Q)
+		
+		X = X1 - P2
+		Y = Y1 - Q2
+		P1 = P2
+		Q1 = Q2
+
+def ParallaxDec_L2870(X,Y,RC,RP,RS,TP):
+	CX = math.cos(X)
+	SY = math.sin(Y)
+	CY = math.cos(Y)
+
+	AA = (RC * math.sin(X)) / ((RP * CY) - (RC * CX))
+	
+	DX = math.atan(AA)
+	P = X + DX
+	CP = math.cos(P)
+
+	P = P - TP * math.floor(P / TP)
+	Q = math.atan(CP * (RP * SY - RS) / (RP * CY * CX - RC))
+	
+	return P,Q

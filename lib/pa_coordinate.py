@@ -403,3 +403,11 @@ def heliographic_coordinates(helio_position_angle_deg,helio_displacement_arcmin,
 	helio_lat_deg = round(b_deg,2)
 
 	return helio_long_deg,helio_lat_deg
+
+## @brief Calculate carrington rotation number for a Greenwich date
+# @return carrington rotation number
+def carrington_rotation_number(gwdate_day,gwdate_month,gwdate_year):
+	julian_date_days = PM.CDJD(gwdate_day,gwdate_month,gwdate_year)
+	crn = 1690 + round((julian_date_days-2444235.34)/27.2753,0)
+
+	return crn

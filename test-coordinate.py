@@ -396,7 +396,20 @@ class test_heliographic_coordinates(UT.TestCase):
 
 		self.assertEqual(helio_long_deg,142.59,"Heliographic Longitude - degrees")
 		self.assertEqual(helio_lat_deg,-19.94,"Heliographic Latitude - degrees")
-	
+
+class test_carrington_rotation_number(UT.TestCase):
+	def setUp(self):
+		self.gwdate_day = 27
+		self.gwdate_month = 1
+		self.gwdate_year = 1975
+
+	def test_carrington_rotation_number(self):
+		crn = PC.carrington_rotation_number(self.gwdate_day,self.gwdate_month,self.gwdate_year)
+
+		print("Carrington Rotation Number:  [GW Date] {gwdate_month}/{gwdate_day}/{gwdate_year} = [CRN] {crn}".format(gwdate_month=self.gwdate_month,gwdate_day=self.gwdate_day,gwdate_year=self.gwdate_year,crn=crn))
+
+		self.assertEqual(crn,1624,"Carrington Rotation Number")
+
 	
 if __name__ == '__main__':
 	UT.main()

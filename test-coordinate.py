@@ -381,6 +381,22 @@ class test_geocentric_parallax(UT.TestCase):
 		self.assertEqual(corrected_dec_min,32,"Corrected Declination Minutes")
 		self.assertEqual(corrected_dec_sec,17.4,"Corrected Declination Seconds")
 
+class test_heliographic_coordinates(UT.TestCase):
+	def setUp(self):
+		self.helio_position_angle_deg = 220
+		self.helio_displacement_arcmin = 10.5
+		self.gwdate_day = 1
+		self.gwdate_month = 5
+		self.gwdate_year = 1988
 
+	def test_heliographic_coordinates(self):
+		helio_long_deg,helio_lat_deg = PC.heliographic_coordinates(self.helio_position_angle_deg,self.helio_displacement_arcmin,self.gwdate_day,self.gwdate_month,self.gwdate_year)
+
+		print("[Heliographic Coord] [helio] [pos angle] {helio_position_angle_deg} [displ arcmin] {helio_displacement_arcmin}, [GW Date] {gwdate_month}/{gwdate_day}/{gwdate_year} = [helio] [lon] {helio_long_deg}d [lat] {helio_lat_deg}d".format(helio_position_angle_deg=self.helio_position_angle_deg,helio_displacement_arcmin=self.helio_displacement_arcmin,gwdate_day=self.gwdate_day,gwdate_month=self.gwdate_month,gwdate_year=self.gwdate_year,helio_long_deg=helio_long_deg,helio_lat_deg=helio_lat_deg))
+
+		self.assertEqual(helio_long_deg,142.59,"Heliographic Longitude - degrees")
+		self.assertEqual(helio_lat_deg,-19.94,"Heliographic Latitude - degrees")
+	
+	
 if __name__ == '__main__':
 	UT.main()

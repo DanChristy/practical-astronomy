@@ -373,3 +373,33 @@ def corrections_for_geocentric_parallax(ra_hour,ra_min,ra_sec,dec_deg,dec_min,de
 	corrected_dec_sec = PM.DDSec(corrected_dec_deg1)
 
 	return corrected_ra_hour,corrected_ra_min,corrected_ra_sec,corrected_dec_deg,corrected_dec_min,corrected_dec_sec
+
+## @brief Calculate heliographic coordinates for a given Greenwich date, with a given heliographic position angle and heliographic displacement in arc minutes.
+# @return heliographic longitude and heliographic latitude, in degrees
+def heliographic_coordinates(helio_position_angle_deg,helio_displacement_arcmin,gwdate_day,gwdate_month,gwdate_year):
+	julian_date_days = PM.CDJD(gwdate_day,gwdate_month,gwdate_year)
+	t_centuries = (julian_date_days-2415020)/36525
+	long_asc_node_deg = PM.DMSDD(74,22,0)+(84*t_centuries/60)
+	sun_long_deg = PM.SunLong(0,0,0,0,0,gwdate_day,gwdate_month,gwdate_year)
+	y = math.sin(math.radians(long_asc_node_deg-sun_long_deg))*math.cos(math.radians(PM.DMSDD(7,15,0)))
+	x = -math.cos(math.radians(long_asc_node_deg-sun_long_deg))
+	a_deg = PM.Degrees(PM.Atan2(x,y))
+	m_deg1 = 360-(360*(julian_date_days-2398220)/25.38)
+	m_deg2 = m_deg1-360*math.floor(m_deg1/360)
+	l0_deg1 = m_deg2 + a_deg
+	l0_deg2 = l0_deg1-360*math.floor(l0_deg1/360)
+	b0_rad = math.asin(math.sin(math.radians(sun_long_deg-long_asc_node_deg))*math.sin(math.radians(PM.DMSDD(7,15,0))))
+	theta1_rad = math.atan(-math.cos(math.radians(sun_long_deg))*math.tan(math.radians(PM.Obliq(gwdate_day,gwdate_month,gwdate_year))))
+	theta2_rad = math.atan(-math.cos(math.radians(long_asc_node_deg-sun_long_deg))*math.tan(math.radians(PM.DMSDD(7,15,0))))
+	p_deg = PM.Degrees(theta1_rad+theta2_rad)
+	rho1_deg = helio_displacement_arcmin/60
+	rho_rad = math.asin(2*rho1_deg/PM.SunDia(0,0,0,0,0,gwdate_day,gwdate_month,gwdate_year))-math.radians(rho1_deg)
+	b_rad = math.asin(math.sin(b0_rad)*math.cos(rho_rad)+math.cos(b0_rad)*math.sin(rho_rad)*math.cos(math.radians(p_deg-helio_position_angle_deg)))
+	b_deg = PM.Degrees(b_rad)
+	l_deg1 = PM.Degrees(math.asin(math.sin(rho_rad)*math.sin(math.radians(p_deg-helio_position_angle_deg))/math.cos(b_rad)))+l0_deg1
+	l_deg2 = l_deg1-360*math.floor(l_deg1/360)
+
+	helio_long_deg = round(l_deg2,2)
+	helio_lat_deg = round(b_deg,2)
+
+	return helio_long_deg,helio_lat_deg

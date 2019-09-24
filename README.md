@@ -38,3 +38,4 @@ Calculate | Nutation (in ecliptic longitude and obliquity) for a Greenwich date
 Calculate | Effects of aberration for ecliptic coordinates
 Calculate | RA and Declination values, corrected for atmospheric refraction
 Calculate | RA and Declination values, corrected for geocentric parallax
+Calculate | Heliographic coordinates

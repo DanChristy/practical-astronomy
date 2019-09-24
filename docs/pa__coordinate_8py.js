@@ -12,6 +12,7 @@ var pa__coordinate_8py =
     [ "equatorial_coordinate_to_galactic_coordinate", "pa__coordinate_8py.html#a74b960cf5e91f4935f4edaae9fe90c5e", null ],
     [ "equatorial_coordinates_to_horizon_coordinates", "pa__coordinate_8py.html#ac52fc32e3d7cc494095fc37808e5f67e", null ],
     [ "galactic_coordinate_to_equatorial_coordinate", "pa__coordinate_8py.html#a7201bdefdd8a6fe7b4ab894b5950eab0", null ],
+    [ "heliographic_coordinates", "pa__coordinate_8py.html#a065dd0ce07ea4e82cf896212eceb2ed4", null ],
     [ "horizon_coordinates_to_equatorial_coordinates", "pa__coordinate_8py.html#a3bf9408acb4efee0aaceb3090d54fb69", null ],
     [ "hour_angle_to_right_ascension", "pa__coordinate_8py.html#a55bd20f1a92e57cb18d79c3a7bffd74c", null ],
     [ "mean_obliquity_of_the_ecliptic", "pa__coordinate_8py.html#a9df16e874b567885215c14d9592005d1", null ],

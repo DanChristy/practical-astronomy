@@ -39,6 +39,8 @@ var pa__macro_8py =
     [ "RAHA", "pa__macro_8py.html#a2a6a8fd6969c30207b04b11e9ff65987", null ],
     [ "Refract", "pa__macro_8py.html#a105e3c6c04bde134177e9ab881e9134e", null ],
     [ "Refract_L3035", "pa__macro_8py.html#a3e7c52d7b1a6106555eb447e46690739", null ],
+    [ "SunDia", "pa__macro_8py.html#a73c3d8bf50a71058ac79c1b4ee08a631", null ],
+    [ "SunDist", "pa__macro_8py.html#a594023e4b6ccd710e5bd2516b9b9654a", null ],
     [ "SunLong", "pa__macro_8py.html#a42827524da9d2a9a6cee22601d07f098", null ],
     [ "TrueAnomaly", "pa__macro_8py.html#a36b436ce3d55c68921900e01033b7a3b", null ],
     [ "UTGST", "pa__macro_8py.html#ac77a1dfb6a2672e6feb0ef570a285d27", null ],

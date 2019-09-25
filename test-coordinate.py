@@ -410,6 +410,29 @@ class test_carrington_rotation_number(UT.TestCase):
 
 		self.assertEqual(crn,1624,"Carrington Rotation Number")
 
+class test_selenographic_coordinates(UT.TestCase):
+	def setUp(self):
+		self.gwdate_day = 1
+		self.gwdate_month = 5
+		self.gwdate_year = 1988
+
+	def test_selenographic_coordinates_1(self):
+		sub_earth_longitude,sub_earth_latitude,position_angle_of_pole = PC.selenographic_coordinates_1(self.gwdate_day,self.gwdate_month,self.gwdate_year)
+
+		print("Selenographic Coordinates 1:  [GW Date] {gw_date_month}/{gwdate_day}/{gwdate_year} = [Sub Earth] [LON] {sub_earth_longitude} [LAT] {sub_earth_latitude}, [POS ANGLE OF POLE] {position_angle_of_pole}".format(gw_date_month=self.gwdate_month,gwdate_day=self.gwdate_day,gwdate_year=self.gwdate_year,sub_earth_longitude=sub_earth_longitude,sub_earth_latitude=sub_earth_latitude,position_angle_of_pole=position_angle_of_pole))
+
+		self.assertEqual(sub_earth_longitude,-4.88,"Sub-Earth Longitude")
+		self.assertEqual(sub_earth_latitude,4.04,"Sub-Earth Latitude")
+		self.assertEqual(position_angle_of_pole,19.78,"Position Angle of Pole")
+
+	def test_selenographic_coordinates_2(self):
+		sub_solar_longitude,sub_solar_colongitude,sub_solar_latitude = PC.selenographic_coordinates_2(self.gwdate_day,self.gwdate_month,self.gwdate_year)
+
+		print("Selenographic Coordinates 2:  [GW Date] {gw_date_month}/{gwdate_day}/{gwdate_year} = [Sub Solar] [LON] {sub_solar_longitude} [COLN] {sub_solar_colongitude} [LAT] {sub_solar_latitude}".format(gw_date_month=self.gwdate_month,gwdate_day=self.gwdate_day,gwdate_year=self.gwdate_year,sub_solar_longitude=sub_solar_longitude,sub_solar_colongitude=sub_solar_colongitude,sub_solar_latitude=sub_solar_latitude))
+
+		self.assertEqual(sub_solar_longitude,6.81,"Sub-Solar Longitude")
+		self.assertEqual(sub_solar_colongitude,83.19,"Sub-Solar Colongitude")
+		self.assertEqual(sub_solar_latitude,1.19,"Sub-Solar Latitude")
 	
 if __name__ == '__main__':
 	UT.main()

@@ -411,3 +411,65 @@ def carrington_rotation_number(gwdate_day,gwdate_month,gwdate_year):
 	crn = 1690 + round((julian_date_days-2444235.34)/27.2753,0)
 
 	return crn
+
+## @brief Calculate selenographic (lunar) coordinates (sub-Earth)
+# @return sub-earth longitude, sub-earth latitude, and position angle of pole
+def selenographic_coordinates_1(gwdate_day,gwdate_month,gwdate_year):
+	julian_date_days = PM.CDJD(gwdate_day,gwdate_month,gwdate_year)
+	t_centuries = (julian_date_days-2451545)/36525
+	long_asc_node_deg = 125.044522-1934.136261*t_centuries
+	F1 = 93.27191+483202.0175*t_centuries
+	F2 = F1-360*math.floor(F1/360)
+	geocentric_moon_long_deg = PM.MoonLong(0,0,0,0,0,gwdate_day,gwdate_month,gwdate_year)
+	geocentric_moon_lat_rad = math.radians(PM.MoonLat(0,0,0,0,0,gwdate_day,gwdate_month,gwdate_year))
+	inclination_rad = math.radians(PM.DMSDD(1,32,32.7))
+	node_long_rad = math.radians(long_asc_node_deg-geocentric_moon_long_deg)
+	sin_be = -math.cos(inclination_rad)*math.sin(geocentric_moon_lat_rad)+math.sin(inclination_rad)*math.cos(geocentric_moon_lat_rad)*math.sin(node_long_rad)
+	sub_earth_lat_deg = PM.Degrees(math.asin(sin_be))
+	a_rad = PM.Atan2(math.cos(geocentric_moon_lat_rad)*math.cos(node_long_rad),-math.sin(geocentric_moon_lat_rad)*math.sin(inclination_rad)-math.cos(geocentric_moon_lat_rad)*math.cos(inclination_rad)*math.sin(node_long_rad))
+	a_deg = PM.Degrees(a_rad)
+	sub_earth_long_deg1 = a_deg - F2
+	sub_earth_long_deg2 = sub_earth_long_deg1-360*math.floor(sub_earth_long_deg1/360)
+	sub_earth_long_deg3 = (sub_earth_long_deg2 - 360) if sub_earth_long_deg2 > 180 else sub_earth_long_deg2
+	c1_rad = math.atan(math.cos(node_long_rad)*math.sin(inclination_rad)/(math.cos(geocentric_moon_lat_rad)*math.cos(inclination_rad)+math.sin(geocentric_moon_lat_rad)*math.sin(inclination_rad)*math.sin(node_long_rad)))
+	obliquity_rad = math.radians(PM.Obliq(gwdate_day,gwdate_month,gwdate_year))
+	c2_rad = math.atan(math.sin(obliquity_rad)*math.cos(math.radians(geocentric_moon_long_deg))/(math.sin(obliquity_rad)*math.sin(geocentric_moon_lat_rad)*math.sin(math.radians(geocentric_moon_long_deg))-math.cos(obliquity_rad)*math.cos(geocentric_moon_lat_rad)))
+	c_deg = PM.Degrees(c1_rad+c2_rad)
+
+	sub_earth_longitude = round(sub_earth_long_deg3,2)
+	sub_earth_latitude = round(sub_earth_lat_deg,2)
+	position_angle_of_pole = round(c_deg,2)
+
+	return sub_earth_longitude,sub_earth_latitude,position_angle_of_pole
+
+## @brief Calculate selenographic (lunar) coordinates (sub-Solar)
+# @return sub-solar longitude, sub-solar colongitude, and sub-solar latitude
+def selenographic_coordinates_2(gwdate_day,gwdate_month,gwdate_year):
+	julian_date_days = PM.CDJD(gwdate_day,gwdate_month,gwdate_year)
+	t_centuries = (julian_date_days-2451545)/36525
+	long_asc_node_deg = 125.044522-1934.136261*t_centuries
+	F1 = 93.27191+483202.0175*t_centuries
+	F2 = F1-360*math.floor(F1/360)
+	sun_geocentric_long_deg = PM.SunLong(0,0,0,0,0,gwdate_day,gwdate_month,gwdate_year)
+	moon_equ_hor_parallax_arc_min = PM.MoonHP(0,0,0,0,0,gwdate_day,gwdate_month,gwdate_year)*60
+	sun_earth_dist_au = PM.SunDist(0,0,0,0,0,gwdate_day,gwdate_month,gwdate_year)
+	geocentric_moon_lat_rad = math.radians(PM.MoonLat(0,0,0,0,0,gwdate_day,gwdate_month,gwdate_year))
+	geocentric_moon_long_deg = PM.MoonLong(0,0,0,0,0,gwdate_day,gwdate_month,gwdate_year)
+	adjusted_moon_long_deg = sun_geocentric_long_deg+180+(26.4*math.cos(geocentric_moon_lat_rad)*math.sin(math.radians(sun_geocentric_long_deg-geocentric_moon_long_deg))/(moon_equ_hor_parallax_arc_min*sun_earth_dist_au))
+	adjusted_moon_lat_rad = 0.14666*geocentric_moon_lat_rad/(moon_equ_hor_parallax_arc_min*sun_earth_dist_au)
+	inclination_rad = math.radians(PM.DMSDD(1,32,32.7))
+	node_long_rad = math.radians(long_asc_node_deg-adjusted_moon_long_deg)
+	sin_bs = -math.cos(inclination_rad)*math.sin(adjusted_moon_lat_rad)+math.sin(inclination_rad)*math.cos(adjusted_moon_lat_rad)*math.sin(node_long_rad)
+	sub_solar_lat_deg = PM.Degrees(math.asin(sin_bs))
+	a_rad = PM.Atan2(math.cos(adjusted_moon_lat_rad)*math.cos(node_long_rad),-math.sin(adjusted_moon_lat_rad)*math.sin(inclination_rad)-math.cos(adjusted_moon_lat_rad)*math.cos(inclination_rad)*math.sin(node_long_rad))
+	a_deg = PM.Degrees(a_rad)
+	sub_solar_long_deg1 = a_deg - F2
+	sub_solar_long_deg2 = sub_solar_long_deg1-360*math.floor(sub_solar_long_deg1/360)
+	sub_solar_long_deg3 = sub_solar_long_deg2 - 360 if sub_solar_long_deg2 > 180 else sub_solar_long_deg2
+	sub_solar_colong_deg = 90 - sub_solar_long_deg3
+
+	sub_solar_longitude = round(sub_solar_long_deg3,2)
+	sub_solar_colongitude = round(sub_solar_colong_deg,2)
+	sub_solar_latitude = round(sub_solar_lat_deg,2)
+
+	return sub_solar_longitude,sub_solar_colongitude,sub_solar_latitude

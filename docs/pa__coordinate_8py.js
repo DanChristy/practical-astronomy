@@ -19,5 +19,7 @@ var pa__coordinate_8py =
     [ "mean_obliquity_of_the_ecliptic", "pa__coordinate_8py.html#a9df16e874b567885215c14d9592005d1", null ],
     [ "nutation_in_ecliptic_longitude_and_obliquity", "pa__coordinate_8py.html#a3ac5a2dcb6204976f63c8fa8b17cbe58", null ],
     [ "right_ascension_to_hour_angle", "pa__coordinate_8py.html#a545c8a8902967a72d3ee69bdea99c02d", null ],
-    [ "rising_and_setting", "pa__coordinate_8py.html#a30287fb5b2c6f3e634784f08e5c74b62", null ]
+    [ "rising_and_setting", "pa__coordinate_8py.html#a30287fb5b2c6f3e634784f08e5c74b62", null ],
+    [ "selenographic_coordinates_1", "pa__coordinate_8py.html#a296d92105e1a1727cb0fd7ba00fbdec9", null ],
+    [ "selenographic_coordinates_2", "pa__coordinate_8py.html#aad5dd2620ad98a2e495efd80997d577c", null ]
 ];

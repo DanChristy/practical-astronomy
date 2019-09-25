@@ -148,6 +148,12 @@ Functions</h2></td></tr>
 <tr class="memitem:a59637bd37cf55810cfab6702151dbc18"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepa__coordinate.html#a59637bd37cf55810cfab6702151dbc18">carrington_rotation_number</a> (gwdate_day, gwdate_month, gwdate_year)</td></tr>
 <tr class="memdesc:a59637bd37cf55810cfab6702151dbc18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate carrington rotation number for a Greenwich date.  <a href="#a59637bd37cf55810cfab6702151dbc18">More...</a><br /></td></tr>
 <tr class="separator:a59637bd37cf55810cfab6702151dbc18"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a296d92105e1a1727cb0fd7ba00fbdec9"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepa__coordinate.html#a296d92105e1a1727cb0fd7ba00fbdec9">selenographic_coordinates_1</a> (gwdate_day, gwdate_month, gwdate_year)</td></tr>
+<tr class="memdesc:a296d92105e1a1727cb0fd7ba00fbdec9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate selenographic (lunar) coordinates (sub-Earth)  <a href="#a296d92105e1a1727cb0fd7ba00fbdec9">More...</a><br /></td></tr>
+<tr class="separator:a296d92105e1a1727cb0fd7ba00fbdec9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aad5dd2620ad98a2e495efd80997d577c"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepa__coordinate.html#aad5dd2620ad98a2e495efd80997d577c">selenographic_coordinates_2</a> (gwdate_day, gwdate_month, gwdate_year)</td></tr>
+<tr class="memdesc:aad5dd2620ad98a2e495efd80997d577c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate selenographic (lunar) coordinates (sub-Solar)  <a href="#aad5dd2620ad98a2e495efd80997d577c">More...</a><br /></td></tr>
+<tr class="separator:aad5dd2620ad98a2e495efd80997d577c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="a6ea49862f6e8f40d0c5463d07b38c307"></a>
@@ -1576,6 +1582,80 @@ Functions</h2></td></tr>
 <li><b>az_set</b> Azimuth angle, at set. </li>
 </ul>
 </dd></dl>
+
+</div>
+</div>
+<a id="a296d92105e1a1727cb0fd7ba00fbdec9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a296d92105e1a1727cb0fd7ba00fbdec9">&#9670;&nbsp;</a></span>selenographic_coordinates_1()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def pa_coordinate.selenographic_coordinates_1 </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>gwdate_day</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>gwdate_month</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>gwdate_year</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Calculate selenographic (lunar) coordinates (sub-Earth) </p>
+<dl class="section return"><dt>Returns</dt><dd>sub-earth longitude, sub-earth latitude, and position angle of pole </dd></dl>
+
+</div>
+</div>
+<a id="aad5dd2620ad98a2e495efd80997d577c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aad5dd2620ad98a2e495efd80997d577c">&#9670;&nbsp;</a></span>selenographic_coordinates_2()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def pa_coordinate.selenographic_coordinates_2 </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>gwdate_day</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>gwdate_month</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>gwdate_year</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Calculate selenographic (lunar) coordinates (sub-Solar) </p>
+<dl class="section return"><dt>Returns</dt><dd>sub-solar longitude, sub-solar colongitude, and sub-solar latitude </dd></dl>
 
 </div>
 </div>

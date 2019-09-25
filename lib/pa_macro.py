@@ -769,3 +769,253 @@ def ParallaxDec_L2870(X,Y,RC,RP,RS,TP):
 	Q = math.atan(CP * (RP * SY - RS) / (RP * CY * CX - RC))
 	
 	return P,Q
+
+def Unwind(W):
+	return W - 6.283185308 * math.floor(W / 6.283185308)
+
+def MoonLong(LH,LM,LS,DS,ZC,DY,MN,YR):
+	UT = LctUT(LH, LM, LS, DS, ZC, DY, MN, YR)
+	GD = LctGDay(LH, LM, LS, DS, ZC, DY, MN, YR)
+	GM = LctGMonth(LH, LM, LS, DS, ZC, DY, MN, YR)
+	GY = LctGYear(LH, LM, LS, DS, ZC, DY, MN, YR)
+	T = ((CDJD(GD, GM, GY) - 2415020) / 36525) + (UT / 876600)
+	T2 = T * T
+
+	M1 = 27.32158213
+	M2 = 365.2596407
+	M3 = 27.55455094
+	M4 = 29.53058868
+	M5 = 27.21222039
+	M6 = 6798.363307
+	Q = CDJD(GD, GM, GY) - 2415020 + (UT / 24)
+	M1 = Q / M1
+	M2 = Q / M2
+	M3 = Q / M3
+	M4 = Q / M4
+	M5 = Q / M5
+	M6 = Q / M6
+	M1 = 360 * (M1 - math.floor(M1))
+	M2 = 360 * (M2 - math.floor(M2))
+	M3 = 360 * (M3 - math.floor(M3))
+	M4 = 360 * (M4 - math.floor(M4))
+	M5 = 360 * (M5 - math.floor(M5))
+	M6 = 360 * (M6 - math.floor(M6))
+
+	ML = 270.434164 + M1 - (0.001133 - 0.0000019 * T) * T2
+	MS = 358.475833 + M2 - (0.00015 + 0.0000033 * T) * T2
+	MD = 296.104608 + M3 + (0.009192 + 0.0000144 * T) * T2
+	ME1 = 350.737486 + M4 - (0.001436 - 0.0000019 * T) * T2
+	MF = 11.250889 + M5 - (0.003211 + 0.0000003 * T) * T2
+	NA = 259.183275 - M6 + (0.002078 + 0.0000022 * T) * T2
+	A = math.radians(51.2 + 20.2 * T)
+	S1 = math.sin(A)
+	S2 = math.sin(math.radians(NA))
+	B = 346.56 + (132.87 - 0.0091731 * T) * T
+	S3 = 0.003964 * math.sin(math.radians(B))
+	C = math.radians(NA + 275.05 - 2.3 * T)
+	S4 = math.sin(C)
+	ML = ML + 0.000233 * S1 + S3 + 0.001964 * S2
+	MS = MS - 0.001778 * S1
+	MD = MD + 0.000817 * S1 + S3 + 0.002541 * S2
+	MF = MF + S3 - 0.024691 * S2 - 0.004328 * S4
+	ME1 = ME1 + 0.002011 * S1 + S3 + 0.001964 * S2
+	E = 1 - (0.002495 + 0.00000752 * T) * T
+	E2 = E * E
+	ML = math.radians(ML)
+	MS = math.radians(MS)
+	NA = math.radians(NA)
+	ME1 = math.radians(ME1)
+	MF = math.radians(MF)
+	MD = math.radians(MD)
+
+	L = 6.28875 * math.sin(MD) + 1.274018 * math.sin(2 * ME1 - MD)
+	L = L + 0.658309 * math.sin(2 * ME1) + 0.213616 * math.sin(2 * MD)
+	L = L - E * 0.185596 * math.sin(MS) - 0.114336 * math.sin(2 * MF)
+	L = L + 0.058793 * math.sin(2 * (ME1 - MD))
+	L = L + 0.057212 * E * math.sin(2 * ME1 - MS - MD) + 0.05332 * math.sin(2 * ME1 + MD)
+	L = L + 0.045874 * E * math.sin(2 * ME1 - MS) + 0.041024 * E * math.sin(MD - MS)
+	L = L - 0.034718 * math.sin(ME1) - E * 0.030465 * math.sin(MS + MD)
+	L = L + 0.015326 * math.sin(2 * (ME1 - MF)) - 0.012528 * math.sin(2 * MF + MD)
+	L = L - 0.01098 * math.sin(2 * MF - MD) + 0.010674 * math.sin(4 * ME1 - MD)
+	L = L + 0.010034 * math.sin(3 * MD) + 0.008548 * math.sin(4 * ME1 - 2 * MD)
+	L = L - E * 0.00791 * math.sin(MS - MD + 2 * ME1) - E * 0.006783 * math.sin(2 * ME1 + MS)
+	L = L + 0.005162 * math.sin(MD - ME1) + E * 0.005 * math.sin(MS + ME1)
+	L = L + 0.003862 * math.sin(4 * ME1) + E * 0.004049 * math.sin(MD - MS + 2 * ME1)
+	L = L + 0.003996 * math.sin(2 * (MD + ME1)) + 0.003665 * math.sin(2 * ME1 - 3 * MD)
+	L = L + E * 0.002695 * math.sin(2 * MD - MS) + 0.002602 * math.sin(MD - 2 * (MF + ME1))
+	L = L + E * 0.002396 * math.sin(2 * (ME1 - MD) - MS) - 0.002349 * math.sin(MD + ME1)
+	L = L + E2 * 0.002249 * math.sin(2 * (ME1 - MS)) - E * 0.002125 * math.sin(2 * MD + MS)
+	L = L - E2 * 0.002079 * math.sin(2 * MS) + E2 * 0.002059 * math.sin(2 * (ME1 - MS) - MD)
+	L = L - 0.001773 * math.sin(MD + 2 * (ME1 - MF)) - 0.001595 * math.sin(2 * (MF + ME1))
+	L = L + E * 0.00122 * math.sin(4 * ME1 - MS - MD) - 0.00111 * math.sin(2 * (MD + MF))
+	L = L + 0.000892 * math.sin(MD - 3 * ME1) - E * 0.000811 * math.sin(MS + MD + 2 * ME1)
+	L = L + E * 0.000761 * math.sin(4 * ME1 - MS - 2 * MD)
+	L = L + E2 * 0.000704 * math.sin(MD - 2 * (MS + ME1))
+	L = L + E * 0.000693 * math.sin(MS - 2 * (MD - ME1))
+	L = L + E * 0.000598 * math.sin(2 * (ME1 - MF) - MS)
+	L = L + 0.00055 * math.sin(MD + 4 * ME1) + 0.000538 * math.sin(4 * MD)
+	L = L + E * 0.000521 * math.sin(4 * ME1 - MS) + 0.000486 * math.sin(2 * MD - ME1)
+	L = L + E2 * 0.000717 * math.sin(MD - 2 * MS)
+	MM = Unwind(ML + math.radians(L))
+
+	return Degrees(MM)
+
+def MoonLat(LH,LM,LS,DS,ZC,DY,MN,YR):
+	UT = LctUT(LH, LM, LS, DS, ZC, DY, MN, YR)
+	GD = LctGDay(LH, LM, LS, DS, ZC, DY, MN, YR)
+	GM = LctGMonth(LH, LM, LS, DS, ZC, DY, MN, YR)
+	GY = LctGYear(LH, LM, LS, DS, ZC, DY, MN, YR)
+	T = ((CDJD(GD, GM, GY) - 2415020) / 36525) + (UT / 876600)
+	T2 = T * T
+
+	M1 = 27.32158213
+	M2 = 365.2596407
+	M3 = 27.55455094
+	M4 = 29.53058868
+	M5 = 27.21222039
+	M6 = 6798.363307
+	Q = CDJD(GD, GM, GY) - 2415020 + (UT / 24)
+	M1 = Q / M1
+	M2 = Q / M2
+	M3 = Q / M3
+	M4 = Q / M4
+	M5 = Q / M5
+	M6 = Q / M6
+	M1 = 360 * (M1 - math.floor(M1))
+	M2 = 360 * (M2 - math.floor(M2))
+	M3 = 360 * (M3 - math.floor(M3))
+	M4 = 360 * (M4 - math.floor(M4))
+	M5 = 360 * (M5 - math.floor(M5))
+	M6 = 360 * (M6 - math.floor(M6))
+
+	ML = 270.434164 + M1 - (0.001133 - 0.0000019 * T) * T2
+	MS = 358.475833 + M2 - (0.00015 + 0.0000033 * T) * T2
+	MD = 296.104608 + M3 + (0.009192 + 0.0000144 * T) * T2
+	ME1 = 350.737486 + M4 - (0.001436 - 0.0000019 * T) * T2
+	MF = 11.250889 + M5 - (0.003211 + 0.0000003 * T) * T2
+	NA = 259.183275 - M6 + (0.002078 + 0.0000022 * T) * T2
+	A = math.radians(51.2 + 20.2 * T)
+	S1 = math.sin(A)
+	S2 = math.sin(math.radians(NA))
+	B = 346.56 + (132.87 - 0.0091731 * T) * T
+	S3 = 0.003964 * math.sin(math.radians(B))
+	C = math.radians(NA + 275.05 - 2.3 * T)
+	S4 = math.sin(C)
+	ML = ML + 0.000233 * S1 + S3 + 0.001964 * S2
+	MS = MS - 0.001778 * S1
+	MD = MD + 0.000817 * S1 + S3 + 0.002541 * S2
+	MF = MF + S3 - 0.024691 * S2 - 0.004328 * S4
+	ME1 = ME1 + 0.002011 * S1 + S3 + 0.001964 * S2
+	E = 1 - (0.002495 + 0.00000752 * T) * T
+	E2 = E * E
+	ML = math.radians(ML)
+	MS = math.radians(MS)
+	NA = math.radians(NA)
+	ME1 = math.radians(ME1)
+	MF = math.radians(MF)
+	MD = math.radians(MD)
+
+	G = 5.128189 * math.sin(MF) + 0.280606 * math.sin(MD + MF)
+	G = G + 0.277693 * math.sin(MD - MF) + 0.173238 * math.sin(2 * ME1 - MF)
+	G = G + 0.055413 * math.sin(2 * ME1 + MF - MD) + 0.046272 * math.sin(2 * ME1 - MF - MD)
+	G = G + 0.032573 * math.sin(2 * ME1 + MF) + 0.017198 * math.sin(2 * MD + MF)
+	G = G + 0.009267 * math.sin(2 * ME1 + MD - MF) + 0.008823 * math.sin(2 * MD - MF)
+	G = G + E * 0.008247 * math.sin(2 * ME1 - MS - MF) + 0.004323 * math.sin(2 * (ME1 - MD) - MF)
+	G = G + 0.0042 * math.sin(2 * ME1 + MF + MD) + E * 0.003372 * math.sin(MF - MS - 2 * ME1)
+	G = G + E * 0.002472 * math.sin(2 * ME1 + MF - MS - MD)
+	G = G + E * 0.002222 * math.sin(2 * ME1 + MF - MS)
+	G = G + E * 0.002072 * math.sin(2 * ME1 - MF - MS - MD)
+	G = G + E * 0.001877 * math.sin(MF - MS + MD) + 0.001828 * math.sin(4 * ME1 - MF - MD)
+	G = G - E * 0.001803 * math.sin(MF + MS) - 0.00175 * math.sin(3 * MF)
+	G = G + E * 0.00157 * math.sin(MD - MS - MF) - 0.001487 * math.sin(MF + ME1)
+	G = G - E * 0.001481 * math.sin(MF + MS + MD) + E * 0.001417 * math.sin(MF - MS - MD)
+	G = G + E * 0.00135 * math.sin(MF - MS) + 0.00133 * math.sin(MF - ME1)
+	G = G + 0.001106 * math.sin(MF + 3 * MD) + 0.00102 * math.sin(4 * ME1 - MF)
+	G = G + 0.000833 * math.sin(MF + 4 * ME1 - MD) + 0.000781 * math.sin(MD - 3 * MF)
+	G = G + 0.00067 * math.sin(MF + 4 * ME1 - 2 * MD) + 0.000606 * math.sin(2 * ME1 - 3 * MF)
+	G = G + 0.000597 * math.sin(2 * (ME1 + MD) - MF)
+	G = G + E * 0.000492 * math.sin(2 * ME1 + MD - MS - MF) + 0.00045 * math.sin(2 * (MD - ME1) - MF)
+	G = G + 0.000439 * math.sin(3 * MD - MF) + 0.000423 * math.sin(MF + 2 * (ME1 + MD))
+	G = G + 0.000422 * math.sin(2 * ME1 - MF - 3 * MD) - E * 0.000367 * math.sin(MS + MF + 2 * ME1 - MD)
+	G = G - E * 0.000353 * math.sin(MS + MF + 2 * ME1) + 0.000331 * math.sin(MF + 4 * ME1)
+	G = G + E * 0.000317 * math.sin(2 * ME1 + MF - MS + MD)
+	G = G + E2 * 0.000306 * math.sin(2 * (ME1 - MS) - MF) - 0.000283 * math.sin(MD + 3 * MF)
+	W1 = 0.0004664 * math.cos(NA)
+	W2 = 0.0000754 * math.cos(C)
+	BM = math.radians(G) * (1 - W1 - W2)
+
+	return Degrees(BM)
+
+def MoonHP(LH,LM,LS,DS,ZC,DY,MN,YR):
+	UT = LctUT(LH, LM, LS, DS, ZC, DY, MN, YR)
+	GD = LctGDay(LH, LM, LS, DS, ZC, DY, MN, YR)
+	GM = LctGMonth(LH, LM, LS, DS, ZC, DY, MN, YR)
+	GY = LctGYear(LH, LM, LS, DS, ZC, DY, MN, YR)
+	T = ((CDJD(GD, GM, GY) - 2415020) / 36525) + (UT / 876600)
+	T2 = T * T
+
+	M1 = 27.32158213
+	M2 = 365.2596407
+	M3 = 27.55455094
+	M4 = 29.53058868
+	M5 = 27.21222039
+	M6 = 6798.363307
+	Q = CDJD(GD, GM, GY) - 2415020 + (UT / 24)
+	M1 = Q / M1
+	M2 = Q / M2
+	M3 = Q / M3
+	M4 = Q / M4
+	M5 = Q / M5
+	M6 = Q / M6
+	M1 = 360 * (M1 - math.floor(M1))
+	M2 = 360 * (M2 - math.floor(M2))
+	M3 = 360 * (M3 - math.floor(M3))
+	M4 = 360 * (M4 - math.floor(M4))
+	M5 = 360 * (M5 - math.floor(M5))
+	M6 = 360 * (M6 - math.floor(M6))
+
+	ML = 270.434164 + M1 - (0.001133 - 0.0000019 * T) * T2
+	MS = 358.475833 + M2 - (0.00015 + 0.0000033 * T) * T2
+	MD = 296.104608 + M3 + (0.009192 + 0.0000144 * T) * T2
+	ME1 = 350.737486 + M4 - (0.001436 - 0.0000019 * T) * T2
+	MF = 11.250889 + M5 - (0.003211 + 0.0000003 * T) * T2
+	NA = 259.183275 - M6 + (0.002078 + 0.0000022 * T) * T2
+	A = math.radians(51.2 + 20.2 * T)
+	S1 = math.sin(A)
+	S2 = math.sin(math.radians(NA))
+	B = 346.56 + (132.87 - 0.0091731 * T) * T
+	S3 = 0.003964 * math.sin(math.radians(B))
+	C = math.radians(NA + 275.05 - 2.3 * T)
+	S4 = math.sin(C)
+	ML = ML + 0.000233 * S1 + S3 + 0.001964 * S2
+	MS = MS - 0.001778 * S1
+	MD = MD + 0.000817 * S1 + S3 + 0.002541 * S2
+	MF = MF + S3 - 0.024691 * S2 - 0.004328 * S4
+	ME1 = ME1 + 0.002011 * S1 + S3 + 0.001964 * S2
+	E = 1 - (0.002495 + 0.00000752 * T) * T
+	E2 = E * E
+	ML = math.radians(ML)
+	MS = math.radians(MS)
+	NA = math.radians(NA)
+	ME1 = math.radians(ME1)
+	MF = math.radians(MF)
+	MD = math.radians(MD)
+
+	PM = 0.950724 + 0.051818 * math.cos(MD) + 0.009531 * math.cos(2 * ME1 - MD)
+	PM = PM + 0.007843 * math.cos(2 * ME1) + 0.002824 * math.cos(2 * MD)
+	PM = PM + 0.000857 * math.cos(2 * ME1 + MD) + E * 0.000533 * math.cos(2 * ME1 - MS)
+	PM = PM + E * 0.000401 * math.cos(2 * ME1 - MD - MS)
+	PM = PM + E * 0.00032 * math.cos(MD - MS) - 0.000271 * math.cos(ME1)
+	PM = PM - E * 0.000264 * math.cos(MS + MD) - 0.000198 * math.cos(2 * MF - MD)
+	PM = PM + 0.000173 * math.cos(3 * MD) + 0.000167 * math.cos(4 * ME1 - MD)
+	PM = PM - E * 0.000111 * math.cos(MS) + 0.000103 * math.cos(4 * ME1 - 2 * MD)
+	PM = PM - 0.000084 * math.cos(2 * MD - 2 * ME1) - E * 0.000083 * math.cos(2 * ME1 + MS)
+	PM = PM + 0.000079 * math.cos(2 * ME1 + 2 * MD) + 0.000072 * math.cos(4 * ME1)
+	PM = PM + E * 0.000064 * math.cos(2 * ME1 - MS + MD) - E * 0.000063 * math.cos(2 * ME1 + MS - MD)
+	PM = PM + E * 0.000041 * math.cos(MS + ME1) + E * 0.000035 * math.cos(2 * MD - MS)
+	PM = PM - 0.000033 * math.cos(3 * MD - 2 * ME1) - 0.00003 * math.cos(MD + ME1)
+	PM = PM - 0.000029 * math.cos(2 * (MF - ME1)) - E * 0.000029 * math.cos(2 * MD + MS)
+	PM = PM + E2 * 0.000026 * math.cos(2 * (ME1 - MS)) - 0.000023 * math.cos(2 * (MF - ME1) + MD)
+	PM = PM + E * 0.000019 * math.cos(4 * ME1 - MS - MD)
+
+	return PM

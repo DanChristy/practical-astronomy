@@ -41,7 +41,7 @@ def civil_date_to_day_number(month, day, year):
 
 ## @brief Convert a Greenwich Date/Civil Date (day,month,year) to Julian Date
 def greenwich_date_to_julian_date(day, month, year):
-	return PM.CDJD(day,month,year)
+	return PM.cd_jd(day,month,year)
 
 ## @brief Convert a Julian Date to Greenwich Date/Civil Date (day,month,year)
 def julian_date_to_greenwich_date(julianDate):
@@ -53,41 +53,41 @@ def julian_date_to_greenwich_date(julianDate):
 
 ## @brief Returns the day part of a Julian Date
 def julian_date_day(julianDate):
-	return PM.JDCDay(julianDate)
+	return PM.jdc_day(julianDate)
 
 ## @brief Returns the month part of a Julian Date
 def julian_date_month(julianDate):
-	return PM.JDCMonth(julianDate)
+	return PM.jdc_month(julianDate)
 
 ## @brief Returns the year part of a Julian Date
 def julian_date_year(julianDate):
-	return PM.JDCYear(julianDate)
+	return PM.jdc_year(julianDate)
 
 ## @brief Convert a Julian Date to Day-of-Week (e.g., Sunday)
 def julian_date_to_weekday_name(julianDate):
-	return PM.FDOW(julianDate)
+	return PM.f_dow(julianDate)
 
 ## @brief Convert a Civil Time (hours,minutes,seconds) to Decimal Hours
 def civil_time_to_decimal_hours(hours,minutes,seconds):
-	return PM.HMSDH(hours,minutes,seconds)
+	return PM.hms_dh(hours,minutes,seconds)
 
 ## @brief Return the hour part of a Decimal Hours
 def decimal_hour_hour(decimalHours):
-	return PM.DHHour(decimalHours)
+	return PM.dh_hour(decimalHours)
 
 ## @brief Return the minutes part of a Decimal Hours
 def decimal_hour_minutes(decimalHours):
-	return PM.DHMin(decimalHours)
+	return PM.dh_min(decimalHours)
 
 ## @brief Return the seconds part of a Decimal Hours
 def decimal_hour_seconds(decimalHours):
-	return PM.DHSec(decimalHours)
+	return PM.dh_sec(decimalHours)
 
 ## @brief Convert Decimal Hours to Civil Time
 def decimal_hours_to_civil_time(decimalHours):
-	hours = PM.DHHour(decimalHours)
-	minutes = PM.DHMin(decimalHours)
-	seconds = PM.DHSec(decimalHours)
+	hours = PM.dh_hour(decimalHours)
+	minutes = PM.dh_min(decimalHours)
+	seconds = PM.dh_sec(decimalHours)
 
 	return hours,minutes,seconds
 
@@ -100,7 +100,7 @@ def local_civil_time_to_universal_time(lctHours,lctMinutes,lctSeconds,isDaylight
 	UTinterim = LCT - daylightSavingsOffset - zoneCorrection
 	GDayInterim = localDay + (UTinterim / 24)
 
-	JD = PM.CDJD(GDayInterim,localMonth,localYear)
+	JD = PM.cd_jd(GDayInterim,localMonth,localYear)
 	
 	GDay = julian_date_day(JD)
 	GMonth = julian_date_month(JD)

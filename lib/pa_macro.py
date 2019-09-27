@@ -1034,3 +1034,47 @@ def moon_hp(LH,LM,LS,DS,ZC,DY,MN,YR):
 	PM = PM + E * 0.000019 * math.cos(4 * ME1 - MS - MD)
 
 	return PM
+
+## @brief Mean ecliptic longitude of the Sun at the epoch
+def sun_e_long(GD,GM,GY):
+	T = (cd_jd(GD,GM,GY) - 2415020) / 36525
+	T2 = T * T
+	X = 279.6966778 + 36000.76892 * T + 0.0003025 * T2
+	
+	return X - 360 * math.floor(X / 360)
+
+## @brief Longitude of the Sun at perigee
+def sun_peri(GD,GM,GY):
+	T = (cd_jd(GD,GM,GY) - 2415020) / 36525
+	T2 = T * T
+	X = 281.2208444 + 1.719175 * T + 0.000452778 * T2
+	
+	return X - 360 * math.floor(X / 360)
+
+## @brief Eccentricity of the Sun-Earth orbit
+def sun_ecc(GD,GM,GY):
+	T = (cd_jd(GD,GM,GY) - 2415020) / 36525
+	T2 = T * T
+	
+	return 0.01675104 - 0.0000418 * T - 0.000000126 * T2
+
+## @brief Ecliptic - Declination (degrees)
+def ec_dec(ELD,ELM,ELS,BD,BM,BS,GD,GM,GY):
+	A = math.radians(dms_dd(ELD, ELM, ELS))
+	B = math.radians(dms_dd(BD, BM, BS))
+	C = math.radians(obliq(GD, GM, GY))
+	D = math.sin(B) * math.cos(C) + math.cos(B) * math.sin(C) * math.sin(A)
+	
+	return degrees(math.asin(D))
+
+## @brief Ecliptic - Right Ascension (degrees)
+def ec_ra(ELD,ELM,ELS,BD,BM,BS,GD,GM,GY):
+	A = math.radians(dms_dd(ELD, ELM, ELS))
+	B = math.radians(dms_dd(BD, BM, BS))
+	C = math.radians(obliq(GD, GM, GY))
+	D = math.sin(A) * math.cos(C) - math.tan(B) * math.sin(C)
+	E = math.cos(A)
+	F = degrees(atan2(E, D))
+	
+	return F - 360 * math.floor(F / 360)
+

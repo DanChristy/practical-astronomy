@@ -46,4 +46,4 @@ Calculate | Selenographic (lunar) coordinates (sub-Earth and sub-Solar)
 
 Type | Description
 -----|------------
-Calculate | Approximate Position of the Sun
+Calculate | Approximate position of the Sun

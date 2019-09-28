@@ -30,3 +30,24 @@ def approximate_position_of_sun(lct_hours, lct_minutes, lct_seconds, local_day, 
 	sun_dec_sec = PM.dd_sec(dec_deg)
 
 	return sun_ra_hour,sun_ra_min,sun_ra_sec,sun_dec_deg,sun_dec_min,sun_dec_sec
+
+## @brief Calculate precise position of the sun for a local date and time.
+def precise_position_of_sun(lct_hours, lct_minutes, lct_seconds, local_day, local_month, local_year, is_daylight_saving, zone_correction):
+	daylight_saving = 1 if is_daylight_saving == True else 0
+
+	g_day = PM.lct_gday(lct_hours,lct_minutes,lct_seconds,daylight_saving,zone_correction,local_day,local_month,local_year)
+	g_month = PM.lct_gmonth(lct_hours,lct_minutes,lct_seconds,daylight_saving,zone_correction,local_day,local_month,local_year)
+	g_year = PM.lct_gyear(lct_hours,lct_minutes,lct_seconds,daylight_saving,zone_correction,local_day,local_month,local_year)
+	sun_ecliptic_longitude_deg = PM.sun_long(lct_hours,lct_minutes,lct_seconds,daylight_saving,zone_correction,local_day,local_month,local_year)
+	ra_deg = PM.ec_ra(sun_ecliptic_longitude_deg,0,0,0,0,0,g_day,g_month,g_year)
+	ra_hours = PM.dd_dh(ra_deg)
+	dec_deg = PM.ec_dec(sun_ecliptic_longitude_deg,0,0,0,0,0,g_day,g_month,g_year)
+
+	sun_ra_hour = PM.dh_hour(ra_hours)
+	sun_ra_min = PM.dh_min(ra_hours)
+	sun_ra_sec = PM.dh_sec(ra_hours)
+	sun_dec_deg = PM.dd_deg(dec_deg)
+	sun_dec_min = PM.dd_min(dec_deg)
+	sun_dec_sec = PM.dd_sec(dec_deg)
+
+	return sun_ra_hour,sun_ra_min,sun_ra_sec,sun_dec_deg,sun_dec_min,sun_dec_sec

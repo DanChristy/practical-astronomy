@@ -6,6 +6,8 @@ var searchData=
   ['pa_5fdatetime_2epy',['pa_datetime.py',['../pa__datetime_8py.html',1,'']]],
   ['pa_5fmacro',['pa_macro',['../namespacepa__macro.html',1,'']]],
   ['pa_5fmacro_2epy',['pa_macro.py',['../pa__macro_8py.html',1,'']]],
+  ['pa_5fsun',['pa_sun',['../namespacepa__sun.html',1,'']]],
+  ['pa_5fsun_2epy',['pa_sun.py',['../pa__sun_8py.html',1,'']]],
   ['pa_5futil',['pa_util',['../namespacepa__util.html',1,'']]],
   ['pa_5futil_2epy',['pa_util.py',['../pa__util_8py.html',1,'']]],
   ['parallax_5fdec',['parallax_dec',['../namespacepa__macro.html#a772eeed6c9bad0818d2ad149dea586ba',1,'pa_macro']]],

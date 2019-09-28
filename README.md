@@ -41,3 +41,9 @@ Calculate | RA and Declination values, corrected for geocentric parallax
 Calculate | Heliographic coordinates
 Calculate | Carrington rotation number
 Calculate | Selenographic (lunar) coordinates (sub-Earth and sub-Solar)
+
+### Sun Functions
+
+Type | Description
+-----|------------
+Calculate | Approximate Position of the Sun

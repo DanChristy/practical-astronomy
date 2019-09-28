@@ -6,8 +6,9 @@ default:
 	@echo '  test-julian'
 	@echo '  test-time'
 	@echo '  test-coordinate'
+	@echo '  test-sun'
 
-all: test-easter test-day-number test-julian test-time test-coordinate
+all: test-easter test-day-number test-julian test-time test-coordinate test-sun
 
 test-easter:
 	@./test-date-of-easter.py -v
@@ -23,3 +24,6 @@ test-time:
 
 test-coordinate:
 	@./test-coordinate.py
+
+test-sun:
+	@./test-sun.py

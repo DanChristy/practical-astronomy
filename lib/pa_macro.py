@@ -1078,3 +1078,28 @@ def ec_ra(ELD,ELM,ELS,BD,BM,BS,GD,GM,GY):
 	
 	return F - 360 * math.floor(F / 360)
 
+## @brief Calculate Sun's true anomaly, i.e., how much its orbit deviates from a true circle to an ellipse.
+def sun_true_anomaly(LCH, LCM, LCS, DS, ZC, LD, LM, LY):
+	AA = lct_gday(LCH, LCM, LCS, DS, ZC, LD, LM, LY)
+	BB = lct_gmonth(LCH, LCM, LCS, DS, ZC, LD, LM, LY)
+	CC = lct_gyear(LCH, LCM, LCS, DS, ZC, LD, LM, LY)
+	UT = lct_ut(LCH, LCM, LCS, DS, ZC, LD, LM, LY)
+	DJ = cd_jd(AA, BB, CC) - 2415020
+	
+	T = (DJ / 36525) + (UT / 876600)
+	T2 = T * T
+	
+	A = 100.0021359 * T
+	B = 360 * (A - math.floor(A))
+
+	L = 279.69668 + 0.0003025 * T2 + B
+	
+	A = 99.99736042 * T
+	B = 360 * (A - math.floor(A))
+
+	M1 = 358.47583 - (0.00015 + 0.0000033 * T) * T2 + B
+	EC = 0.01675104 - 0.0000418 * T - 0.000000126 * T2
+
+	AM = math.radians(M1)
+
+	return degrees(true_anomaly(AM, EC))

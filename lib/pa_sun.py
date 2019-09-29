@@ -51,3 +51,24 @@ def precise_position_of_sun(lct_hours, lct_minutes, lct_seconds, local_day, loca
 	sun_dec_sec = PM.dd_sec(dec_deg)
 
 	return sun_ra_hour,sun_ra_min,sun_ra_sec,sun_dec_deg,sun_dec_min,sun_dec_sec
+
+## @brief Calculate distance to the Sun (in km), and angular size.
+def sun_distance_and_angular_size(lct_hours, lct_minutes, lct_seconds, local_day, local_month, local_year, is_daylight_saving, zone_correction):
+	daylight_saving = 1 if is_daylight_saving == True else 0
+
+	g_day = PM.lct_gday(lct_hours,lct_minutes,lct_seconds,daylight_saving,zone_correction,local_day,local_month,local_year)
+	g_month = PM.lct_gmonth(lct_hours,lct_minutes,lct_seconds,daylight_saving,zone_correction,local_day,local_month,local_year)
+	g_year = PM.lct_gyear(lct_hours,lct_minutes,lct_seconds,daylight_saving,zone_correction,local_day,local_month,local_year)
+	true_anomaly_deg = PM.sun_true_anomaly(lct_hours,lct_minutes,lct_seconds,daylight_saving,zone_correction,local_day,local_month,local_year)
+	true_anomaly_rad = math.radians(true_anomaly_deg)
+	eccentricity = PM.sun_ecc(g_day,g_month,g_year)
+	f = (1 + eccentricity * math.cos(true_anomaly_rad)) / (1 - eccentricity * eccentricity)
+	r_km = 149598500 / f
+	theta_deg = f * 0.533128
+
+	sun_dist_km = round(r_km,-2)
+	sun_ang_size_deg = PM.dd_deg(theta_deg)
+	sun_ang_size_min = PM.dd_min(theta_deg)
+	sun_ang_size_sec = PM.dd_sec(theta_deg)
+
+	return sun_dist_km,sun_ang_size_deg,sun_ang_size_min,sun_ang_size_sec

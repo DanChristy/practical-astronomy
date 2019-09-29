@@ -50,6 +50,7 @@ var pa__macro_8py =
     [ "sun_ecc", "pa__macro_8py.html#a03515f64d57833f7a00a09c16627547d", null ],
     [ "sun_long", "pa__macro_8py.html#a69983584707323ffcddb8c405d4ebd8c", null ],
     [ "sun_peri", "pa__macro_8py.html#aaae1d185651909109c210b6a826ceb11", null ],
+    [ "sun_true_anomaly", "pa__macro_8py.html#a12f81c35f2d5ec5a47cf8bdd441db3f0", null ],
     [ "true_anomaly", "pa__macro_8py.html#aff4d796cd3ee56fb99c5a11c3cd99e95", null ],
     [ "unwind", "pa__macro_8py.html#a28e8da86f83fff822c048e1db3cead92", null ],
     [ "ut_gst", "pa__macro_8py.html#a62aa239414a03fc606ab17346561c27f", null ],

@@ -36,8 +36,7 @@ Calculate | Rising and Setting times for an object
 Calculate | Precession (corrected coordinates between two epochs)
 Calculate | Nutation (in ecliptic longitude and obliquity) for a Greenwich date
 Calculate | Effects of aberration for ecliptic coordinates
-Calculate | RA and Declination values, corrected for atmospheric refraction
-Calculate | RA and Declination values, corrected for geocentric parallax
+Calculate | RA and Declination values, corrected for atmospheric refraction and geocentric parallax
 Calculate | Heliographic coordinates
 Calculate | Carrington rotation number
 Calculate | Selenographic (lunar) coordinates (sub-Earth and sub-Solar)
@@ -46,7 +45,6 @@ Calculate | Selenographic (lunar) coordinates (sub-Earth and sub-Solar)
 
 Type | Description
 -----|------------
-Calculate | Approximate position of the Sun
-Calculate | Precise position of the Sun
+Calculate | Approximate and precise positions of the Sun
 Calculate | Sun's distance and angular size
 Calculate | Local sunrise and sunset

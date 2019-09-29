@@ -240,6 +240,20 @@ def gst_ut(greenwich_sidereal_hours,greenwich_sidereal_minutes,greenwich_siderea
 	
 	return H * 0.9972695663
 
+## @brief Status of conversion of Greenwich Sidereal Time to Universal Time.
+# Original macro name: eGSTUT
+def e_gst_ut(GSH, GSM, GSS, GD, GM, GY):
+	A = cd_jd(GD, GM, GY)
+	B = A - 2451545
+	C = B / 36525
+	D = 6.697374558 + (2400.051336 * C) + (0.000025862 * C * C)
+	E = D - (24 * math.floor(D / 24))
+	F = hms_dh(GSH, GSM, GSS)
+	G = F - E
+	H = G - (24 * math.floor(G / 24))
+
+	return "Warning" if ((H * 0.9972695663) < (4 / 60)) else "OK"
+
 ## @brief Convert Right Ascension to Hour Angle
 def ra_ha(ra_hours, ra_minutes, ra_seconds, lct_hours, lct_minutes, lct_seconds, daylight_saving, zone_correction, local_day, local_month, local_year, geographical_longitude):
 	A = lct_ut(lct_hours, lct_minutes, lct_seconds, daylight_saving, zone_correction, local_day, local_month, local_year)
@@ -1103,3 +1117,343 @@ def sun_true_anomaly(LCH, LCM, LCS, DS, ZC, LD, LM, LY):
 	AM = math.radians(M1)
 
 	return degrees(true_anomaly(AM, EC))
+
+## @brief Calculate local civil time of sunrise.
+# Original macro name: SunriseLCT
+def sunrise_lct(LD, LM, LY, DS, ZC, GL, GP):
+	DI = 0.8333333
+	GD = lct_gday(12, 0, 0, DS, ZC, LD, LM, LY)
+	GM = lct_gmonth(12, 0, 0, DS, ZC, LD, LM, LY)
+	GY = lct_gyear(12, 0, 0, DS, ZC, LD, LM, LY)
+	SR = sun_long(12, 0, 0, DS, ZC, LD, LM, LY)
+	
+	A,X,Y,LA,S = sunrise_lct_l3710(GD,GM,GY,SR,DI,GP)
+
+	if S != "OK":
+		XX = -99
+	else:
+		X = lst_gst(LA, 0, 0, GL)
+		UT = gst_ut(X, 0, 0, GD, GM, GY)
+
+		if e_gst_ut(X, 0, 0, GD, GM, GY) != "OK":
+			XX = -99
+		else:
+			SR = sun_long(UT, 0, 0, 0, 0, GD, GM, GY)
+			A,X,Y,LA,S = sunrise_lct_l3710(GD,GM,GY,SR,DI,GP)
+
+			if S != "OK":
+				XX = -99
+			else:
+				X = lst_gst(LA, 0, 0, GL)
+				UT = gst_ut(X, 0, 0, GD, GM, GY)
+				XX = ut_lct(UT, 0, 0, DS, ZC, GD, GM, GY)
+
+	return XX
+
+## @brief Helper function for sunrise_lct().
+def sunrise_lct_l3710(GD, GM, GY, SR, DI, GP):
+	A = SR + nutat_long(GD, GM, GY) - 0.005694
+	X = ec_ra(A, 0, 0, 0, 0, 0, GD, GM, GY)
+	Y = ec_dec(A, 0, 0, 0, 0, 0, GD, GM, GY)
+	LA = rise_set_local_sidereal_time_rise(dd_dh(X), 0, 0, Y, 0, 0, DI, GP)
+	S = e_rs(dd_dh(X), 0, 0, Y, 0, 0, DI, GP)
+
+	return A,X,Y,LA,S
+
+## @brief Calculate azimuth of sunrise.
+# Original macro name: SunriseAz
+def sunrise_az(LD, LM, LY, DS, ZC, GL, GP):
+	DI = 0.8333333
+	GD = lct_gday(12, 0, 0, DS, ZC, LD, LM, LY)
+	GM = lct_gmonth(12, 0, 0, DS, ZC, LD, LM, LY)
+	GY = lct_gyear(12, 0, 0, DS, ZC, LD, LM, LY)
+	SR = sun_long(12, 0, 0, DS, ZC, LD, LM, LY)
+
+	A,X,Y,LA,S = sunrise_az_l3710(GD, GM, GY, SR, DI, GP)
+        
+	if S != "OK":
+		return -99
+
+	X = lst_gst(LA, 0, 0, GL)
+	UT = gst_ut(X, 0, 0, GD, GM, GY)
+
+	if e_gst_ut(X, 0, 0, GD, GM, GY) != "OK":
+		return -99
+
+	SR = sun_long(UT, 0, 0, 0, 0, GD, GM, GY)
+	A,X,Y,LA,S = sunrise_az_l3710(GD, GM, GY, SR, DI, GP)
+
+	if S != "OK":
+		return -99
+
+	return rise_set_azimuth_rise(dd_dh(X), 0, 0, Y, 0, 0, DI, GP)
+        
+## @brief Helper function for sunrise_az().
+def sunrise_az_l3710(GD, GM, GY, SR, DI, GP):
+	A = SR + nutat_long(GD, GM, GY) - 0.005694
+	X = ec_ra(A, 0, 0, 0, 0, 0, GD, GM, GY)
+	Y = ec_dec(A, 0, 0, 0, 0, 0, GD, GM, GY)
+	LA = rise_set_local_sidereal_time_rise(dd_dh(X), 0, 0, Y, 0, 0, DI, GP)
+	S = e_rs(dd_dh(X), 0, 0, Y, 0, 0, DI, GP)
+
+	return A,X,Y,LA,S
+
+## @brief Calculate azimuth of sunset.
+# Original macro name: SunsetAz
+def sunset_az(LD, LM, LY, DS, ZC, GL, GP):
+	DI = 0.8333333
+	GD = lct_gday(12, 0, 0, DS, ZC, LD, LM, LY)
+	GM = lct_gmonth(12, 0, 0, DS, ZC, LD, LM, LY)
+	GY = lct_gyear(12, 0, 0, DS, ZC, LD, LM, LY)
+	SR = sun_long(12, 0, 0, DS, ZC, LD, LM, LY)
+	
+	A,X,Y,LA,S = sunset_az_l3710(GD, GM, GY, SR, DI, GP)
+
+	if S != "OK":
+		return -99
+		
+	X = lst_gst(LA, 0, 0, GL)
+	UT = gst_ut(X, 0, 0, GD, GM, GY)
+	
+	if e_gst_ut(X, 0, 0, GD, GM, GY) != "OK":
+		return -99
+		
+	SR = sun_long(UT, 0, 0, 0, 0, GD, GM, GY)
+	
+	A,X,Y,LA,S = sunset_az_l3710(GD, GM, GY, SR, DI, GP)
+	
+	if S != "OK":
+		return -99
+	
+	return rise_set_azimuth_set(dd_dh(X), 0, 0, Y, 0, 0, DI, GP)
+        
+## @brief Helper function for sunset_az().
+def sunset_az_l3710(GD, GM, GY, SR, DI, GP):
+	A = SR + nutat_long(GD, GM, GY) - 0.005694
+	X = ec_ra(A, 0, 0, 0, 0, 0, GD, GM, GY)
+	Y = ec_dec(A, 0, 0, 0, 0, 0, GD, GM, GY)
+	LA = rise_set_local_sidereal_time_set(dd_dh(X), 0, 0, Y, 0, 0, DI, GP)
+	S = e_rs(dd_dh(X), 0, 0, Y, 0, 0, DI, GP)
+
+	return A,X,Y,LA,S
+
+## @brief Calculate local civil time of sunset.
+# Original macro name: SunsetLCT
+def sunset_lct(LD, LM, LY, DS, ZC, GL, GP):
+	DI = 0.8333333
+	GD = lct_gday(12, 0, 0, DS, ZC, LD, LM, LY)
+	GM = lct_gmonth(12, 0, 0, DS, ZC, LD, LM, LY)
+	GY = lct_gyear(12, 0, 0, DS, ZC, LD, LM, LY)
+	SR = sun_long(12, 0, 0, DS, ZC, LD, LM, LY)
+
+	A,X,Y,LA,S = sunset_lct_l3710(GD,GM,GY,SR,DI,GP)
+
+	if S != "OK":
+		XX = -99
+	else:
+		X = lst_gst(LA, 0, 0, GL)
+		UT = gst_ut(X, 0, 0, GD, GM, GY)
+
+		if e_gst_ut(X, 0, 0, GD, GM, GY) != "OK":
+			XX = -99
+		else:
+			SR = sun_long(UT, 0, 0, 0, 0, GD, GM, GY)
+			A,X,Y,LA,S = sunset_lct_l3710(GD,GM,GY,SR,DI,GP)
+
+			if S != "OK":
+				XX = -99
+			else:
+				X = lst_gst(LA, 0, 0, GL)
+				UT = gst_ut(X, 0, 0, GD, GM, GY)
+				XX = ut_lct(UT, 0, 0, DS, ZC, GD, GM, GY)
+	
+	return XX
+
+## @brief Helper function for sunset_lct().
+def sunset_lct_l3710(GD, GM, GY, SR, DI, GP):
+	A = SR + nutat_long(GD, GM, GY) - 0.005694
+	X = ec_ra(A, 0, 0, 0, 0, 0, GD, GM, GY)
+	Y = ec_dec(A, 0, 0, 0, 0, 0, GD, GM, GY)
+	LA = rise_set_local_sidereal_time_set(dd_dh(X), 0, 0, Y, 0, 0, DI, GP)
+	S = e_rs(dd_dh(X), 0, 0, Y, 0, 0, DI, GP)
+	
+	return A,X,Y,LA,S
+
+## @brief Sunrise/Sunset calculation status.
+# Original macro name: eSunRS
+def e_sun_rs(LD, LM, LY, DS, ZC, GL, GP):
+	S = ""
+	DI = 0.8333333
+	GD = lct_gday(12, 0, 0, DS, ZC, LD, LM, LY)
+	GM = lct_gmonth(12, 0, 0, DS, ZC, LD, LM, LY)
+	GY = lct_gyear(12, 0, 0, DS, ZC, LD, LM, LY)
+	SR = sun_long(12, 0, 0, DS, ZC, LD, LM, LY)
+	
+	A,X,Y,LA,S = e_sun_rs_l3710(GD, GM, GY, SR, DI, GP)
+
+	if S != "OK":
+		return S
+	else:
+		X = lst_gst(LA, 0, 0, GL)
+		UT = gst_ut(X, 0, 0, GD, GM, GY)
+		SR = sun_long(UT, 0, 0, 0, 0, GD, GM, GY)
+		A,X,Y,LA,S = e_sun_rs_l3710(GD, GM, GY, SR, DI, GP)
+		if S != "OK":
+			return S
+		else:
+			X = lst_gst(LA, 0, 0, GL)
+			UT = gst_ut(X, 0, 0, GD, GM, GY)
+
+			if e_gst_ut(X, 0, 0, GD, GM, GY) != "OK":
+				S = S + " GST to UT conversion warning"
+				return S
+			
+			return S
+
+## @brief Helper function for e_sun_rs().
+def e_sun_rs_l3710(GD, GM, GY, SR, DI, GP):
+	A = SR + nutat_long(GD, GM, GY) - 0.005694
+	X = ec_ra(A, 0, 0, 0, 0, 0, GD, GM, GY)
+	Y = ec_dec(A, 0, 0, 0, 0, 0, GD, GM, GY)
+	LA = rise_set_local_sidereal_time_rise(dd_dh(X), 0, 0, Y, 0, 0, DI, GP)
+	S = e_rs(dd_dh(X), 0, 0, Y, 0, 0, DI, GP)
+
+	return A,X,Y,LA,S
+
+## @brief TODO: Needs documentation.  (Currently unused.)
+def angle(XX1, XM1, XS1, DD1, DM1, DS1, XX2, XM2, XS2, DD2, DM2, DS2, S):
+	A = dh_dd(hms_dh(XX1, XM1, XS1)) if (S in ["H","h"]) else dms_dd(XX1, XM1, XD1)
+	B = math.radians(A)
+	C = dms_dd(DD1, DM1, DS1)
+	D = math.radians(C)
+	E = dh_dd(hms_dh(XX2, XM2, XS2)) if (S in ["H","h"]) else dms_dd(XX2, XM2, XD2)
+	F = math.radians(E)
+	G = dms_dd(DD2, DM2, DS2)
+	H = math.radians(G)
+	I = math.acos(math.sin(D) * math.sin(H) + math.cos(D) * math.cos(H) * math.cos(B - F))
+
+	return degrees(I)
+
+## @brief Local sidereal time of rise, in hours.
+# Original macro name: RSLSTR
+def rise_set_local_sidereal_time_rise(RAH, RAM, RAS, DD, DM, DS, VD, G):
+	A = hms_dh(RAH, RAM, RAS)
+	B = math.radians(dh_dd(A))
+	C = math.radians(dms_dd(DD, DM, DS))
+	D = math.radians(VD)
+	E = math.radians(G)
+	F = -(math.sin(D) + math.sin(E) * math.sin(C)) / (math.cos(E) * math.cos(C))
+	H = math.acos(F) if (abs(F) < 1) else 0
+	I = dd_dh(degrees(B - H))
+
+	return I - 24 * math.floor(I / 24)
+
+## @brief Rise/Set status
+# <para>Possible values: "OK", "** never rises", "** circumpolar"</para>
+# <para>Original macro name: eRS</para>
+def e_rs(RAH, RAM, RAS, DD, DM, DS, VD, G):
+	A = hms_dh(RAH, RAM, RAS)
+	B = math.radians(dh_dd(A))
+	C = math.radians(dms_dd(DD, DM, DS))
+	D = math.radians(VD)
+	E = math.radians(G)
+	F = -(math.sin(D) + math.sin(E) * math.sin(C)) / (math.cos(E) * math.cos(C))
+
+	returnValue = "OK"
+	if (F >= 1):
+		returnValue = "** never rises" 
+	if (F <= -1):
+		returnValue = "** circumpolar"
+
+	return returnValue
+
+## @brief Local sidereal time of setting, in hours.
+# Original macro name: RSLSTS
+def rise_set_local_sidereal_time_set(RAH, RAM, RAS, DD, DM, DS, VD, G):
+	A = hms_dh(RAH, RAM, RAS)
+	B = math.radians(dh_dd(A))
+	C = math.radians(dms_dd(DD, DM, DS))
+	D = math.radians(VD)
+	E = math.radians(G)
+	F = -(math.sin(D) + math.sin(E) * math.sin(C)) / (math.cos(E) * math.cos(C))
+	H = math.acos(F) if (abs(F) < 1) else 0
+	I = dd_dh(degrees(B + H))
+
+	return I - 24 * math.floor(I / 24)
+
+## @brief Azimuth of rising, in degrees.
+# Original macro name: RSAZR
+def rise_set_azimuth_rise(RAH, RAM, RAS, DD, DM, DS, VD, G):
+	A = hms_dh(RAH, RAM, RAS)
+	B = math.radians(dh_dd(A))
+	C = math.radians(dms_dd(DD, DM, DS))
+	D = math.radians(VD)
+	E = math.radians(G)
+	F = (math.sin(C) + math.sin(D) * math.sin(E)) / (math.cos(D) * math.cos(E))
+	H = math.acos(F) if e_rs(RAH, RAM, RAS, DD, DM, DS, VD, G) == "OK" else 0
+	I = degrees(H)
+
+	return I - 360 * math.floor(I / 360)
+
+## @brief Azimuth of setting, in degrees.
+# Original macro name: RSAZS
+def rise_set_azimuth_set(RAH, RAM, RAS, DD, DM, DS, VD, G):
+	A = hms_dh(RAH, RAM, RAS)
+	B = math.radians(dh_dd(A))
+	C = math.radians(dms_dd(DD, DM, DS))
+	D = math.radians(VD)
+	E = math.radians(G)
+	F = (math.sin(C) + math.sin(D) * math.sin(E)) / (math.cos(D) * math.cos(E))
+	H = math.acos(F) if e_rs(RAH, RAM, RAS, DD, DM, DS, VD, G) == "OK" else 0
+	I = 360 - degrees(H)
+
+	return I - 360 * math.floor(I / 360)
+
+## @brief Nutation amount to be added in ecliptic longitude, in degrees.
+# Original macro name: NutatLong
+def nutat_long(GD, GM, GY):
+	DJ = cd_jd(GD, GM, GY) - 2415020
+	T = DJ / 36525
+	T2 = T * T
+
+	A = 100.0021358 * T
+	B = 360 * (A - math.floor(A))
+
+	L1 = 279.6967 + 0.000303 * T2 + B
+	l2 = 2 * math.radians(L1)
+
+	A = 1336.855231 * T
+	B = 360 * (A - math.floor(A))
+
+	D1 = 270.4342 - 0.001133 * T2 + B
+	D2 = 2 * math.radians(D1)
+
+	A = 99.99736056 * T
+	B = 360 * (A - math.floor(A))
+
+	M1 = 358.4758 - 0.00015 * T2 + B
+	M1 = math.radians(M1)
+
+	A = 1325.552359 * T
+	B = 360 * (A - math.floor(A))
+
+	M2 = 296.1046 + 0.009192 * T2 + B
+	M2 = math.radians(M2)
+
+	A = 5.372616667 * T
+	B = 360 * (A - math.floor(A))
+
+	N1 = 259.1833 + 0.002078 * T2 - B
+	N1 = math.radians(N1)
+
+	N2 = 2 * N1
+
+	DP = (-17.2327 - 0.01737 * T) * math.sin(N1)
+	DP = DP + (-1.2729 - 0.00013 * T) * math.sin(l2) + 0.2088 * math.sin(N2)
+	DP = DP - 0.2037 * math.sin(D2) + (0.1261 - 0.00031 * T) * math.sin(M1)
+	DP = DP + 0.0675 * math.sin(M2) - (0.0497 - 0.00012 * T) * math.sin(l2 + M1)
+	DP = DP - 0.0342 * math.sin(D2 - N1) - 0.0261 * math.sin(D2 + M2)
+	DP = DP + 0.0214 * math.sin(l2 - M1) - 0.0149 * math.sin(l2 - D2 + M2)
+	DP = DP + 0.0124 * math.sin(l2 - N1) + 0.0114 * math.sin(D2 - M2)
+
+	return DP / 3600

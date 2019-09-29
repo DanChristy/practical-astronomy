@@ -70,6 +70,29 @@ class test_sun_distance_and_angular_size(UT.TestCase):
 		self.assertEqual(sun_ang_size_min,31,"Sun Angular Size Minutes")
 		self.assertEqual(sun_ang_size_sec,29.93,"Sun Angular Size Seconds")
 
+class test_sunrise_and_sunset(UT.TestCase):
+	def setUp(self):
+		self.local_day = 10
+		self.local_month = 3
+		self.local_year = 1986
+		self.is_daylight_saving = False
+		self.zone_correction = -5
+		self.geographical_long_deg = -71.05
+		self.geographical_lat_deg = 42.37
+
+	def test_sunrise_and_sunset(self):
+		local_sunrise_hour,local_sunrise_minute,local_sunset_hour,local_sunset_minute,azimuth_of_sunrise_deg,azimuth_of_sunset_deg,status = PS.sunrise_and_sunset(self.local_day, self.local_month, self.local_year, self.is_daylight_saving, self.zone_correction, self.geographical_long_deg, self.geographical_lat_deg)
+
+		print("Sunrise and sunset: [Local date] {local_month}/{local_day}/{local_year} [DST?] {is_daylight_saving} [TZ Correction] {zone_correction} [Lat/Long] {geographical_lat_deg}/{geographical_long_deg} = [Sunrise] [time] {local_sunrise_hour}:{local_sunrise_minute} [Azimuth] {azimuth_of_sunrise_deg}, [Sunset] [time] {local_sunset_hour}:{local_sunset_minute} [Azimuth] {azimuth_of_sunset_deg}, [Status] {status}".format(local_month=self.local_month,local_day=self.local_day,local_year=self.local_year,is_daylight_saving=self.is_daylight_saving,zone_correction=self.zone_correction,geographical_lat_deg=self.geographical_lat_deg,geographical_long_deg=self.geographical_long_deg,local_sunrise_hour=local_sunrise_hour,local_sunrise_minute=local_sunrise_minute,local_sunset_hour=local_sunset_hour,local_sunset_minute=local_sunset_minute,azimuth_of_sunrise_deg=azimuth_of_sunrise_deg,azimuth_of_sunset_deg=azimuth_of_sunset_deg,status=status))
+
+		self.assertEqual(local_sunrise_hour,6,"Local Sunrise Hour")
+		self.assertEqual(local_sunrise_minute,5,"Local Sunrise Minute")
+		self.assertEqual(local_sunset_hour,17,"Local Sunset Hour")
+		self.assertEqual(local_sunset_minute,45,"Local Sunset Minute")
+		self.assertEqual(azimuth_of_sunrise_deg,94.83,"Azimuth of Sunrise (degrees)")
+		self.assertEqual(azimuth_of_sunset_deg,265.43,"Azimuth of Sunset (degrees)")
+		self.assertEqual(status,"OK","Status of Calculation")
+
 
 if __name__ == '__main__':
 	UT.main()

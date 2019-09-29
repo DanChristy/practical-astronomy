@@ -72,3 +72,30 @@ def sun_distance_and_angular_size(lct_hours, lct_minutes, lct_seconds, local_day
 	sun_ang_size_sec = PM.dd_sec(theta_deg)
 
 	return sun_dist_km,sun_ang_size_deg,sun_ang_size_min,sun_ang_size_sec
+
+## @brief Calculate local sunrise and sunset.
+def sunrise_and_sunset(local_day, local_month, local_year, is_daylight_saving, zone_correction, geographical_long_deg, geographical_lat_deg):
+	daylight_saving = 1 if is_daylight_saving == True else 0
+
+	local_sunrise_hours = PM.sunrise_lct(local_day, local_month, local_year, daylight_saving, zone_correction, geographical_long_deg, geographical_lat_deg)
+
+	local_sunset_hours = PM.sunset_lct(local_day, local_month, local_year, daylight_saving, zone_correction, geographical_long_deg, geographical_lat_deg)
+
+	sun_rise_set_status = PM.e_sun_rs(local_day, local_month, local_year, daylight_saving, zone_correction, geographical_long_deg, geographical_lat_deg)
+
+	print(sun_rise_set_status)
+
+	adjusted_sunrise_hours = local_sunrise_hours + 0.008333
+	adjusted_sunset_hours = local_sunset_hours + 0.008333
+	azimuth_of_sunrise_deg1 = PM.sunrise_az(local_day, local_month, local_year, daylight_saving, zone_correction, geographical_long_deg, geographical_lat_deg)
+	azimuth_of_sunset_deg1 = PM.sunset_az(local_day, local_month, local_year, daylight_saving, zone_correction, geographical_long_deg, geographical_lat_deg)
+
+	local_sunrise_hour = PM.dh_hour(adjusted_sunrise_hours) if sun_rise_set_status == "OK" else None
+	local_sunrise_minute = PM.dh_min(adjusted_sunrise_hours) if sun_rise_set_status == "OK" else None
+	local_sunset_hour = PM.dh_hour(adjusted_sunset_hours) if sun_rise_set_status == "OK" else None
+	local_sunset_minute = PM.dh_min(adjusted_sunset_hours) if sun_rise_set_status == "OK" else None
+	azimuth_of_sunrise_deg = round(azimuth_of_sunrise_deg1,2) if sun_rise_set_status == "OK" else None
+	azimuth_of_sunset_deg = round(azimuth_of_sunset_deg1,2) if sun_rise_set_status == "OK" else None
+	status = sun_rise_set_status
+
+	return local_sunrise_hour,local_sunrise_minute,local_sunset_hour,local_sunset_minute,azimuth_of_sunrise_deg,azimuth_of_sunset_deg,status

@@ -49,3 +49,4 @@ Type | Description
 Calculate | Approximate position of the Sun
 Calculate | Precise position of the Sun
 Calculate | Sun's distance and angular size
+Calculate | Local sunrise and sunset

@@ -48,3 +48,4 @@ Type | Description
 Calculate | Approximate and precise positions of the Sun
 Calculate | Sun's distance and angular size
 Calculate | Local sunrise and sunset
+Calculate | Morning and evening twilight

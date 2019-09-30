@@ -83,8 +83,6 @@ def sunrise_and_sunset(local_day, local_month, local_year, is_daylight_saving, z
 
 	sun_rise_set_status = PM.e_sun_rs(local_day, local_month, local_year, daylight_saving, zone_correction, geographical_long_deg, geographical_lat_deg)
 
-	print(sun_rise_set_status)
-
 	adjusted_sunrise_hours = local_sunrise_hours + 0.008333
 	adjusted_sunset_hours = local_sunset_hours + 0.008333
 	azimuth_of_sunrise_deg1 = PM.sunrise_az(local_day, local_month, local_year, daylight_saving, zone_correction, geographical_long_deg, geographical_lat_deg)
@@ -99,3 +97,25 @@ def sunrise_and_sunset(local_day, local_month, local_year, is_daylight_saving, z
 	status = sun_rise_set_status
 
 	return local_sunrise_hour,local_sunrise_minute,local_sunset_hour,local_sunset_minute,azimuth_of_sunrise_deg,azimuth_of_sunset_deg,status
+
+## @brief Calculate times of morning and evening twilight.
+# @param twilight_type	"C" (civil), "N" (nautical), or "A" (astronomical)
+def morning_and_evening_twilight(local_day, local_month, local_year, is_daylight_saving, zone_correction, geographical_long_deg, geographical_lat_deg, twilight_type):
+	daylight_saving = 1 if is_daylight_saving == True else 0
+
+	start_of_am_twilight_hours = PM.twilight_am_lct(local_day, local_month, local_year, daylight_saving, zone_correction, geographical_long_deg, geographical_lat_deg, twilight_type)
+
+	end_of_pm_twilight_hours = PM.twilight_pm_lct(local_day, local_month, local_year, daylight_saving, zone_correction, geographical_long_deg, geographical_lat_deg, twilight_type)
+
+	twilight_status = PM.e_twilight(local_day, local_month, local_year, daylight_saving, zone_correction, geographical_long_deg, geographical_lat_deg, twilight_type)
+
+	adjusted_am_start_time = start_of_am_twilight_hours + 0.008333
+	adjusted_pm_start_time = end_of_pm_twilight_hours + 0.008333
+
+	am_twilight_begins_hour = PM.dh_hour(adjusted_am_start_time) if twilight_status == "OK" else None
+	am_twilight_begins_min = PM.dh_min(adjusted_am_start_time) if twilight_status == "OK" else None
+	pm_twilight_ends_hour = PM.dh_hour(adjusted_pm_start_time) if twilight_status == "OK" else None
+	pm_twilight_ends_min = PM.dh_min(adjusted_pm_start_time) if twilight_status == "OK" else None
+	status = twilight_status
+
+	return am_twilight_begins_hour,am_twilight_begins_min,pm_twilight_ends_hour,pm_twilight_ends_min,status

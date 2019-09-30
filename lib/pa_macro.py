@@ -1361,7 +1361,7 @@ def e_rs(RAH, RAM, RAS, DD, DM, DS, VD, G):
 
 	returnValue = "OK"
 	if (F >= 1):
-		returnValue = "** never rises" 
+		returnValue = "** never rises"
 	if (F <= -1):
 		returnValue = "** circumpolar"
 
@@ -1457,3 +1457,158 @@ def nutat_long(GD, GM, GY):
 	DP = DP + 0.0124 * math.sin(l2 - N1) + 0.0114 * math.sin(D2 - M2)
 
 	return DP / 3600
+
+## @brief Calculate morning twilight start, in local time.
+# Original macro name: TwilightAMLCT
+# @param TT		Twilight type: "C" (civil), "N" (nautical), or "A" (astronomical)
+def twilight_am_lct(LD, LM, LY, DS, ZC, GL, GP, TT):
+	DI = 18
+	if TT in ["C","c"]:
+		DI = 6
+	if TT in ["N","n"]:
+		DI = 12
+
+	GD = lct_gday(12, 0, 0, DS, ZC, LD, LM, LY)
+	GM = lct_gmonth(12, 0, 0, DS, ZC, LD, LM, LY)
+	GY = lct_gyear(12, 0, 0, DS, ZC, LD, LM, LY)
+	SR = sun_long(12, 0, 0, DS, ZC, LD, LM, LY)
+	
+	A,X,Y,LA,S = twilight_am_lct_l3710(GD, GM, GY, SR, DI, GP)
+
+	if S != "OK":
+		return -99
+
+	X = lst_gst(LA, 0, 0, GL)
+	UT = gst_ut(X, 0, 0, GD, GM, GY)
+
+	if e_gst_ut(X, 0, 0, GD, GM, GY) != "OK":
+		return -99
+
+	SR = sun_long(UT, 0, 0, 0, 0, GD, GM, GY)
+	
+	A,X,Y,LA,S = twilight_am_lct_l3710(GD, GM, GY, SR, DI, GP)
+
+	if S != "OK":
+		return -99
+
+	X = lst_gst(LA, 0, 0, GL)
+	UT = gst_ut(X, 0, 0, GD, GM, GY)
+
+	XX = ut_lct(UT, 0, 0, DS, ZC, GD, GM, GY)
+
+	return XX
+
+## @brief Helper function for twilight_am_lct().
+def twilight_am_lct_l3710(GD, GM, GY, SR, DI, GP):
+	A = SR + nutat_long(GD, GM, GY) - 0.005694
+	X = ec_ra(A, 0, 0, 0, 0, 0, GD, GM, GY)
+	Y = ec_dec(A, 0, 0, 0, 0, 0, GD, GM, GY)
+	LA = rise_set_local_sidereal_time_rise(dd_dh(X), 0, 0, Y, 0, 0, DI, GP)
+	S = e_rs(dd_dh(X), 0, 0, Y, 0, 0, DI, GP)
+
+	return A,X,Y,LA,S
+
+## @brief Calculate evening twilight end, in local time.
+# Original macro name: TwilightPMLCT
+# @param TT		Twilight type: "C" (civil), "N" (nautical), or "A" (astronomical)
+def twilight_pm_lct(LD, LM, LY, DS, ZC, GL, GP, TT):
+	DI = 18
+	if TT in ["C","c"]:
+		DI = 6
+	if TT in ["N","n"]:
+		DI = 12
+
+	GD = lct_gday(12, 0, 0, DS, ZC, LD, LM, LY)
+	GM = lct_gmonth(12, 0, 0, DS, ZC, LD, LM, LY)
+	GY = lct_gyear(12, 0, 0, DS, ZC, LD, LM, LY)
+	SR = sun_long(12, 0, 0, DS, ZC, LD, LM, LY)
+
+	A,X,Y,LA,S = twilight_pm_lct_l3710(GD, GM, GY, SR, DI, GP)
+
+	if S != "OK":
+		return 0
+
+	X = lst_gst(LA, 0, 0, GL)
+	UT = gst_ut(X, 0, 0, GD, GM, GY)
+
+	if e_gst_ut(X, 0, 0, GD, GM, GY) != "OK":
+		return 0
+
+	SR = sun_long(UT, 0, 0, 0, 0, GD, GM, GY)
+	
+	A,X,Y,LA,S = twilight_pm_lct_l3710(GD, GM, GY, SR, DI, GP)
+
+	if S != "OK":
+		return 0
+
+	X = lst_gst(LA, 0, 0, GL)
+	UT = gst_ut(X, 0, 0, GD, GM, GY)
+
+	return ut_lct(UT, 0, 0, DS, ZC, GD, GM, GY)
+        
+## @brief Helper function for twilight_pm_lct().
+def twilight_pm_lct_l3710(GD, GM, GY, SR, DI, GP):
+	A = SR + nutat_long(GD, GM, GY) - 0.005694
+	X = ec_ra(A, 0, 0, 0, 0, 0, GD, GM, GY)
+	Y = ec_dec(A, 0, 0, 0, 0, 0, GD, GM, GY)
+	LA = rise_set_local_sidereal_time_set(dd_dh(X), 0, 0, Y, 0, 0, DI, GP)
+	S = e_rs(dd_dh(X), 0, 0, Y, 0, 0, DI, GP)
+
+	return A,X,Y,LA,S
+
+## @brief Twilight calculation status.
+# Original macro name: eTwilight
+# @param TT		Twilight type: "C" (civil), "N" (nautical), or "A" (astronomical)
+# @return One of: "OK", "** lasts all night", or "** Sun too far below horizon"
+def e_twilight(LD, LM, LY, DS, ZC, GL, GP, TT):
+	S = ""
+
+	DI = 18
+	if TT in ["C","c"]:
+		DI = 6
+	if TT in ["N","n"]:
+		DI = 12
+
+	GD = lct_gday(12, 0, 0, DS, ZC, LD, LM, LY)
+	GM = lct_gmonth(12, 0, 0, DS, ZC, LD, LM, LY)
+	GY = lct_gyear(12, 0, 0, DS, ZC, LD, LM, LY)
+	SR = sun_long(12, 0, 0, DS, ZC, LD, LM, LY)
+
+	A,X,Y,LA,S = e_twilight_l3710(GD, GM, GY, SR, DI, GP)
+
+	if S != "OK":
+		return S
+
+	X = lst_gst(LA, 0, 0, GL)
+	UT = gst_ut(X, 0, 0, GD, GM, GY)
+	SR = sun_long(UT, 0, 0, 0, 0, GD, GM, GY)
+	
+	A,X,Y,LA,S = e_twilight_l3710(GD, GM, GY, SR, DI, GP)
+
+	if S != "OK":
+		return S
+
+	X = lst_gst(LA, 0, 0, GL)
+	UT = gst_ut(X, 0, 0, GD, GM, GY)
+
+	if e_gst_ut(X, 0, 0, GD, GM, GY) != "OK":
+		S = S + " GST to UT conversion warning"
+		return S
+
+	return S
+        
+## @brief Helper function for e_twilight().
+def e_twilight_l3710(GD, GM, GY, SR, DI, GP):
+	A = SR + nutat_long(GD, GM, GY) - 0.005694
+	X = ec_ra(A, 0, 0, 0, 0, 0, GD, GM, GY)
+	Y = ec_dec(A, 0, 0, 0, 0, 0, GD, GM, GY)
+	LA = rise_set_local_sidereal_time_rise(dd_dh(X), 0, 0, Y, 0, 0, DI, GP)
+	S = e_rs(dd_dh(X), 0, 0, Y, 0, 0, DI, GP)
+
+	if S.startswith("** c"):
+		S = "** lasts all night"
+	else:
+		if S.startswith("** n"):
+			S = "** Sun too far below horizon"
+	
+	return A,X,Y,LA,S

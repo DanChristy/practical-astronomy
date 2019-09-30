@@ -93,6 +93,30 @@ class test_sunrise_and_sunset(UT.TestCase):
 		self.assertEqual(azimuth_of_sunset_deg,265.43,"Azimuth of Sunset (degrees)")
 		self.assertEqual(status,"OK","Status of Calculation")
 
+class test_morning_and_evening_twilight(UT.TestCase):
+	def setUp(self):
+		self.local_day = 7
+		self.local_month = 9
+		self.local_year = 1979
+		self.is_daylight_saving = False
+		self.zone_correction = 0
+		self.geographical_long_deg = 0
+		self.geographical_lat_deg = 52
+		self.twilight_type = "A"
+
+	def test_morning_and_evening_twilight(self):
+		am_twilight_begins_hour,am_twilight_begins_min,pm_twilight_ends_hour,pm_twilight_ends_min,status = PS.morning_and_evening_twilight(self.local_day, self.local_month, self.local_year, self.is_daylight_saving, self.zone_correction, self.geographical_long_deg, self.geographical_lat_deg, self.twilight_type)
+
+		print(am_twilight_begins_hour,am_twilight_begins_min,pm_twilight_ends_hour,pm_twilight_ends_min,status)
+
+		print("Morning and evening twilight: [Local date] {local_month}/{local_day}/{local_year} [DST?] {is_daylight_saving} [TZ Correction] {zone_correction} [Lat/Long] {geographical_lat_deg}/{geographical_long_deg} [Twilight Type] {twilight_type} = [AM Twilight Begins] {am_twilight_begins_hour}:{am_twilight_begins_min} [PM Twilight Ends] {pm_twilight_ends_hour}:{pm_twilight_ends_min}, [Status] {status}".format(local_month=self.local_month,local_day=self.local_day,local_year=self.local_year,is_daylight_saving=self.is_daylight_saving,zone_correction=self.zone_correction,geographical_lat_deg=self.geographical_lat_deg,geographical_long_deg=self.geographical_long_deg,twilight_type=self.twilight_type,am_twilight_begins_hour=am_twilight_begins_hour,am_twilight_begins_min=am_twilight_begins_min,pm_twilight_ends_hour=pm_twilight_ends_hour,pm_twilight_ends_min=pm_twilight_ends_min,status=status))
+
+		self.assertEqual(am_twilight_begins_hour,3,"AM Twilight Begins (hour)")
+		self.assertEqual(am_twilight_begins_min,17,"AM Twilight Begins (minute)")
+		self.assertEqual(pm_twilight_ends_hour,20,"PM Twilight Ends (hour)")
+		self.assertEqual(pm_twilight_ends_min,37,"PM Twilight Ends (minute)")
+		self.assertEqual(status,"OK","Status of Calculation")
+
 
 if __name__ == '__main__':
 	UT.main()

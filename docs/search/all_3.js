@@ -4,6 +4,8 @@ var searchData=
   ['e_5frs',['e_rs',['../namespacepa__macro.html#afda65e6ca57233046d3ada0e2ebb34e7',1,'pa_macro']]],
   ['e_5fsun_5frs',['e_sun_rs',['../namespacepa__macro.html#ad2c07dea1bbe21a6d0d0505da3cd6b21',1,'pa_macro']]],
   ['e_5fsun_5frs_5fl3710',['e_sun_rs_l3710',['../namespacepa__macro.html#a5963dbb10da2ef3bbb94c8247dae5b84',1,'pa_macro']]],
+  ['e_5ftwilight',['e_twilight',['../namespacepa__macro.html#a1044b84f10ffbabee96b61c3943a3f66',1,'pa_macro']]],
+  ['e_5ftwilight_5fl3710',['e_twilight_l3710',['../namespacepa__macro.html#ab18f41e4254b47bacb204656d3b8714d',1,'pa_macro']]],
   ['ec_5fdec',['ec_dec',['../namespacepa__macro.html#abdd53d8b2fd1abdea068d7c4b7772c1d',1,'pa_macro']]],
   ['ec_5fra',['ec_ra',['../namespacepa__macro.html#a30ae7434ead589f2baa12a790930185c',1,'pa_macro']]],
   ['eccentric_5fanomaly',['eccentric_anomaly',['../namespacepa__macro.html#a2a55e98b0b844c94b8d0476c19541d0f',1,'pa_macro']]],

@@ -107,8 +107,6 @@ class test_morning_and_evening_twilight(UT.TestCase):
 	def test_morning_and_evening_twilight(self):
 		am_twilight_begins_hour,am_twilight_begins_min,pm_twilight_ends_hour,pm_twilight_ends_min,status = PS.morning_and_evening_twilight(self.local_day, self.local_month, self.local_year, self.is_daylight_saving, self.zone_correction, self.geographical_long_deg, self.geographical_lat_deg, self.twilight_type)
 
-		print(am_twilight_begins_hour,am_twilight_begins_min,pm_twilight_ends_hour,pm_twilight_ends_min,status)
-
 		print("Morning and evening twilight: [Local date] {local_month}/{local_day}/{local_year} [DST?] {is_daylight_saving} [TZ Correction] {zone_correction} [Lat/Long] {geographical_lat_deg}/{geographical_long_deg} [Twilight Type] {twilight_type} = [AM Twilight Begins] {am_twilight_begins_hour}:{am_twilight_begins_min} [PM Twilight Ends] {pm_twilight_ends_hour}:{pm_twilight_ends_min}, [Status] {status}".format(local_month=self.local_month,local_day=self.local_day,local_year=self.local_year,is_daylight_saving=self.is_daylight_saving,zone_correction=self.zone_correction,geographical_lat_deg=self.geographical_lat_deg,geographical_long_deg=self.geographical_long_deg,twilight_type=self.twilight_type,am_twilight_begins_hour=am_twilight_begins_hour,am_twilight_begins_min=am_twilight_begins_min,pm_twilight_ends_hour=pm_twilight_ends_hour,pm_twilight_ends_min=pm_twilight_ends_min,status=status))
 
 		self.assertEqual(am_twilight_begins_hour,3,"AM Twilight Begins (hour)")
@@ -116,6 +114,20 @@ class test_morning_and_evening_twilight(UT.TestCase):
 		self.assertEqual(pm_twilight_ends_hour,20,"PM Twilight Ends (hour)")
 		self.assertEqual(pm_twilight_ends_min,37,"PM Twilight Ends (minute)")
 		self.assertEqual(status,"OK","Status of Calculation")
+
+class test_equation_of_time(UT.TestCase):
+	def setUp(self):
+		self.gwdate_day = 27
+		self.gwdate_month = 7
+		self.gwdate_year = 2010
+
+	def test_equation_of_time(self):
+		equation_of_time_min, equation_of_time_sec = PS.equation_of_time(self.gwdate_day,self.gwdate_month,self.gwdate_year)
+
+		print("Equation of Time:  [Greenwich Date] {gwdate_month}/{gwdate_day}/{gwdate_year} = [Equation of Time] {equation_of_time_min}:{equation_of_time_sec}".format(gwdate_month=self.gwdate_month,gwdate_day=self.gwdate_day,gwdate_year=self.gwdate_year,equation_of_time_min=equation_of_time_min,equation_of_time_sec=equation_of_time_sec))
+
+		self.assertEqual(equation_of_time_min,6,"Equation of Time (min)")
+		self.assertEqual(equation_of_time_sec,31.52,"Equation of Time (sec)")
 
 
 if __name__ == '__main__':

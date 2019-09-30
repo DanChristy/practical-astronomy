@@ -177,3 +177,25 @@ def morning_and_evening_twilight(local_day, local_month, local_year, is_daylight
 	status = twilight_status
 
 	return am_twilight_begins_hour,am_twilight_begins_min,pm_twilight_ends_hour,pm_twilight_ends_min,status
+
+def equation_of_time(gwdate_day, gwdate_month, gwdate_year):
+	"""
+	Calculate the equation of time. (The difference between the real Sun time and the mean Sun time.)
+	
+	Parameters:
+		gwdate_day:		Greenwich date (day part)
+		gwdate_month:	Greenwich date (month part)
+		gwdate_year:	Greenwich date (year part)
+
+	Returns:
+		equation of time (minute part), equation of time (seconds part)
+	"""
+	sun_longitude_deg = PM.sun_long(12,0,0,0,0,gwdate_day,gwdate_month,gwdate_year)
+	sun_ra_hours = PM.dd_dh(PM.ec_ra(sun_longitude_deg,0,0,0,0,0,gwdate_day,gwdate_month,gwdate_year))
+	equivalent_ut_hours = PM.gst_ut(sun_ra_hours,0,0,gwdate_day,gwdate_month,gwdate_year)
+	equation_of_time_hours = equivalent_ut_hours - 12
+
+	equation_of_time_min = PM.dh_min(equation_of_time_hours)
+	equation_of_time_sec = PM.dh_sec(equation_of_time_hours)
+
+	return equation_of_time_min,equation_of_time_sec

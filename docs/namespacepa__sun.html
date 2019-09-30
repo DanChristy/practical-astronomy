@@ -98,6 +98,8 @@ Functions</h2></td></tr>
 <tr class="separator:adfd57311af306901f51636873da1d661"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6594d13cff2aa9061039c61ec1498adf"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepa__sun.html#a6594d13cff2aa9061039c61ec1498adf">morning_and_evening_twilight</a> (local_day, local_month, local_year, is_daylight_saving, zone_correction, geographical_long_deg, geographical_lat_deg, twilight_type)</td></tr>
 <tr class="separator:a6594d13cff2aa9061039c61ec1498adf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af18d49a1042800db6b11ec240df1e709"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepa__sun.html#af18d49a1042800db6b11ec240df1e709">equation_of_time</a> (gwdate_day, gwdate_month, gwdate_year)</td></tr>
+<tr class="separator:af18d49a1042800db6b11ec240df1e709"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="abfa51acebc120930662de2c8351900c5"></a>
@@ -172,6 +174,49 @@ Parameters:
     local_year:         Local date, year part.
     is_daylight_saving: Is daylight savings in effect?
     zone_correction:    Time zone correction, in hours.
+</pre> 
+</div>
+</div>
+<a id="af18d49a1042800db6b11ec240df1e709"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af18d49a1042800db6b11ec240df1e709">&#9670;&nbsp;</a></span>equation_of_time()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def pa_sun.equation_of_time </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>gwdate_day</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>gwdate_month</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>gwdate_year</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Calculate the equation of time. (The difference between the real Sun time and the mean Sun time.)
+
+Parameters:
+    gwdate_day:     Greenwich date (day part)
+    gwdate_month:   Greenwich date (month part)
+    gwdate_year:    Greenwich date (year part)
+
+Returns:
+    equation of time (minute part), equation of time (seconds part)
 </pre> 
 </div>
 </div>

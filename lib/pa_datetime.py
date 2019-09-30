@@ -2,11 +2,16 @@ import math
 from . import pa_util as PU
 from . import pa_macro as PM
 
-## @brief Gets the date of Easter for the year specified.
-# @param  year  Year for which you'd like the date of Easter.
-# @returns  month, day, and year.
 def get_date_of_easter(year):
+	"""
+	Gets the date of Easter for the year specified.
 
+	Parameters:
+		year:	Year for which you'd like the date of Easter.
+
+	Returns:
+		month, day, and year.
+	"""
 	a = year % 19
 	b = math.floor(year/100)
 	c = year % 100
@@ -27,8 +32,8 @@ def get_date_of_easter(year):
 
 	return month,day,year
 
-## \brief Returns the day number for the date specified.
 def civil_date_to_day_number(month, day, year):
+	""" Returns the day number for the date specified. """
 	if month <= 2:
 		month = month - 1
 		month = month * 62 if PU.is_leap_year(year) else month * 63
@@ -39,61 +44,65 @@ def civil_date_to_day_number(month, day, year):
 	
 	return month + day
 
-## @brief Convert a Greenwich Date/Civil Date (day,month,year) to Julian Date
 def greenwich_date_to_julian_date(day, month, year):
+	""" Convert a Greenwich Date/Civil Date (day,month,year) to Julian Date """
 	return PM.cd_jd(day,month,year)
 
-## @brief Convert a Julian Date to Greenwich Date/Civil Date (day,month,year)
 def julian_date_to_greenwich_date(julianDate):
+	""" Convert a Julian Date to Greenwich Date/Civil Date (day,month,year) """
 	returnDay = julian_date_day(julianDate)
 	returnMonth = julian_date_month(julianDate)
 	returnYear = julian_date_year(julianDate)
 
 	return returnDay,returnMonth,returnYear
 
-## @brief Returns the day part of a Julian Date
 def julian_date_day(julianDate):
+	""" Returns the day part of a Julian Date """
 	return PM.jdc_day(julianDate)
 
-## @brief Returns the month part of a Julian Date
 def julian_date_month(julianDate):
+	""" Returns the month part of a Julian Date """
 	return PM.jdc_month(julianDate)
 
-## @brief Returns the year part of a Julian Date
 def julian_date_year(julianDate):
+	""" Returns the year part of a Julian Date """
 	return PM.jdc_year(julianDate)
 
-## @brief Convert a Julian Date to Day-of-Week (e.g., Sunday)
 def julian_date_to_weekday_name(julianDate):
+	""" Convert a Julian Date to Day-of-Week (e.g., Sunday) """
 	return PM.f_dow(julianDate)
 
-## @brief Convert a Civil Time (hours,minutes,seconds) to Decimal Hours
 def civil_time_to_decimal_hours(hours,minutes,seconds):
+	""" Convert a Civil Time (hours,minutes,seconds) to Decimal Hours """
 	return PM.hms_dh(hours,minutes,seconds)
 
-## @brief Return the hour part of a Decimal Hours
 def decimal_hour_hour(decimalHours):
+	""" Return the hour part of a Decimal Hours """
 	return PM.dh_hour(decimalHours)
 
-## @brief Return the minutes part of a Decimal Hours
 def decimal_hour_minutes(decimalHours):
+	""" Return the minutes part of a Decimal Hours """
 	return PM.dh_min(decimalHours)
 
-## @brief Return the seconds part of a Decimal Hours
 def decimal_hour_seconds(decimalHours):
+	""" Return the seconds part of a Decimal Hours """
 	return PM.dh_sec(decimalHours)
 
-## @brief Convert Decimal Hours to Civil Time
 def decimal_hours_to_civil_time(decimalHours):
+	""" Convert Decimal Hours to Civil Time """
 	hours = PM.dh_hour(decimalHours)
 	minutes = PM.dh_min(decimalHours)
 	seconds = PM.dh_sec(decimalHours)
 
 	return hours,minutes,seconds
 
-## @brief Convert local Civil Time to Universal Time
-## @returns UT hours, UT mins, UT secs, GW day, GW month, GW year
 def local_civil_time_to_universal_time(lctHours,lctMinutes,lctSeconds,isDaylightSavings, zoneCorrection, localDay,localMonth,localYear):
+	"""
+	Convert local Civil Time to Universal Time
+
+	Returns:
+		UT hours, UT mins, UT secs, GW day, GW month, GW year
+	"""
 	LCT = civil_time_to_decimal_hours(lctHours,lctMinutes,lctSeconds)
 	
 	daylightSavingsOffset = 1 if isDaylightSavings == True else 0
@@ -110,9 +119,13 @@ def local_civil_time_to_universal_time(lctHours,lctMinutes,lctSeconds,isDaylight
 	
 	return decimal_hour_hour(UT),decimal_hour_minutes(UT),decimal_hour_seconds(UT),math.floor(GDay),GMonth,GYear
 
-## @brief Convert Universal Time to local Civil Time
-## @returns LCT hours, LCT minutes, LCT seconds, day, month, year
 def universal_time_to_local_civil_time(utHours,utMinutes,utSeconds,isDayLightSavings, zoneCorrection,gwDay,gwMonth,gwYear):
+	"""
+	Convert Universal Time to local Civil Time
+
+	Returns:
+		LCT hours, LCT minutes, LCT seconds, day, month, year
+	"""
 	UT = civil_time_to_decimal_hours(utHours,utMinutes,utSeconds)
 	zoneTime = UT + zoneCorrection
 	localTime = zoneTime + (1 if isDayLightSavings == True else 0)
@@ -125,9 +138,13 @@ def universal_time_to_local_civil_time(utHours,utMinutes,utSeconds,isDayLightSav
 
 	return decimal_hour_hour(LCT),decimal_hour_minutes(LCT),decimal_hour_seconds(LCT),integerDay,localMonth,localYear
 
-## @brief Convert Universal Time to Greenwich Sidereal Time
-## @returns GST hours, GST minutes, GST seconds
 def universal_time_to_greenwich_sidereal_time(utHours,utMinutes,utSeconds,gwDay,gwMonth,gwYear):
+	"""
+	Convert Universal Time to Greenwich Sidereal Time
+
+	Returns:
+		GST hours, GST minutes, GST seconds
+	"""
 	JD = greenwich_date_to_julian_date(gwDay,gwMonth,gwYear)
 	S = JD - 2451545
 	T = S / 36525
@@ -144,9 +161,13 @@ def universal_time_to_greenwich_sidereal_time(utHours,utMinutes,utSeconds,gwDay,
 			
 	return gstHours,gstMinutes,gstSeconds
 
-## @brief Convert Greenwich Sidereal Time to Universal Time
-## @returns UT hours, UT minutes, UT seconds, Warning Flag
 def greenwich_sidereal_time_to_universal_time(gstHours,gstMinutes,gstSeconds,gwDay,gwMonth,gwYear):
+	"""
+	Convert Greenwich Sidereal Time to Universal Time
+
+	Returns:
+		UT hours, UT minutes, UT seconds, Warning Flag
+	"""
 	JD = greenwich_date_to_julian_date(gwDay,gwMonth,gwYear)
 	S = JD - 2451545
 	T = S / 36525
@@ -164,9 +185,13 @@ def greenwich_sidereal_time_to_universal_time(gstHours,gstMinutes,gstSeconds,gwD
 
 	return utHours,utMinutes,utSeconds,warningFlag
 
-## @brief Convert Greenwich Sidereal Time to Local Sidereal Time
-## @returns LST hours, LST minutes, LST seconds
 def greenwich_sidereal_time_to_local_sidereal_time(gstHours,gstMinutes,gstSeconds,geographicalLongitude):
+	"""
+	Convert Greenwich Sidereal Time to Local Sidereal Time
+
+	Returns:
+		LST hours, LST minutes, LST seconds
+	"""
 	GST = civil_time_to_decimal_hours(gstHours,gstMinutes,gstSeconds)
 	offset = geographicalLongitude / 15
 	lstHours1 = GST + offset
@@ -178,9 +203,13 @@ def greenwich_sidereal_time_to_local_sidereal_time(gstHours,gstMinutes,gstSecond
 
 	return lstHours,lstMinutes,lstSeconds
 
-## @brief Convert Local Sidereal Time to Greenwich Sidereal Time
-## @returns GST hours, GST minutes, GST seconds
 def local_sidereal_time_to_greenwich_sidereal_time(lstHours,lstMinutes,lstSeconds,geographicalLongitude):
+	"""
+	Convert Local Sidereal Time to Greenwich Sidereal Time
+
+	Returns:
+		GST hours, GST minutes, GST seconds
+	"""
 	GST = civil_time_to_decimal_hours(lstHours,lstMinutes,lstSeconds)
 	longHours = geographicalLongitude / 15
 	GST1 = GST - longHours

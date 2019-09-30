@@ -1,8 +1,8 @@
 import math
 from . import pa_macro as PM
 
-## @brief Convert an Angle (degrees, minutes, and seconds) to Decimal Degrees
 def angle_to_decimal_degrees(degrees, minutes, seconds):
+	""" Convert an Angle (degrees, minutes, and seconds) to Decimal Degrees """
 	A = abs(seconds)/60
 	B = (abs(minutes)+A)/60
 	C = abs(degrees)+B
@@ -10,9 +10,13 @@ def angle_to_decimal_degrees(degrees, minutes, seconds):
 
 	return D
 
-## @brief Convert Decimal Degrees to an Angle (degrees, minutes, and seconds)
-## @returns degrees, minutes, seconds
 def decimal_degrees_to_angle(decimalDegrees):
+	"""
+	Convert Decimal Degrees to an Angle (degrees, minutes, and seconds)
+	
+	Returns:
+		degrees, minutes, seconds
+	"""
 	unsignedDecimal = abs(decimalDegrees)
 	totalSeconds = unsignedDecimal * 3600
 	seconds2dp = round(totalSeconds % 60, 2)
@@ -24,8 +28,8 @@ def decimal_degrees_to_angle(decimalDegrees):
 
 	return signedDegrees,minutes,math.floor(correctedSeconds)
 
-## @brief Convert Right Ascension to Hour Angle
 def right_ascension_to_hour_angle(ra_hours, ra_minutes, ra_seconds, lct_hours, lct_minutes, lct_seconds, is_daylight_saving, zone_correction, local_day, local_month, local_year, geographical_longitude):
+	""" Convert Right Ascension to Hour Angle """
 	daylight_saving = 1 if is_daylight_saving == True else 0
 
 	hour_angle = PM.ra_ha(ra_hours, ra_minutes, ra_seconds, lct_hours, lct_minutes, lct_seconds, daylight_saving, zone_correction, local_day, local_month, local_year, geographical_longitude)
@@ -36,8 +40,8 @@ def right_ascension_to_hour_angle(ra_hours, ra_minutes, ra_seconds, lct_hours, l
 
 	return hour_angle_hours,hour_angle_minutes,hour_angle_seconds
 
-## @brief Convert Hour Angle to Right Ascension
 def hour_angle_to_right_ascension(hour_angle_hours,hour_angle_minutes,hour_angle_seconds,lct_hours,lct_minutes,lct_seconds,is_daylight_saving,zone_correction,local_day,local_month,local_year,geographical_longitude):
+	""" Convert Hour Angle to Right Ascension """
 	daylight_saving = 1 if is_daylight_saving == True else 0
 
 	right_ascension = PM.ha_ra(hour_angle_hours,hour_angle_minutes,hour_angle_seconds,lct_hours,lct_minutes,lct_seconds,daylight_saving,zone_correction,local_day,local_month,local_year,geographical_longitude)
@@ -48,8 +52,8 @@ def hour_angle_to_right_ascension(hour_angle_hours,hour_angle_minutes,hour_angle
 
 	return right_ascension_hours,right_ascension_minutes,right_ascension_seconds
 
-## @brief Convert Equatorial Coordinates to Horizon Coordinates
 def equatorial_coordinates_to_horizon_coordinates(hour_angle_hours,hour_angle_minutes,hour_angle_seconds,declination_degrees,declination_minutes,declination_seconds,geographical_latitude):
+	""" Convert Equatorial Coordinates to Horizon Coordinates """
 	azimuth_in_decimal_degrees = PM.eq_az(hour_angle_hours,hour_angle_minutes,hour_angle_seconds,declination_degrees,declination_minutes,declination_seconds,geographical_latitude)
 
 	altitude_in_decimal_degrees = PM.eq_alt(hour_angle_hours,hour_angle_minutes,hour_angle_seconds,declination_degrees,declination_minutes,declination_seconds,geographical_latitude)
@@ -64,8 +68,8 @@ def equatorial_coordinates_to_horizon_coordinates(hour_angle_hours,hour_angle_mi
 
 	return azimuth_degrees,azimuth_minutes,azimuth_seconds,altitude_degrees,altitude_minutes,altitude_seconds
 
-## @brief Convert Horizon Coordinates to Equatorial Coordinates
 def horizon_coordinates_to_equatorial_coordinates(azimuth_degrees,azimuth_minutes,azimuth_seconds,altitude_degrees,altitude_minutes,altitude_seconds,geographical_latitude):
+	""" Convert Horizon Coordinates to Equatorial Coordinates """
 	hour_angle_in_decimal_degrees = PM.hor_ha(azimuth_degrees,azimuth_minutes,azimuth_seconds,altitude_degrees,altitude_minutes,altitude_seconds,geographical_latitude)
 
 	declination_in_decimal_degrees = PM.hor_dec(azimuth_degrees,azimuth_minutes,azimuth_seconds,altitude_degrees,altitude_minutes,altitude_seconds,geographical_latitude)
@@ -80,8 +84,8 @@ def horizon_coordinates_to_equatorial_coordinates(azimuth_degrees,azimuth_minute
 
 	return hour_angle_hours,hour_angle_minutes,hour_angle_seconds,declination_degrees,declination_minutes,declination_seconds
 
-## @brief Calculate Mean Obliquity of the Ecliptic for a Greenwich Date
 def mean_obliquity_of_the_ecliptic(greenwich_day,greenwich_month,greenwich_year):
+	""" Calculate Mean Obliquity of the Ecliptic for a Greenwich Date """
 	JD = PM.cd_jd(greenwich_day,greenwich_month,greenwich_year)
 	MJD = JD - 2451545
 	T = MJD / 36525
@@ -90,8 +94,8 @@ def mean_obliquity_of_the_ecliptic(greenwich_day,greenwich_month,greenwich_year)
 
 	return 23.439292 - DE2
 
-## @brief Convert Ecliptic Coordinates to Equatorial Coordinates
 def ecliptic_coordinate_to_equatorial_coordinate(ecliptic_longitude_degrees,ecliptic_longitude_minutes,ecliptic_longitude_seconds,ecliptic_latitude_degrees,ecliptic_latitude_minutes,ecliptic_latitude_seconds,greenwich_day,greenwich_month,greenwich_year):
+	""" Convert Ecliptic Coordinates to Equatorial Coordinates """
 	eclon_deg = PM.dms_dd(ecliptic_longitude_degrees,ecliptic_longitude_minutes,ecliptic_longitude_seconds)
 	eclat_deg = PM.dms_dd(ecliptic_latitude_degrees,ecliptic_latitude_minutes,ecliptic_latitude_seconds)
 	eclon_rad = math.radians(eclon_deg)
@@ -117,8 +121,8 @@ def ecliptic_coordinate_to_equatorial_coordinate(ecliptic_longitude_degrees,ecli
 
 	return out_ra_hours,out_ra_minutes,out_ra_seconds,out_dec_degrees,out_dec_minutes,out_dec_seconds
 
-## @brief Convert Equatorial Coordinates to Ecliptic Coordinates
 def equatorial_coordinate_to_ecliptic_coordinate(ra_hours,ra_minutes,ra_seconds,dec_degrees,dec_minutes,dec_seconds,gw_day,gw_month,gw_year):
+	""" Convert Equatorial Coordinates to Ecliptic Coordinates """
 	ra_deg = PM.dh_dd(PM.hms_dh(ra_hours,ra_minutes,ra_seconds))
 	dec_deg = PM.dms_dd(dec_degrees,dec_minutes,dec_seconds)
 	ra_rad = math.radians(ra_deg)
@@ -143,8 +147,8 @@ def equatorial_coordinate_to_ecliptic_coordinate(ra_hours,ra_minutes,ra_seconds,
 
 	return out_ecl_long_deg,out_ecl_long_min,out_ecl_long_sec,out_ecl_lat_deg,out_ecl_lat_min,out_ecl_lat_sec
 
-## @brief Convert Equatorial Coordinates to Galactic Coordinates
 def equatorial_coordinate_to_galactic_coordinate(ra_hours,ra_minutes,ra_seconds,dec_degrees,dec_minutes,dec_seconds):
+	""" Convert Equatorial Coordinates to Galactic Coordinates """
 	ra_deg = PM.dh_dd(PM.hms_dh(ra_hours,ra_minutes,ra_seconds))
 	dec_deg = PM.dms_dd(dec_degrees,dec_minutes,dec_seconds)
 	ra_rad = math.radians(ra_deg)
@@ -166,8 +170,8 @@ def equatorial_coordinate_to_galactic_coordinate(ra_hours,ra_minutes,ra_seconds,
 
 	return gal_long_deg,gal_long_min,gal_long_sec,gal_lat_deg,gal_lat_min,gal_lat_sec
 
-## @brief Convert Galactic Coordinates to Equatorial Coordinates
 def galactic_coordinate_to_equatorial_coordinate(gal_long_deg,gal_long_min,gal_long_sec,gal_lat_deg,gal_lat_min,gal_lat_sec):
+	""" Convert Galactic Coordinates to Equatorial Coordinates """
 	glong_deg = PM.dms_dd(gal_long_deg,gal_long_min,gal_long_sec)
 	glat_deg = PM.dms_dd(gal_lat_deg,gal_lat_min,gal_lat_sec)
 	glong_rad = math.radians(glong_deg)
@@ -191,8 +195,8 @@ def galactic_coordinate_to_equatorial_coordinate(gal_long_deg,gal_long_min,gal_l
 
 	return ra_hours,ra_minutes,ra_seconds,dec_degrees,dec_minutes,dec_seconds
 
-## @brief Calculate the angle between two celestial objects
 def angle_between_two_objects(ra_long_1_hour_deg,ra_long_1_min,ra_long_1_sec,dec_lat_1_deg,dec_lat_1_min,dec_lat_1_sec,ra_long_2_hour_deg,ra_long_2_min,ra_long_2_sec,dec_lat_2_deg,dec_lat_2_min,dec_lat_2_sec,hour_or_degree):
+	""" Calculate the angle between two celestial objects """
 	ra_long_1_decimal = PM.hms_dh(ra_long_1_hour_deg,ra_long_1_min,ra_long_1_sec) if hour_or_degree == "H" else PM.dms_dd(ra_long_1_hour_deg,ra_long_1_min,ra_long_1_sec)
 	ra_long_1_deg = PM.dh_dd(ra_long_1_decimal) if hour_or_degree == "H" else ra_long_1_decimal
 	ra_long_1_rad = math.radians(ra_long_1_deg)
@@ -215,28 +219,33 @@ def angle_between_two_objects(ra_long_1_hour_deg,ra_long_1_min,ra_long_1_sec,dec
 
 	return angle_deg,angle_min,angle_sec
 
-## @brief Rising and setting times
-# @param ra_hours		Right Ascension, in hours.
-# @param ra_minutes		Right Ascension, in minutes.
-# @param ra_seconds		Right Ascension, in seconds.
-# @param dec_deg		Declination, in degrees.
-# @param dec_min		Declination, in minutes.
-# @param dec_sec		Declination, in seconds.
-# @param gw_date_day	Greenwich Date, day part.
-# @param gw_date_month	Greenwich Date, month part.
-# @param gw_date_year	Greenwich Date, year part.
-# @param geog_long_deg	Geographical Longitude, in degrees.
-# @param geog_lat_deg	Geographical Latitude, in degrees.
-# @param vert_shift_deg	Vertical Shift, in degrees.
-# @return
-# @arg @b rise_set_status	"Never Rises", "Circumpolar", or "OK".
-# @arg @b ut_rise_hour		Rise time, UT, hour part.
-# @arg @b ut_rise_min		Rise time, UT, minute part.
-# @arg @b ut_set_hour		Set time, UT, hour part.
-# @arg @b ut_set_min		Set time, UT, minute part.
-# @arg @b az_rise			Azimuth angle, at rise.
-# @arg @b az_set			Azimuth angle, at set.
 def rising_and_setting(ra_hours,ra_minutes,ra_seconds,dec_deg,dec_min,dec_sec,gw_date_day,gw_date_month,gw_date_year,geog_long_deg,geog_lat_deg,vert_shift_deg):
+	"""
+	Rising and setting times
+
+	Parameters:
+		ra_hours:		Right Ascension, in hours.
+		ra_minutes:		Right Ascension, in minutes.
+		ra_seconds:		Right Ascension, in seconds.
+		dec_deg:		Declination, in degrees.
+		dec_min:		Declination, in minutes.
+		dec_sec:		Declination, in seconds.
+		gw_date_day:	Greenwich Date, day part.
+		gw_date_month:	Greenwich Date, month part.
+		gw_date_year:	Greenwich Date, year part.
+		geog_long_deg:	Geographical Longitude, in degrees.
+		geog_lat_deg:	Geographical Latitude, in degrees.
+		vert_shift_deg:	Vertical Shift, in degrees.
+
+	Returns:
+		rise_set_status:	"Never Rises", "Circumpolar", or "OK".
+		ut_rise_hour:		Rise time, UT, hour part.
+		ut_rise_min:		Rise time, UT, minute part.
+		ut_set_hour:		Set time, UT, hour part.
+		ut_set_min:			Set time, UT, minute part.
+		az_rise:			Azimuth angle, at rise.
+		az_set:				Azimuth angle, at set.
+	"""
 	ra_hours1 = PM.hms_dh(ra_hours,ra_minutes,ra_seconds)
 	dec_rad = math.radians(PM.dms_dd(dec_deg,dec_min,dec_sec))
 	vertical_displ_radians = math.radians(vert_shift_deg)
@@ -263,9 +272,13 @@ def rising_and_setting(ra_hours,ra_minutes,ra_seconds,dec_deg,dec_min,dec_sec,gw
 
 	return rise_set_status,ut_rise_hour,ut_rise_min,ut_set_hour,ut_set_min,az_rise,az_set
 
-## @brief Calculate precession (corrected coordinates between two epochs)
-# @return corrected RA hour, corrected RA minutes, corrected RA seconds, corrected Declination degrees, corrected Declination minutes, corrected Declination seconds
 def correct_for_precession(ra_hour,ra_minutes,ra_seconds,dec_deg,dec_minutes,dec_seconds,epoch1_day,epoch1_month,epoch1_year,epoch2_day,epoch2_month,epoch2_year):
+	"""
+	Calculate precession (corrected coordinates between two epochs)
+
+	Returns:
+		corrected RA hour, corrected RA minutes, corrected RA seconds, corrected Declination degrees, corrected Declination minutes, corrected Declination seconds
+	"""
 	ra_1_rad = math.radians(PM.dh_dd(PM.hms_dh(ra_hour,ra_minutes,ra_seconds)))
 	dec_1_rad = math.radians(PM.dms_dd(dec_deg,dec_minutes,dec_seconds))
 	t_centuries = (PM.cd_jd(epoch1_day,epoch1_month,epoch1_year)-2415020)/36525
@@ -286,9 +299,13 @@ def correct_for_precession(ra_hour,ra_minutes,ra_seconds,dec_deg,dec_minutes,dec
 
 	return corrected_ra_hour,corrected_ra_minutes,corrected_ra_seconds,corrected_dec_deg,corrected_dec_minutes,corrected_dec_seconds
 
-## @brief Calculate nutation for two values: ecliptic longitude and obliquity, for a Greenwich date.
-# @return nutation in ecliptic longitude (degrees), nutation in obliquity (degrees)
 def nutation_in_ecliptic_longitude_and_obliquity(greenwich_day, greenwich_month, greenwich_year):
+	"""
+	Calculate nutation for two values: ecliptic longitude and obliquity, for a Greenwich date.
+
+	Returns:
+		nutation in ecliptic longitude (degrees), nutation in obliquity (degrees)
+	"""
 	jd_days = PM.cd_jd(greenwich_day,greenwich_month,greenwich_year)
 	t_centuries = (jd_days - 2415020) /36525
 	a_deg = 100.0021358 * t_centuries
@@ -308,9 +325,13 @@ def nutation_in_ecliptic_longitude_and_obliquity(greenwich_day, greenwich_month,
 
 	return nut_in_long_deg,nut_in_obl_deg
 
-## @brief Correct ecliptic coordinates for the effects of aberration.
-# @return apparent ecliptic longitude (degrees, minutes, seconds), apparent ecliptic latitude (degrees, minutes, seconds)
 def correct_for_aberration(ut_hour,ut_minutes,ut_seconds,gw_day,gw_month,gw_year,true_ecl_long_deg,true_ecl_long_min,true_ecl_long_sec,true_ecl_lat_deg,true_ecl_lat_min,true_ecl_lat_sec):
+	"""
+	Correct ecliptic coordinates for the effects of aberration.
+
+	Returns:
+		apparent ecliptic longitude (degrees, minutes, seconds), apparent ecliptic latitude (degrees, minutes, seconds)
+	"""
 	true_long_deg = PM.dms_dd(true_ecl_long_deg,true_ecl_long_min,true_ecl_long_sec)
 	true_lat_deg = PM.dms_dd(true_ecl_lat_deg,true_ecl_lat_min,true_ecl_lat_sec)
 	sun_true_long_deg = PM.sun_long(ut_hour,ut_minutes,ut_seconds,0,0,gw_day,gw_month,gw_year)
@@ -328,10 +349,15 @@ def correct_for_aberration(ut_hour,ut_minutes,ut_seconds,gw_day,gw_month,gw_year
 
 	return apparent_ecl_long_deg,apparent_ecl_long_min,apparent_ecl_long_sec,apparent_ecl_lat_deg,apparent_ecl_lat_min,apparent_ecl_lat_sec
 
-## @brief Calculate corrected RA/Dec, accounting for atmospheric refraction.
-# NOTE: Valid values for coordinate_type are "TRUE" and "APPARENT".
-# @return corrected RA hours,minutes,seconds and corrected Declination degrees,minutes,seconds
 def atmospheric_refraction(true_ra_hour,true_ra_min,true_ra_sec,true_dec_deg,true_dec_min,true_dec_sec,coordinate_type,geog_long_deg,geog_lat_deg,daylight_saving_hours,timezone_hours,lcd_day,lcd_month,lcd_year,lct_hour,lct_min,lct_sec,atmospheric_pressure_mbar,atmospheric_temperature_celsius):
+	"""
+	Calculate corrected RA/Dec, accounting for atmospheric refraction.
+
+	NOTE: Valid values for coordinate_type are "TRUE" and "APPARENT".
+
+	Returns:
+		corrected RA hours,minutes,seconds and corrected Declination degrees,minutes,seconds
+	"""
 	ha_hour = PM.ra_ha(true_ra_hour,true_ra_min,true_ra_sec,lct_hour,lct_min,lct_sec,daylight_saving_hours,timezone_hours,lcd_day,lcd_month,lcd_year,geog_long_deg)
 
 	azimuth_deg = PM.eq_az(ha_hour,0,0,true_dec_deg,true_dec_min,true_dec_sec,geog_lat_deg)
@@ -353,10 +379,15 @@ def atmospheric_refraction(true_ra_hour,true_ra_min,true_ra_sec,true_dec_deg,tru
 
 	return corrected_ra_hour,corrected_ra_min,corrected_ra_sec,corrected_dec_deg,corrected_dec_min,corrected_dec_sec
 
-## @brief Calculate corrected RA/Dec, accounting for geocentric parallax.
-# NOTE: Valid values for coordinate_type are "TRUE" and "APPARENT".
-# @return corrected RA hours,minutes,seconds and corrected Declination degrees,minutes,seconds
 def corrections_for_geocentric_parallax(ra_hour,ra_min,ra_sec,dec_deg,dec_min,dec_sec,coordinate_type,equatorial_hor_parallax_deg,geog_long_deg,geog_lat_deg,height_m,daylight_saving,timezone_hours,lcd_day,lcd_month,lcd_year,lct_hour,lct_min,lct_sec):
+	"""
+	Calculate corrected RA/Dec, accounting for geocentric parallax.
+
+	NOTE: Valid values for coordinate_type are "TRUE" and "APPARENT".
+
+	Returns:
+		corrected RA hours,minutes,seconds and corrected Declination degrees,minutes,seconds
+	"""
 	ha_hours = PM.ra_ha(ra_hour,ra_min,ra_sec,lct_hour,lct_min,lct_sec,daylight_saving,timezone_hours,lcd_day,lcd_month,lcd_year,geog_long_deg)
 
 	corrected_ha_hours = PM.parallax_ha(ha_hours,0,0,dec_deg,dec_min,dec_sec,coordinate_type,geog_lat_deg,height_m,equatorial_hor_parallax_deg)
@@ -374,9 +405,13 @@ def corrections_for_geocentric_parallax(ra_hour,ra_min,ra_sec,dec_deg,dec_min,de
 
 	return corrected_ra_hour,corrected_ra_min,corrected_ra_sec,corrected_dec_deg,corrected_dec_min,corrected_dec_sec
 
-## @brief Calculate heliographic coordinates for a given Greenwich date, with a given heliographic position angle and heliographic displacement in arc minutes.
-# @return heliographic longitude and heliographic latitude, in degrees
 def heliographic_coordinates(helio_position_angle_deg,helio_displacement_arcmin,gwdate_day,gwdate_month,gwdate_year):
+	"""
+	Calculate heliographic coordinates for a given Greenwich date, with a given heliographic position angle and heliographic displacement in arc minutes.
+
+	Returns:
+		heliographic longitude and heliographic latitude, in degrees
+	"""
 	julian_date_days = PM.cd_jd(gwdate_day,gwdate_month,gwdate_year)
 	t_centuries = (julian_date_days-2415020)/36525
 	long_asc_node_deg = PM.dms_dd(74,22,0)+(84*t_centuries/60)
@@ -404,17 +439,25 @@ def heliographic_coordinates(helio_position_angle_deg,helio_displacement_arcmin,
 
 	return helio_long_deg,helio_lat_deg
 
-## @brief Calculate carrington rotation number for a Greenwich date
-# @return carrington rotation number
 def carrington_rotation_number(gwdate_day,gwdate_month,gwdate_year):
+	"""
+	Calculate carrington rotation number for a Greenwich date
+
+	Returns:
+			carrington rotation number
+	"""
 	julian_date_days = PM.cd_jd(gwdate_day,gwdate_month,gwdate_year)
 	crn = 1690 + round((julian_date_days-2444235.34)/27.2753,0)
 
 	return crn
 
-## @brief Calculate selenographic (lunar) coordinates (sub-Earth)
-# @return sub-earth longitude, sub-earth latitude, and position angle of pole
 def selenographic_coordinates_1(gwdate_day,gwdate_month,gwdate_year):
+	"""
+	Calculate selenographic (lunar) coordinates (sub-Earth)
+
+	Returns:
+		sub-earth longitude, sub-earth latitude, and position angle of pole
+	"""
 	julian_date_days = PM.cd_jd(gwdate_day,gwdate_month,gwdate_year)
 	t_centuries = (julian_date_days-2451545)/36525
 	long_asc_node_deg = 125.044522-1934.136261*t_centuries
@@ -442,9 +485,13 @@ def selenographic_coordinates_1(gwdate_day,gwdate_month,gwdate_year):
 
 	return sub_earth_longitude,sub_earth_latitude,position_angle_of_pole
 
-## @brief Calculate selenographic (lunar) coordinates (sub-Solar)
-# @return sub-solar longitude, sub-solar colongitude, and sub-solar latitude
 def selenographic_coordinates_2(gwdate_day,gwdate_month,gwdate_year):
+	"""
+	Calculate selenographic (lunar) coordinates (sub-Solar)
+
+	Returns:
+		sub-solar longitude, sub-solar colongitude, and sub-solar latitude
+	"""
 	julian_date_days = PM.cd_jd(gwdate_day,gwdate_month,gwdate_year)
 	t_centuries = (julian_date_days-2451545)/36525
 	long_asc_node_deg = 125.044522-1934.136261*t_centuries

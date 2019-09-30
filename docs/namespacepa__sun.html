@@ -89,19 +89,14 @@ $(document).ready(function(){initNavTree('namespacepa__sun.html','');});
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:abfa51acebc120930662de2c8351900c5"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepa__sun.html#abfa51acebc120930662de2c8351900c5">approximate_position_of_sun</a> (lct_hours, lct_minutes, lct_seconds, local_day, local_month, local_year, is_daylight_saving, zone_correction)</td></tr>
-<tr class="memdesc:abfa51acebc120930662de2c8351900c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate approximate position of the sun for a local date and time.  <a href="#abfa51acebc120930662de2c8351900c5">More...</a><br /></td></tr>
 <tr class="separator:abfa51acebc120930662de2c8351900c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a538d59baa96c7bba0f386b20c95ffffc"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepa__sun.html#a538d59baa96c7bba0f386b20c95ffffc">precise_position_of_sun</a> (lct_hours, lct_minutes, lct_seconds, local_day, local_month, local_year, is_daylight_saving, zone_correction)</td></tr>
-<tr class="memdesc:a538d59baa96c7bba0f386b20c95ffffc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate precise position of the sun for a local date and time.  <a href="#a538d59baa96c7bba0f386b20c95ffffc">More...</a><br /></td></tr>
 <tr class="separator:a538d59baa96c7bba0f386b20c95ffffc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3ba4cb9b28e2932ac7bceef35b7acad8"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepa__sun.html#a3ba4cb9b28e2932ac7bceef35b7acad8">sun_distance_and_angular_size</a> (lct_hours, lct_minutes, lct_seconds, local_day, local_month, local_year, is_daylight_saving, zone_correction)</td></tr>
-<tr class="memdesc:a3ba4cb9b28e2932ac7bceef35b7acad8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate distance to the Sun (in km), and angular size.  <a href="#a3ba4cb9b28e2932ac7bceef35b7acad8">More...</a><br /></td></tr>
 <tr class="separator:a3ba4cb9b28e2932ac7bceef35b7acad8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adfd57311af306901f51636873da1d661"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepa__sun.html#adfd57311af306901f51636873da1d661">sunrise_and_sunset</a> (local_day, local_month, local_year, is_daylight_saving, zone_correction, geographical_long_deg, geographical_lat_deg)</td></tr>
-<tr class="memdesc:adfd57311af306901f51636873da1d661"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate local sunrise and sunset.  <a href="#adfd57311af306901f51636873da1d661">More...</a><br /></td></tr>
 <tr class="separator:adfd57311af306901f51636873da1d661"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6594d13cff2aa9061039c61ec1498adf"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepa__sun.html#a6594d13cff2aa9061039c61ec1498adf">morning_and_evening_twilight</a> (local_day, local_month, local_year, is_daylight_saving, zone_correction, geographical_long_deg, geographical_lat_deg, twilight_type)</td></tr>
-<tr class="memdesc:a6594d13cff2aa9061039c61ec1498adf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate times of morning and evening twilight.  <a href="#a6594d13cff2aa9061039c61ec1498adf">More...</a><br /></td></tr>
 <tr class="separator:a6594d13cff2aa9061039c61ec1498adf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
@@ -166,9 +161,18 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<pre class="fragment">Calculate approximate position of the sun for a local date and time.
 
-<p>Calculate approximate position of the sun for a local date and time. </p>
-
+Parameters:
+    lct_hours:          Local civil time, in hours.
+    lct_minutes:        Local civil time, in minutes.
+    lct_seconds:        Local civil time, in seconds.
+    local_day:          Local date, day part.
+    local_month:        Local date, month part.
+    local_year:         Local date, year part.
+    is_daylight_saving: Is daylight savings in effect?
+    zone_correction:    Time zone correction, in hours.
+</pre> 
 </div>
 </div>
 <a id="a6594d13cff2aa9061039c61ec1498adf"></a>
@@ -232,15 +236,18 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<pre class="fragment">Calculate times of morning and evening twilight.
 
-<p>Calculate times of morning and evening twilight. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">twilight_type</td><td>"C" (civil), "N" (nautical), or "A" (astronomical) </td></tr>
-  </table>
-  </dd>
-</dl>
-
+Parameters:
+    local_day:              Local date, day part.
+    local_month:            Local date, month part.
+    local_year:             Local date, year part.
+    is_daylight_saving:     Is daylight savings in effect?
+    zone_correction:        Time zone correction, in hours.
+    geographical_long_deg:  Geographical longitude, in degrees.
+    geographical_lat_deg:   Geographical latitude, in degrees.
+    twilight_type:          "C" (civil), "N" (nautical), or "A" (astronomical)
+</pre> 
 </div>
 </div>
 <a id="a538d59baa96c7bba0f386b20c95ffffc"></a>
@@ -304,9 +311,18 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<pre class="fragment">Calculate precise position of the sun for a local date and time.
 
-<p>Calculate precise position of the sun for a local date and time. </p>
-
+Parameters:
+    lct_hours:          Local civil time, in hours.
+    lct_minutes:        Local civil time, in minutes.
+    lct_seconds:        Local civil time, in seconds.
+    local_day:          Local date, day part.
+    local_month:        Local date, month part.
+    local_year:         Local date, year part.
+    is_daylight_saving: Is daylight savings in effect?
+    zone_correction:    Time zone correction, in hours.
+</pre> 
 </div>
 </div>
 <a id="a3ba4cb9b28e2932ac7bceef35b7acad8"></a>
@@ -370,9 +386,18 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<pre class="fragment">Calculate distance to the Sun (in km), and angular size.
 
-<p>Calculate distance to the Sun (in km), and angular size. </p>
-
+Parameters:
+    lct_hours:          Local civil time, in hours.
+    lct_minutes:        Local civil time, in minutes.
+    lct_seconds:        Local civil time, in seconds.
+    local_day:          Local date, day part.
+    local_month:        Local date, month part.
+    local_year:         Local date, year part.
+    is_daylight_saving: Is daylight savings in effect?
+    zone_correction:    Time zone correction, in hours.
+</pre> 
 </div>
 </div>
 <a id="adfd57311af306901f51636873da1d661"></a>
@@ -430,9 +455,17 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<pre class="fragment">Calculate local sunrise and sunset.
 
-<p>Calculate local sunrise and sunset. </p>
-
+Parameters:
+    local_day:              Local date, day part.
+    local_month:            Local date, month part.
+    local_year:             Local date, year part.
+    is_daylight_saving:     Is daylight savings in effect?
+    zone_correction:        Time zone correction, in hours.
+    geographical_long_deg:  Geographical longitude, in degrees.
+    geographical_lat_deg:   Geographical latitude, in degrees.
+</pre> 
 </div>
 </div>
 </div><!-- contents -->

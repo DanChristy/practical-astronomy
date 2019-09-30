@@ -1,8 +1,20 @@
 import math
 from . import pa_macro as PM
 
-## @brief Calculate approximate position of the sun for a local date and time.
 def approximate_position_of_sun(lct_hours, lct_minutes, lct_seconds, local_day, local_month, local_year, is_daylight_saving, zone_correction):
+	"""
+	Calculate approximate position of the sun for a local date and time.
+
+	Parameters:
+		lct_hours:			Local civil time, in hours.
+		lct_minutes:		Local civil time, in minutes.
+		lct_seconds:		Local civil time, in seconds.
+		local_day:			Local date, day part.
+		local_month:		Local date, month part.
+		local_year:			Local date, year part.
+		is_daylight_saving:	Is daylight savings in effect?
+		zone_correction:	Time zone correction, in hours.
+	"""
 	daylight_saving = 1 if is_daylight_saving == True else 0
 
 	greenwich_date_day = PM.lct_gday(lct_hours,lct_minutes,lct_seconds,daylight_saving,zone_correction,local_day,local_month,local_year)
@@ -31,8 +43,20 @@ def approximate_position_of_sun(lct_hours, lct_minutes, lct_seconds, local_day, 
 
 	return sun_ra_hour,sun_ra_min,sun_ra_sec,sun_dec_deg,sun_dec_min,sun_dec_sec
 
-## @brief Calculate precise position of the sun for a local date and time.
 def precise_position_of_sun(lct_hours, lct_minutes, lct_seconds, local_day, local_month, local_year, is_daylight_saving, zone_correction):
+	"""
+	Calculate precise position of the sun for a local date and time.
+
+	Parameters:
+		lct_hours:			Local civil time, in hours.
+		lct_minutes:		Local civil time, in minutes.
+		lct_seconds:		Local civil time, in seconds.
+		local_day:			Local date, day part.
+		local_month:		Local date, month part.
+		local_year:			Local date, year part.
+		is_daylight_saving:	Is daylight savings in effect?
+		zone_correction:	Time zone correction, in hours.
+	"""
 	daylight_saving = 1 if is_daylight_saving == True else 0
 
 	g_day = PM.lct_gday(lct_hours,lct_minutes,lct_seconds,daylight_saving,zone_correction,local_day,local_month,local_year)
@@ -52,8 +76,20 @@ def precise_position_of_sun(lct_hours, lct_minutes, lct_seconds, local_day, loca
 
 	return sun_ra_hour,sun_ra_min,sun_ra_sec,sun_dec_deg,sun_dec_min,sun_dec_sec
 
-## @brief Calculate distance to the Sun (in km), and angular size.
 def sun_distance_and_angular_size(lct_hours, lct_minutes, lct_seconds, local_day, local_month, local_year, is_daylight_saving, zone_correction):
+	"""
+	Calculate distance to the Sun (in km), and angular size.
+
+	Parameters:
+		lct_hours:			Local civil time, in hours.
+		lct_minutes:		Local civil time, in minutes.
+		lct_seconds:		Local civil time, in seconds.
+		local_day:			Local date, day part.
+		local_month:		Local date, month part.
+		local_year:			Local date, year part.
+		is_daylight_saving:	Is daylight savings in effect?
+		zone_correction:	Time zone correction, in hours.
+	"""
 	daylight_saving = 1 if is_daylight_saving == True else 0
 
 	g_day = PM.lct_gday(lct_hours,lct_minutes,lct_seconds,daylight_saving,zone_correction,local_day,local_month,local_year)
@@ -73,8 +109,19 @@ def sun_distance_and_angular_size(lct_hours, lct_minutes, lct_seconds, local_day
 
 	return sun_dist_km,sun_ang_size_deg,sun_ang_size_min,sun_ang_size_sec
 
-## @brief Calculate local sunrise and sunset.
 def sunrise_and_sunset(local_day, local_month, local_year, is_daylight_saving, zone_correction, geographical_long_deg, geographical_lat_deg):
+	"""
+	Calculate local sunrise and sunset.
+
+	Parameters:
+		local_day:				Local date, day part.
+		local_month:			Local date, month part.
+		local_year:				Local date, year part.
+		is_daylight_saving:		Is daylight savings in effect?
+		zone_correction:		Time zone correction, in hours.
+		geographical_long_deg:	Geographical longitude, in degrees.
+		geographical_lat_deg:	Geographical latitude, in degrees.
+	"""
 	daylight_saving = 1 if is_daylight_saving == True else 0
 
 	local_sunrise_hours = PM.sunrise_lct(local_day, local_month, local_year, daylight_saving, zone_correction, geographical_long_deg, geographical_lat_deg)
@@ -98,9 +145,20 @@ def sunrise_and_sunset(local_day, local_month, local_year, is_daylight_saving, z
 
 	return local_sunrise_hour,local_sunrise_minute,local_sunset_hour,local_sunset_minute,azimuth_of_sunrise_deg,azimuth_of_sunset_deg,status
 
-## @brief Calculate times of morning and evening twilight.
-# @param twilight_type	"C" (civil), "N" (nautical), or "A" (astronomical)
 def morning_and_evening_twilight(local_day, local_month, local_year, is_daylight_saving, zone_correction, geographical_long_deg, geographical_lat_deg, twilight_type):
+	"""
+	Calculate times of morning and evening twilight.
+
+	Parameters:
+		local_day:				Local date, day part.
+		local_month:			Local date, month part.
+		local_year:				Local date, year part.
+		is_daylight_saving:		Is daylight savings in effect?
+		zone_correction:		Time zone correction, in hours.
+		geographical_long_deg:	Geographical longitude, in degrees.
+		geographical_lat_deg:	Geographical latitude, in degrees.
+		twilight_type:			"C" (civil), "N" (nautical), or "A" (astronomical)
+	"""
 	daylight_saving = 1 if is_daylight_saving == True else 0
 
 	start_of_am_twilight_hours = PM.twilight_am_lct(local_day, local_month, local_year, daylight_saving, zone_correction, geographical_long_deg, geographical_lat_deg, twilight_type)

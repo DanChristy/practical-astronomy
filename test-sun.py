@@ -129,6 +129,25 @@ class test_equation_of_time(UT.TestCase):
 		self.assertEqual(equation_of_time_min,6,"Equation of Time (min)")
 		self.assertEqual(equation_of_time_sec,31.52,"Equation of Time (sec)")
 
+class test_solar_elongation(UT.TestCase):
+	def setUp(self):
+		self.ra_hour = 10
+		self.ra_min = 6
+		self.ra_sec = 45
+		self.dec_deg = 11
+		self.dec_min = 57
+		self.dec_sec = 27
+		self.gwdate_day = 27.8333333
+		self.gwdate_month = 7
+		self.gwdate_year = 2010
+
+	def test_solar_elongation(self):
+		solar_elongation_deg = PS.solar_elongation(self.ra_hour,self.ra_min,self.ra_sec,self.dec_deg,self.dec_min,self.dec_sec,self.gwdate_day,self.gwdate_month,self.gwdate_year)
+
+		print("Solar elongation: [Right Ascension] {ra_hour}:{ra_min}:{ra_sec} [Declination] {dec_deg}d {dec_min}m {dec_sec}s [Greenwich Date] {gwdate_month}/{gwdate_day}/{gwdate_year} = [Solar Elongation (degrees)] {solar_elongation_deg}".format(ra_hour=self.ra_hour,ra_min=self.ra_min,ra_sec=self.ra_sec,dec_deg=self.dec_deg,dec_min=self.dec_min,dec_sec=self.dec_sec,gwdate_month=self.gwdate_month,gwdate_day=self.gwdate_day,gwdate_year=self.gwdate_year,solar_elongation_deg=solar_elongation_deg))
+
+		self.assertEqual(solar_elongation_deg,24.78,"Solar Elongation (degrees)")
+
 
 if __name__ == '__main__':
 	UT.main()

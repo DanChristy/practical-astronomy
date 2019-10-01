@@ -50,3 +50,4 @@ Calculate | Sun's distance and angular size
 Calculate | Local sunrise and sunset
 Calculate | Morning and evening twilight
 Calculate | Equation of time
+Calculate | Solar elongation

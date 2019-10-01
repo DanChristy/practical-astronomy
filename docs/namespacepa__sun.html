@@ -100,6 +100,8 @@ Functions</h2></td></tr>
 <tr class="separator:a6594d13cff2aa9061039c61ec1498adf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af18d49a1042800db6b11ec240df1e709"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepa__sun.html#af18d49a1042800db6b11ec240df1e709">equation_of_time</a> (gwdate_day, gwdate_month, gwdate_year)</td></tr>
 <tr class="separator:af18d49a1042800db6b11ec240df1e709"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6a5fda282476b9f20ed1d0f02e735121"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepa__sun.html#a6a5fda282476b9f20ed1d0f02e735121">solar_elongation</a> (ra_hour, ra_min, ra_sec, dec_deg, dec_min, dec_sec, gwdate_day, gwdate_month, gwdate_year)</td></tr>
+<tr class="separator:a6a5fda282476b9f20ed1d0f02e735121"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="abfa51acebc120930662de2c8351900c5"></a>
@@ -174,6 +176,14 @@ Parameters:
     local_year:         Local date, year part.
     is_daylight_saving: Is daylight savings in effect?
     zone_correction:    Time zone correction, in hours.
+
+Returns:
+    sun_ra_hour:    Right Ascension of Sun, hour part
+    sun_ra_min:     Right Ascension of Sun, minutes part
+    sun_ra_sec:     Right Ascension of Sun, seconds part
+    sun_dec_deg:    Declination of Sun, degrees part
+    sun_dec_min:    Declination of Sun, minutes part
+    sun_dec_sec:    Declination of Sun, seconds part
 </pre> 
 </div>
 </div>
@@ -216,7 +226,8 @@ Parameters:
     gwdate_year:    Greenwich date (year part)
 
 Returns:
-    equation of time (minute part), equation of time (seconds part)
+    equation_of_time_min:   equation of time (minute part)
+    equation_of_time_sec:   equation of time (seconds part)
 </pre> 
 </div>
 </div>
@@ -292,6 +303,13 @@ Parameters:
     geographical_long_deg:  Geographical longitude, in degrees.
     geographical_lat_deg:   Geographical latitude, in degrees.
     twilight_type:          "C" (civil), "N" (nautical), or "A" (astronomical)
+
+Returns:
+    am_twilight_begins_hour:    Beginning of AM twilight (hour part)
+    am_twilight_begins_min:     Beginning of AM twilight (minutes part)
+    pm_twilight_ends_hour:      Ending of PM twilight (hour part)
+    pm_twilight_ends_min:       Ending of PM twilight (minutes part)
+    status:                     Calculation status
 </pre> 
 </div>
 </div>
@@ -367,6 +385,101 @@ Parameters:
     local_year:         Local date, year part.
     is_daylight_saving: Is daylight savings in effect?
     zone_correction:    Time zone correction, in hours.
+
+Returns:
+    sun_ra_hour:    Right Ascension of Sun, hour part
+    sun_ra_min:     Right Ascension of Sun, minutes part
+    sun_ra_sec:     Right Ascension of Sun, seconds part
+    sun_dec_deg:    Declination of Sun, degrees part
+    sun_dec_min:    Declination of Sun, minutes part
+    sun_dec_sec:    Declination of Sun, seconds part
+</pre> 
+</div>
+</div>
+<a id="a6a5fda282476b9f20ed1d0f02e735121"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6a5fda282476b9f20ed1d0f02e735121">&#9670;&nbsp;</a></span>solar_elongation()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def pa_sun.solar_elongation </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>ra_hour</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>ra_min</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>ra_sec</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>dec_deg</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>dec_min</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>dec_sec</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>gwdate_day</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>gwdate_month</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>gwdate_year</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Calculate solar elongation for a celestial body.
+
+Solar elongation is the angle between the lines of sight from the Earth to the Sun and from the Earth to the celestial body.
+
+Parameters:
+    ra_hour:        Right Ascension, hour part
+    ra_min:         Right Ascension, minutes part
+    ra_sec:         Right Ascension, seconds part
+    dec_deg:        Declination, degrees part
+    dec_min:        Declination, minutes part
+    dec_sec:        Declination, seconds part
+    gwdate_day:     Greenwich Date, day part
+    gwdate_month:   Greenwich Date, month part
+    gwdate_year:    Greenwich Date, year part
+
+Returns:
+    solar_elongation_deg:   Solar elongation, in degrees
 </pre> 
 </div>
 </div>
@@ -442,6 +555,12 @@ Parameters:
     local_year:         Local date, year part.
     is_daylight_saving: Is daylight savings in effect?
     zone_correction:    Time zone correction, in hours.
+
+Returns:
+    sun_dist_km:    Sun's distance, in kilometers
+    sun_ang_size_deg:   Sun's angular size (degrees part)
+    sun_ang_size_min:   Sun's angular size (minutes part)
+    sun_ang_size_sec:   Sun's angular size (seconds part)
 </pre> 
 </div>
 </div>
@@ -510,6 +629,15 @@ Parameters:
     zone_correction:        Time zone correction, in hours.
     geographical_long_deg:  Geographical longitude, in degrees.
     geographical_lat_deg:   Geographical latitude, in degrees.
+
+Returns:
+    local_sunrise_hour:     Local sunrise, hour part
+    local_sunrise_minute:   Local sunrise, minutes part
+    local_sunset_hour:      Local sunset, hour part
+    local_sunset_minute:    Local sunset, minutes part
+    azimuth_of_sunrise_deg: Azimuth (horizon direction) of sunrise, in degrees
+    azimuth_of_sunset_deg:  Azimuth (horizon direction) of sunset, in degrees
+    status:                 Calculation status
 </pre> 
 </div>
 </div>

@@ -14,6 +14,14 @@ def approximate_position_of_sun(lct_hours, lct_minutes, lct_seconds, local_day, 
 		local_year:			Local date, year part.
 		is_daylight_saving:	Is daylight savings in effect?
 		zone_correction:	Time zone correction, in hours.
+
+	Returns:
+		sun_ra_hour:	Right Ascension of Sun, hour part
+		sun_ra_min:		Right Ascension of Sun, minutes part
+		sun_ra_sec:		Right Ascension of Sun, seconds part
+		sun_dec_deg:	Declination of Sun, degrees part
+		sun_dec_min:	Declination of Sun, minutes part
+		sun_dec_sec:	Declination of Sun, seconds part
 	"""
 	daylight_saving = 1 if is_daylight_saving == True else 0
 
@@ -56,6 +64,14 @@ def precise_position_of_sun(lct_hours, lct_minutes, lct_seconds, local_day, loca
 		local_year:			Local date, year part.
 		is_daylight_saving:	Is daylight savings in effect?
 		zone_correction:	Time zone correction, in hours.
+
+	Returns:
+		sun_ra_hour:	Right Ascension of Sun, hour part
+		sun_ra_min:		Right Ascension of Sun, minutes part
+		sun_ra_sec:		Right Ascension of Sun, seconds part
+		sun_dec_deg:	Declination of Sun, degrees part
+		sun_dec_min:	Declination of Sun, minutes part
+		sun_dec_sec:	Declination of Sun, seconds part
 	"""
 	daylight_saving = 1 if is_daylight_saving == True else 0
 
@@ -89,6 +105,12 @@ def sun_distance_and_angular_size(lct_hours, lct_minutes, lct_seconds, local_day
 		local_year:			Local date, year part.
 		is_daylight_saving:	Is daylight savings in effect?
 		zone_correction:	Time zone correction, in hours.
+
+	Returns:
+		sun_dist_km:	Sun's distance, in kilometers
+		sun_ang_size_deg:	Sun's angular size (degrees part)
+		sun_ang_size_min:	Sun's angular size (minutes part)
+		sun_ang_size_sec:	Sun's angular size (seconds part)
 	"""
 	daylight_saving = 1 if is_daylight_saving == True else 0
 
@@ -121,6 +143,15 @@ def sunrise_and_sunset(local_day, local_month, local_year, is_daylight_saving, z
 		zone_correction:		Time zone correction, in hours.
 		geographical_long_deg:	Geographical longitude, in degrees.
 		geographical_lat_deg:	Geographical latitude, in degrees.
+
+	Returns:
+		local_sunrise_hour:		Local sunrise, hour part
+		local_sunrise_minute:	Local sunrise, minutes part
+		local_sunset_hour:		Local sunset, hour part
+		local_sunset_minute:	Local sunset, minutes part
+		azimuth_of_sunrise_deg:	Azimuth (horizon direction) of sunrise, in degrees
+		azimuth_of_sunset_deg:	Azimuth (horizon direction) of sunset, in degrees
+		status:					Calculation status
 	"""
 	daylight_saving = 1 if is_daylight_saving == True else 0
 
@@ -158,6 +189,13 @@ def morning_and_evening_twilight(local_day, local_month, local_year, is_daylight
 		geographical_long_deg:	Geographical longitude, in degrees.
 		geographical_lat_deg:	Geographical latitude, in degrees.
 		twilight_type:			"C" (civil), "N" (nautical), or "A" (astronomical)
+
+	Returns:
+		am_twilight_begins_hour:	Beginning of AM twilight (hour part)
+		am_twilight_begins_min:		Beginning of AM twilight (minutes part)
+		pm_twilight_ends_hour:		Ending of PM twilight (hour part)
+		pm_twilight_ends_min:		Ending of PM twilight (minutes part)
+		status:						Calculation status
 	"""
 	daylight_saving = 1 if is_daylight_saving == True else 0
 
@@ -188,7 +226,8 @@ def equation_of_time(gwdate_day, gwdate_month, gwdate_year):
 		gwdate_year:	Greenwich date (year part)
 
 	Returns:
-		equation of time (minute part), equation of time (seconds part)
+		equation_of_time_min:	equation of time (minute part)
+		equation_of_time_sec:	equation of time (seconds part)
 	"""
 	sun_longitude_deg = PM.sun_long(12,0,0,0,0,gwdate_day,gwdate_month,gwdate_year)
 	sun_ra_hours = PM.dd_dh(PM.ec_ra(sun_longitude_deg,0,0,0,0,0,gwdate_day,gwdate_month,gwdate_year))
@@ -199,3 +238,31 @@ def equation_of_time(gwdate_day, gwdate_month, gwdate_year):
 	equation_of_time_sec = PM.dh_sec(equation_of_time_hours)
 
 	return equation_of_time_min,equation_of_time_sec
+
+def solar_elongation(ra_hour, ra_min, ra_sec, dec_deg, dec_min, dec_sec, gwdate_day, gwdate_month, gwdate_year):
+	"""
+	Calculate solar elongation for a celestial body.
+
+	Solar elongation is the angle between the lines of sight from the Earth to the Sun and from the Earth to the celestial body.
+
+	Parameters:
+		ra_hour:		Right Ascension, hour part
+		ra_min:			Right Ascension, minutes part
+		ra_sec:			Right Ascension, seconds part
+		dec_deg:		Declination, degrees part
+		dec_min:		Declination, minutes part
+		dec_sec:		Declination, seconds part
+		gwdate_day:		Greenwich Date, day part
+		gwdate_month:	Greenwich Date, month part
+		gwdate_year:	Greenwich Date, year part
+
+	Returns:
+		solar_elongation_deg:	Solar elongation, in degrees
+	"""
+	sun_longitude_deg = PM.sun_long(0,0,0,0,0,gwdate_day,gwdate_month,gwdate_year)
+	sun_ra_hours = PM.dd_dh(PM.ec_ra(sun_longitude_deg,0,0,0,0,0,gwdate_day,gwdate_month,gwdate_year))
+	sun_dec_deg = PM.ec_dec(sun_longitude_deg,0,0,0,0,0,gwdate_day,gwdate_month,gwdate_year)
+	solar_elongation_deg = PM.angle(sun_ra_hours,0,0,sun_dec_deg,0,0,ra_hour,ra_min,ra_sec,dec_deg,dec_min,dec_sec,"H")
+
+	return round(solar_elongation_deg,2)
+	

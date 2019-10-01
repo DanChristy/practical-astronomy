@@ -1339,7 +1339,7 @@ def e_sun_rs_l3710(GD, GM, GY, SR, DI, GP):
 	return A,X,Y,LA,S
 
 def angle(XX1, XM1, XS1, DD1, DM1, DS1, XX2, XM2, XS2, DD2, DM2, DS2, S):
-	""" TODO: Needs documentation.  (Currently unused.) """
+	""" Calculate the angle between two celestial objects """
 	A = dh_dd(hms_dh(XX1, XM1, XS1)) if (S in ["H","h"]) else dms_dd(XX1, XM1, XD1)
 	B = math.radians(A)
 	C = dms_dd(DD1, DM1, DS1)

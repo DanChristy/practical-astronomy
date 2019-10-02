@@ -5,7 +5,8 @@ import lib.pa_datetime as PD
 
 def test_gen(month,day,year):
 	dayNumber = PD.civil_date_to_day_number(month,day,year)
-	print("Test input: {month}/{day}/{year}, test output: {dayNum}".format(month=month,day=day,year=year,dayNum=dayNumber))
+	print(f"Test input: {month}/{day}/{year}, test output: {dayNumber}")
+
 	return dayNumber
 
 class test_day_numbers(UT.TestCase):

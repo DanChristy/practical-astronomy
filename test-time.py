@@ -16,13 +16,13 @@ class test_civil_time(UT.TestCase):
 		self.decimalHours = get_civil_time(self.hours,self.minutes,self.seconds)
 
 	def test_civil_time_to_decimal_hours(self):
-		print("Decimal hours for {hours}:{minutes}:{seconds} is {decimalHours}".format(hours=self.hours, minutes=self.minutes, seconds=self.seconds, decimalHours=self.decimalHours))
+		print(f"Decimal hours for {self.hours}:{self.minutes}:{self.seconds} is {self.decimalHours}")
 
 		self.assertEqual(self.decimalHours,18.52416667,"Decimal Hours")
 
 	def test_decimal_hours_to_civil_time(self):
 		revertHours,revertMinutes,revertSeconds = PD.decimal_hours_to_civil_time(self.decimalHours)
-		print("Converting {decimalHours} back to Civil Time gives {hours}:{minutes}:{seconds}".format(decimalHours=self.decimalHours, hours=revertHours, minutes=revertMinutes, seconds=revertSeconds))
+		print(f"Converting {self.decimalHours} back to Civil Time gives {revertHours}:{revertMinutes}:{revertSeconds}")
 
 		self.assertEqual(revertHours,18,"Civil Time: Hours")
 		self.assertEqual(revertMinutes,31,"Civil Time: Minutes")
@@ -33,9 +33,9 @@ class test_civil_time(UT.TestCase):
 		minutesPart = PD.decimal_hour_minutes(self.decimalHours)
 		secondsPart = PD.decimal_hour_seconds(self.decimalHours)
 
-		print("The hour part of {dH} is {hourPart}".format(dH=self.decimalHours, hourPart=hourPart))
-		print("The minutes part of {dH} is {minutesPart}".format(dH=self.decimalHours, minutesPart=minutesPart))
-		print("The seconds part of {dH} is {secondsPart}".format(dH=self.decimalHours, secondsPart=secondsPart))
+		print(f"The hour part of {self.decimalHours} is {hourPart}")
+		print(f"The minutes part of {self.decimalHours} is {minutesPart}")
+		print(f"The seconds part of {self.decimalHours} is {secondsPart}")
 
 		self.assertEqual(hourPart,18,"Hour Part")
 		self.assertEqual(minutesPart,31,"Minutes Part")
@@ -55,7 +55,7 @@ class test_local_civil_time(UT.TestCase):
 	def test_local_civil_time_to_universal_time(self):
 		utHours,utMinutes,utSeconds,gwDay,gwMonth,gwYear = PD.local_civil_time_to_universal_time(self.hours,self.minutes,self.seconds,self.isDaylightSavings,self.zoneCorrection,self.day,self.month,self.year)
 
-		print("[LCT]{hours}:{minutes}:{seconds} [DS]{isDS} [ZC]{zoneCorrection} [LD]{localMonth}/{localDay}/{localYear} = [UT]{utHours}:{utMinutes}:{utSeconds} [GWD]{gwMonth}/{gwDay}/{gwYear}".format(hours=self.hours,minutes=self.minutes,seconds=self.seconds,isDS=self.isDaylightSavings,zoneCorrection=self.zoneCorrection,localMonth=self.month,localDay=self.day,localYear=self.year,utHours=utHours,utMinutes=utMinutes,utSeconds=utSeconds,gwMonth=gwMonth,gwDay=gwDay,gwYear=gwYear))
+		print(f"[LCT]{self.hours}:{self.minutes}:{self.seconds} [DS]{self.isDaylightSavings} [ZC]{self.zoneCorrection} [LD]{self.month}/{self.day}/{self.year} = [UT]{utHours}:{utMinutes}:{utSeconds} [GWD]{gwMonth}/{gwDay}/{gwYear}")
 
 		self.assertEqual(utHours,22,"UT Hours")
 		self.assertEqual(utMinutes,37,"UT Minutes")
@@ -69,7 +69,7 @@ class test_local_civil_time(UT.TestCase):
 
 		revertLCTHours,revertLCTMinutes,revertLCTSeconds,revertDay,revertMonth,revertYear = PD.universal_time_to_local_civil_time(utHours,utMinutes,utSeconds,self.isDaylightSavings,self.zoneCorrection,gwDay,gwMonth,gwYear)
 
-		print("[UT]{utHours}:{utMinutes}:{utSeconds} [DS]{isDS} [ZC]{zoneCorrection} [GWD]{gwMonth}/{gwDay}/{gwYear} = [LCT]{hours}:{minutes}:{seconds} [LD]{localMonth}/{localDay}/{localYear}".format(utHours=utHours,utMinutes=utMinutes,utSeconds=utSeconds,gwMonth=gwMonth,gwDay=gwDay,gwYear=gwYear,hours=revertLCTHours,minutes=revertLCTMinutes,seconds=revertLCTSeconds,isDS=self.isDaylightSavings,zoneCorrection=self.zoneCorrection,localMonth=self.month,localDay=self.day,localYear=self.year))
+		print(f"[UT]{utHours}:{utMinutes}:{utSeconds} [DS]{self.isDaylightSavings} [ZC]{self.zoneCorrection} [GWD]{gwMonth}/{gwDay}/{gwYear} = [LCT]{revertLCTHours}:{revertLCTMinutes}:{revertLCTSeconds} [LD]{self.month}/{self.day}/{self.year}")
 
 		self.assertEqual(revertLCTHours,3,"LCT Hours")
 		self.assertEqual(revertLCTMinutes,37, "LCT Minutes")
@@ -90,7 +90,7 @@ class test_sidereal_time_universal_time(UT.TestCase):
 	def test_universal_time_to_greenwich_sidereal_time(self):
 		gstHours,gstMinutes,gstSeconds = PD.universal_time_to_greenwich_sidereal_time(self.utHours,self.utMinutes,self.utSeconds,self.greenwichDay,self.greenwichMonth,self.greenwichYear)
 		
-		print("[UT] {utHours}:{utMinutes}:{utSeconds} {gwMonth}/{gwDay}/{gwYear} = [GST] {gstHours}:{gstMinutes}:{gstSeconds}".format(utHours=self.utHours,utMinutes=self.utMinutes,utSeconds=self.utSeconds,gwMonth=self.greenwichMonth,gwDay=self.greenwichDay,gwYear=self.greenwichYear,gstHours=gstHours,gstMinutes=gstMinutes,gstSeconds=gstSeconds))
+		print(f"[UT] {self.utHours}:{self.utMinutes}:{self.utSeconds} {self.greenwichMonth}/{self.greenwichDay}/{self.greenwichYear} = [GST] {gstHours}:{gstMinutes}:{gstSeconds}")
 
 		self.assertEqual(gstHours,4,"GST Hours")
 		self.assertEqual(gstMinutes,40,"GST Minutes")
@@ -101,7 +101,7 @@ class test_sidereal_time_universal_time(UT.TestCase):
 		
 		revertUTHours,revertUTMinutes,revertUTSeconds,statusMessage = PD.greenwich_sidereal_time_to_universal_time(gstHours,gstMinutes,gstSeconds,self.greenwichDay,self.greenwichMonth,self.greenwichYear)
 
-		print("[GST] {gstHours}:{gstMinutes}:{gstSeconds} {gwMonth}/{gwDay}/{gwYear} = [UT] {utHours}:{utMinutes}:{utSeconds} [Status] {statusMsg}".format(gstHours=gstHours,gstMinutes=gstMinutes,gstSeconds=gstSeconds,gwMonth=self.greenwichMonth,gwDay=self.greenwichDay,gwYear=self.greenwichYear,utHours=revertUTHours,utMinutes=revertUTMinutes,utSeconds=revertUTSeconds,statusMsg=statusMessage))
+		print(f"[GST] {gstHours}:{gstMinutes}:{gstSeconds} {self.greenwichMonth}/{self.greenwichDay}/{self.greenwichYear} = [UT] {revertUTHours}:{revertUTMinutes}:{revertUTSeconds} [Status] {statusMessage}")
 
 		self.assertEqual(revertUTHours,14,"UT Hours")
 		self.assertEqual(revertUTMinutes,36,"UT Minutes")
@@ -118,7 +118,7 @@ class test_sidereal_time_local_time(UT.TestCase):
 	def test_greenwich_sidereal_time_to_local_sidereal_time(self):
 		lstHours,lstMinutes,lstSeconds = PD.greenwich_sidereal_time_to_local_sidereal_time(self.gstHours,self.gstMinutes,self.gstSeconds,self.geographicalLongitude)
 
-		print("[GST] {gstHours}:{gstMinutes}:{gstSeconds} [LON] {geogLon} = [LST] {lstHours}:{lstMinutes}:{lstSeconds}".format(gstHours=self.gstHours,gstMinutes=self.gstMinutes,gstSeconds=self.gstSeconds,geogLon=self.geographicalLongitude,lstHours=lstHours,lstMinutes=lstMinutes,lstSeconds=lstSeconds))
+		print(f"[GST] {self.gstHours}:{self.gstMinutes}:{self.gstSeconds} [LON] {self.geographicalLongitude} = [LST] {lstHours}:{lstMinutes}:{lstSeconds}")
 
 		self.assertEqual(lstHours,0,"LST Hours")
 		self.assertEqual(lstMinutes,24,"LST Minutes")
@@ -129,7 +129,7 @@ class test_sidereal_time_local_time(UT.TestCase):
 
 		revertGSTHours,revertGSTMinutes,revertGSTSeconds = PD.local_sidereal_time_to_greenwich_sidereal_time(lstHours,lstMinutes,lstSeconds,self.geographicalLongitude)
 
-		print("[LST] {lstHours}:{lstMinutes}:{lstSeconds} [LON] {geogLon} = [GST] {gstHours}:{gstMinutes}:{gstSeconds}".format(lstHours=lstHours,lstMinutes=lstMinutes,lstSeconds=lstSeconds,geogLon=self.geographicalLongitude,gstHours=revertGSTHours,gstMinutes=revertGSTMinutes,gstSeconds=revertGSTSeconds))
+		print(f"[LST] {lstHours}:{lstMinutes}:{lstSeconds} [LON] {self.geographicalLongitude} = [GST] {revertGSTHours}:{revertGSTMinutes}:{revertGSTSeconds}")
 
 		self.assertEqual(revertGSTHours,4,"GST Hours")
 		self.assertEqual(revertGSTMinutes,40,"GST Minutes")

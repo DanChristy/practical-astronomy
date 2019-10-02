@@ -9,7 +9,7 @@ def test_input(isVerbose):
 	easterMonth,easterDay,easterYear = DOE.get_date_of_easter(inputYear)
 	if isVerbose == True:
 		print("__Test Date of Easter functions__")
-		print("[Test Inputs] Given a year of {inputYear}, the date of Easter is {outputMonth}/{outputDay}/{outputYear}".format(inputYear=inputYear,outputMonth=easterMonth,outputDay=easterDay,outputYear=easterYear))
+		print(f"[Test Inputs] Given a year of {inputYear}, the date of Easter is {easterMonth}/{easterDay}/{easterYear}")
 
 	return inputYear,easterMonth,easterDay,easterYear
 

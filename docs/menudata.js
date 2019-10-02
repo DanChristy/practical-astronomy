@@ -41,6 +41,7 @@ var menudata={children:[
 {text:"r",url:"namespacemembers_func.html#index_r"},
 {text:"s",url:"namespacemembers_func.html#index_s"},
 {text:"t",url:"namespacemembers_func.html#index_t"},
-{text:"u",url:"namespacemembers_func.html#index_u"}]}]}]},
+{text:"u",url:"namespacemembers_func.html#index_u"}]},
+{text:"Variables",url:"namespacemembers_vars.html"}]}]},
 {text:"Files",url:"files.html",children:[
 {text:"File List",url:"files.html"}]}]}

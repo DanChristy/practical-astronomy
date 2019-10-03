@@ -1,80 +1,6 @@
 import math
 from . import pa_macro as PM
-
-PlanetData = {
-	"Mercury": {
-		"Tp": 0.24085,
-		"Long": 75.5671,
-		"Peri": 77.612,
-		"Ecc": 0.205627,
-		"Axis": 0.387098,
-		"Incl": 7.0051,
-		"Node": 48.449
-	},
-	"Venus": {
-		"Tp": 0.615207,
-		"Long": 272.30044,
-		"Peri": 131.54,
-		"Ecc": 0.006812,
-		"Axis": 0.723329,
-		"Incl": 3.3947,
-		"Node": 76.769
-	},
-	"Earth": {
-		"Tp": 0.999996,
-		"Long": 99.556772,
-		"Peri": 103.2055,
-		"Ecc": 0.016671,
-		"Axis": 0.999985,
-		"Incl": None,
-		"Node": None
-	},
-	"Mars": {
-		"Tp": 1.880765,
-		"Long": 109.09646,
-		"Peri": 336.217,
-		"Ecc": 0.093348,
-		"Axis": 1.523689,
-		"Incl": 1.8497,
-		"Node": 49.632
-	},
-	"Jupiter": {
-		"Tp": 11.857911,
-		"Long": 337.917132,
-		"Peri": 14.6633,
-		"Ecc": 0.048907,
-		"Axis": 5.20278,
-		"Incl": 1.3035,
-		"Node": 100.595
-	},
-	"Saturn": {
-		"Tp": 29.310579,
-		"Long": 172.398316,
-		"Peri": 89.567,
-		"Ecc": 0.053853,
-		"Axis": 9.51134,
-		"Incl": 2.4873,
-		"Node": 113.752
-	},
-	"Uranus": {
-		"Tp": 84.039492,
-		"Long": 271.063148,
-		"Peri": 172.884833,
-		"Ecc": 0.046321,
-		"Axis": 19.21814,
-		"Incl": 0.773059,
-		"Node": 73.926961
-	},
-	"Neptune": {
-		"Tp": 165.845392,
-		"Long": 326.895127,
-		"Peri": 23.07,
-		"Ecc": 0.010483,
-		"Axis": 30.1985,
-		"Incl": 1.7673,
-		"Node": 131.879
-	}
-}
+from . import pa_planet_data as PPD
 
 def approximate_position_of_planet(lct_hour, lct_min, lct_sec, is_daylight_saving, zone_correction_hours, local_date_day, local_date_month, local_date_year, planet_name):
 	"""
@@ -101,13 +27,13 @@ def approximate_position_of_planet(lct_hour, lct_min, lct_sec, is_daylight_savin
 	"""
 	daylight_saving = 1 if is_daylight_saving == True else 0
 
-	planet_tp_from_table = PlanetData.get(planet_name)['Tp']
-	planet_long_from_table = PlanetData.get(planet_name)['Long']
-	planet_peri_from_table = PlanetData.get(planet_name)['Peri']
-	planet_ecc_from_table = PlanetData.get(planet_name)['Ecc']
-	planet_axis_from_table = PlanetData.get(planet_name)['Axis']
-	planet_incl_from_table = PlanetData.get(planet_name)['Incl']
-	planet_node_from_table = PlanetData.get(planet_name)['Node']
+	planet_tp_from_table = PPD.get_planet_data(planet_name)['Tp']
+	planet_long_from_table = PPD.get_planet_data(planet_name)['Long']
+	planet_peri_from_table = PPD.get_planet_data(planet_name)['Peri']
+	planet_ecc_from_table = PPD.get_planet_data(planet_name)['Ecc']
+	planet_axis_from_table = PPD.get_planet_data(planet_name)['Axis']
+	planet_incl_from_table = PPD.get_planet_data(planet_name)['Incl']
+	planet_node_from_table = PPD.get_planet_data(planet_name)['Node']
 
 	gdate_day = PM.lct_gday(lct_hour, lct_min, lct_sec, daylight_saving, zone_correction_hours, local_date_day, local_date_month, local_date_year)
 	gdate_month = PM.lct_gmonth(lct_hour, lct_min, lct_sec, daylight_saving, zone_correction_hours, local_date_day, local_date_month, local_date_year)
@@ -123,11 +49,11 @@ def approximate_position_of_planet(lct_hour, lct_min, lct_sec, is_daylight_savin
 	planet_true_anomaly_deg = lp_deg2 - planet_peri_from_table
 	r_au = planet_axis_from_table * (1 - (planet_ecc_from_table)**2) / (1 + planet_ecc_from_table * math.cos(math.radians(planet_true_anomaly_deg)))
 
-	earth_tp_from_table = PlanetData.get("Earth")['Tp']
-	earth_long_from_table = PlanetData.get("Earth")['Long']
-	earth_peri_from_table = PlanetData.get("Earth")['Peri']
-	earth_ecc_from_table = PlanetData.get("Earth")['Ecc']
-	earth_axis_from_table = PlanetData.get("Earth")['Axis']
+	earth_tp_from_table = PPD.get_planet_data("Earth")['Tp']
+	earth_long_from_table = PPD.get_planet_data("Earth")['Long']
+	earth_peri_from_table = PPD.get_planet_data("Earth")['Peri']
+	earth_ecc_from_table = PPD.get_planet_data("Earth")['Ecc']
+	earth_axis_from_table = PPD.get_planet_data("Earth")['Axis']
 	
 	ne_deg1 = 360*d_days/(365.242191*earth_tp_from_table)
 	ne_deg2 = ne_deg1-360*math.floor(ne_deg1/360)

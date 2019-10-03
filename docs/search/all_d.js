@@ -8,6 +8,8 @@ var searchData=
   ['pa_5fmacro_2epy',['pa_macro.py',['../pa__macro_8py.html',1,'']]],
   ['pa_5fplanet',['pa_planet',['../namespacepa__planet.html',1,'']]],
   ['pa_5fplanet_2epy',['pa_planet.py',['../pa__planet_8py.html',1,'']]],
+  ['pa_5fplanet_5fdata',['pa_planet_data',['../namespacepa__planet__data.html',1,'']]],
+  ['pa_5fplanet_5fdata_2epy',['pa_planet_data.py',['../pa__planet__data_8py.html',1,'']]],
   ['pa_5fsun',['pa_sun',['../namespacepa__sun.html',1,'']]],
   ['pa_5fsun_2epy',['pa_sun.py',['../pa__sun_8py.html',1,'']]],
   ['pa_5futil',['pa_util',['../namespacepa__util.html',1,'']]],
@@ -16,6 +18,6 @@ var searchData=
   ['parallax_5fdec_5fl2870',['parallax_dec_l2870',['../namespacepa__macro.html#a4a6621518ea34c21adbfcd3a332bc8cb',1,'pa_macro']]],
   ['parallax_5fha',['parallax_ha',['../namespacepa__macro.html#af48bf86b9e382ef28fe4d805347d254a',1,'pa_macro']]],
   ['parallax_5fha_5fl2870',['parallax_ha_l2870',['../namespacepa__macro.html#a12011af432ba7a6c6c7c2fe405537271',1,'pa_macro']]],
-  ['planetdata',['PlanetData',['../namespacepa__planet.html#aafde02b5f4bc4c9f9be616ba43f50bf2',1,'pa_planet']]],
+  ['planetdata',['PlanetData',['../namespacepa__planet__data.html#aafde02b5f4bc4c9f9be616ba43f50bf2',1,'pa_planet_data']]],
   ['precise_5fposition_5fof_5fsun',['precise_position_of_sun',['../namespacepa__sun.html#a538d59baa96c7bba0f386b20c95ffffc',1,'pa_sun']]]
 ];

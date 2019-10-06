@@ -9,6 +9,7 @@ var searchData=
   ['sun_5fe_5flong',['sun_e_long',['../namespacepa__macro.html#ac71f2da40f97b55094c6c7161d0b3957',1,'pa_macro']]],
   ['sun_5fecc',['sun_ecc',['../namespacepa__macro.html#a03515f64d57833f7a00a09c16627547d',1,'pa_macro']]],
   ['sun_5flong',['sun_long',['../namespacepa__macro.html#a69983584707323ffcddb8c405d4ebd8c',1,'pa_macro']]],
+  ['sun_5fmean_5fanomaly',['sun_mean_anomaly',['../namespacepa__macro.html#a86c2766766761a45e827878df2ff23ff',1,'pa_macro']]],
   ['sun_5fperi',['sun_peri',['../namespacepa__macro.html#aaae1d185651909109c210b6a826ceb11',1,'pa_macro']]],
   ['sun_5ftrue_5fanomaly',['sun_true_anomaly',['../namespacepa__macro.html#a12f81c35f2d5ec5a47cf8bdd441db3f0',1,'pa_macro']]],
   ['sunrise_5fand_5fsunset',['sunrise_and_sunset',['../namespacepa__sun.html#adfd57311af306901f51636873da1d661',1,'pa_sun']]],

@@ -56,4 +56,4 @@ Calculate | Solar elongation
 
 Type | Description
 -----|------------
-Calculate | Approximate position of planet
+Calculate | Approximate and precise position of planet

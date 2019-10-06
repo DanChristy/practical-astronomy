@@ -86,3 +86,46 @@ def approximate_position_of_planet(lct_hour, lct_min, lct_sec, is_daylight_savin
 	planet_dec_sec = PM.dd_sec(dec_deg)
 
 	return planet_ra_hour, planet_ra_min, planet_ra_sec, planet_dec_deg, planet_dec_min, planet_dec_sec
+
+def precise_position_of_planet(lct_hour, lct_min, lct_sec, is_daylight_saving, zone_correction_hours, local_date_day, local_date_month, local_date_year, planet_name):
+	"""
+	Calculate precise position of a planet.
+
+	Parameters:
+		lct_hour:				Local civil time, in hours.
+		lct_min:				Local civil time, in minutes.
+		lct_sec:				Local civil time, in seconds.
+		is_daylight_saving:		Is daylight savings in effect?
+		zone_correction_hours:	Time zone correction, in hours.
+		local_date_day:			Local date, day part.
+		local_date_month:		Local date, month part.
+		local_date_year:		Local date, year part.
+		planet_name				Name of planet, e.g., "Jupiter"
+
+	Returns:
+		planet_ra_hour:		Right ascension of planet (hour part)
+		planet_ra_min:		Right ascension of planet (minutes part)
+		planet_ra_sec:		Right ascension of planet (seconds part)
+		planet_dec_deg:		Declination of planet (degrees part)
+		planet_dec_min:		Declination of planet (minutes part)
+		planet_dec_sec:		Declination of planet (seconds part)
+	"""
+	daylight_saving = 1 if is_daylight_saving == True else 0
+
+	gdate_day = PM.lct_gday(lct_hour, lct_min, lct_sec, daylight_saving, zone_correction_hours, local_date_day, local_date_month, local_date_year)
+	gdate_month = PM.lct_gmonth(lct_hour, lct_min, lct_sec, daylight_saving, zone_correction_hours, local_date_day, local_date_month, local_date_year)
+	gdate_year = PM.lct_gyear(lct_hour, lct_min, lct_sec, daylight_saving, zone_correction_hours, local_date_day, local_date_month, local_date_year)
+
+	planet_ecl_long_deg,planet_ecl_lat_deg = PM.planet_long_lat(lct_hour,lct_min,lct_sec,daylight_saving,zone_correction_hours,local_date_day,local_date_month,local_date_year,planet_name)
+
+	planet_ra_hours = PM.dd_dh(PM.ec_ra(planet_ecl_long_deg,0,0,planet_ecl_lat_deg,0,0,local_date_day,local_date_month,local_date_year))
+	planet_dec_deg1 = PM.ec_dec(planet_ecl_long_deg,0,0,planet_ecl_lat_deg,0,0,local_date_day,local_date_month,local_date_year)
+
+	planet_ra_hour = PM.dh_hour(planet_ra_hours)
+	planet_ra_min = PM.dh_min(planet_ra_hours)
+	planet_ra_sec = PM.dh_sec(planet_ra_hours)
+	planet_dec_deg = PM.dd_deg(planet_dec_deg1)
+	planet_dec_min = PM.dd_min(planet_dec_deg1)
+	planet_dec_sec = PM.dd_sec(planet_dec_deg1)
+
+	return planet_ra_hour,planet_ra_min,planet_ra_sec,planet_dec_deg,planet_dec_min,planet_dec_sec

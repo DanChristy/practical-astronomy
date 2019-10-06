@@ -1,4 +1,5 @@
 import math
+import numpy as np
 
 def cd_jd(day, month, year):
 	""" Convert a Greenwich Date/Civil Date (day,month,year) to Julian Date """
@@ -1121,6 +1122,26 @@ def sun_true_anomaly(LCH, LCM, LCS, DS, ZC, LD, LM, LY):
 
 	return degrees(true_anomaly(AM, EC))
 
+def sun_mean_anomaly(LCH, LCM, LCS, DS, ZC, LD, LM, LY):
+	'''
+	Calculate the Sun's mean anomaly.
+
+	Original macro name: SunMeanAnomaly
+	'''
+	AA = lct_gday(LCH, LCM, LCS, DS, ZC, LD, LM, LY)
+	BB = lct_gmonth(LCH, LCM, LCS, DS, ZC, LD, LM, LY)
+	CC = lct_gyear(LCH, LCM, LCS, DS, ZC, LD, LM, LY)
+	UT = lct_ut(LCH, LCM, LCS, DS, ZC, LD, LM, LY)
+	DJ = cd_jd(AA, BB, CC) - 2415020
+	T = (DJ / 36525) + (UT / 876600)
+	T2 = T * T
+	A = 100.0021359 * T
+	B = 360 * (A - math.floor(A))
+	M1 = 358.47583 - (0.00015 + 0.0000033 * T) * T2 + B
+	AM = unwind(math.radians(M1))
+
+	return AM
+
 def sunrise_lct(LD, LM, LY, DS, ZC, GL, GP):
 	"""
 	Calculate local civil time of sunrise.
@@ -1663,3 +1684,866 @@ def e_twilight_l3710(GD, GM, GY, SR, DI, GP):
 			S = "** Sun too far below horizon"
 	
 	return A,X,Y,LA,S
+
+def planet_long_lat(LH, LM, LS, DS, ZC, DY, MN, YR, S):
+	'''
+	Calculate planetary longitude and latitude.
+
+	Original macro names: PlanetLong,PlanetLat
+
+	Returns:
+		planet_longitude
+		planet_latitude
+	'''
+	a11 = 178.179078
+	a12 = 415.2057519
+	a13 = 0.0003011
+	a14 = 0
+	a21 = 75.899697
+	a22 = 1.5554889
+	a23 = 0.0002947
+	a24 = 0
+	a31 = 0.20561421
+	a32 = 0.00002046
+	a33 = -0.00000003
+	a34 = 0
+	a41 = 7.002881
+	a42 = 0.0018608
+	a43 = -0.0000183
+	a44 = 0
+	a51 = 47.145944
+	a52 = 1.1852083
+	a53 = 0.0001739
+	a54 = 0
+	a61 = 0.3870986
+	a62 = 6.74
+	a63 = -0.42
+
+	b11 = 342.767053
+	b12 = 162.5533664
+	b13 = 0.0003097
+	b14 = 0
+	b21 = 130.163833
+	b22 = 1.4080361
+	b23 = -0.0009764
+	b24 = 0
+	b31 = 0.00682069
+	b32 = -0.00004774
+	b33 = 0.000000091
+	b34 = 0
+	b41 = 3.393631
+	b42 = 0.0010058
+	b43 = -0.000001
+	b44 = 0
+	b51 = 75.779647
+	b52 = 0.89985
+	b53 = 0.00041
+	b54 = 0
+	b61 = 0.7233316
+	b62 = 16.92
+	b63 = -4.4
+
+	c11 = 293.737334
+	c12 = 53.17137642
+	c13 = 0.0003107
+	c14 = 0
+	c21 = 334.218203
+	c22 = 1.8407584
+	c23 = 0.0001299
+	c24 = -0.00000119
+	c31 = 0.0933129
+	c32 = 0.000092064
+	c33 = -0.000000077
+	c34 = 0
+	c41 = 1.850333
+	c42 = -0.000675
+	c43 = 0.0000126
+	c44 = 0
+	c51 = 48.786442
+	c52 = 0.7709917
+	c53 = -0.0000014
+	c54 = -0.00000533
+	c61 = 1.5236883
+	c62 = 9.36
+	c63 = -1.52
+
+	d11 = 238.049257
+	d12 = 8.434172183
+	d13 = 0.0003347
+	d14 = -0.00000165
+	d21 = 12.720972
+	d22 = 1.6099617
+	d23 = 0.00105627
+	d24 = -0.00000343
+	d31 = 0.04833475
+	d32 = 0.00016418
+	d33 = -0.0000004676
+	d34 = -0.0000000017
+	d41 = 1.308736
+	d42 = -0.0056961
+	d43 = 0.0000039
+	d44 = 0
+	d51 = 99.443414
+	d52 = 1.01053
+	d53 = 0.00035222
+	d54 = -0.00000851
+	d61 = 5.202561
+	d62 = 196.74
+	d63 = -9.4
+
+	e11 = 266.564377
+	e12 = 3.398638567
+	e13 = 0.0003245
+	e14 = -0.0000058
+	e21 = 91.098214
+	e22 = 1.9584158
+	e23 = 0.00082636
+	e24 = 0.00000461
+	e31 = 0.05589232
+	e32 = -0.0003455
+	e33 = -0.000000728
+	e34 = 0.00000000074
+	e41 = 2.492519
+	e42 = -0.0039189
+	e43 = -0.00001549
+	e44 = 0.00000004
+	e51 = 112.790414
+	e52 = 0.8731951
+	e53 = -0.00015218
+	e54 = -0.00000531
+	e61 = 9.554747
+	e62 = 165.6
+	e63 = -8.88
+
+	f11 = 244.19747
+	f12 = 1.194065406
+	f13 = 0.000316
+	f14 = -0.0000006
+	f21 = 171.548692
+	f22 = 1.4844328
+	f23 = 0.0002372
+	f24 = -0.00000061
+	f31 = 0.0463444
+	f32 = -0.00002658
+	f33 = 0.000000077
+	f34 = 0
+	f41 = 0.772464
+	f42 = 0.0006253
+	f43 = 0.0000395
+	f44 = 0
+	f51 = 73.477111
+	f52 = 0.4986678
+	f53 = 0.0013117
+	f54 = 0
+	f61 = 19.21814
+	f62 = 65.8
+	f63 = -7.19
+
+	g11 = 84.457994
+	g12 = 0.6107942056
+	g13 = 0.0003205
+	g14 = -0.0000006
+	g21 = 46.727364
+	g22 = 1.4245744
+	g23 = 0.00039082
+	g24 = -0.000000605
+	g31 = 0.00899704
+	g32 = 0.00000633
+	g33 = -0.000000002
+	g34 = 0
+	g41 = 1.779242
+	g42 = -0.0095436
+	g43 = -0.0000091
+	g44 = 0
+	g51 = 130.681389
+	g52 = 1.098935
+	g53 = 0.00024987
+	g54 = -0.000004718
+	g61 = 30.10957
+	g62 = 62.2
+	g63 = -6.87
+
+	PL = np.empty([8,10])
+	AP = np.empty(8)
+
+	IP = 0
+	B = lct_ut(LH, LM, LS, DS, ZC, DY, MN, YR)
+	GD = lct_gday(LH, LM, LS, DS, ZC, DY, MN, YR)
+	GM = lct_gmonth(LH, LM, LS, DS, ZC, DY, MN, YR)
+	GY = lct_gyear(LH, LM, LS, DS, ZC, DY, MN, YR)
+	A = cd_jd(GD, GM, GY)
+	T = ((A - 2415020) / 36525) + (B / 876600)
+
+	u_s = S.lower()
+
+	if u_s == "mercury":
+		IP = 1
+	if u_s == "venus":
+		IP = 2
+	if u_s == "mars":
+		IP = 3
+	if u_s == "jupiter":
+		IP = 4
+	if u_s == "saturn":
+		IP = 5
+	if u_s == "uranus":
+		IP = 6
+	if u_s == "neptune":
+		IP = 7
+	if IP == 0:
+		return degrees(unwind(0)),degrees(unwind(0))
+
+	I = int(1)
+	A0 = a11
+	A1 = a12
+	A2 = a13
+	A3 = a14
+	B0 = a21
+	B1 = a22
+	B2 = a23
+	B3 = a24
+	C0 = a31
+	C1 = a32
+	C2 = a33
+	C3 = a34
+	D0 = a41
+	D1 = a42
+	D2 = a43
+	D3 = a44
+	E0 = a51
+	E1 = a52
+	E2 = a53
+	E3 = a54
+	F = a61
+	G = a62
+	H = a63
+        
+	AA = A1 * T
+	B = 360 * (AA - math.floor(AA))
+	C = A0 + B + (A3 * T + A2) * T * T
+	PL[I, 1] = C - 360 * math.floor(C / 360)
+	PL[I, 2] = (A1 * 0.009856263) + (A2 + A3) / 36525
+	PL[I, 3] = ((B3 * T + B2) * T + B1) * T + B0
+	PL[I, 4] = ((C3 * T + C2) * T + C1) * T + C0
+	PL[I, 5] = ((D3 * T + D2) * T + D1) * T + D0
+	PL[I, 6] = ((E3 * T + E2) * T + E1) * T + E0
+	PL[I, 7] = F
+	PL[I, 8] = G
+	PL[I, 9] = H
+
+	I = 2
+	A0 = b11
+	A1 = b12
+	A2 = b13
+	A3 = b14
+	B0 = b21
+	B1 = b22
+	B2 = b23
+	B3 = b24
+	C0 = b31
+	C1 = b32
+	C2 = b33
+	C3 = b34
+	D0 = b41
+	D1 = b42
+	D2 = b43
+	D3 = b44
+	E0 = b51
+	E1 = b52
+	E2 = b53
+	E3 = b54
+	F = b61
+	G = b62
+	H = b63
+        
+	AA = A1 * T
+	B = 360 * (AA - math.floor(AA))
+	C = A0 + B + (A3 * T + A2) * T * T
+	PL[I, 1] = C - 360 * math.floor(C / 360)
+	PL[I, 2] = (A1 * 0.009856263) + (A2 + A3) / 36525
+	PL[I, 3] = ((B3 * T + B2) * T + B1) * T + B0
+	PL[I, 4] = ((C3 * T + C2) * T + C1) * T + C0
+	PL[I, 5] = ((D3 * T + D2) * T + D1) * T + D0
+	PL[I, 6] = ((E3 * T + E2) * T + E1) * T + E0
+	PL[I, 7] = F
+	PL[I, 8] = G
+	PL[I, 9] = H
+
+	I = 3
+	A0 = c11
+	A1 = c12
+	A2 = c13
+	A3 = c14
+	B0 = c21
+	B1 = c22
+	B2 = c23
+	B3 = c24
+	C0 = c31
+	C1 = c32
+	C2 = c33
+	C3 = c34
+	D0 = c41
+	D1 = c42
+	D2 = c43
+	D3 = c44
+	E0 = c51
+	E1 = c52
+	E2 = c53
+	E3 = c54
+	F = c61
+	G = c62
+	H = c63
+
+	AA = A1 * T
+	B = 360 * (AA - math.floor(AA))
+	C = A0 + B + (A3 * T + A2) * T * T
+	PL[I, 1] = C - 360 * math.floor(C / 360)
+	PL[I, 2] = (A1 * 0.009856263) + (A2 + A3) / 36525
+	PL[I, 3] = ((B3 * T + B2) * T + B1) * T + B0
+	PL[I, 4] = ((C3 * T + C2) * T + C1) * T + C0
+	PL[I, 5] = ((D3 * T + D2) * T + D1) * T + D0
+	PL[I, 6] = ((E3 * T + E2) * T + E1) * T + E0
+	PL[I, 7] = F
+	PL[I, 8] = G
+	PL[I, 9] = H
+
+	I = 4
+	A0 = d11
+	A1 = d12
+	A2 = d13
+	A3 = d14
+	B0 = d21
+	B1 = d22
+	B2 = d23
+	B3 = d24
+	C0 = d31
+	C1 = d32
+	C2 = d33
+	C3 = d34
+	D0 = d41
+	D1 = d42
+	D2 = d43
+	D3 = d44
+	E0 = d51
+	E1 = d52
+	E2 = d53
+	E3 = d54
+	F = d61
+	G = d62
+	H = d63
+
+	AA = A1 * T
+	B = 360 * (AA - math.floor(AA))
+	C = A0 + B + (A3 * T + A2) * T * T
+	PL[I, 1] = C - 360 * math.floor(C / 360)
+	PL[I, 2] = (A1 * 0.009856263) + (A2 + A3) / 36525
+	PL[I, 3] = ((B3 * T + B2) * T + B1) * T + B0
+	PL[I, 4] = ((C3 * T + C2) * T + C1) * T + C0
+	PL[I, 5] = ((D3 * T + D2) * T + D1) * T + D0
+	PL[I, 6] = ((E3 * T + E2) * T + E1) * T + E0
+	PL[I, 7] = F
+	PL[I, 8] = G
+	PL[I, 9] = H
+
+	I = 5
+	A0 = e11
+	A1 = e12
+	A2 = e13
+	A3 = e14
+	B0 = e21
+	B1 = e22
+	B2 = e23
+	B3 = e24
+	C0 = e31
+	C1 = e32
+	C2 = e33
+	C3 = e34
+	D0 = e41
+	D1 = e42
+	D2 = e43
+	D3 = e44
+	E0 = e51
+	E1 = e52
+	E2 = e53
+	E3 = e54
+	F = e61
+	G = e62
+	H = e63
+
+	AA = A1 * T
+	B = 360 * (AA - math.floor(AA))
+	C = A0 + B + (A3 * T + A2) * T * T
+	PL[I, 1] = C - 360 * math.floor(C / 360)
+	PL[I, 2] = (A1 * 0.009856263) + (A2 + A3) / 36525
+	PL[I, 3] = ((B3 * T + B2) * T + B1) * T + B0
+	PL[I, 4] = ((C3 * T + C2) * T + C1) * T + C0
+	PL[I, 5] = ((D3 * T + D2) * T + D1) * T + D0
+	PL[I, 6] = ((E3 * T + E2) * T + E1) * T + E0
+	PL[I, 7] = F
+	PL[I, 8] = G
+	PL[I, 9] = H
+
+	I = 6
+	A0 = f11
+	A1 = f12
+	A2 = f13
+	A3 = f14
+	B0 = f21
+	B1 = f22
+	B2 = f23
+	B3 = f24
+	C0 = f31
+	C1 = f32
+	C2 = f33
+	C3 = f34
+	D0 = f41
+	D1 = f42
+	D2 = f43
+	D3 = f44
+	E0 = f51
+	E1 = f52
+	E2 = f53
+	E3 = f54
+	F = f61
+	G = f62
+	H = f63
+
+	AA = A1 * T
+	B = 360 * (AA - math.floor(AA))
+	C = A0 + B + (A3 * T + A2) * T * T
+	PL[I, 1] = C - 360 * math.floor(C / 360)
+	PL[I, 2] = (A1 * 0.009856263) + (A2 + A3) / 36525
+	PL[I, 3] = ((B3 * T + B2) * T + B1) * T + B0
+	PL[I, 4] = ((C3 * T + C2) * T + C1) * T + C0
+	PL[I, 5] = ((D3 * T + D2) * T + D1) * T + D0
+	PL[I, 6] = ((E3 * T + E2) * T + E1) * T + E0
+	PL[I, 7] = F
+	PL[I, 8] = G
+	PL[I, 9] = H
+
+	I = 7
+	A0 = g11
+	A1 = g12
+	A2 = g13
+	A3 = g14
+	B0 = g21
+	B1 = g22
+	B2 = g23
+	B3 = g24
+	C0 = g31
+	C1 = g32
+	C2 = g33
+	C3 = g34
+	D0 = g41
+	D1 = g42
+	D2 = g43
+	D3 = g44
+	E0 = g51
+	E1 = g52
+	E2 = g53
+	E3 = g54
+	F = g61
+	G = g62
+	H = g63
+
+	AA = A1 * T
+	B = 360 * (AA - math.floor(AA))
+	C = A0 + B + (A3 * T + A2) * T * T
+	PL[I, 1] = C - 360 * math.floor(C / 360)
+	PL[I, 2] = (A1 * 0.009856263) + (A2 + A3) / 36525
+	PL[I, 3] = ((B3 * T + B2) * T + B1) * T + B0
+	PL[I, 4] = ((C3 * T + C2) * T + C1) * T + C0
+	PL[I, 5] = ((D3 * T + D2) * T + D1) * T + D0
+	PL[I, 6] = ((E3 * T + E2) * T + E1) * T + E0
+	PL[I, 7] = F
+	PL[I, 8] = G
+	PL[I, 9] = H
+
+	LI = 0
+	TP = 2 * math.pi
+	MS = sun_mean_anomaly(LH, LM, LS, DS, ZC, DY, MN, YR)
+	SR = math.radians(sun_long(LH, LM, LS, DS, ZC, DY, MN, YR))
+	RE = sun_dist(LH, LM, LS, DS, ZC, DY, MN, YR)
+	LG = SR + math.pi
+
+	for K in range(1,3):
+		for J in range(1,8):
+			AP[J] = math.radians(PL[J, 1] - PL[J, 3] - LI * PL[J, 2])
+			
+		QA = 0
+		QB = 0
+		QC = 0
+		QD = 0
+		QE = 0
+		QF = 0
+		QG = 0
+
+		if IP == 1:
+			QA,QB = planet_long_l4685(AP)
+		if IP == 2:
+			QA,QB,QC,QE = planet_long_l4735(AP,MS,T)
+		if IP == 3:
+			print("IP is",IP)
+			A,SA,CA,QC,QE,QA,QB = planet_long_l4810(AP,MS)
+		if IP in (4,5,6,7):
+			QA,QB,QC,QD,QE,QF,QG = planet_long_l4945(T,IP,PL)
+		
+		EC = PL[IP, 4] + QD
+		AM = AP[IP] + QE
+		AT = true_anomaly(AM, EC)
+		PVV = (PL[IP, 7] + QF) * (1 - EC * EC) / (1 + EC * math.cos(AT))
+		LP = degrees(AT) + PL[IP, 3] + degrees(QC - QE)
+		LP = math.radians(LP)
+		OM = math.radians(PL[IP, 6])
+		LO = LP - OM
+		SO = math.sin(LO)
+		CO = math.cos(LO)
+		INN = math.radians(PL[IP, 5])
+		PVV = PVV + QB
+		SP = SO * math.sin(INN)
+		Y = SO * math.cos(INN)
+		PS = math.asin(SP) + QG
+		SP = math.sin(PS)
+		PD = atan2(CO, Y) + OM + math.radians(QA)
+		PD = unwind(PD)
+		CI = math.cos(PS)
+		RD = PVV * CI
+		LL = PD - LG
+		RH = RE * RE + PVV * PVV - 2 * RE * PVV * CI * math.cos(LL)
+		RH = math.sqrt(RH)
+		LI = RH * 0.005775518
+		
+		if K == 1:
+			L0 = PD
+			V0 = RH
+			S0 = PS
+			P0 = PVV
+
+	L1 = math.sin(LL)
+	l2 = math.cos(LL)
+
+	if IP < 3:
+		EP = math.atan(-1 * RD * L1 / (RE - RD * l2)) + LG + math.pi
+	else:
+		EP = math.atan(RE * L1 / (RD - RE * l2)) + PD
+
+	EP = unwind(EP)
+	BP = math.atan(RD * SP * math.sin(EP - PD) / (CI * RE * L1))
+
+	return degrees(unwind(EP)),degrees(unwind(BP))
+
+def planet_long_l4685(AP):
+	''' Helper function for planet_long_lat() '''
+	QA = 0.00204 * math.cos(5 * AP[2] - 2 * AP[1] + 0.21328)
+	QA = QA + 0.00103 * math.cos(2 * AP[2] - AP[1] - 2.8046)
+	QA = QA + 0.00091 * math.cos(2 * AP[4] - AP[1] - 0.64582)
+	QA = QA + 0.00078 * math.cos(5 * AP[2] - 3 * AP[1] + 0.17692)
+
+	QB = 0.000007525 * math.cos(2 * AP[4] - AP[1] + 0.925251)
+	QB = QB + 0.000006802 * math.cos(5 * AP[2] - 3 * AP[1] - 4.53642)
+	QB = QB + 0.000005457 * math.cos(2 * AP[2] - 2 * AP[1] - 1.24246)
+	QB = QB + 0.000003569 * math.cos(5 * AP[2] - AP[1] - 1.35699)
+
+	return QA,QA
+
+def planet_long_l4735(AP,MS,T):
+	''' Helper function for planet_long_lat() '''
+	QC = 0.00077 * math.sin(4.1406 + T * 2.6227)
+	QC = math.radians(QC)
+	QE = QC
+
+	QA = 0.00313 * math.cos(2 * MS - 2 * AP[2] - 2.587)
+	QA = QA + 0.00198 * math.cos(3 * MS - 3 * AP[2] + 0.044768)
+	QA = QA + 0.00136 * math.cos(MS - AP[2] - 2.0788)
+	QA = QA + 0.00096 * math.cos(3 * MS - 2 * AP[2] - 2.3721)
+	QA = QA + 0.00082 * math.cos(AP[4] - AP[2] - 3.6318)
+
+	QB = 0.000022501 * math.cos(2 * MS - 2 * AP[2] - 1.01592)
+	QB = QB + 0.000019045 * math.cos(3 * MS - 3 * AP[2] + 1.61577)
+	QB = QB + 0.000006887 * math.cos(AP[4] - AP[2] - 2.06106)
+	QB = QB + 0.000005172 * math.cos(MS - AP[2] - 0.508065)
+	QB = QB + 0.00000362 * math.cos(5 * MS - 4 * AP[2] - 1.81877)
+	QB = QB + 0.000003283 * math.cos(4 * MS - 4 * AP[2] + 1.10851)
+	QB = QB + 0.000003074 * math.cos(2 * AP[4] - 2 * AP[2] - 0.962846)
+
+	return QA,QB,QC,QE
+
+def planet_long_l4810(AP,MS):
+	''' Helper function for planet_long_lat() '''
+	A = 3 * AP[4] - 8 * AP[3] + 4 * MS
+	SA = math.sin(A)
+	CA = math.cos(A)
+	QC = -(0.01133 * SA + 0.00933 * CA)
+	QC = math.radians(QC)
+	QE = QC
+
+	QA = 0.00705 * math.cos(AP[4] - AP[3] - 0.85448)
+	QA = QA + 0.00607 * math.cos(2 * AP[4] - AP[3] - 3.2873)
+	QA = QA + 0.00445 * math.cos(2 * AP[4] - 2 * AP[3] - 3.3492)
+	QA = QA + 0.00388 * math.cos(MS - 2 * AP[3] + 0.35771)
+	QA = QA + 0.00238 * math.cos(MS - AP[3] + 0.61256)
+	QA = QA + 0.00204 * math.cos(2 * MS - 3 * AP[3] + 2.7688)
+	QA = QA + 0.00177 * math.cos(3 * AP[3] - AP[2] - 1.0053)
+	QA = QA + 0.00136 * math.cos(2 * MS - 4 * AP[3] + 2.6894)
+	QA = QA + 0.00104 * math.cos(AP[4] + 0.30749)
+
+	QB = 0.000053227 * math.cos(AP[4] - AP[3] + 0.717864)
+	QB = QB + 0.000050989 * math.cos(2 * AP[4] - 2 * AP[3] - 1.77997)
+	QB = QB + 0.000038278 * math.cos(2 * AP[4] - AP[3] - 1.71617)
+	QB = QB + 0.000015996 * math.cos(MS - AP[3] - 0.969618)
+	QB = QB + 0.000014764 * math.cos(2 * MS - 3 * AP[3] + 1.19768)
+	QB = QB + 0.000008966 * math.cos(AP[4] - 2 * AP[3] + 0.761225)
+	QB = QB + 0.000007914 * math.cos(3 * AP[4] - 2 * AP[3] - 2.43887)
+	QB = QB + 0.000007004 * math.cos(2 * AP[4] - 3 * AP[3] - 1.79573)
+	QB = QB + 0.00000662 * math.cos(MS - 2 * AP[3] + 1.97575)
+	QB = QB + 0.00000493 * math.cos(3 * AP[4] - 3 * AP[3] - 1.33069)
+	QB = QB + 0.000004693 * math.cos(3 * MS - 5 * AP[3] + 3.32665)
+	QB = QB + 0.000004571 * math.cos(2 * MS - 4 * AP[3] + 4.27086)
+	QB = QB + 0.000004409 * math.cos(3 * AP[4] - AP[3] - 2.02158)
+
+	return A,SA,CA,QC,QE,QA,QB
+
+def planet_long_l4945(T,IP,PL):
+	''' Helper function for planet_long_lat() '''
+	QA = 0
+	QB = 0
+	QC = 0
+	QD = 0
+	QE = 0
+	QF = 0
+	QG = 0
+
+	J1 = T / 5 + 0.1
+	J2 = unwind(4.14473 + 52.9691 * T)
+	J3 = unwind(4.641118 + 21.32991 * T)
+	J4 = unwind(4.250177 + 7.478172 * T)
+	J5 = 5 * J3 - 2 * J2
+	J6 = 2 * J2 - 6 * J3 + 3 * J4
+
+	if IP in (1,2,3,8):
+		return QA,QB,QC,QD,QE,QF,QG
+	if IP in (4,5):
+		J7 = J3 - J2
+		U1 = math.sin(J3)
+		U2 = math.cos(J3)
+		U3 = math.sin(2 * J3)
+		U4 = math.cos(2 * J3)
+		U5 = math.sin(J5)
+		U6 = math.cos(J5)
+		U7 = math.sin(2 * J5)
+		U8 = math.sin(J6)
+		U9 = math.sin(J7)
+		UA = math.cos(J7)
+		UB = math.sin(2 * J7)
+		UC = math.cos(2 * J7)
+		UD = math.sin(3 * J7)
+		UE = math.cos(3 * J7)
+		UF = math.sin(4 * J7)
+		UG = math.cos(4 * J7)
+		VH = math.cos(5 * J7)
+
+		if IP == 5:
+			UI = math.sin(3 * J3)
+			UJ = math.cos(3 * J3)
+			UK = math.sin(4 * J3)
+			UL = math.cos(4 * J3)
+			VI = math.cos(2 * J5)
+			UN = math.sin(5 * J7)
+			J8 = J4 - J3
+			UO = math.sin(2 * J8)
+			UP = math.cos(2 * J8)
+			UQ = math.sin(3 * J8)
+			UR = math.cos(3 * J8)
+
+			QC = 0.007581 * U7 - 0.007986 * U8 - 0.148811 * U9
+			QC = QC - (0.814181 - (0.01815 - 0.016714 * J1) * J1) * U5
+			QC = QC - (0.010497 - (0.160906 - 0.0041 * J1) * J1) * U6
+			QC = QC - 0.015208 * UD - 0.006339 * UF - 0.006244 * U1
+			QC = QC - 0.0165 * UB * U1 - 0.040786 * UB
+			QC = QC + (0.008931 + 0.002728 * J1) * U9 * U1 - 0.005775 * UD * U1
+			QC = QC + (0.081344 + 0.003206 * J1) * UA * U1 + 0.015019 * UC * U1
+			QC = QC + (0.085581 + 0.002494 * J1) * U9 * U2 + 0.014394 * UC * U2
+			QC = QC + (0.025328 - 0.003117 * J1) * UA * U2 + 0.006319 * UE * U2
+			QC = QC + 0.006369 * U9 * U3 + 0.009156 * UB * U3 + 0.007525 * UQ * U3
+			QC = QC - 0.005236 * UA * U4 - 0.007736 * UC * U4 - 0.007528 * UR * U4
+			QC = math.radians(QC)
+
+			QD = (-7927 + (2548 + 91 * J1) * J1) * U5
+			QD = QD + (13381 + (1226 - 253 * J1) * J1) * U6 + (248 - 121 * J1) * U7
+			QD = QD - (305 + 91 * J1) * VI + 412 * UB + 12415 * U1
+			QD = QD + (390 - 617 * J1) * U9 * U1 + (165 - 204 * J1) * UB * U1
+			QD = QD + 26599 * UA * U1 - 4687 * UC * U1 - 1870 * UE * U1 - 821 * UG * U1
+			QD = QD - 377 * VH * U1 + 497 * UP * U1 + (163 - 611 * J1) * U2
+			QD = QD - 12696 * U9 * U2 - 4200 * UB * U2 - 1503 * UD * U2 - 619 * UF * U2
+			QD = QD - 268 * UN * U2 - (282 + 1306 * J1) * UA * U2
+			QD = QD + (-86 + 230 * J1) * UC * U2 + 461 * UO * U2 - 350 * U3
+			QD = QD + (2211 - 286 * J1) * U9 * U3 - 2208 * UB * U3 - 568 * UD * U3
+			QD = QD - 346 * UF * U3 - (2780 + 222 * J1) * UA * U3
+			QD = QD + (2022 + 263 * J1) * UC * U3 + 248 * UE * U3 + 242 * UQ * U3
+			QD = QD + 467 * UR * U3 - 490 * U4 - (2842 + 279 * J1) * U9 * U4
+			QD = QD + (128 + 226 * J1) * UB * U4 + 224 * UD * U4
+			QD = QD + (-1594 + 282 * J1) * UA * U4 + (2162 - 207 * J1) * UC * U4
+			QD = QD + 561 * UE * U4 + 343 * UG * U4 + 469 * UQ * U4 - 242 * UR * U4
+			QD = QD - 205 * U9 * UI + 262 * UD * UI + 208 * UA * UJ - 271 * UE * UJ
+			QD = QD - 382 * UE * UK - 376 * UD * UL
+			QD = QD * 0.0000001
+
+			VK = (0.077108 + (0.007186 - 0.001533 * J1) * J1) * U5
+			VK = VK - 0.007075 * U9
+			VK = VK + (0.045803 - (0.014766 + 0.000536 * J1) * J1) * U6
+			VK = VK - 0.072586 * U2 - 0.075825 * U9 * U1 - 0.024839 * UB * U1
+			VK = VK - 0.008631 * UD * U1 - 0.150383 * UA * U2
+			VK = VK + 0.026897 * UC * U2 + 0.010053 * UE * U2
+			VK = VK - (0.013597 + 0.001719 * J1) * U9 * U3 + 0.011981 * UB * U4
+			VK = VK - (0.007742 - 0.001517 * J1) * UA * U3
+			VK = VK + (0.013586 - 0.001375 * J1) * UC * U3
+			VK = VK - (0.013667 - 0.001239 * J1) * U9 * U4
+			VK = VK + (0.014861 + 0.001136 * J1) * UA * U4
+			VK = VK - (0.013064 + 0.001628 * J1) * UC * U4
+			QE = QC - (math.radians(VK) / PL[IP, 4])
+
+			QF = 572 * U5 - 1590 * UB * U2 + 2933 * U6 - 647 * UD * U2
+			QF = QF + 33629 * UA - 344 * UF * U2 - 3081 * UC + 2885 * UA * U2
+			QF = QF - 1423 * UE + (2172 + 102 * J1) * UC * U2 - 671 * UG
+			QF = QF + 296 * UE * U2 - 320 * VH - 267 * UB * U3 + 1098 * U1
+			QF = QF - 778 * UA * U3 - 2812 * U9 * U1 + 495 * UC * U3 + 688 * UB * U1
+			QF = QF + 250 * UE * U3 - 393 * UD * U1 - 856 * U9 * U4 - 228 * UF * U1
+			QF = QF + 441 * UB * U4 + 2138 * UA * U1 + 296 * UC * U4 - 999 * UC * U1
+			QF = QF + 211 * UE * U4 - 642 * UE * U1 - 427 * U9 * UI - 325 * UG * U1
+			QF = QF + 398 * UD * UI - 890 * U2 + 344 * UA * UJ + 2206 * U9 * U2
+			QF = QF - 427 * UE * UJ
+			QF = QF * 0.000001
+
+			QG = 0.000747 * UA * U1 + 0.001069 * UA * U2 + 0.002108 * UB * U3
+			QG = QG + 0.001261 * UC * U3 + 0.001236 * UB * U4 - 0.002075 * UC * U4
+			QG = math.radians(QG)
+
+			return QA,QB,QC,QD,QE,QF,QG
+
+		QC = (0.331364 - (0.010281 + 0.004692 * J1) * J1) * U5
+		QC = QC + (0.003228 - (0.064436 - 0.002075 * J1) * J1) * U6
+		QC = QC - (0.003083 + (0.000275 - 0.000489 * J1) * J1) * U7
+		QC = QC + 0.002472 * U8 + 0.013619 * U9 + 0.018472 * UB
+		QC = QC + 0.006717 * UD + 0.002775 * UF + 0.006417 * UB * U1
+		QC = QC + (0.007275 - 0.001253 * J1) * U9 * U1 + 0.002439 * UD * U1
+		QC = QC - (0.035681 + 0.001208 * J1) * U9 * U2 - 0.003767 * UC * U1
+		QC = QC - (0.033839 + 0.001125 * J1) * UA * U1 - 0.004261 * UB * U2
+		QC = QC + (0.001161 * J1 - 0.006333) * UA * U2 + 0.002178 * U2
+		QC = QC - 0.006675 * UC * U2 - 0.002664 * UE * U2 - 0.002572 * U9 * U3
+		QC = QC - 0.003567 * UB * U3 + 0.002094 * UA * U4 + 0.003342 * UC * U4
+		QC = math.radians(QC)
+
+		QD = (3606 + (130 - 43 * J1) * J1) * U5 + (1289 - 580 * J1) * U6
+		QD = QD - 6764 * U9 * U1 - 1110 * UB * U1 - 224 * UD * U1 - 204 * U1
+		QD = QD + (1284 + 116 * J1) * UA * U1 + 188 * UC * U1
+		QD = QD + (1460 + 130 * J1) * U9 * U2 + 224 * UB * U2 - 817 * U2
+		QD = QD + 6074 * U2 * UA + 992 * UC * U2 + 508 * UE * U2 + 230 * UG * U2
+		QD = QD + 108 * VH * U2 - (956 + 73 * J1) * U9 * U3 + 448 * UB * U3
+		QD = QD + 137 * UD * U3 + (108 * J1 - 997) * UA * U3 + 480 * UC * U3
+		QD = QD + 148 * UE * U3 + (99 * J1 - 956) * U9 * U4 + 490 * UB * U4
+		QD = QD + 158 * UD * U4 + 179 * U4 + (1024 + 75 * J1) * UA * U4
+		QD = QD - 437 * UC * U4 - 132 * UE * U4
+		QD = QD * 0.0000001
+
+		VK = (0.007192 - 0.003147 * J1) * U5 - 0.004344 * U1
+		VK = VK + (J1 * (0.000197 * J1 - 0.000675) - 0.020428) * U6
+		VK = VK + 0.034036 * UA * U1 + (0.007269 + 0.000672 * J1) * U9 * U1
+		VK = VK + 0.005614 * UC * U1 + 0.002964 * UE * U1 + 0.037761 * U9 * U2
+		VK = VK + 0.006158 * UB * U2 - 0.006603 * UA * U2 - 0.005356 * U9 * U3
+		VK = VK + 0.002722 * UB * U3 + 0.004483 * UA * U3
+		VK = VK - 0.002642 * UC * U3 + 0.004403 * U9 * U4
+		VK = VK - 0.002536 * UB * U4 + 0.005547 * UA * U4 - 0.002689 * UC * U4
+		QE = QC - (math.radians(VK) / PL[IP, 4])
+
+		QF = 205 * UA - 263 * U6 + 693 * UC + 312 * UE + 147 * UG + 299 * U9 * U1
+		QF = QF + 181 * UC * U1 + 204 * UB * U2 + 111 * UD * U2 - 337 * UA * U2
+		QF = QF - 111 * UC * U2
+		QF = QF * 0.000001
+
+		return QA,QB,QC,QD,QE,QF,QG
+
+	if IP in (6,7):
+		J8 = unwind(1.46205 + 3.81337 * T)
+		J9 = 2 * J8 - J4
+		VJ = math.sin(J9)
+		UU = math.cos(J9)
+		UV = math.sin(2 * J9)
+		UW = math.cos(2 * J9)
+
+		if IP == 7:
+			JA = J8 - J2
+			JB = J8 - J3
+			JC = J8 - J4
+			QC = (0.001089 * J1 - 0.589833) * VJ
+			QC = QC + (0.004658 * J1 - 0.056094) * UU - 0.024286 * UV
+			QC = math.radians(QC)
+
+			VK = 0.024039 * VJ - 0.025303 * UU + 0.006206 * UV
+			VK = VK - 0.005992 * UW
+			QE = QC - (math.radians(VK) / PL[IP, 4])
+
+			QD = 4389 * VJ + 1129 * UV + 4262 * UU + 1089 * UW
+			QD = QD * 0.0000001
+
+			QF = 8189 * UU - 817 * VJ + 781 * UW
+			QF = QF * 0.000001
+
+			VD = math.sin(2 * JC)
+			VE = math.cos(2 * JC)
+			VF = math.sin(J8)
+			VG = math.cos(J8)
+			QA = -0.009556 * math.sin(JA) - 0.005178 * math.sin(JB)
+			QA = QA + 0.002572 * VD - 0.002972 * VE * VF - 0.002833 * VD * VG
+
+			QG = 0.000336 * VE * VF + 0.000364 * VD * VG
+			QG = math.radians(QG)
+
+			QB = -40596 + 4992 * math.cos(JA) + 2744 * math.cos(JB)
+			QB = QB + 2044 * math.cos(JC) + 1051 * VE
+			QB = QB * 0.000001
+
+			return QA,QB,QC,QD,QE,QF,QG
+
+		JA = J4 - J2
+		JB = J4 - J3
+		JC = J8 - J4
+		QC = (0.864319 - 0.001583 * J1) * VJ
+		QC = QC + (0.082222 - 0.006833 * J1) * UU + 0.036017 * UV
+		QC = QC - 0.003019 * UW + 0.008122 * math.sin(J6)
+		QC = math.radians(QC)
+
+		VK = 0.120303 * VJ + 0.006197 * UV
+		VK = VK + (0.019472 - 0.000947 * J1) * UU
+		QE = QC - (math.radians(VK) / PL[IP, 4])
+
+		QD = (163 * J1 - 3349) * VJ + 20981 * UU + 1311 * UW
+		QD = QD * 0.0000001
+
+		QF = -0.003825 * UU
+
+		QA = (-0.038581 + (0.002031 - 0.00191 * J1) * J1) * math.cos(J4 + JB)
+		QA = QA + (0.010122 - 0.000988 * J1) * math.sin(J4 + JB)
+		A = (0.034964 - (0.001038 - 0.000868 * J1) * J1) * math.cos(2 * J4 + JB)
+		QA = A + QA + 0.005594 * math.sin(J4 + 3 * JC) - 0.014808 * math.sin(JA)
+		QA = QA - 0.005794 * math.sin(JB) + 0.002347 * math.cos(JB)
+		QA = QA + 0.009872 * math.sin(JC) + 0.008803 * math.sin(2 * JC)
+		QA = QA - 0.004308 * math.sin(3 * JC)
+
+		UX = math.sin(JB)
+		UY = math.cos(JB)
+		UZ = math.sin(J4)
+		VA = math.cos(J4)
+		VB = math.sin(2 * J4)
+		VC = math.cos(2 * J4)
+		QG = (0.000458 * UX - 0.000642 * UY - 0.000517 * math.cos(4 * JC)) * UZ
+		QG = QG - (0.000347 * UX + 0.000853 * UY + 0.000517 * math.sin(4 * JB)) * VA
+		QG = QG + 0.000403 * (math.cos(2 * JC) * VB + math.sin(2 * JC) * VC)
+		QG = math.radians(QG)
+
+		QB = -25948 + 4985 * math.cos(JA) - 1230 * VA + 3354 * UY
+		QB = QB + 904 * math.cos(2 * JC) + 894 * (math.cos(JC) - math.cos(3 * JC))
+		QB = QB + (5795 * VA - 1165 * UZ + 1388 * VC) * UX
+		QB = QB + (1351 * VA + 5702 * UZ + 1388 * VB) * UY
+		QB = QB * 0.000001
+		
+		return QA,QB,QC,QD,QE,QF,QG

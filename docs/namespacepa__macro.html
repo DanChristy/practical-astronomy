@@ -254,8 +254,8 @@ Functions</h2></td></tr>
 <tr class="separator:a1044b84f10ffbabee96b61c3943a3f66"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab18f41e4254b47bacb204656d3b8714d"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepa__macro.html#ab18f41e4254b47bacb204656d3b8714d">e_twilight_l3710</a> (GD, GM, GY, SR, DI, GP)</td></tr>
 <tr class="separator:ab18f41e4254b47bacb204656d3b8714d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa0b59eb630ce25e27d5a720f4bb0e497"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepa__macro.html#aa0b59eb630ce25e27d5a720f4bb0e497">planet_long_lat</a> (LH, LM, LS, DS, ZC, DY, MN, YR, S)</td></tr>
-<tr class="separator:aa0b59eb630ce25e27d5a720f4bb0e497"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a47736d61b31bf0c61faf412c8ec45470"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepa__macro.html#a47736d61b31bf0c61faf412c8ec45470">planet_coordinates</a> (LH, LM, LS, DS, ZC, DY, MN, YR, S)</td></tr>
+<tr class="separator:a47736d61b31bf0c61faf412c8ec45470"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a315fe60055a424a8eb8d014949a255a1"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepa__macro.html#a315fe60055a424a8eb8d014949a255a1">planet_long_l4685</a> (AP)</td></tr>
 <tr class="separator:a315fe60055a424a8eb8d014949a255a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a912047865e12c52740aec935ec17b793"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepa__macro.html#a912047865e12c52740aec935ec17b793">planet_long_l4735</a> (AP, MS, T)</td></tr>
@@ -2514,6 +2514,99 @@ Original macro name: NutatLong
 <pre class="fragment">Helper function for parallax_ha </pre> 
 </div>
 </div>
+<a id="a47736d61b31bf0c61faf412c8ec45470"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a47736d61b31bf0c61faf412c8ec45470">&#9670;&nbsp;</a></span>planet_coordinates()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def pa_macro.planet_coordinates </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>LH</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>LM</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>LS</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>DS</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>ZC</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>DY</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>MN</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>YR</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>S</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Calculate several planetary properties.
+
+Original macro names: PlanetLong, PlanetLat, PlanetDist, PlanetHLong1, PlanetHLong2, PlanetHLat, PlanetRVect
+
+Parameters:
+    LH:     Local civil time, hour part.
+    LM:     Local civil time, minutes part.
+    LS:     Local civil time, seconds part.
+    DS:     Daylight Savings offset.
+    ZC:     Time zone correction, in hours.
+    DY:     Local date, day part.
+    MN:     Local date, month part.
+    YR:     Local date, year part.
+    S:      Planet name.
+
+Returns:
+    planet_longitude:       Ecliptic longitude, in degrees.
+    planet_latitude:        Ecliptic latitude, in degrees.
+    planet_distance_au:     Earth-planet distance, in AU.
+    planet_h_long1:         Heliocentric orbital longitude, in degrees.
+    planet_h_long2:         NOT USED
+    planet_h_lat:           NOT USED
+    planet_r_vect:          Sun-planet distance (length of radius vector), in AU.
+</pre> 
+</div>
+</div>
 <a id="a315fe60055a424a8eb8d014949a255a1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a315fe60055a424a8eb8d014949a255a1">&#9670;&nbsp;</a></span>planet_long_l4685()</h2>
 
@@ -2626,83 +2719,6 @@ Original macro name: NutatLong
       </table>
 </div><div class="memdoc">
 <pre class="fragment">Helper function for planet_long_lat() </pre> 
-</div>
-</div>
-<a id="aa0b59eb630ce25e27d5a720f4bb0e497"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa0b59eb630ce25e27d5a720f4bb0e497">&#9670;&nbsp;</a></span>planet_long_lat()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">def pa_macro.planet_long_lat </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>LH</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>LM</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>LS</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>DS</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>ZC</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>DY</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>MN</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>YR</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>S</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<pre class="fragment">Calculate planetary longitude and latitude.
-
-Original macro names: PlanetLong,PlanetLat
-
-Returns:
-    planet_longitude
-    planet_latitude
-</pre> 
 </div>
 </div>
 <a id="a7981b263cf00a166fe3de9534aeeb891"></a>

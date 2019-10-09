@@ -92,9 +92,9 @@ def precise_position_of_planet(lct_hour, lct_min, lct_sec, is_daylight_saving, z
 	Calculate precise position of a planet.
 
 	Parameters:
-		lct_hour:				Local civil time, in hours.
-		lct_min:				Local civil time, in minutes.
-		lct_sec:				Local civil time, in seconds.
+		lct_hour:				Local civil time, hour part.
+		lct_min:				Local civil time, minutes part.
+		lct_sec:				Local civil time, seconds part.
 		is_daylight_saving:		Is daylight savings in effect?
 		zone_correction_hours:	Time zone correction, in hours.
 		local_date_day:			Local date, day part.
@@ -116,7 +116,7 @@ def precise_position_of_planet(lct_hour, lct_min, lct_sec, is_daylight_saving, z
 	gdate_month = PM.lct_gmonth(lct_hour, lct_min, lct_sec, daylight_saving, zone_correction_hours, local_date_day, local_date_month, local_date_year)
 	gdate_year = PM.lct_gyear(lct_hour, lct_min, lct_sec, daylight_saving, zone_correction_hours, local_date_day, local_date_month, local_date_year)
 
-	planet_ecl_long_deg,planet_ecl_lat_deg = PM.planet_long_lat(lct_hour,lct_min,lct_sec,daylight_saving,zone_correction_hours,local_date_day,local_date_month,local_date_year,planet_name)
+	planet_ecl_long_deg,planet_ecl_lat_deg,planet_distance_au,planet_h_long1,planet_h_long2,planet_h_lat,planet_r_vect = PM.planet_coordinates(lct_hour,lct_min,lct_sec,daylight_saving,zone_correction_hours,local_date_day,local_date_month,local_date_year,planet_name)
 
 	planet_ra_hours = PM.dd_dh(PM.ec_ra(planet_ecl_long_deg,0,0,planet_ecl_lat_deg,0,0,local_date_day,local_date_month,local_date_year))
 	planet_dec_deg1 = PM.ec_dec(planet_ecl_long_deg,0,0,planet_ecl_lat_deg,0,0,local_date_day,local_date_month,local_date_year)

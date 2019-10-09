@@ -1685,15 +1685,31 @@ def e_twilight_l3710(GD, GM, GY, SR, DI, GP):
 	
 	return A,X,Y,LA,S
 
-def planet_long_lat(LH, LM, LS, DS, ZC, DY, MN, YR, S):
+def planet_coordinates(LH, LM, LS, DS, ZC, DY, MN, YR, S):
 	'''
-	Calculate planetary longitude and latitude.
+	Calculate several planetary properties.
 
-	Original macro names: PlanetLong,PlanetLat
+	Original macro names: PlanetLong, PlanetLat, PlanetDist, PlanetHLong1, PlanetHLong2, PlanetHLat, PlanetRVect
+
+	Parameters:
+		LH:		Local civil time, hour part.
+		LM:		Local civil time, minutes part.
+		LS:		Local civil time, seconds part.
+		DS:		Daylight Savings offset.
+		ZC:		Time zone correction, in hours.
+		DY:		Local date, day part.
+		MN:		Local date, month part.
+		YR:		Local date, year part.
+		S:		Planet name.
 
 	Returns:
-		planet_longitude
-		planet_latitude
+		planet_longitude:		Ecliptic longitude, in degrees.
+		planet_latitude:		Ecliptic latitude, in degrees.
+		planet_distance_au:		Earth-planet distance, in AU.
+		planet_h_long1:			Heliocentric orbital longitude, in degrees.
+		planet_h_long2:			NOT USED
+		planet_h_lat:			NOT USED
+		planet_r_vect:			Sun-planet distance (length of radius vector), in AU.
 	'''
 	a11 = 178.179078
 	a12 = 415.2057519
@@ -1891,7 +1907,7 @@ def planet_long_lat(LH, LM, LS, DS, ZC, DY, MN, YR, S):
 	if u_s == "neptune":
 		IP = 7
 	if IP == 0:
-		return degrees(unwind(0)),degrees(unwind(0))
+		return degrees(unwind(0)), degrees(unwind(0)), degrees(unwind(0)), degrees(unwind(0)), degrees(unwind(0)), degrees(unwind(0)), degrees(unwind(0))
 
 	I = int(1)
 	A0 = a11
@@ -2183,7 +2199,6 @@ def planet_long_lat(LH, LM, LS, DS, ZC, DY, MN, YR, S):
 		if IP == 2:
 			QA,QB,QC,QE = planet_long_l4735(AP,MS,T)
 		if IP == 3:
-			print("IP is",IP)
 			A,SA,CA,QC,QE,QA,QB = planet_long_l4810(AP,MS)
 		if IP in (4,5,6,7):
 			QA,QB,QC,QD,QE,QF,QG = planet_long_l4945(T,IP,PL)
@@ -2218,6 +2233,8 @@ def planet_long_lat(LH, LM, LS, DS, ZC, DY, MN, YR, S):
 			V0 = RH
 			S0 = PS
 			P0 = PVV
+			VO = RH
+			LP1 = LP
 
 	L1 = math.sin(LL)
 	l2 = math.cos(LL)
@@ -2230,7 +2247,15 @@ def planet_long_lat(LH, LM, LS, DS, ZC, DY, MN, YR, S):
 	EP = unwind(EP)
 	BP = math.atan(RD * SP * math.sin(EP - PD) / (CI * RE * L1))
 
-	return degrees(unwind(EP)),degrees(unwind(BP))
+	planet_longitude = degrees(unwind(EP))
+	planet_latitude = degrees(unwind(BP))
+	planet_distance_au = VO
+	planet_h_long1 = degrees(LP1)
+	planet_h_long2 = degrees(L0)
+	planet_h_lat = degrees(S0)
+	planet_r_vect = P0
+
+	return planet_longitude, planet_latitude, planet_distance_au, planet_h_long1, planet_h_long2, planet_h_lat, planet_r_vect
 
 def planet_long_l4685(AP):
 	''' Helper function for planet_long_lat() '''

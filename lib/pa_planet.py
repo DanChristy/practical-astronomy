@@ -129,3 +129,65 @@ def precise_position_of_planet(lct_hour, lct_min, lct_sec, is_daylight_saving, z
 	planet_dec_sec = PM.dd_sec(planet_dec_deg1)
 
 	return planet_ra_hour,planet_ra_min,planet_ra_sec,planet_dec_deg,planet_dec_min,planet_dec_sec
+
+def visual_aspects_of_a_planet(lct_hour, lct_min, lct_sec, is_daylight_saving, zone_correction_hours, local_date_day, local_date_month, local_date_year, planet_name):
+	"""
+	Calculate several visual aspects of a planet.
+
+	Parameters:
+		lct_hour:				Local civil time, hour part.
+		lct_min:				Local civil time, minutes part.
+		lct_sec:				Local civil time, seconds part.
+		is_daylight_saving:		Is daylight savings in effect?
+		zone_correction_hours:	Time zone correction, in hours.
+		local_date_day:			Local date, day part.
+		local_date_month:		Local date, month part.
+		local_date_year:		Local date, year part.
+		planet_name				Name of planet, e.g., "Jupiter"
+
+	Returns:
+		distance_au:				Planet's distance from Earth, in AU.
+		ang_dia_arcsec:				Angular diameter of the planet.
+		phase:						Illuminated fraction of the planet.
+		light_time_hour:			Light travel time from planet to Earth, hour part.
+		light_time_minutes:			Light travel time from planet to Earth, minutes part.
+		light_time_seconds:			Light travel time from planet to Earth, seconds part.
+		pos_angle_bright_limb_deg:	Position-angle of the bright limb.
+		approximate_magnitude:		Apparent brightness of the planet.
+	"""
+	daylight_saving = 1 if is_daylight_saving == True else 0
+
+	greenwich_date_day = PM.lct_gday(lct_hour, lct_min, lct_sec, daylight_saving, zone_correction_hours, local_date_day, local_date_month, local_date_year)
+	greenwich_date_month = PM.lct_gmonth(lct_hour, lct_min, lct_sec, daylight_saving, zone_correction_hours, local_date_day, local_date_month, local_date_year)
+	greenwich_date_year = PM.lct_gyear(lct_hour, lct_min, lct_sec, daylight_saving, zone_correction_hours, local_date_day, local_date_month, local_date_year)
+
+	planet_ecl_long_deg,planet_ecl_lat_deg,planet_dist_au,planet_h_long1,temp3,temp4,planet_r_vect = PM.planet_coordinates(lct_hour, lct_min, lct_sec, daylight_saving, zone_correction_hours, local_date_day, local_date_month, local_date_year, planet_name)
+
+	planet_ra_rad = math.radians(PM.ec_ra(planet_ecl_long_deg,0,0,planet_ecl_lat_deg,0,0,local_date_day,local_date_month,local_date_year))
+	planet_dec_rad = math.radians(PM.ec_dec(planet_ecl_long_deg,0,0,planet_ecl_lat_deg,0,0,local_date_day,local_date_month,local_date_year))
+
+	light_travel_time_hours = planet_dist_au*0.1386
+	angular_diameter_arcsec = PPD.get_planet_data(planet_name)['Theta0'] / planet_dist_au
+	phase1 = 0.5*(1+math.cos(math.radians(planet_ecl_long_deg-planet_h_long1)))
+
+	sun_ecl_long_deg = PM.sun_long(lct_hour, lct_min, lct_sec, daylight_saving, zone_correction_hours, local_date_day, local_date_month, local_date_year)
+	sun_ra_rad = math.radians(PM.ec_ra(sun_ecl_long_deg,0,0,0,0,0,greenwich_date_day,greenwich_date_month,greenwich_date_year))
+	sun_dec_rad = math.radians(PM.ec_dec(sun_ecl_long_deg,0,0,0,0,0,greenwich_date_day,greenwich_date_month,greenwich_date_year))
+
+	y = math.cos(sun_dec_rad) * math.sin(sun_ra_rad-planet_ra_rad)
+	x = math.cos(planet_dec_rad) * math.sin(sun_dec_rad) - math.sin(planet_dec_rad) * math.cos(sun_dec_rad) * math.cos(sun_ra_rad-planet_ra_rad)
+
+	chi_deg = PM.degrees(PM.atan2(x,y))
+	radius_vector_au = planet_r_vect
+	approximate_magnitude1 = 5 * math.log10(radius_vector_au*planet_dist_au/math.sqrt(phase1)) + PPD.get_planet_data(planet_name)['V0']
+
+	distance_au = round(planet_dist_au,5)
+	ang_dia_arcsec = round(angular_diameter_arcsec,1)
+	phase = round(phase1,2)
+	light_time_hour = PM.dh_hour(light_travel_time_hours)
+	light_time_minutes = PM.dh_min(light_travel_time_hours)
+	light_time_seconds = PM.dh_sec(light_travel_time_hours)
+	pos_angle_bright_limb_deg = round(chi_deg,1)
+	approximate_magnitude = round(approximate_magnitude1,1)
+
+	return distance_au, ang_dia_arcsec, phase, light_time_hour, light_time_minutes, light_time_seconds, pos_angle_bright_limb_deg, approximate_magnitude

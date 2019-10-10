@@ -39,6 +39,20 @@ class test_position_of_planet(UT.TestCase):
 		self.assertEqual(planet_dec_min,25,"Planet Declination (minutes)")
 		self.assertEqual(planet_dec_sec,49.46,"Planet Declination (seconds)")
 
+	def test_visual_aspects_of_a_planet(self):
+		distance_au, ang_dia_arcsec, phase, light_time_hour, light_time_minutes, light_time_seconds, pos_angle_bright_limb_deg, approximate_magnitude = PP.visual_aspects_of_a_planet(self.lct_hour, self.lct_min, self.lct_sec, self.is_daylight_saving, self.zone_correction_hours, self.local_date_day, self.local_date_month, self.local_date_year, self.planet_name)
+
+		print(f"Visual aspects of planet: [Local Time] {self.lct_hour}:{self.lct_min}:{self.lct_sec} [DST?] {self.is_daylight_saving} [Zone Correction] {self.zone_correction_hours} [Local Date] {self.local_date_month}/{self.local_date_day}/{self.local_date_year} [Planet] {self.planet_name} = [Distance] {distance_au} au [Angular Diameter] {ang_dia_arcsec} arcsec [Phase] {phase} [Light Time] {light_time_hour}:{light_time_minutes}:{light_time_seconds} [Position Angle of Bright Limb] {pos_angle_bright_limb_deg}d [Magnitude] {approximate_magnitude}")
+
+		self.assertEqual(distance_au,5.59829,"Distance - AU")
+		self.assertEqual(ang_dia_arcsec,35.1,"Angular Diameter - arcsec")
+		self.assertEqual(phase,0.99,"Phase")
+		self.assertEqual(light_time_hour,0,"Light Time - hour part")
+		self.assertEqual(light_time_minutes,46,"Light Time - minutes part")
+		self.assertEqual(light_time_seconds,33.32,"Light Time - seconds part")
+		self.assertEqual(pos_angle_bright_limb_deg,113.2,"Position Angle of Bright Limb - degrees")
+		self.assertEqual(approximate_magnitude,-2,"Approximate Magnitude")
+
 
 if __name__ == '__main__':
 	UT.main()

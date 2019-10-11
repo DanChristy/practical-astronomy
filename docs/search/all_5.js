@@ -1,6 +1,7 @@
 var searchData=
 [
   ['galactic_5fcoordinate_5fto_5fequatorial_5fcoordinate',['galactic_coordinate_to_equatorial_coordinate',['../namespacepa__coordinate.html#a7201bdefdd8a6fe7b4ab894b5950eab0',1,'pa_coordinate']]],
+  ['get_5fcomet_5fdata',['get_comet_data',['../namespacepa__comet__data.html#af95686b602f3def0ce226e4d8ab3f2fa',1,'pa_comet_data']]],
   ['get_5fdate_5fof_5feaster',['get_date_of_easter',['../namespacepa__datetime.html#ae0ec6ccf55369322fa323c8bfa680357',1,'pa_datetime']]],
   ['get_5fplanet_5fdata',['get_planet_data',['../namespacepa__planet__data.html#a76352576b0a2f6d4dc61f231f4b6ddb5',1,'pa_planet_data']]],
   ['glossary_2emd',['glossary.md',['../glossary_8md.html',1,'']]],

@@ -2,7 +2,11 @@ import math
 import numpy as np
 
 def cd_jd(day, month, year):
-	""" Convert a Greenwich Date/Civil Date (day,month,year) to Julian Date """
+	"""
+	Convert a Greenwich Date/Civil Date (day,month,year) to Julian Date
+
+	Original macro name: CDJD
+	"""
 	Y = year - 1 if month < 3 else year
 	M = month + 12 if month < 3 else month
 
@@ -27,7 +31,11 @@ def cd_jd(day, month, year):
 	return B + C + D + day + 1720994.5
 
 def jdc_day(julianDate):
-	""" Returns the day part of a Julian Date """
+	"""
+	Returns the day part of a Julian Date
+
+	Original macro name: JDCDay
+	"""
 	I = math.floor(julianDate + 0.5)
 	F = julianDate + 0.5 - I
 	A = math.floor((I - 1867216.25) / 36524.25)
@@ -40,7 +48,11 @@ def jdc_day(julianDate):
 	return C - E + F - math.floor(30.6001 * G)
 
 def jdc_month(julianDate):
-	""" Returns the month part of a Julian Date """
+	"""
+	Returns the month part of a Julian Date
+	
+	Original macro name: JDCMonth
+	"""
 	I = math.floor(julianDate + 0.5)
 	F = julianDate + 0.5 - I
 	A = math.floor((I - 1867216.25) / 36524.25)
@@ -54,7 +66,11 @@ def jdc_month(julianDate):
 	return returnValue
 
 def jdc_year(julianDate):
-	""" Returns the year part of a Julian Date """
+	"""
+	Returns the year part of a Julian Date
+	
+	Original macro name: JDCYear
+	"""
 	I = math.floor(julianDate + 0.5)
 	F = julianDate + 0.5 - I
 	A = math.floor((I - 1867216.25) / 36524.25)
@@ -69,7 +85,11 @@ def jdc_year(julianDate):
 	return returnValue
 
 def f_dow(julianDate):
-	""" Convert a Julian Date to Day-of-Week (e.g., Sunday) """
+	"""
+	Convert a Julian Date to Day-of-Week (e.g., Sunday)
+	
+	Original macro name: FDOW
+	"""
 	J = math.floor(julianDate - 0.5) + 0.5
 	N = (J + 1.5) % 7
 	
@@ -84,7 +104,11 @@ def f_dow(julianDate):
 	return "Unknown"
 
 def hms_dh(hours,minutes,seconds):
-	""" Convert a Civil Time (hours,minutes,seconds) to Decimal Hours """
+	"""
+	Convert a Civil Time (hours,minutes,seconds) to Decimal Hours
+	
+	Original macro name: HMSDH
+	"""
 	A = abs(seconds) / 60
 	B = (abs(minutes) + A) / 60
 	C = abs(hours) + B
@@ -92,7 +116,11 @@ def hms_dh(hours,minutes,seconds):
 	return -C if ((hours < 0) or (minutes < 0) or (seconds < 0)) else C
 
 def dh_hour(decimalHours):
-	""" Return the hour part of a Decimal Hours """
+	"""
+	Return the hour part of a Decimal Hours
+	
+	Original macro name: DHHour
+	"""
 	A = abs(decimalHours)
 	B = A * 3600
 	C = round(B - 60 * math.floor(B / 60), 2)
@@ -102,7 +130,11 @@ def dh_hour(decimalHours):
 	return -(math.floor(E / 3600)) if decimalHours < 0 else math.floor(E / 3600)
 
 def dh_min(decimalHours):
-	""" Return the minutes part of a Decimal Hours """
+	"""
+	Return the minutes part of a Decimal Hours
+	
+	Original macro name: DHMin
+	"""
 	A = abs(decimalHours)
 	B = A * 3600
 	C = round(B - 60 * math.floor(B / 60), 2)
@@ -112,7 +144,11 @@ def dh_min(decimalHours):
 	return math.floor(E / 60) % 60
 
 def dh_sec(decimalHours):
-	""" Return the seconds part of a Decimal Hours """
+	"""
+	Return the seconds part of a Decimal Hours
+	
+	Original macro name: DHSec
+	"""
 	A = abs(decimalHours)
 	B = A * 3600
 	C = round(B - 60 * math.floor(B / 60), 2)
@@ -121,7 +157,11 @@ def dh_sec(decimalHours):
 	return D
 
 def lct_ut(lctHours,lctMinutes,lctSeconds,daylightSaving,zoneCorrection,localDay,localMonth,localYear):
-	""" Convert Local Civil Time to Universal Time """
+	"""
+	Convert Local Civil Time to Universal Time
+	 
+	Original macro name: LctUT
+	"""
 	A = hms_dh(lctHours,lctMinutes,lctSeconds)
 	B = A - daylightSaving - zoneCorrection
 	C = localDay + (B/24)
@@ -132,7 +172,11 @@ def lct_ut(lctHours,lctMinutes,lctSeconds,daylightSaving,zoneCorrection,localDay
 	return 24 * (E - E1)
 
 def ut_lct(uHours,uMinutes,uSeconds,daylightSaving,zoneCorrection,greenwichDay,greenwichMonth,greenwichYear):
-	""" Convert Universal Time to Local Civil Time """
+	"""
+	Convert Universal Time to Local Civil Time
+
+	Original macro name: UTLct 	
+	"""
 	A = hms_dh(uHours,uMinutes,uSeconds)
 	B = A + zoneCorrection
 	C = B + daylightSaving
@@ -143,7 +187,11 @@ def ut_lct(uHours,uMinutes,uSeconds,daylightSaving,zoneCorrection,greenwichDay,g
 	return 24 * (E - E1)
 
 def ut_lc_day(uHours,uMinutes,uSeconds,daylightSaving,zoneCorrection,greenwichDay,greenwichMonth,greenwichYear):
-	""" Get Local Civil Day for Universal Time """
+	"""
+	Get Local Civil Day for Universal Time
+	
+	Original macro name: UTLcDay
+	"""
 	A = hms_dh(uHours,uMinutes,uSeconds)
 	B = A + zoneCorrection
 	C = B + daylightSaving
@@ -154,7 +202,11 @@ def ut_lc_day(uHours,uMinutes,uSeconds,daylightSaving,zoneCorrection,greenwichDa
 	return E1
 
 def ut_lc_month(uHours,uMinutes,uSeconds,daylightSaving,zoneCorrection,greenwichDay,greenwichMonth,greenwichYear):
-	""" Get Local Civil Month for Universal Time """
+	"""
+	Get Local Civil Month for Universal Time
+	
+	Original macro name: UTLcMonth
+	"""
 	A = hms_dh(uHours,uMinutes,uSeconds)
 	B = A + zoneCorrection
 	C = B + daylightSaving
@@ -163,7 +215,11 @@ def ut_lc_month(uHours,uMinutes,uSeconds,daylightSaving,zoneCorrection,greenwich
 	return jdc_month(D)
 
 def ut_lc_year(uHours,uMinutes,uSeconds,daylightSaving,zoneCorrection,greenwichDay,greenwichMonth,greenwichYear):
-	""" Get Local Civil Year for Universal Time """
+	"""
+	Get Local Civil Year for Universal Time
+	
+	Original macro name: UTLcYear
+	"""
 	A = hms_dh(uHours,uMinutes,uSeconds)
 	B = A + zoneCorrection
 	C = B + daylightSaving
@@ -172,7 +228,11 @@ def ut_lc_year(uHours,uMinutes,uSeconds,daylightSaving,zoneCorrection,greenwichD
 	return jdc_year(D)
 
 def lct_gday(lct_hours, lct_minutes, lct_seconds, daylight_saving, zone_correction, local_day, local_month, local_year):
-	""" Determine Greenwich Day for Local Time """
+	"""
+	Determine Greenwich Day for Local Time
+	
+	Original macro name: LctGDay
+	"""
 	A = hms_dh(lct_hours,lct_minutes,lct_seconds)
 	B = A - daylight_saving - zone_correction
 	C = local_day + (B/24)
@@ -182,7 +242,11 @@ def lct_gday(lct_hours, lct_minutes, lct_seconds, daylight_saving, zone_correcti
 	return math.floor(E)
 
 def lct_gmonth(lct_hours, lct_minutes, lct_seconds, daylight_saving, zone_correction, local_day, local_month, local_year):
-	""" Determine Greenwich Month for Local Time """
+	"""
+	Determine Greenwich Month for Local Time
+	
+	Original macro name: LctGMonth
+	"""
 	A = hms_dh(lct_hours,lct_minutes,lct_seconds)
 	B = A - daylight_saving - zone_correction
 	C = local_day + (B/24)
@@ -191,7 +255,11 @@ def lct_gmonth(lct_hours, lct_minutes, lct_seconds, daylight_saving, zone_correc
 	return jdc_month(D)
 
 def lct_gyear(lct_hours, lct_minutes, lct_seconds, daylight_saving, zone_correction, local_day, local_month, local_year):
-	""" Determine Greenwich Year for Local Time """
+	"""
+	Determine Greenwich Year for Local Time
+	
+	Original macro name: LctGYear
+	"""
 	A = hms_dh(lct_hours,lct_minutes,lct_seconds)
 	B = A - daylight_saving - zone_correction
 	C = local_day + (B/24)
@@ -200,7 +268,11 @@ def lct_gyear(lct_hours, lct_minutes, lct_seconds, daylight_saving, zone_correct
 	return jdc_year(D)
 
 def ut_gst(u_hours,u_minutes,u_seconds,greenwich_day,greenwich_month,greenwich_year):
-	""" Convert Universal Time to Greenwich Sidereal Time """
+	"""
+	Convert Universal Time to Greenwich Sidereal Time
+	
+	Original macro name: UTGST
+	"""
 	A = cd_jd(greenwich_day,greenwich_month,greenwich_year)
 	B = A - 2451545
 	C = B / 36525
@@ -213,7 +285,11 @@ def ut_gst(u_hours,u_minutes,u_seconds,greenwich_day,greenwich_month,greenwich_y
 	return H - (24 * math.floor(H / 24))
 
 def gst_lst(greenwich_hours,greenwich_minutes,greenwich_seconds,geographical_longitude):
-	""" Convert Greenwich Sidereal Time to Local Sidereal Time """
+	"""
+	Convert Greenwich Sidereal Time to Local Sidereal Time
+	
+	Original macro name: GSTLST
+	"""
 	A = hms_dh(greenwich_hours,greenwich_minutes,greenwich_seconds)
 	B = geographical_longitude / 15
 	C = A + B
@@ -221,7 +297,11 @@ def gst_lst(greenwich_hours,greenwich_minutes,greenwich_seconds,geographical_lon
 	return C - (24 * math.floor(C / 24))
 
 def lst_gst(local_hours,local_minutes,local_seconds,longitude):
-	""" Convert Local Sidereal Time to Greenwich Sidereal Time """
+	"""
+	Convert Local Sidereal Time to Greenwich Sidereal Time
+	
+	Original macro name: LSTGST
+	"""
 	A = hms_dh(local_hours,local_minutes,local_seconds)
 	B = longitude / 15
 	C = A - B
@@ -229,7 +309,11 @@ def lst_gst(local_hours,local_minutes,local_seconds,longitude):
 	return C - (24 * math.floor(C / 24))
 
 def gst_ut(greenwich_sidereal_hours,greenwich_sidereal_minutes,greenwich_sidereal_seconds,greenwich_day,greenwich_month,greenwich_year):
-	""" Convert Greenwich Sidereal Time to Universal Time """
+	"""
+	Convert Greenwich Sidereal Time to Universal Time
+	
+	Original macro name: GSTUT
+	"""
 	A = cd_jd(greenwich_day,greenwich_month,greenwich_year)
 	B = A - 2451545
 	C = B / 36525
@@ -259,7 +343,11 @@ def e_gst_ut(GSH, GSM, GSS, GD, GM, GY):
 	return "Warning" if ((H * 0.9972695663) < (4 / 60)) else "OK"
 
 def ra_ha(ra_hours, ra_minutes, ra_seconds, lct_hours, lct_minutes, lct_seconds, daylight_saving, zone_correction, local_day, local_month, local_year, geographical_longitude):
-	""" Convert Right Ascension to Hour Angle """
+	"""
+	Convert Right Ascension to Hour Angle
+	
+	Original macro name: RAHA
+	"""
 	A = lct_ut(lct_hours, lct_minutes, lct_seconds, daylight_saving, zone_correction, local_day, local_month, local_year)
 	B = lct_gday(lct_hours, lct_minutes, lct_seconds, daylight_saving, zone_correction, local_day, local_month, local_year)
 	C = lct_gmonth(lct_hours, lct_minutes, lct_seconds, daylight_saving, zone_correction, local_day, local_month, local_year)
@@ -272,7 +360,11 @@ def ra_ha(ra_hours, ra_minutes, ra_seconds, lct_hours, lct_minutes, lct_seconds,
 	return 24 + H if H < 0 else H
 
 def ha_ra(hour_angle_hours,hour_angle_minutes,hour_angle_seconds,lct_hours,lct_minutes,lct_seconds,daylight_saving,zone_correction,local_day,local_month,local_year,geographical_longitude):
-	""" Convert Hour Angle to Right Ascension """
+	"""
+	Convert Hour Angle to Right Ascension
+	
+	Original macro name: HARA
+	"""
 	A = lct_ut(lct_hours, lct_minutes, lct_seconds, daylight_saving, zone_correction, local_day, local_month, local_year)
 	B = lct_gday(lct_hours, lct_minutes, lct_seconds, daylight_saving, zone_correction, local_day, local_month, local_year)
 	C = lct_gmonth(lct_hours, lct_minutes, lct_seconds, daylight_saving, zone_correction, local_day, local_month, local_year)
@@ -285,7 +377,11 @@ def ha_ra(hour_angle_hours,hour_angle_minutes,hour_angle_seconds,lct_hours,lct_m
 	return 24 + H if H < 0 else H
 
 def dms_dd(degrees,minutes,seconds):
-	""" Convert Degrees Minutes Seconds to Decimal Degrees """
+	"""
+	Convert Degrees Minutes Seconds to Decimal Degrees
+	
+	Original macro name: DMSDD
+	"""
 	A = abs(seconds) / 60
 	B = (abs(minutes) + A) / 60
 	C = abs(degrees) + B
@@ -293,7 +389,11 @@ def dms_dd(degrees,minutes,seconds):
 	return -C if degrees < 0 or minutes < 0 or seconds < 0 else C
 
 def dd_deg(decimal_degrees):
-	""" Return Degrees part of Decimal Degrees """
+	"""
+	Return Degrees part of Decimal Degrees
+	
+	Original macro name: DDDeg
+	"""
 	A = abs(decimal_degrees)
 	B = A * 3600
 	C = round(B - 60 * math.floor(B / 60),2)
@@ -303,7 +403,11 @@ def dd_deg(decimal_degrees):
 	return -math.floor(E/3600) if decimal_degrees < 0 else math.floor(E/3600)
 
 def dd_min(decimal_degrees):
-	""" Return Minutes part of Decimal Degrees """
+	"""
+	Return Minutes part of Decimal Degrees
+	
+	Original macro name: DDMin
+	"""
 	A = abs(decimal_degrees)
 	B = A * 3600
 	C = round(B - 60 * math.floor(B / 60),2)
@@ -313,7 +417,11 @@ def dd_min(decimal_degrees):
 	return math.floor(E/60) % 60
 
 def dd_sec(decimal_degrees):
-	""" Return Seconds part of Decimal Degrees """
+	"""
+	Return Seconds part of Decimal Degrees
+	
+	Original macro name: DDSec
+	"""
 	A = abs(decimal_degrees)
 	B = A * 3600
 	C = round(B - 60 * math.floor(B / 60),2)
@@ -322,19 +430,35 @@ def dd_sec(decimal_degrees):
 	return D
 
 def dd_dh(decimal_degrees):
-	""" Convert Decimal Degrees to Degree-Hours """
+	"""
+	Convert Decimal Degrees to Degree-Hours
+	
+	Original macro name: DDDH
+	"""
 	return decimal_degrees / 15
 
 def dh_dd(degree_hours):
-	""" Convert Degree-Hours to Decimal Degrees """
+	"""
+	Convert Degree-Hours to Decimal Degrees
+	
+	Original macro name: DHDD
+	"""
 	return degree_hours * 15
 
 def degrees(W):
-	""" Convert W to Degrees """
+	"""
+	Convert W to Degrees
+	
+	Original macro name: Degrees
+	"""
 	return W * 57.29577951
 
 def atan2(X, Y):
-	""" Custom ATAN2 function """
+	"""
+	Custom ATAN2 function
+	
+	Original macro name: Atan2
+	"""
 	B = 3.1415926535
 	if abs(X) < 1e-20:
 		if Y < 0:
@@ -353,7 +477,11 @@ def atan2(X, Y):
 	return A
 
 def eq_az(hour_angle_hours,hour_angle_minutes,hour_angle_seconds,declination_degrees,declination_minutes,declination_seconds,geographical_latitude):
-	""" Convert Equatorial Coordinates to Azimuth (in decimal degrees) """
+	"""
+	Convert Equatorial Coordinates to Azimuth (in decimal degrees)
+	
+	Original macro name: EQAz
+	"""
 	A = hms_dh(hour_angle_hours,hour_angle_minutes,hour_angle_seconds)
 	B = A * 15
 	C = math.radians(B)
@@ -368,7 +496,11 @@ def eq_az(hour_angle_hours,hour_angle_minutes,hour_angle_seconds,declination_deg
 	return J - 360 * math.floor(J / 360)
 
 def eq_alt(hour_angle_hours,hour_angle_minutes,hour_angle_seconds,declination_degrees,declination_minutes,declination_seconds,geographical_latitude):
-	""" Convert Equatorial Coordinates to Altitude (in decimal degrees) """
+	"""
+	Convert Equatorial Coordinates to Altitude (in decimal degrees)
+	
+	Original macro name: EQAlt
+	"""
 	A = hms_dh(hour_angle_hours,hour_angle_minutes,hour_angle_seconds)
 	B = A * 15
 	C = math.radians(B)
@@ -380,7 +512,11 @@ def eq_alt(hour_angle_hours,hour_angle_minutes,hour_angle_seconds,declination_de
 	return degrees(math.asin(G))
 
 def hor_dec(azimuth_degrees,azimuth_minutes,azimuth_seconds,altitude_degrees,altitude_minutes,altitude_seconds,geographical_latitude):
-	""" Convert Horizon Coordinates to Declination (in decimal degrees) """
+	"""
+	Convert Horizon Coordinates to Declination (in decimal degrees)
+	
+	Original macro name: HORDec
+	"""
 	A = dms_dd(azimuth_degrees,azimuth_minutes,azimuth_seconds)
 	B = dms_dd(altitude_degrees,altitude_minutes,altitude_seconds)
 	C = math.radians(A)
@@ -391,7 +527,11 @@ def hor_dec(azimuth_degrees,azimuth_minutes,azimuth_seconds,altitude_degrees,alt
 	return degrees(math.asin(F))
 
 def hor_ha(azimuth_degrees,azimuth_minutes,azimuth_seconds,altitude_degrees,altitude_minutes,altitude_seconds,geographical_latitude):
-	""" Convert Horizon Coordinates to Hour Angle (in decimal degrees) """
+	"""
+	Convert Horizon Coordinates to Hour Angle (in decimal degrees)
+	
+	Original macro name: HORHa
+	"""
 	A = dms_dd(azimuth_degrees,azimuth_minutes,azimuth_seconds)
 	B = dms_dd(altitude_degrees,altitude_minutes,altitude_seconds)
 	C = math.radians(A)
@@ -405,7 +545,11 @@ def hor_ha(azimuth_degrees,azimuth_minutes,azimuth_seconds,altitude_degrees,alti
 	return I - 24 * math.floor(I / 24)
 
 def nutat_obl(greenwich_day,greenwich_month,greenwich_year):
-	""" Nutation of Obliquity """
+	"""
+	Nutation of Obliquity
+	
+	Original macro name: NutatObl
+	"""
 	DJ = cd_jd(greenwich_day,greenwich_month,greenwich_year) - 2415020
 	T = DJ / 36525
 	T2 = T * T
@@ -451,7 +595,11 @@ def nutat_obl(greenwich_day,greenwich_month,greenwich_year):
 	return DDO / 3600
 
 def obliq(greenwich_day,greenwich_month,greenwich_year):
-	""" Obliquity of the Ecliptic for a Greenwich Date """
+	"""
+	Obliquity of the Ecliptic for a Greenwich Date
+	
+	Original macro name: Obliq
+	"""
 	A = cd_jd(greenwich_day,greenwich_month,greenwich_year)
 	B = A - 2415020
 	C = (B / 36525) - 1
@@ -461,7 +609,11 @@ def obliq(greenwich_day,greenwich_month,greenwich_year):
 	return 23.43929167 - E + nutat_obl(greenwich_day,greenwich_month,greenwich_year)
 
 def sun_long(LCH,LCM,LCS,DS,ZC,LD,LM,LY):
-	""" Calculate Sun's ecliptic longitude """
+	"""
+	Calculate Sun's ecliptic longitude
+	
+	Original macro name: SunLong
+	"""
 	AA = lct_gday(LCH, LCM, LCS, DS, ZC, LD, LM, LY)
 	BB = lct_gmonth(LCH, LCM, LCS, DS, ZC, LD, LM, LY)
 	CC = lct_gyear(LCH, LCM, LCS, DS, ZC, LD, LM, LY)
@@ -518,7 +670,11 @@ def sun_long(LCH,LCM,LCS,DS,ZC,LD,LM,LY):
 	return degrees(SR)
 
 def sun_dist(LCH,LCM,LCS,DS,ZC,LD,LM,LY):
-	""" Calculate Sun's distance from the Earth in astronomical units """
+	"""
+	Calculate Sun's distance from the Earth in astronomical units
+	
+	Original macro name: SunDist
+	"""
 	AA = lct_gday(LCH,LCM,LCS,DS,ZC,LD,LM,LY)
 	BB = lct_gmonth(LCH,LCM,LCS,DS,ZC,LD,LM,LY)
 	CC = lct_gyear(LCH,LCM,LCS,DS,ZC,LD,LM,LY)
@@ -566,13 +722,21 @@ def sun_dist(LCH,LCM,LCS,DS,ZC,LD,LM,LY):
 	return 1.0000002 * (1 - EC * math.cos(AE)) + D3
 
 def sun_dia(LCH,LCM,LCS,DS,ZC,LD,LM,LY):
-	""" Calculate Sun's angular diameter in decimal degrees """
+	"""
+	Calculate Sun's angular diameter in decimal degrees
+	
+	Original macro name: SunDia
+	"""
 	A = sun_dist(LCH, LCM, LCS, DS, ZC, LD, LM, LY)
 	
 	return 0.533128 / A
 
 def true_anomaly(AM,EC):
-	""" Solve Kepler's equation, and return value of the true anomaly in radians """
+	"""
+	Solve Kepler's equation, and return value of the true anomaly in radians
+	
+	Original macro name: TrueAnomaly
+	"""
 	TP = 6.283185308
 	M = AM - TP * math.floor(AM / TP)
 	AE = M
@@ -590,7 +754,11 @@ def true_anomaly(AM,EC):
 	return AT
 
 def eccentric_anomaly(AM,EC):
-	""" Solve Kepler's equation, and return value of the eccentric anomaly in radians """
+	"""
+	Solve Kepler's equation, and return value of the eccentric anomaly in radians
+	
+	Original macro name: EccentricAnomaly
+	"""
 	TP = 6.283185308
 	M = AM - TP * math.floor(AM / TP)
 	AE = M
@@ -607,7 +775,11 @@ def eccentric_anomaly(AM,EC):
 	return AE
 
 def refract(Y2,SW,PR,TR):
-	""" Calculate effects of refraction """
+	"""
+	Calculate effects of refraction
+	
+	Original macro name: Refract
+	"""
 	Y = math.radians(Y2)
 	
 	D = -1 if SW[0].lower() == "t" else 1
@@ -658,7 +830,11 @@ def refract_l3035(PR,TR,Y,D):
 	return -D * 0.00007888888 * PR / ((273 + TR) * math.tan(Y))
 
 def parallax_ha(HH,HM,HS,DD,DM,DS,SW,GP,HT,HP):
-	""" Calculate corrected hour angle in decimal hours """
+	"""
+	Calculate corrected hour angle in decimal hours
+	
+	Original macro name: ParallaxHA
+	"""
 	A = math.radians(GP)
 	C1 = math.cos(A)
 	S1 = math.sin(A)
@@ -729,7 +905,11 @@ def parallax_ha_l2870(X,Y,RC,RP,RS,TP):
 	return P,Q
 
 def parallax_dec(HH,HM,HS,DD,DM,DS,SW,GP,HT,HP):
-	""" Calculate corrected declination in decimal degrees """
+	"""
+	Calculate corrected declination in decimal degrees
+	
+	Original macro name: ParallaxDec
+	"""
 	A = math.radians(GP)
 	C1 = math.cos(A)
 	S1 = math.sin(A)
@@ -800,11 +980,19 @@ def parallax_dec_l2870(X,Y,RC,RP,RS,TP):
 	return P,Q
 
 def unwind(W):
-	""" Convert angle in degrees to equivalent angle in the range 0 to 360 degrees. """
+	"""
+	Convert angle in degrees to equivalent angle in the range 0 to 360 degrees.
+	
+	Original macro name: Unwind
+	"""
 	return W - 6.283185308 * math.floor(W / 6.283185308)
 
 def moon_long(LH,LM,LS,DS,ZC,DY,MN,YR):
-	""" Calculate geocentric ecliptic longitude for the Moon """
+	"""
+	Calculate geocentric ecliptic longitude for the Moon
+	
+	Original macro name: MoonLong
+	"""
 	UT = lct_ut(LH, LM, LS, DS, ZC, DY, MN, YR)
 	GD = lct_gday(LH, LM, LS, DS, ZC, DY, MN, YR)
 	GM = lct_gmonth(LH, LM, LS, DS, ZC, DY, MN, YR)
@@ -892,7 +1080,11 @@ def moon_long(LH,LM,LS,DS,ZC,DY,MN,YR):
 	return degrees(MM)
 
 def moon_lat(LH,LM,LS,DS,ZC,DY,MN,YR):
-	""" Calculate geocentric ecliptic latitude for the Moon """
+	"""
+	Calculate geocentric ecliptic latitude for the Moon
+	
+	Original macro name: MoonLat
+	"""
 	UT = lct_ut(LH, LM, LS, DS, ZC, DY, MN, YR)
 	GD = lct_gday(LH, LM, LS, DS, ZC, DY, MN, YR)
 	GM = lct_gmonth(LH, LM, LS, DS, ZC, DY, MN, YR)
@@ -979,7 +1171,11 @@ def moon_lat(LH,LM,LS,DS,ZC,DY,MN,YR):
 	return degrees(BM)
 
 def moon_hp(LH,LM,LS,DS,ZC,DY,MN,YR):
-	""" Calculate horizontal parallax for the Moon """
+	"""
+	Calculate horizontal parallax for the Moon
+	
+	Original macro name: MoonHP
+	"""
 	UT = lct_ut(LH, LM, LS, DS, ZC, DY, MN, YR)
 	GD = lct_gday(LH, LM, LS, DS, ZC, DY, MN, YR)
 	GM = lct_gmonth(LH, LM, LS, DS, ZC, DY, MN, YR)
@@ -1054,7 +1250,11 @@ def moon_hp(LH,LM,LS,DS,ZC,DY,MN,YR):
 	return PM
 
 def sun_e_long(GD,GM,GY):
-	""" Mean ecliptic longitude of the Sun at the epoch """
+	"""
+	Mean ecliptic longitude of the Sun at the epoch
+	
+	Original macro name: SunElong
+	"""
 	T = (cd_jd(GD,GM,GY) - 2415020) / 36525
 	T2 = T * T
 	X = 279.6966778 + 36000.76892 * T + 0.0003025 * T2
@@ -1062,7 +1262,11 @@ def sun_e_long(GD,GM,GY):
 	return X - 360 * math.floor(X / 360)
 
 def sun_peri(GD,GM,GY):
-	""" Longitude of the Sun at perigee """
+	"""
+	Longitude of the Sun at perigee
+	
+	Original macro name: SunPeri
+	"""
 	T = (cd_jd(GD,GM,GY) - 2415020) / 36525
 	T2 = T * T
 	X = 281.2208444 + 1.719175 * T + 0.000452778 * T2
@@ -1070,14 +1274,22 @@ def sun_peri(GD,GM,GY):
 	return X - 360 * math.floor(X / 360)
 
 def sun_ecc(GD,GM,GY):
-	""" Eccentricity of the Sun-Earth orbit """
+	"""
+	Eccentricity of the Sun-Earth orbit
+	
+	Original macro name: SunEcc
+	"""
 	T = (cd_jd(GD,GM,GY) - 2415020) / 36525
 	T2 = T * T
 	
 	return 0.01675104 - 0.0000418 * T - 0.000000126 * T2
 
 def ec_dec(ELD,ELM,ELS,BD,BM,BS,GD,GM,GY):
-	""" Ecliptic - Declination (degrees) """
+	"""
+	Ecliptic - Declination (degrees)
+	
+	Original macro name: ECDec
+	"""
 	A = math.radians(dms_dd(ELD, ELM, ELS))
 	B = math.radians(dms_dd(BD, BM, BS))
 	C = math.radians(obliq(GD, GM, GY))
@@ -1086,7 +1298,11 @@ def ec_dec(ELD,ELM,ELS,BD,BM,BS,GD,GM,GY):
 	return degrees(math.asin(D))
 
 def ec_ra(ELD,ELM,ELS,BD,BM,BS,GD,GM,GY):
-	""" Ecliptic - Right Ascension (degrees) """
+	"""
+	Ecliptic - Right Ascension (degrees)
+	
+	Original macro name: ECRA
+	"""
 	A = math.radians(dms_dd(ELD, ELM, ELS))
 	B = math.radians(dms_dd(BD, BM, BS))
 	C = math.radians(obliq(GD, GM, GY))
@@ -1097,7 +1313,11 @@ def ec_ra(ELD,ELM,ELS,BD,BM,BS,GD,GM,GY):
 	return F - 360 * math.floor(F / 360)
 
 def sun_true_anomaly(LCH, LCM, LCS, DS, ZC, LD, LM, LY):
-	""" Calculate Sun's true anomaly, i.e., how much its orbit deviates from a true circle to an ellipse. """
+	"""
+	Calculate Sun's true anomaly, i.e., how much its orbit deviates from a true circle to an ellipse.
+	
+	Original macro name: SunTrueAnomaly
+	"""
 	AA = lct_gday(LCH, LCM, LCS, DS, ZC, LD, LM, LY)
 	BB = lct_gmonth(LCH, LCM, LCS, DS, ZC, LD, LM, LY)
 	CC = lct_gyear(LCH, LCM, LCS, DS, ZC, LD, LM, LY)
@@ -1360,7 +1580,11 @@ def e_sun_rs_l3710(GD, GM, GY, SR, DI, GP):
 	return A,X,Y,LA,S
 
 def angle(XX1, XM1, XS1, DD1, DM1, DS1, XX2, XM2, XS2, DD2, DM2, DS2, S):
-	""" Calculate the angle between two celestial objects """
+	"""
+	Calculate the angle between two celestial objects
+	
+	Original macro name: Angle
+	"""
 	A = dh_dd(hms_dh(XX1, XM1, XS1)) if (S in ["H","h"]) else dms_dd(XX1, XM1, XD1)
 	B = math.radians(A)
 	C = dms_dd(DD1, DM1, DS1)

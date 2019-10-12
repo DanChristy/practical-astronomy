@@ -26,6 +26,7 @@ var searchData=
   ['planet_5flong_5fl4810',['planet_long_l4810',['../namespacepa__macro.html#a4ffc1f4fb5b0be9b5b363ab6d81c9e3c',1,'pa_macro']]],
   ['planet_5flong_5fl4945',['planet_long_l4945',['../namespacepa__macro.html#a101e4b1c8df0c575948d91008827d221',1,'pa_macro']]],
   ['planetdata',['PlanetData',['../namespacepa__planet__data.html#aafde02b5f4bc4c9f9be616ba43f50bf2',1,'pa_planet_data']]],
+  ['position_5fof_5felliptical_5fcomet',['position_of_elliptical_comet',['../namespacepa__planet.html#a3f1eb3bcf5beda83c2fc793624330ae3',1,'pa_planet']]],
   ['precise_5fposition_5fof_5fplanet',['precise_position_of_planet',['../namespacepa__planet.html#ad1fdfeefc0e52ccfb632d100ea8aaad4',1,'pa_planet']]],
   ['precise_5fposition_5fof_5fsun',['precise_position_of_sun',['../namespacepa__sun.html#a538d59baa96c7bba0f386b20c95ffffc',1,'pa_sun']]]
 ];

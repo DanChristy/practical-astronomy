@@ -58,3 +58,4 @@ Type | Description
 -----|------------
 Calculate | Approximate and precise position of planet
 Calculate | Visual aspects of planet (distance, angular diameter, phase, light time, position angle of bright limb, and apparent magnitude)
+Calculate | Position of elliptical comet

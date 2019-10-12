@@ -54,7 +54,7 @@ class test_position_of_planet(UT.TestCase):
 		self.assertEqual(pos_angle_bright_limb_deg,113.2,"Position Angle of Bright Limb - degrees")
 		self.assertEqual(approximate_magnitude,-2,"Approximate Magnitude")
 
-class test_position_of_comet(UT.TestCase):
+class test_position_of_elliptical_comet(UT.TestCase):
 	def setUp(self):
 		self.lct_hour = 0
 		self.lct_min = 0
@@ -66,16 +66,41 @@ class test_position_of_comet(UT.TestCase):
 		self.local_date_year = 1984
 		self.comet_name = "Halley"
 
-	def test_position_of_comet(self):
+	def test_position_of_elliptical_comet(self):
 		comet_ra_hour, comet_ra_min, comet_dec_deg, comet_dec_min, comet_dist_earth = PC.position_of_elliptical_comet(self.lct_hour, self.lct_min, self.lct_sec, self.is_daylight_saving, self.zone_correction_hours, self.local_date_day, self.local_date_month, self.local_date_year, self.comet_name)
 
-		print(f"Position of comet: [Local Time] {self.lct_hour}:{self.lct_min}:{self.lct_sec} [DST?] {self.is_daylight_saving} [Zone Correction] {self.zone_correction_hours} [Local Date] {self.local_date_month}/{self.local_date_day}/{self.local_date_year} [Comet] {self.comet_name} = [RA] {comet_ra_hour}h {comet_ra_min}m [Declination] {comet_dec_deg}d {comet_dec_min}m [Distance] {comet_dist_earth} AU")
+		print(f"Position of elliptical comet: [Local Time] {self.lct_hour}:{self.lct_min}:{self.lct_sec} [DST?] {self.is_daylight_saving} [Zone Correction] {self.zone_correction_hours} [Local Date] {self.local_date_month}/{self.local_date_day}/{self.local_date_year} [Comet] {self.comet_name} = [RA] {comet_ra_hour}h {comet_ra_min}m [Declination] {comet_dec_deg}d {comet_dec_min}m [Distance] {comet_dist_earth} AU")
 
 		self.assertEqual(comet_ra_hour,6,"Comet RA - hour")
 		self.assertEqual(comet_ra_min,29,"Comet RA - minutes")
 		self.assertEqual(comet_dec_deg,10,"Comet Declination - degrees")
 		self.assertEqual(comet_dec_min,13,"Comet Declination - minutes")
 		self.assertEqual(comet_dist_earth,8.13,"Comet Distance from Earth - AU")
+
+class test_position_of_parabolic_comet(UT.TestCase):
+	def setUp(self):
+		self.lct_hour = 0
+		self.lct_min = 0
+		self.lct_sec = 0
+		self.is_daylight_saving = False
+		self.zone_correction_hours = 0
+		self.local_date_day = 25
+		self.local_date_month = 12
+		self.local_date_year = 1977
+		self.comet_name = "Kohler"
+
+	def test_position_of_parabolic_comet(self):
+		comet_ra_hour, comet_ra_min, comet_ra_sec, comet_dec_deg, comet_dec_min, comet_dec_sec, comet_dist_earth = PC.position_of_parabolic_comet(self.lct_hour, self.lct_min, self.lct_sec, self.is_daylight_saving, self.zone_correction_hours, self.local_date_day, self.local_date_month, self.local_date_year, self.comet_name)
+
+		print(f"Position of parabolic comet: [Local Time] {self.lct_hour}:{self.lct_min}:{self.lct_sec} [DST?] {self.is_daylight_saving} [Zone Correction] {self.zone_correction_hours} [Local Date] {self.local_date_month}/{self.local_date_day}/{self.local_date_year} [Comet] {self.comet_name} = [RA] {comet_ra_hour}h {comet_ra_min}m {comet_ra_sec}s [Declination] {comet_dec_deg}d {comet_dec_min}m {comet_dec_sec}s [Distance] {comet_dist_earth} AU")
+
+		self.assertEqual(comet_ra_hour,23,"Comet RA - hour")
+		self.assertEqual(comet_ra_min,17,"Comet RA - minutes")
+		self.assertEqual(comet_ra_sec,11.53,"Comet RA - seconds")
+		self.assertEqual(comet_dec_deg,-33,"Comet Declination - degrees")
+		self.assertEqual(comet_dec_min,42,"Comet Declination - minutes")
+		self.assertEqual(comet_dec_sec,26.42,"Comet Declination - seconds")
+		self.assertEqual(comet_dist_earth,1.11,"Comet Distance from Earth - AU")
 
 
 if __name__ == '__main__':

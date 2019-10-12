@@ -264,6 +264,10 @@ Functions</h2></td></tr>
 <tr class="separator:a4ffc1f4fb5b0be9b5b363ab6d81c9e3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a101e4b1c8df0c575948d91008827d221"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepa__macro.html#a101e4b1c8df0c575948d91008827d221">planet_long_l4945</a> (T, IP, PL)</td></tr>
 <tr class="separator:a101e4b1c8df0c575948d91008827d221"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a07da5981ab4bf53d59eaf93a286bf2b6"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepa__macro.html#a07da5981ab4bf53d59eaf93a286bf2b6">solve_cubic</a> (W)</td></tr>
+<tr class="separator:a07da5981ab4bf53d59eaf93a286bf2b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a96245ac533ee2836c0023ed450aa392f"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepa__macro.html#a96245ac533ee2836c0023ed450aa392f">p_comet_long_lat_dist</a> (LH, LM, LS, DS, ZC, DY, MN, YR, TD, TM, TY, Q, I, P, N)</td></tr>
+<tr class="separator:a96245ac533ee2836c0023ed450aa392f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="a1ac57720babc432eb28993f3b63de5cf"></a>
@@ -2372,6 +2376,137 @@ Original macro name: Obliq
 </pre> 
 </div>
 </div>
+<a id="a96245ac533ee2836c0023ed450aa392f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a96245ac533ee2836c0023ed450aa392f">&#9670;&nbsp;</a></span>p_comet_long_lat_dist()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def pa_macro.p_comet_long_lat_dist </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>LH</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>LM</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>LS</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>DS</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>ZC</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>DY</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>MN</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>YR</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>TD</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>TM</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>TY</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>Q</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>I</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>P</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>N</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Calculate longitude, latitude, and distance of parabolic-orbit comet.
+
+Original macro names: PcometLong, PcometLat, PcometDist
+
+Parameters:
+    LH:     Local civil time, hour part.
+    LM:     Local civil time, minutes part.
+    LS:     Local civil time, seconds part.
+    DS:     Daylight Savings offset.
+    ZC:     Time zone correction, in hours.
+    DY:     Local date, day part.
+    MN:     Local date, month part.
+    YR:     Local date, year part.
+    TD:     Perihelion epoch (day)
+    TM:     Perihelion epoch (month)
+    TY:     Perihelion epoch (year)
+    Q:      q (AU)
+    I:      Inclination (degrees)
+    P:      Perihelion (degrees)
+    N:      Node (degrees)
+
+Returns:
+    comet_long_deg:     Comet longitude (degrees)
+    comet_lat_deg:      Comet lat (degrees)
+    comet_dist_au:      Comet distance from Earth (AU)
+</pre> 
+</div>
+</div>
 <a id="a772eeed6c9bad0818d2ad149dea586ba"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a772eeed6c9bad0818d2ad149dea586ba">&#9670;&nbsp;</a></span>parallax_dec()</h2>
 
@@ -3280,6 +3415,27 @@ Original macro name: RSLSTR
 <pre class="fragment">Local sidereal time of setting, in hours.
 
 Original macro name: RSLSTS
+</pre> 
+</div>
+</div>
+<a id="a07da5981ab4bf53d59eaf93a286bf2b6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a07da5981ab4bf53d59eaf93a286bf2b6">&#9670;&nbsp;</a></span>solve_cubic()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def pa_macro.solve_cubic </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>W</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">For W, in radians, return S, also in radians.
+
+Original macro name: SolveCubic
 </pre> 
 </div>
 </div>

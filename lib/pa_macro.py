@@ -2796,3 +2796,95 @@ def planet_long_l4945(T,IP,PL):
 		QB = QB * 0.000001
 		
 		return QA,QB,QC,QD,QE,QF,QG
+
+def solve_cubic(W):
+	'''
+	For W, in radians, return S, also in radians.
+
+	Original macro name: SolveCubic
+	'''
+	S = W / 3
+
+	while 1 == 1:
+		S2 = S * S
+		D = (S2 + 3) * S - W
+
+		if abs(D) < 0.000001:
+			return S
+
+		S = ((2 * S * S2) + W) / (3 * (S2 + 1))
+
+def p_comet_long_lat_dist(LH, LM, LS, DS, ZC, DY, MN, YR, TD, TM, TY, Q, I, P, N):
+	'''
+	Calculate longitude, latitude, and distance of parabolic-orbit comet.
+
+	Original macro names: PcometLong, PcometLat, PcometDist
+
+	Parameters:
+		LH:		Local civil time, hour part.
+		LM:		Local civil time, minutes part.
+		LS:		Local civil time, seconds part.
+		DS:		Daylight Savings offset.
+		ZC:		Time zone correction, in hours.
+		DY:		Local date, day part.
+		MN:		Local date, month part.
+		YR:		Local date, year part.
+		TD:		Perihelion epoch (day)
+		TM:		Perihelion epoch (month)
+		TY:		Perihelion epoch (year)
+		Q:		q (AU)
+		I:		Inclination (degrees)
+		P:		Perihelion (degrees)
+		N:		Node (degrees)
+
+	Returns:
+		comet_long_deg:		Comet longitude (degrees)
+		comet_lat_deg:		Comet lat (degrees)
+		comet_dist_au:		Comet distance from Earth (AU)
+	'''
+	GD = lct_gday(LH, LM, LS, DS, ZC, DY, MN, YR)
+	GM = lct_gmonth(LH, LM, LS, DS, ZC, DY, MN, YR)
+	GY = lct_gyear(LH, LM, LS, DS, ZC, DY, MN, YR)
+	UT = lct_ut(LH, LM, LS, DS, ZC, DY, MN, YR)
+	TPE = (UT / 365.242191) + cd_jd(GD, GM, GY) - cd_jd(TD, TM, TY)
+	LG = math.radians(sun_long(LH, LM, LS, DS, ZC, DY, MN, YR) + 180)
+	RE = sun_dist(LH, LM, LS, DS, ZC, DY, MN, YR)
+
+	LI = 0
+	for K in range(1,3):
+		S = solve_cubic(0.0364911624 * TPE / (Q * math.sqrt(Q)))
+		NU = 2 * math.atan(S)
+		R = Q * (1 + S * S)
+		L = NU + math.radians(P)
+		S1 = math.sin(L)
+		C1 = math.cos(L)
+		I1 = math.radians(I)
+		S2 = S1 * math.sin(I1)
+		PS = math.asin(S2)
+		Y = S1 * math.cos(I1)
+		LC = atan2(C1, Y) + math.radians(N)
+		C2 = math.cos(PS)
+		RD = R * C2
+		LL = LC - LG
+		C3 = math.cos(LL)
+		S3 = math.sin(LL)
+		RH = math.sqrt((RE * RE) + (R * R) - (2 * RE * RD * C3 * math.cos(PS)))
+		if K == 1:
+			RH2 = math.sqrt((RE * RE) + (R * R) - (2 * RE * R * math.cos(PS) * math.cos(L + math.radians(N) - LG)))
+
+		LI = RH * 0.005775518
+
+	if RD < RE:
+		EP = math.atan((-RD * S3) / (RE - (RD * C3))) + LG + 3.141592654
+	else:
+		EP = math.atan((RE * S3) / (RD - (RE * C3))) + LC
+
+	EP = unwind(EP)
+	TB = (RD * S2 * math.sin(EP - LC)) / (C2 * RE * S3)
+	BP = math.atan(TB)
+
+	comet_long_deg = degrees(EP)
+	comet_lat_deg = degrees(BP)
+	comet_dist_au = RH2
+
+	return comet_long_deg, comet_lat_deg, comet_dist_au

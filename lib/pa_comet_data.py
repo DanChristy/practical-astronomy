@@ -1,5 +1,5 @@
 
-CometData = {
+CometDataElliptical = {
 	"Encke": {
 		"Epoch": 1974.32,
 		"Peri": 160.1,
@@ -137,12 +137,24 @@ CometData = {
 	}
 }
 
-def get_comet_data(comet_name):
+CometDataParabolic = {
+	"Kohler": {
+		"EpochPeriDay": 10.5659,
+		"EpochPeriMonth": 11,
+		"EpochPeriYear": 1977,
+		"ArgPeri": 163.4799,
+		"Node": 181.8175,
+		"PeriDist": 0.990662,
+		"Incl": 48.7196
+	}
+}
+
+def get_comet_data_elliptical(comet_name):
 	'''
-	Get comet data.
+	Get data for elliptical comet.
 	
 	Example, retrieving orbital period of Halley:
-		get_comet_data("Halley")['Period']
+		get_comet_data_elliptical("Halley")['Period']
 
 	Parameters:
 		comet_name:	Name of comet, e.g., "Halley"
@@ -156,4 +168,25 @@ def get_comet_data(comet_name):
 		Ecc:		Eccentricity of the orbit.
 		Incl:		Orbital inclination.
 	'''
-	return CometData.get(comet_name)
+	return CometDataElliptical.get(comet_name)
+
+def get_comet_data_parabolic(comet_name):
+	'''
+	Get data for parabolic comet.
+
+	Example, retrieving longitude of the ascending node of Kohler:
+		get_comet_data_parabolic("Kohler")['Node']
+
+	Parameters:
+		comet_name:			Name of comet, e.g., "Kohler"
+
+	Returns a dictionary object with the following elements:
+		EpochPeriDay:		Epoch of the perihelion (day)
+		EpochPeriMonth:		Epoch of the perihelion (month)
+		EpochPeriYear:		Epoch of the perihelion (year)
+		ArgPeri:			Longitude of the perihelion (degrees)
+		Node:				Longitude of the ascending node (degrees)
+		PeriDist:			Distance at perihelion (AU)	
+		Incl:				Orbital inclination (degrees)
+	'''
+	return CometDataParabolic.get(comet_name)

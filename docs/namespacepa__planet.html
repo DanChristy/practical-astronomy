@@ -94,8 +94,6 @@ Functions</h2></td></tr>
 <tr class="separator:ad1fdfeefc0e52ccfb632d100ea8aaad4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ada31ce3299576ec40657f7e6f23be1f5"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepa__planet.html#ada31ce3299576ec40657f7e6f23be1f5">visual_aspects_of_a_planet</a> (lct_hour, lct_min, lct_sec, is_daylight_saving, zone_correction_hours, local_date_day, local_date_month, local_date_year, planet_name)</td></tr>
 <tr class="separator:ada31ce3299576ec40657f7e6f23be1f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3f1eb3bcf5beda83c2fc793624330ae3"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepa__planet.html#a3f1eb3bcf5beda83c2fc793624330ae3">position_of_elliptical_comet</a> (lct_hour, lct_min, lct_sec, is_daylight_saving, zone_correction_hours, local_date_day, local_date_month, local_date_year, comet_name)</td></tr>
-<tr class="separator:a3f1eb3bcf5beda83c2fc793624330ae3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="a3a768a65f6b784f2e257594d2725262c"></a>
@@ -185,95 +183,6 @@ Returns:
     planet_dec_deg:     Declination of planet (degrees part)
     planet_dec_min:     Declination of planet (minutes part)
     planet_dec_sec:     Declination of planet (seconds part)
-</pre> 
-</div>
-</div>
-<a id="a3f1eb3bcf5beda83c2fc793624330ae3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3f1eb3bcf5beda83c2fc793624330ae3">&#9670;&nbsp;</a></span>position_of_elliptical_comet()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">def pa_planet.position_of_elliptical_comet </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>lct_hour</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>lct_min</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>lct_sec</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>is_daylight_saving</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>zone_correction_hours</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>local_date_day</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>local_date_month</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>local_date_year</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>comet_name</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<pre class="fragment">Calculate position of a comet.
-
-Parameters:
-    lct_hour:               Local civil time, hour part.
-    lct_min:                Local civil time, minutes part.
-    lct_sec:                Local civil time, seconds part.
-    is_daylight_saving:     Is daylight savings in effect?
-    zone_correction_hours:  Time zone correction, in hours.
-    local_date_day:         Local date, day part.
-    local_date_month:       Local date, month part.
-    local_date_year:        Local date, year part.
-    comet_name:             Name of comet, e.g., "Halley"
-
-Returns:
-    comet_ra_hour:      Right ascension of comet (hour part)
-    comet_ra_min:       Right ascension of comet (minutes part)
-    comet_dec_deg:      Declination of comet (degrees part)
-    comet_dec_min:      Declination of comet (minutes part)
-    comet_dist_earth:   Comet's distance from Earth (AU)
 </pre> 
 </div>
 </div>

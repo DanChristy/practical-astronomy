@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['obliq',['obliq',['../namespacepa__macro.html#ab948dc086b5f5d9ea5a2ea6d24bc8412',1,'pa_macro']]]
+  ['nutat_5flong',['nutat_long',['../namespacepa__macro.html#a0e9677b712e31594c764c832393d0b52',1,'pa_macro']]],
+  ['nutat_5fobl',['nutat_obl',['../namespacepa__macro.html#aaae8c5d84ac4a80fddee998fea9d9f71',1,'pa_macro']]],
+  ['nutation_5fin_5fecliptic_5flongitude_5fand_5fobliquity',['nutation_in_ecliptic_longitude_and_obliquity',['../namespacepa__coordinate.html#a3ac5a2dcb6204976f63c8fa8b17cbe58',1,'pa_coordinate']]]
 ];

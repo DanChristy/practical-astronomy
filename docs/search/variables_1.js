@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['planetdata',['PlanetData',['../namespacepa__planet__data.html#aafde02b5f4bc4c9f9be616ba43f50bf2',1,'pa_planet_data']]]
+  ['cometdataelliptical',['CometDataElliptical',['../namespacepa__comet__data.html#a5dfaac06954d07c606fa71e691aa89eb',1,'pa_comet_data']]],
+  ['cometdataparabolic',['CometDataParabolic',['../namespacepa__comet__data.html#a5a4863a7e81117de4279b5afea3b8be9',1,'pa_comet_data']]]
 ];

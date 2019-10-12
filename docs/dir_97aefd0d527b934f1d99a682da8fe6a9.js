@@ -1,5 +1,7 @@
 var dir_97aefd0d527b934f1d99a682da8fe6a9 =
 [
+    [ "pa_binary.py", "pa__binary_8py.html", "pa__binary_8py" ],
+    [ "pa_binary_data.py", "pa__binary__data_8py.html", "pa__binary__data_8py" ],
     [ "pa_comet.py", "pa__comet_8py.html", "pa__comet_8py" ],
     [ "pa_comet_data.py", "pa__comet__data_8py.html", "pa__comet__data_8py" ],
     [ "pa_coordinate.py", "pa__coordinate_8py.html", "pa__coordinate_8py" ],

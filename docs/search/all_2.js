@@ -1,18 +1,12 @@
 var searchData=
 [
-  ['dd_5fdeg',['dd_deg',['../namespacepa__macro.html#a0afbeb0a9a5ba9a5e43fa2762c10c134',1,'pa_macro']]],
-  ['dd_5fdh',['dd_dh',['../namespacepa__macro.html#a60e8ef9d2d2db165989f492a19cc3751',1,'pa_macro']]],
-  ['dd_5fmin',['dd_min',['../namespacepa__macro.html#a2a581e3cc10c4674e05cfb45e0899cec',1,'pa_macro']]],
-  ['dd_5fsec',['dd_sec',['../namespacepa__macro.html#a18401f0ee61c78823201bbc5b5ae4ece',1,'pa_macro']]],
-  ['decimal_5fdegrees_5fto_5fangle',['decimal_degrees_to_angle',['../namespacepa__coordinate.html#a474e2869b95666be1eee615006614f50',1,'pa_coordinate']]],
-  ['decimal_5fhour_5fhour',['decimal_hour_hour',['../namespacepa__datetime.html#af165a7b8cd143859df17846a845f94f1',1,'pa_datetime']]],
-  ['decimal_5fhour_5fminutes',['decimal_hour_minutes',['../namespacepa__datetime.html#ac15a8a35e311b0fa177b0fcecefaa7ff',1,'pa_datetime']]],
-  ['decimal_5fhour_5fseconds',['decimal_hour_seconds',['../namespacepa__datetime.html#a5bfd312a9837acadf6f5a53b5358dac4',1,'pa_datetime']]],
-  ['decimal_5fhours_5fto_5fcivil_5ftime',['decimal_hours_to_civil_time',['../namespacepa__datetime.html#aae2a40c0dc4f6d3bfe03686eb16ee009',1,'pa_datetime']]],
-  ['degrees',['degrees',['../namespacepa__macro.html#a906f137a664e6b54bd1429e4993e0e0e',1,'pa_macro']]],
-  ['dh_5fdd',['dh_dd',['../namespacepa__macro.html#ace575ca85d4ec5c82040428ea0b3c8ff',1,'pa_macro']]],
-  ['dh_5fhour',['dh_hour',['../namespacepa__macro.html#ab367585767696cb9ebabf43a463a8a1c',1,'pa_macro']]],
-  ['dh_5fmin',['dh_min',['../namespacepa__macro.html#a2e5f78772c331b30aab2a179d67df763',1,'pa_macro']]],
-  ['dh_5fsec',['dh_sec',['../namespacepa__macro.html#ab6b77a4307ef5fdfb7a6816f093eae0b',1,'pa_macro']]],
-  ['dms_5fdd',['dms_dd',['../namespacepa__macro.html#af8e177250b71eef6e8854f4d57e97d3d',1,'pa_macro']]]
+  ['carrington_5frotation_5fnumber',['carrington_rotation_number',['../namespacepa__coordinate.html#a59637bd37cf55810cfab6702151dbc18',1,'pa_coordinate']]],
+  ['cd_5fjd',['cd_jd',['../namespacepa__macro.html#a6017ad11aa20780e09d078eda04782c8',1,'pa_macro']]],
+  ['civil_5fdate_5fto_5fday_5fnumber',['civil_date_to_day_number',['../namespacepa__datetime.html#ac6ab82ce401b647455c0d6a2c3034082',1,'pa_datetime']]],
+  ['civil_5ftime_5fto_5fdecimal_5fhours',['civil_time_to_decimal_hours',['../namespacepa__datetime.html#afbe4887db0adb97a2b6726f93357f74e',1,'pa_datetime']]],
+  ['cometdataelliptical',['CometDataElliptical',['../namespacepa__comet__data.html#a5dfaac06954d07c606fa71e691aa89eb',1,'pa_comet_data']]],
+  ['cometdataparabolic',['CometDataParabolic',['../namespacepa__comet__data.html#a5a4863a7e81117de4279b5afea3b8be9',1,'pa_comet_data']]],
+  ['correct_5ffor_5faberration',['correct_for_aberration',['../namespacepa__coordinate.html#abaee18abbc680e491639a81267d738d7',1,'pa_coordinate']]],
+  ['correct_5ffor_5fprecession',['correct_for_precession',['../namespacepa__coordinate.html#aee79944decd91afc027940d4629868a2',1,'pa_coordinate']]],
+  ['corrections_5ffor_5fgeocentric_5fparallax',['corrections_for_geocentric_parallax',['../namespacepa__coordinate.html#a71aeafca0e8e028b70a5a5d9b636e934',1,'pa_coordinate']]]
 ];

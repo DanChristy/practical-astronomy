@@ -1,7 +1,8 @@
 #!/usr/bin/python3
 
-import lib.pa_planet as PP
 import lib.pa_comet as PC
+import lib.pa_planet as PP
+import lib.pa_binary as PB
 import unittest as UT
 
 class test_position_of_planet(UT.TestCase):
@@ -101,6 +102,21 @@ class test_position_of_parabolic_comet(UT.TestCase):
 		self.assertEqual(comet_dec_min,42,"Comet Declination - minutes")
 		self.assertEqual(comet_dec_sec,26.42,"Comet Declination - seconds")
 		self.assertEqual(comet_dist_earth,1.11,"Comet Distance from Earth - AU")
+
+class test_binary_star_orbit(UT.TestCase):
+	def setUp(self):
+		self.greenwich_date_day = 1
+		self.greenwich_date_month = 1
+		self.greenwich_date_year = 1980
+		self.binary_name = "eta-Cor"
+
+	def test_binary_star_orbit(self):
+		position_angle_deg, separation_arcsec = PB.binary_star_orbit(self.greenwich_date_day, self.greenwich_date_month, self.greenwich_date_year, self.binary_name)
+
+		print(f"Binary star orbit: [Greenwich Date] {self.greenwich_date_month}/{self.greenwich_date_day}/{self.greenwich_date_year} [Binary] {self.binary_name} = [Position Angle] {position_angle_deg}d [Separation] {separation_arcsec} arcsec")
+
+		self.assertEqual(position_angle_deg,318.5,"Position Angle (degrees)")
+		self.assertEqual(separation_arcsec,0.41,"Separation (arcseconds)")
 
 
 if __name__ == '__main__':

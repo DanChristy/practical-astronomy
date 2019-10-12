@@ -1,10 +1,16 @@
 var searchData=
 [
-  ['ha_5fra',['ha_ra',['../namespacepa__macro.html#a73da89a48fe4ec56161f2bc9f56d4806',1,'pa_macro']]],
-  ['heliographic_5fcoordinates',['heliographic_coordinates',['../namespacepa__coordinate.html#a065dd0ce07ea4e82cf896212eceb2ed4',1,'pa_coordinate']]],
-  ['hms_5fdh',['hms_dh',['../namespacepa__macro.html#a61f72376cf6f5b7a68c711522276ca8b',1,'pa_macro']]],
-  ['hor_5fdec',['hor_dec',['../namespacepa__macro.html#ae18363fd9643bce6053ff5902fb1a664',1,'pa_macro']]],
-  ['hor_5fha',['hor_ha',['../namespacepa__macro.html#a3a3df93fa5a6ae0c9d7e436cbe6a90e8',1,'pa_macro']]],
-  ['horizon_5fcoordinates_5fto_5fequatorial_5fcoordinates',['horizon_coordinates_to_equatorial_coordinates',['../namespacepa__coordinate.html#a3bf9408acb4efee0aaceb3090d54fb69',1,'pa_coordinate']]],
-  ['hour_5fangle_5fto_5fright_5fascension',['hour_angle_to_right_ascension',['../namespacepa__coordinate.html#a55bd20f1a92e57cb18d79c3a7bffd74c',1,'pa_coordinate']]]
+  ['galactic_5fcoordinate_5fto_5fequatorial_5fcoordinate',['galactic_coordinate_to_equatorial_coordinate',['../namespacepa__coordinate.html#a7201bdefdd8a6fe7b4ab894b5950eab0',1,'pa_coordinate']]],
+  ['get_5fbinary_5fdata',['get_binary_data',['../namespacepa__binary__data.html#a270acd135ad9e69a0d0478b07d744e37',1,'pa_binary_data']]],
+  ['get_5fcomet_5fdata_5felliptical',['get_comet_data_elliptical',['../namespacepa__comet__data.html#a6b212fd469bbbc965ca83e5f50b5c457',1,'pa_comet_data']]],
+  ['get_5fcomet_5fdata_5fparabolic',['get_comet_data_parabolic',['../namespacepa__comet__data.html#a48dc161fec949ea5593c9c328d75e7fc',1,'pa_comet_data']]],
+  ['get_5fdate_5fof_5feaster',['get_date_of_easter',['../namespacepa__datetime.html#ae0ec6ccf55369322fa323c8bfa680357',1,'pa_datetime']]],
+  ['get_5fplanet_5fdata',['get_planet_data',['../namespacepa__planet__data.html#a76352576b0a2f6d4dc61f231f4b6ddb5',1,'pa_planet_data']]],
+  ['glossary_2emd',['glossary.md',['../glossary_8md.html',1,'']]],
+  ['greenwich_5fdate_5fto_5fjulian_5fdate',['greenwich_date_to_julian_date',['../namespacepa__datetime.html#a5ddc3cd5586986497a32ffefa2aff9d5',1,'pa_datetime']]],
+  ['greenwich_5fsidereal_5ftime_5fto_5flocal_5fsidereal_5ftime',['greenwich_sidereal_time_to_local_sidereal_time',['../namespacepa__datetime.html#a3b84448ab4e55ab68e26368ebe486b44',1,'pa_datetime']]],
+  ['greenwich_5fsidereal_5ftime_5fto_5funiversal_5ftime',['greenwich_sidereal_time_to_universal_time',['../namespacepa__datetime.html#a5d37161b0e366a0c95ffae991c2cb30f',1,'pa_datetime']]],
+  ['gst_5flst',['gst_lst',['../namespacepa__macro.html#a2e33fbccab51d9a365694f552fef1128',1,'pa_macro']]],
+  ['gst_5fut',['gst_ut',['../namespacepa__macro.html#af8b51703b469dd44b2a2377d62ee72f7',1,'pa_macro']]],
+  ['glossary_20of_20terms',['Glossary of Terms',['../md_src_glossary.html',1,'']]]
 ];

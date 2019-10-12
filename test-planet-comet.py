@@ -61,7 +61,7 @@ class test_position_of_comet(UT.TestCase):
 		self.lct_sec = 0
 		self.is_daylight_saving = False
 		self.zone_correction_hours = 0
-		self.local_date_day = 0
+		self.local_date_day = 1
 		self.local_date_month = 1
 		self.local_date_year = 1984
 		self.comet_name = "Halley"
@@ -74,7 +74,7 @@ class test_position_of_comet(UT.TestCase):
 		self.assertEqual(comet_ra_hour,6,"Comet RA - hour")
 		self.assertEqual(comet_ra_min,29,"Comet RA - minutes")
 		self.assertEqual(comet_dec_deg,10,"Comet Declination - degrees")
-		self.assertEqual(comet_dec_min,12,"Comet Declination - minutes")
+		self.assertEqual(comet_dec_min,13,"Comet Declination - minutes")
 		self.assertEqual(comet_dist_earth,8.13,"Comet Distance from Earth - AU")
 
 

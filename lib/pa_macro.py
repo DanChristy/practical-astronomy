@@ -3064,3 +3064,73 @@ def moon_long_lat_hp(LH, LM, LS, DS, ZC, DY, MN, YR):
 	moon_hor_para = PM
 
 	return moon_long_deg, moon_lat_deg, moon_hor_para
+
+def moon_phase(LH, LM, LS, DS, ZC, DY, MN, YR):
+	"""
+	Calculate current phase of Moon.
+
+	Original macro name: MoonPhase
+	"""
+	moon_long_deg, moon_lat_deg, moon_hor_para = moon_long_lat_hp(LH, LM, LS, DS, ZC, DY, MN, YR)
+
+	CD = math.cos(math.radians(moon_long_deg - sun_long(LH, LM, LS, DS, ZC, DY, MN, YR))) * math.cos(math.radians(moon_lat_deg))
+	D = math.acos(CD)
+	SD = math.sin(D)
+	I = 0.1468 * SD * (1 - 0.0549 * math.sin(moon_mean_anomaly(LH, LM, LS, DS, ZC, DY, MN, YR)))
+	I = I / (1 - 0.0167 * math.sin(sun_mean_anomaly(LH, LM, LS, DS, ZC, DY, MN, YR)))
+	I = 3.141592654 - D - math.radians(I)
+	K = (1 + math.cos(I)) / 2
+
+	return round(K,2)
+
+def moon_mean_anomaly(LH, LM, LS, DS, ZC, DY, MN, YR):
+	"""
+	Calculate the Moon's mean anomaly.
+
+	Original macro name: MoonMeanAnomaly
+	"""
+	UT = lct_ut(LH, LM, LS, DS, ZC, DY, MN, YR)
+	GD = lct_gday(LH, LM, LS, DS, ZC, DY, MN, YR)
+	GM = lct_gmonth(LH, LM, LS, DS, ZC, DY, MN, YR)
+	GY = lct_gyear(LH, LM, LS, DS, ZC, DY, MN, YR)
+	T = ((cd_jd(GD, GM, GY) - 2415020) / 36525) + (UT / 876600)
+	T2 = T * T
+
+	M1 = 27.32158213
+	M2 = 365.2596407
+	M3 = 27.55455094
+	M4 = 29.53058868
+	M5 = 27.21222039
+	M6 = 6798.363307
+	Q = cd_jd(GD, GM, GY) - 2415020 + (UT / 24)
+	M1 = Q / M1
+	M2 = Q / M2
+	M3 = Q / M3
+	M4 = Q / M4
+	M5 = Q / M5
+	M6 = Q / M6
+	M1 = 360 * (M1 - math.floor(M1))
+	M2 = 360 * (M2 - math.floor(M2))
+	M3 = 360 * (M3 - math.floor(M3))
+	M4 = 360 * (M4 - math.floor(M4))
+	M5 = 360 * (M5 - math.floor(M5))
+	M6 = 360 * (M6 - math.floor(M6))
+
+	ML = 270.434164 + M1 - (0.001133 - 0.0000019 * T) * T2
+	MS = 358.475833 + M2 - (0.00015 + 0.0000033 * T) * T2
+	MD = 296.104608 + M3 + (0.009192 + 0.0000144 * T) * T2
+	ME1 = 350.737486 + M4 - (0.001436 - 0.0000019 * T) * T2
+	MF = 11.250889 + M5 - (0.003211 + 0.0000003 * T) * T2
+	NA = 259.183275 - M6 + (0.002078 + 0.0000022 * T) * T2
+	A = math.radians(51.2 + 20.2 * T)
+	S1 = math.sin(A)
+	S2 = math.sin(math.radians(NA))
+	B = 346.56 + (132.87 - 0.0091731 * T) * T
+	S3 = 0.003964 * math.sin(math.radians(B))
+	C = math.radians(NA + 275.05 - 2.3 * T)
+	S4 = math.sin(C)
+	ML = ML + 0.000233 * S1 + S3 + 0.001964 * S2
+	MS = MS - 0.001778 * S1
+	MD = MD + 0.000817 * S1 + S3 + 0.002541 * S2
+
+	return math.radians(MD)

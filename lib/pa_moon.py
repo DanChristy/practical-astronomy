@@ -118,3 +118,49 @@ def precise_position_of_moon(lct_hour, lct_min, lct_sec, is_daylight_saving, zon
 	moon_hor_parallax_deg = round(moon_horizontal_parallax_deg,6)
 
 	return moon_ra_hour, moon_ra_min, moon_ra_sec, moon_dec_deg, moon_dec_min, moon_dec_sec, earth_moon_dist_km, moon_hor_parallax_deg
+
+def moon_phase(lct_hour, lct_min, lct_sec, is_daylight_saving, zone_correction_hours, local_date_day, local_date_month, local_date_year, accuracy_level = "A"):
+	"""
+	Calculate Moon phase and position angle of bright limb.
+
+	Arguments:
+		lct_hour -- Local civil time, in hours.
+		lct_min -- Local civil time, in minutes.
+		lct_sec -- Local civil time, in seconds.
+		is_daylight_saving -- Is daylight savings in effect?
+		zone_correction_hours -- Time zone correction, in hours.
+		local_date_day -- Local date, day part.
+		local_date_month -- Local date, month part.
+		local_date_year -- Local date, year part.
+		accuracy_level -- "A" (approximate) or "P" (precise)
+
+	Returns:
+		moon_phase -- Phase of Moon, between 0 and 1, where 0 is New and 1 is Full.
+		pa_bright_limb_deg -- Position angle of the bright limb (degrees)
+	"""
+	daylight_saving = 1 if is_daylight_saving == True else 0
+
+	gdate_day = PM.lct_gday(lct_hour, lct_min, lct_sec, daylight_saving, zone_correction_hours, local_date_day, local_date_month, local_date_year)
+	gdate_month = PM.lct_gmonth(lct_hour, lct_min, lct_sec, daylight_saving, zone_correction_hours, local_date_day, local_date_month, local_date_year)
+	gdate_year = PM.lct_gyear(lct_hour, lct_min, lct_sec, daylight_saving, zone_correction_hours, local_date_day, local_date_month, local_date_year)
+
+	sun_long_deg = PM.sun_long(lct_hour, lct_min, lct_sec, daylight_saving, zone_correction_hours, local_date_day, local_date_month, local_date_year)
+	moon_ecliptic_longitude_deg, moon_ecliptic_latitude_deg, moon_horizontal_parallax_deg = PM.moon_long_lat_hp(lct_hour, lct_min, lct_sec, daylight_saving, zone_correction_hours, local_date_day, local_date_month, local_date_year)
+	d_rad = math.radians(moon_ecliptic_longitude_deg - sun_long_deg)
+
+	moon_phase1 = PM.moon_phase(lct_hour, lct_min, lct_sec, daylight_saving, zone_correction_hours, local_date_day, local_date_month, local_date_year) if accuracy_level == "P" else (1-math.cos(d_rad))/2
+
+	sun_ra_rad = math.radians(PM.ec_ra(sun_long_deg,0,0,0,0,0,gdate_day,gdate_month,gdate_year))
+	moon_ra_rad = math.radians(PM.ec_ra(moon_ecliptic_longitude_deg,0,0,moon_ecliptic_latitude_deg,0,0,gdate_day,gdate_month,gdate_year))
+	sun_dec_rad = math.radians(PM.ec_dec(sun_long_deg,0,0,0,0,0,gdate_day,gdate_month,gdate_year))
+	moon_dec_rad = math.radians(PM.ec_dec(moon_ecliptic_longitude_deg,0,0,moon_ecliptic_latitude_deg,0,0,gdate_day,gdate_month,gdate_year))
+
+	y = math.cos(sun_dec_rad)*math.sin(sun_ra_rad-moon_ra_rad)
+	x = math.cos(moon_dec_rad)*math.sin(sun_dec_rad)-math.sin(moon_dec_rad)*math.cos(sun_dec_rad)*math.cos(sun_ra_rad-moon_ra_rad)
+
+	chi_deg = PM.degrees(math.atan2(y,x))
+
+	moon_phase = round(moon_phase1,2)
+	pa_bright_limb_deg = round(chi_deg,2)
+
+	return moon_phase, pa_bright_limb_deg

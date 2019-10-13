@@ -66,3 +66,4 @@ Calculate | Binary star orbit data
 Type | Description
 -----|------------
 Calculate | Approximate and precise position of Moon
+Calculate | Moon phase and position angle of bright limb

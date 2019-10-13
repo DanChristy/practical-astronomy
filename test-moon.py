@@ -40,6 +40,14 @@ class test_moon_position(UT.TestCase):
 		self.assertEqual(earth_moon_dist_km,367964,"Earth-Moon distance (km)")
 		self.assertEqual(moon_hor_parallax_deg,0.993191,"Moon Horizontal Parallax (degrees)")
 
+	def test_moon_phase(self):
+		moon_phase, pa_bright_limb_deg = PMO.moon_phase(self.lct_hour, self.lct_min, self.lct_sec, self.is_daylight_saving, self.zone_correction_hours, self.local_date_day, self.local_date_month, self.local_date_year)
+
+		print(f"Moon phase: [Local Time] {self.lct_hour}:{self.lct_min}:{self.lct_sec} [DST?] {self.is_daylight_saving} [Zone Correction] {self.zone_correction_hours} [Local Date] {self.local_date_month}/{self.local_date_day}/{self.local_date_year} = [Phase] {moon_phase} [Position Angle of Bright Limb] {pa_bright_limb_deg}")
+
+		self.assertEqual(moon_phase,0.22,"Moon Phase")
+		self.assertEqual(pa_bright_limb_deg,-71.58,"Position Angle of Bright Limb")
+
 
 if __name__ == '__main__':
 	UT.main()

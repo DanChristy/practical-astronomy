@@ -85,6 +85,8 @@ var pa__macro_8py =
     [ "twilight_pm_lct", "pa__macro_8py.html#a5c98059f4eaadbc40c71def442ee4989", null ],
     [ "twilight_pm_lct_l3710", "pa__macro_8py.html#a0c5ca31bf8867ee70df5093955b0890f", null ],
     [ "unwind", "pa__macro_8py.html#a28e8da86f83fff822c048e1db3cead92", null ],
+    [ "unwind_deg", "pa__macro_8py.html#a68ac9cc5a251b375c0ace75068db9c06", null ],
+    [ "unwind_rad", "pa__macro_8py.html#aa34f239461425c9e166a7bd30bbe4d6e", null ],
     [ "ut_gst", "pa__macro_8py.html#a62aa239414a03fc606ab17346561c27f", null ],
     [ "ut_lc_day", "pa__macro_8py.html#a37484b48ac497ad77997a237ea05a2bd", null ],
     [ "ut_lc_month", "pa__macro_8py.html#a0003fc20ba90db8f95bdd6ef2236b4f6", null ],

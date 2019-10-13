@@ -8,8 +8,9 @@ default:
 	@echo '  test-coordinate'
 	@echo '  test-sun'
 	@echo '  test-planet-comet-binary'
+	@echo '  test-moon'
 
-all: test-easter test-day-number test-julian test-time test-coordinate test-sun test-planet-comet-binary
+all: test-easter test-day-number test-julian test-time test-coordinate test-sun test-planet-comet-binary test-moon
 
 test-easter:
 	@./test-date-of-easter.py -v
@@ -31,3 +32,6 @@ test-sun:
 
 test-planet-comet-binary:
 	@./test-planet-comet-binary.py
+
+test-moon:
+	@./test-moon.py

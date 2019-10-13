@@ -981,9 +981,25 @@ def parallax_dec_l2870(X,Y,RC,RP,RS,TP):
 
 def unwind(W):
 	"""
-	Convert angle in degrees to equivalent angle in the range 0 to 360 degrees.
+	Convert angle in radians to equivalent angle in degrees.
 	
 	Original macro name: Unwind
+	"""
+	return W - 6.283185308 * math.floor(W / 6.283185308)
+
+def unwind_deg(W):
+	"""
+	Convert angle in degrees to equivalent angle in the range 0 to 360 degrees.
+
+	Original macro name: UnwindDeg
+	"""
+	return W - 360 * math.floor(W / 360)
+
+def unwind_rad(W):
+	"""
+	Convert angle in radians to equivalent angle in degrees.
+
+	Original macro name: UnwindRad
 	"""
 	return W - 6.283185308 * math.floor(W / 6.283185308)
 

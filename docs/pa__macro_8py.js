@@ -42,6 +42,7 @@ var pa__macro_8py =
     [ "moon_hp", "pa__macro_8py.html#a6a2df9a9db882a45bddeb2a6616abebf", null ],
     [ "moon_lat", "pa__macro_8py.html#a96e5d193ae2c8a0f669d5b51c6fd3db5", null ],
     [ "moon_long", "pa__macro_8py.html#ae33b914a26eca9c1ea020ac38cb2b19a", null ],
+    [ "moon_long_lat_hp", "pa__macro_8py.html#aa241d210fef6ca0d9a1c936eb4bde7d9", null ],
     [ "nutat_long", "pa__macro_8py.html#a0e9677b712e31594c764c832393d0b52", null ],
     [ "nutat_obl", "pa__macro_8py.html#aaae8c5d84ac4a80fddee998fea9d9f71", null ],
     [ "obliq", "pa__macro_8py.html#ab948dc086b5f5d9ea5a2ea6d24bc8412", null ],

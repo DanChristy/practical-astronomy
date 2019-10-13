@@ -272,6 +272,8 @@ Functions</h2></td></tr>
 <tr class="separator:a07da5981ab4bf53d59eaf93a286bf2b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a96245ac533ee2836c0023ed450aa392f"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepa__macro.html#a96245ac533ee2836c0023ed450aa392f">p_comet_long_lat_dist</a> (LH, LM, LS, DS, ZC, DY, MN, YR, TD, TM, TY, Q, I, P, N)</td></tr>
 <tr class="separator:a96245ac533ee2836c0023ed450aa392f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa241d210fef6ca0d9a1c936eb4bde7d9"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepa__macro.html#aa241d210fef6ca0d9a1c936eb4bde7d9">moon_long_lat_hp</a> (LH, LM, LS, DS, ZC, DY, MN, YR)</td></tr>
+<tr class="separator:aa241d210fef6ca0d9a1c936eb4bde7d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="a1ac57720babc432eb28993f3b63de5cf"></a>
@@ -2266,6 +2268,88 @@ Original macro name: MoonLat
 <pre class="fragment">Calculate geocentric ecliptic longitude for the Moon
 
 Original macro name: MoonLong
+</pre> 
+</div>
+</div>
+<a id="aa241d210fef6ca0d9a1c936eb4bde7d9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa241d210fef6ca0d9a1c936eb4bde7d9">&#9670;&nbsp;</a></span>moon_long_lat_hp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def pa_macro.moon_long_lat_hp </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>LH</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>LM</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>LS</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>DS</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>ZC</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>DY</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>MN</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>YR</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Calculate longitude, latitude, and horizontal parallax of the Moon.
+
+Original macro names: MoonLong, MoonLat, MoonHP
+
+Arguments:
+    LH -- Local civil time, hour part.
+    LM -- Local civil time, minutes part.
+    LS -- Local civil time, seconds part.
+    DS -- Daylight Savings offset.
+    ZC -- Time zone correction, in hours.
+    DY -- Local date, day part.
+    MN -- Local date, month part.
+    YR -- Local date, year part.
+
+Returns:
+    moon_long_deg -- Moon longitude (degrees)
+    moon_lat_deg -- Moon latitude (degrees)
+    moon_hor_para -- Moon horizontal parallax (degrees)
 </pre> 
 </div>
 </div>

@@ -65,4 +65,4 @@ Calculate | Binary star orbit data
 
 Type | Description
 -----|------------
-Calculate | Approximate position of Moon
+Calculate | Approximate and precise position of Moon

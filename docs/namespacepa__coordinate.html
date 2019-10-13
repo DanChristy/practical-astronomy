@@ -394,7 +394,8 @@ Functions</h2></td></tr>
 NOTE: Valid values for coordinate_type are "TRUE" and "APPARENT".
 
 Returns:
-    corrected RA hours,minutes,seconds and corrected Declination degrees,minutes,seconds
+    corrected RA hours,minutes,seconds
+    corrected Declination degrees,minutes,seconds
 </pre> 
 </div>
 </div>
@@ -524,7 +525,8 @@ Returns:
 <pre class="fragment">Correct ecliptic coordinates for the effects of aberration.
 
 Returns:
-    apparent ecliptic longitude (degrees, minutes, seconds), apparent ecliptic latitude (degrees, minutes, seconds)
+    apparent ecliptic longitude (degrees, minutes, seconds)
+    apparent ecliptic latitude (degrees, minutes, seconds)
 </pre> 
 </div>
 </div>
@@ -616,7 +618,12 @@ Returns:
 <pre class="fragment">Calculate precession (corrected coordinates between two epochs)
 
 Returns:
-    corrected RA hour, corrected RA minutes, corrected RA seconds, corrected Declination degrees, corrected Declination minutes, corrected Declination seconds
+    corrected RA hour
+    corrected RA minutes
+    corrected RA seconds
+    corrected Declination degrees
+    corrected Declination minutes
+    corrected Declination seconds
 </pre> 
 </div>
 </div>
@@ -752,7 +759,8 @@ Returns:
 NOTE: Valid values for coordinate_type are "TRUE" and "APPARENT".
 
 Returns:
-    corrected RA hours,minutes,seconds and corrected Declination degrees,minutes,seconds
+    corrected RA hours,minutes,seconds
+    corrected Declination degrees,minutes,seconds
 </pre> 
 </div>
 </div>
@@ -1344,7 +1352,8 @@ Returns:
 <pre class="fragment">Calculate nutation for two values: ecliptic longitude and obliquity, for a Greenwich date.
 
 Returns:
-    nutation in ecliptic longitude (degrees), nutation in obliquity (degrees)
+    nutation in ecliptic longitude (degrees)
+    nutation in obliquity (degrees)
 </pre> 
 </div>
 </div>
@@ -1523,28 +1532,28 @@ Returns:
 </div><div class="memdoc">
 <pre class="fragment">Rising and setting times
 
-Parameters:
-    ra_hours:       Right Ascension, in hours.
-    ra_minutes:     Right Ascension, in minutes.
-    ra_seconds:     Right Ascension, in seconds.
-    dec_deg:        Declination, in degrees.
-    dec_min:        Declination, in minutes.
-    dec_sec:        Declination, in seconds.
-    gw_date_day:    Greenwich Date, day part.
-    gw_date_month:  Greenwich Date, month part.
-    gw_date_year:   Greenwich Date, year part.
-    geog_long_deg:  Geographical Longitude, in degrees.
-    geog_lat_deg:   Geographical Latitude, in degrees.
-    vert_shift_deg: Vertical Shift, in degrees.
+Arguments:
+    ra_hours -- Right Ascension, in hours.
+    ra_minutes -- Right Ascension, in minutes.
+    ra_seconds -- Right Ascension, in seconds.
+    dec_deg -- Declination, in degrees.
+    dec_min -- Declination, in minutes.
+    dec_sec -- Declination, in seconds.
+    gw_date_day -- Greenwich Date, day part.
+    gw_date_month -- Greenwich Date, month part.
+    gw_date_year -- Greenwich Date, year part.
+    geog_long_deg -- Geographical Longitude, in degrees.
+    geog_lat_deg -- Geographical Latitude, in degrees.
+    vert_shift_deg -- Vertical Shift, in degrees.
 
 Returns:
-    rise_set_status:    "Never Rises", "Circumpolar", or "OK".
-    ut_rise_hour:       Rise time, UT, hour part.
-    ut_rise_min:        Rise time, UT, minute part.
-    ut_set_hour:        Set time, UT, hour part.
-    ut_set_min:         Set time, UT, minute part.
-    az_rise:            Azimuth angle, at rise.
-    az_set:             Azimuth angle, at set.
+    rise_set_status -- "Never Rises", "Circumpolar", or "OK".
+    ut_rise_hour -- Rise time, UT, hour part.
+    ut_rise_min -- Rise time, UT, minute part.
+    ut_set_hour -- Set time, UT, hour part.
+    ut_set_min -- Set time, UT, minute part.
+    az_rise -- Azimuth angle, at rise.
+    az_set -- Azimuth angle, at set.
 </pre> 
 </div>
 </div>
@@ -1582,7 +1591,9 @@ Returns:
 <pre class="fragment">Calculate selenographic (lunar) coordinates (sub-Earth)
 
 Returns:
-    sub-earth longitude, sub-earth latitude, and position angle of pole
+    sub-earth longitude
+    sub-earth latitude
+    position angle of pole
 </pre> 
 </div>
 </div>
@@ -1620,7 +1631,9 @@ Returns:
 <pre class="fragment">Calculate selenographic (lunar) coordinates (sub-Solar)
 
 Returns:
-    sub-solar longitude, sub-solar colongitude, and sub-solar latitude
+    sub-solar longitude
+    sub-solar colongitude
+    sub-solar latitude
 </pre> 
 </div>
 </div>

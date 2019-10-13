@@ -1343,11 +1343,11 @@ def sun_true_anomaly(LCH, LCM, LCS, DS, ZC, LD, LM, LY):
 	return degrees(true_anomaly(AM, EC))
 
 def sun_mean_anomaly(LCH, LCM, LCS, DS, ZC, LD, LM, LY):
-	'''
+	"""
 	Calculate the Sun's mean anomaly.
 
 	Original macro name: SunMeanAnomaly
-	'''
+	"""
 	AA = lct_gday(LCH, LCM, LCS, DS, ZC, LD, LM, LY)
 	BB = lct_gmonth(LCH, LCM, LCS, DS, ZC, LD, LM, LY)
 	CC = lct_gyear(LCH, LCM, LCS, DS, ZC, LD, LM, LY)
@@ -1910,31 +1910,31 @@ def e_twilight_l3710(GD, GM, GY, SR, DI, GP):
 	return A,X,Y,LA,S
 
 def planet_coordinates(LH, LM, LS, DS, ZC, DY, MN, YR, S):
-	'''
+	"""
 	Calculate several planetary properties.
 
 	Original macro names: PlanetLong, PlanetLat, PlanetDist, PlanetHLong1, PlanetHLong2, PlanetHLat, PlanetRVect
 
-	Parameters:
-		LH:		Local civil time, hour part.
-		LM:		Local civil time, minutes part.
-		LS:		Local civil time, seconds part.
-		DS:		Daylight Savings offset.
-		ZC:		Time zone correction, in hours.
-		DY:		Local date, day part.
-		MN:		Local date, month part.
-		YR:		Local date, year part.
-		S:		Planet name.
+	Arguments:
+		LH -- Local civil time, hour part.
+		LM -- Local civil time, minutes part.
+		LS -- Local civil time, seconds part.
+		DS -- Daylight Savings offset.
+		ZC -- Time zone correction, in hours.
+		DY -- Local date, day part.
+		MN -- Local date, month part.
+		YR -- Local date, year part.
+		S -- Planet name.
 
 	Returns:
-		planet_longitude:		Ecliptic longitude, in degrees.
-		planet_latitude:		Ecliptic latitude, in degrees.
-		planet_distance_au:		Earth-planet distance, in AU.
-		planet_h_long1:			Heliocentric orbital longitude, in degrees.
-		planet_h_long2:			NOT USED
-		planet_h_lat:			NOT USED
-		planet_r_vect:			Sun-planet distance (length of radius vector), in AU.
-	'''
+		planet_longitude -- Ecliptic longitude, in degrees.
+		planet_latitude -- Ecliptic latitude, in degrees.
+		planet_distance_au -- Earth-planet distance, in AU.
+		planet_h_long1 -- Heliocentric orbital longitude, in degrees.
+		planet_h_long2 -- NOT USED
+		planet_h_lat -- NOT USED
+		planet_r_vect -- Sun-planet distance (length of radius vector), in AU.
+	"""
 	a11 = 178.179078
 	a12 = 415.2057519
 	a13 = 0.0003011
@@ -2482,7 +2482,7 @@ def planet_coordinates(LH, LM, LS, DS, ZC, DY, MN, YR, S):
 	return planet_longitude, planet_latitude, planet_distance_au, planet_h_long1, planet_h_long2, planet_h_lat, planet_r_vect
 
 def planet_long_l4685(AP):
-	''' Helper function for planet_long_lat() '''
+	""" Helper function for planet_long_lat() """
 	QA = 0.00204 * math.cos(5 * AP[2] - 2 * AP[1] + 0.21328)
 	QA = QA + 0.00103 * math.cos(2 * AP[2] - AP[1] - 2.8046)
 	QA = QA + 0.00091 * math.cos(2 * AP[4] - AP[1] - 0.64582)
@@ -2496,7 +2496,7 @@ def planet_long_l4685(AP):
 	return QA,QA
 
 def planet_long_l4735(AP,MS,T):
-	''' Helper function for planet_long_lat() '''
+	""" Helper function for planet_long_lat() """
 	QC = 0.00077 * math.sin(4.1406 + T * 2.6227)
 	QC = math.radians(QC)
 	QE = QC
@@ -2518,7 +2518,7 @@ def planet_long_l4735(AP,MS,T):
 	return QA,QB,QC,QE
 
 def planet_long_l4810(AP,MS):
-	''' Helper function for planet_long_lat() '''
+	""" Helper function for planet_long_lat() """
 	A = 3 * AP[4] - 8 * AP[3] + 4 * MS
 	SA = math.sin(A)
 	CA = math.cos(A)
@@ -2553,7 +2553,7 @@ def planet_long_l4810(AP,MS):
 	return A,SA,CA,QC,QE,QA,QB
 
 def planet_long_l4945(T,IP,PL):
-	''' Helper function for planet_long_lat() '''
+	""" Helper function for planet_long_lat() """
 	QA = 0
 	QB = 0
 	QC = 0
@@ -2798,11 +2798,11 @@ def planet_long_l4945(T,IP,PL):
 		return QA,QB,QC,QD,QE,QF,QG
 
 def solve_cubic(W):
-	'''
+	"""
 	For W, in radians, return S, also in radians.
 
 	Original macro name: SolveCubic
-	'''
+	"""
 	S = W / 3
 
 	while 1 == 1:
@@ -2815,33 +2815,33 @@ def solve_cubic(W):
 		S = ((2 * S * S2) + W) / (3 * (S2 + 1))
 
 def p_comet_long_lat_dist(LH, LM, LS, DS, ZC, DY, MN, YR, TD, TM, TY, Q, I, P, N):
-	'''
+	"""
 	Calculate longitude, latitude, and distance of parabolic-orbit comet.
 
 	Original macro names: PcometLong, PcometLat, PcometDist
 
-	Parameters:
-		LH:		Local civil time, hour part.
-		LM:		Local civil time, minutes part.
-		LS:		Local civil time, seconds part.
-		DS:		Daylight Savings offset.
-		ZC:		Time zone correction, in hours.
-		DY:		Local date, day part.
-		MN:		Local date, month part.
-		YR:		Local date, year part.
-		TD:		Perihelion epoch (day)
-		TM:		Perihelion epoch (month)
-		TY:		Perihelion epoch (year)
-		Q:		q (AU)
-		I:		Inclination (degrees)
-		P:		Perihelion (degrees)
-		N:		Node (degrees)
+	Arguments:
+		LH -- Local civil time, hour part.
+		LM -- Local civil time, minutes part.
+		LS -- Local civil time, seconds part.
+		DS -- Daylight Savings offset.
+		ZC -- Time zone correction, in hours.
+		DY -- Local date, day part.
+		MN -- Local date, month part.
+		YR -- Local date, year part.
+		TD -- Perihelion epoch (day)
+		TM -- Perihelion epoch (month)
+		TY -- Perihelion epoch (year)
+		Q -- q (AU)
+		I -- Inclination (degrees)
+		P -- Perihelion (degrees)
+		N -- Node (degrees)
 
 	Returns:
-		comet_long_deg:		Comet longitude (degrees)
-		comet_lat_deg:		Comet lat (degrees)
-		comet_dist_au:		Comet distance from Earth (AU)
-	'''
+		comet_long_deg -- Comet longitude (degrees)
+		comet_lat_deg -- Comet lat (degrees)
+		comet_dist_au -- Comet distance from Earth (AU)
+	"""
 	GD = lct_gday(LH, LM, LS, DS, ZC, DY, MN, YR)
 	GM = lct_gmonth(LH, LM, LS, DS, ZC, DY, MN, YR)
 	GY = lct_gyear(LH, LM, LS, DS, ZC, DY, MN, YR)

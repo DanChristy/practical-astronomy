@@ -6,11 +6,13 @@ def get_date_of_easter(year):
 	"""
 	Gets the date of Easter for the year specified.
 
-	Parameters:
+	Arguments:
 		year:	Year for which you'd like the date of Easter.
 
 	Returns:
-		month, day, and year.
+		month
+		day
+		year
 	"""
 	a = year % 19
 	b = math.floor(year/100)
@@ -101,7 +103,12 @@ def local_civil_time_to_universal_time(lctHours,lctMinutes,lctSeconds,isDaylight
 	Convert local Civil Time to Universal Time
 
 	Returns:
-		UT hours, UT mins, UT secs, GW day, GW month, GW year
+		UT hours
+		UT mins
+		UT secs
+		GW day
+		GW month
+		GW year
 	"""
 	LCT = civil_time_to_decimal_hours(lctHours,lctMinutes,lctSeconds)
 	
@@ -124,7 +131,12 @@ def universal_time_to_local_civil_time(utHours,utMinutes,utSeconds,isDayLightSav
 	Convert Universal Time to local Civil Time
 
 	Returns:
-		LCT hours, LCT minutes, LCT seconds, day, month, year
+		LCT hours
+		LCT minutes
+		LCT seconds
+		day
+		month
+		year
 	"""
 	UT = civil_time_to_decimal_hours(utHours,utMinutes,utSeconds)
 	zoneTime = UT + zoneCorrection
@@ -143,7 +155,9 @@ def universal_time_to_greenwich_sidereal_time(utHours,utMinutes,utSeconds,gwDay,
 	Convert Universal Time to Greenwich Sidereal Time
 
 	Returns:
-		GST hours, GST minutes, GST seconds
+		GST hours
+		GST minutes
+		GST seconds
 	"""
 	JD = greenwich_date_to_julian_date(gwDay,gwMonth,gwYear)
 	S = JD - 2451545
@@ -166,7 +180,10 @@ def greenwich_sidereal_time_to_universal_time(gstHours,gstMinutes,gstSeconds,gwD
 	Convert Greenwich Sidereal Time to Universal Time
 
 	Returns:
-		UT hours, UT minutes, UT seconds, Warning Flag
+		UT hours
+		UT minutes
+		UT seconds
+		Warning Flag
 	"""
 	JD = greenwich_date_to_julian_date(gwDay,gwMonth,gwYear)
 	S = JD - 2451545
@@ -190,7 +207,9 @@ def greenwich_sidereal_time_to_local_sidereal_time(gstHours,gstMinutes,gstSecond
 	Convert Greenwich Sidereal Time to Local Sidereal Time
 
 	Returns:
-		LST hours, LST minutes, LST seconds
+		LST hours
+		LST minutes
+		LST seconds
 	"""
 	GST = civil_time_to_decimal_hours(gstHours,gstMinutes,gstSeconds)
 	offset = geographicalLongitude / 15
@@ -208,7 +227,9 @@ def local_sidereal_time_to_greenwich_sidereal_time(lstHours,lstMinutes,lstSecond
 	Convert Local Sidereal Time to Greenwich Sidereal Time
 
 	Returns:
-		GST hours, GST minutes, GST seconds
+		GST hours
+		GST minutes
+		GST seconds
 	"""
 	GST = civil_time_to_decimal_hours(lstHours,lstMinutes,lstSeconds)
 	longHours = geographicalLongitude / 15

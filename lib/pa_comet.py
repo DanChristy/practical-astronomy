@@ -6,23 +6,23 @@ def position_of_elliptical_comet(lct_hour, lct_min, lct_sec, is_daylight_saving,
 	"""
 	Calculate position of an elliptical comet.
 
-	Parameters:
-		lct_hour:				Local civil time, hour part.
-		lct_min:				Local civil time, minutes part.
-		lct_sec:				Local civil time, seconds part.
-		is_daylight_saving:		Is daylight savings in effect?
-		zone_correction_hours:	Time zone correction, in hours.
-		local_date_day:			Local date, day part.
-		local_date_month:		Local date, month part.
-		local_date_year:		Local date, year part.
-		comet_name:				Name of comet, e.g., "Halley"
+	Arguments:
+		lct_hour -- Local civil time, hour part.
+		lct_min -- Local civil time, minutes part.
+		lct_sec -- Local civil time, seconds part.
+		is_daylight_saving -- Is daylight savings in effect?
+		zone_correction_hours -- Time zone correction, in hours.
+		local_date_day -- Local date, day part.
+		local_date_month -- Local date, month part.
+		local_date_year -- Local date, year part.
+		comet_name -- Name of comet, e.g., "Halley"
 
 	Returns:
-		comet_ra_hour:		Right ascension of comet (hour part)
-		comet_ra_min:		Right ascension of comet (minutes part)
-		comet_dec_deg:		Declination of comet (degrees part)
-		comet_dec_min:		Declination of comet (minutes part)
-		comet_dist_earth:	Comet's distance from Earth (AU)
+		comet_ra_hour -- Right ascension of comet (hour part)
+		comet_ra_min -- Right ascension of comet (minutes part)
+		comet_dec_deg -- Declination of comet (degrees part)
+		comet_dec_min -- Declination of comet (minutes part)
+		comet_dist_earth -- Comet's distance from Earth (AU)
 	"""
 	daylight_saving = 1 if is_daylight_saving == True else 0
 
@@ -71,25 +71,25 @@ def position_of_parabolic_comet(lct_hour, lct_min, lct_sec, is_daylight_saving, 
 	"""
 	Calculate position of a parabolic comet.
 
-	Parameters:
-		lct_hour:				Local civil time, hour part.
-		lct_min:				Local civil time, minutes part.
-		lct_sec:				Local civil time, seconds part.
-		is_daylight_saving:		Is daylight savings in effect?
-		zone_correction_hours:	Time zone correction, in hours.
-		local_date_day:			Local date, day part.
-		local_date_month:		Local date, month part.
-		local_date_year:		Local date, year part.
-		comet_name:				Name of comet, e.g., "Kohler"
+	Arguments:
+		lct_hour -- Local civil time, hour part.
+		lct_min -- Local civil time, minutes part.
+		lct_sec -- Local civil time, seconds part.
+		is_daylight_saving -- Is daylight savings in effect?
+		zone_correction_hours -- Time zone correction, in hours.
+		local_date_day -- Local date, day part.
+		local_date_month -- Local date, month part.
+		local_date_year -- Local date, year part.
+		comet_name -- Name of comet, e.g., "Kohler"
 
 	Returns:
-		comet_ra_hour:		Right ascension of comet (hour part)
-		comet_ra_min:		Right ascension of comet (minutes part)
-		comet_ra_sec:		Right ascension of comet (seconds part)
-		comet_dec_deg:		Declination of comet (degrees part)
-		comet_dec_min:		Declination of comet (minutes part)
-		comet_dec_sec:		Declination of comet (seconds part)
-		comet_dist_earth:	Comet's distance from Earth (AU)
+		comet_ra_hour -- Right ascension of comet (hour part)
+		comet_ra_min -- Right ascension of comet (minutes part)
+		comet_ra_sec -- Right ascension of comet (seconds part)
+		comet_dec_deg -- Declination of comet (degrees part)
+		comet_dec_min -- Declination of comet (minutes part)
+		comet_dec_sec -- Declination of comet (seconds part)
+		comet_dist_earth -- Comet's distance from Earth (AU)
 	"""
 	daylight_saving = 1 if is_daylight_saving == True else 0
 

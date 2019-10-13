@@ -6,24 +6,24 @@ def approximate_position_of_planet(lct_hour, lct_min, lct_sec, is_daylight_savin
 	"""
 	Calculate approximate position of a planet.
 
-	Parameters:
-		lct_hour:				Local civil time, in hours.
-		lct_min:				Local civil time, in minutes.
-		lct_sec:				Local civil time, in seconds.
-		is_daylight_saving:		Is daylight savings in effect?
-		zone_correction_hours:	Time zone correction, in hours.
-		local_date_day:			Local date, day part.
-		local_date_month:		Local date, month part.
-		local_date_year:		Local date, year part.
-		planet_name				Name of planet, e.g., "Jupiter"
+	Arguments:
+		lct_hour -- Local civil time, in hours.
+		lct_min -- Local civil time, in minutes.
+		lct_sec -- Local civil time, in seconds.
+		is_daylight_saving -- Is daylight savings in effect?
+		zone_correction_hours -- Time zone correction, in hours.
+		local_date_day -- Local date, day part.
+		local_date_month -- Local date, month part.
+		local_date_year -- Local date, year part.
+		planet_name -- Name of planet, e.g., "Jupiter"
 
 	Returns:
-		planet_ra_hour:		Right ascension of planet (hour part)
-		planet_ra_min:		Right ascension of planet (minutes part)
-		planet_ra_sec:		Right ascension of planet (seconds part)
-		planet_dec_deg:		Declination of planet (degrees part)
-		planet_dec_min:		Declination of planet (minutes part)
-		planet_dec_sec:		Declination of planet (seconds part)
+		planet_ra_hour -- Right ascension of planet (hour part)
+		planet_ra_min -- Right ascension of planet (minutes part)
+		planet_ra_sec -- Right ascension of planet (seconds part)
+		planet_dec_deg -- Declination of planet (degrees part)
+		planet_dec_min -- Declination of planet (minutes part)
+		planet_dec_sec -- Declination of planet (seconds part)
 	"""
 	daylight_saving = 1 if is_daylight_saving == True else 0
 
@@ -91,24 +91,24 @@ def precise_position_of_planet(lct_hour, lct_min, lct_sec, is_daylight_saving, z
 	"""
 	Calculate precise position of a planet.
 
-	Parameters:
-		lct_hour:				Local civil time, hour part.
-		lct_min:				Local civil time, minutes part.
-		lct_sec:				Local civil time, seconds part.
-		is_daylight_saving:		Is daylight savings in effect?
-		zone_correction_hours:	Time zone correction, in hours.
-		local_date_day:			Local date, day part.
-		local_date_month:		Local date, month part.
-		local_date_year:		Local date, year part.
-		planet_name				Name of planet, e.g., "Jupiter"
+	Arguments:
+		lct_hour -- Local civil time, hour part.
+		lct_min -- Local civil time, minutes part.
+		lct_sec -- Local civil time, seconds part.
+		is_daylight_saving -- Is daylight savings in effect?
+		zone_correction_hours -- Time zone correction, in hours.
+		local_date_day -- Local date, day part.
+		local_date_month -- Local date, month part.
+		local_date_year -- Local date, year part.
+		planet_name -- Name of planet, e.g., "Jupiter"
 
 	Returns:
-		planet_ra_hour:		Right ascension of planet (hour part)
-		planet_ra_min:		Right ascension of planet (minutes part)
-		planet_ra_sec:		Right ascension of planet (seconds part)
-		planet_dec_deg:		Declination of planet (degrees part)
-		planet_dec_min:		Declination of planet (minutes part)
-		planet_dec_sec:		Declination of planet (seconds part)
+		planet_ra_hour -- Right ascension of planet (hour part)
+		planet_ra_min -- Right ascension of planet (minutes part)
+		planet_ra_sec -- Right ascension of planet (seconds part)
+		planet_dec_deg -- Declination of planet (degrees part)
+		planet_dec_min -- Declination of planet (minutes part)
+		planet_dec_sec -- Declination of planet (seconds part)
 	"""
 	daylight_saving = 1 if is_daylight_saving == True else 0
 
@@ -134,26 +134,26 @@ def visual_aspects_of_a_planet(lct_hour, lct_min, lct_sec, is_daylight_saving, z
 	"""
 	Calculate several visual aspects of a planet.
 
-	Parameters:
-		lct_hour:				Local civil time, hour part.
-		lct_min:				Local civil time, minutes part.
-		lct_sec:				Local civil time, seconds part.
-		is_daylight_saving:		Is daylight savings in effect?
-		zone_correction_hours:	Time zone correction, in hours.
-		local_date_day:			Local date, day part.
-		local_date_month:		Local date, month part.
-		local_date_year:		Local date, year part.
-		planet_name				Name of planet, e.g., "Jupiter"
+	Arguments:
+		lct_hour -- Local civil time, hour part.
+		lct_min -- Local civil time, minutes part.
+		lct_sec -- Local civil time, seconds part.
+		is_daylight_saving -- Is daylight savings in effect?
+		zone_correction_hours -- Time zone correction, in hours.
+		local_date_day -- Local date, day part.
+		local_date_month -- Local date, month part.
+		local_date_year -- Local date, year part.
+		planet_name -- Name of planet, e.g., "Jupiter"
 
 	Returns:
-		distance_au:				Planet's distance from Earth, in AU.
-		ang_dia_arcsec:				Angular diameter of the planet.
-		phase:						Illuminated fraction of the planet.
-		light_time_hour:			Light travel time from planet to Earth, hour part.
-		light_time_minutes:			Light travel time from planet to Earth, minutes part.
-		light_time_seconds:			Light travel time from planet to Earth, seconds part.
-		pos_angle_bright_limb_deg:	Position-angle of the bright limb.
-		approximate_magnitude:		Apparent brightness of the planet.
+		distance_au -- Planet's distance from Earth, in AU.
+		ang_dia_arcsec -- Angular diameter of the planet.
+		phase -- Illuminated fraction of the planet.
+		light_time_hour -- Light travel time from planet to Earth, hour part.
+		light_time_minutes -- Light travel time from planet to Earth, minutes part.
+		light_time_seconds -- Light travel time from planet to Earth, seconds part.
+		pos_angle_bright_limb_deg -- Position-angle of the bright limb.
+		approximate_magnitude -- Apparent brightness of the planet.
 	"""
 	daylight_saving = 1 if is_daylight_saving == True else 0
 

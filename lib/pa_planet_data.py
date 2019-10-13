@@ -91,21 +91,21 @@ PlanetData = {
 }
 
 def get_planet_data(planet_name):
-	'''
+	"""
 	Get planet data.
 
-	Parameters:
-		planet_name:	Name of planet, e.g., "Jupiter"
+	Arguments:
+		planet_name -- Name of planet, e.g., "Jupiter"
 
 	Returns a dictionary object with the following elements:
-		Tp:			Period of orbit.
-		Long:		Longitude at the epoch.
-		Peri:		Longitude of the perihelion.
-		Ecc:		Eccentricity of the orbit.
-		Axis:		Semi-major axis of the orbit.
-		Incl:		Orbital inclination.
-		Node:		Longitude of the ascending node.
-		Theta0:		?
-		V0:			?
-	'''
+		Tp -- Period of orbit.
+		Long -- Longitude at the epoch.
+		Peri -- Longitude of the perihelion.
+		Ecc -- Eccentricity of the orbit.
+		Axis -- Semi-major axis of the orbit.
+		Incl -- Orbital inclination.
+		Node -- Longitude of the ascending node.
+		Theta0 -- ?
+		V0 -- ?
+	"""
 	return PlanetData.get(planet_name)

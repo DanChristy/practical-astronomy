@@ -150,43 +150,47 @@ CometDataParabolic = {
 }
 
 def get_comet_data_elliptical(comet_name):
-	'''
+	"""
 	Get data for elliptical comet.
 	
 	Example, retrieving orbital period of Halley:
 		get_comet_data_elliptical("Halley")['Period']
 
-	Parameters:
-		comet_name:	Name of comet, e.g., "Halley"
+	Arguments:
+		comet_name -- Name of comet, e.g., "Halley"
 
-	Returns a dictionary object with the following elements:
-		Epoch:		Epoch of the perihelion.
-		Peri:		Longitude of the perihelion.
-		Node:		Longitude of the ascending node.
-		Period:		Period of the orbit.
-		Axis:		Semi-major axis of the orbit.
-		Ecc:		Eccentricity of the orbit.
-		Incl:		Orbital inclination.
-	'''
+	Returns:
+		A dictionary object with the following elements:
+
+		Epoch -- Epoch of the perihelion.
+		Peri -- Longitude of the perihelion.
+		Node -- Longitude of the ascending node.
+		Period -- Period of the orbit.
+		Axis -- Semi-major axis of the orbit.
+		Ecc -- Eccentricity of the orbit.
+		Incl -- Orbital inclination.
+	"""
 	return CometDataElliptical.get(comet_name)
 
 def get_comet_data_parabolic(comet_name):
-	'''
+	"""
 	Get data for parabolic comet.
 
 	Example, retrieving longitude of the ascending node of Kohler:
 		get_comet_data_parabolic("Kohler")['Node']
 
-	Parameters:
-		comet_name:			Name of comet, e.g., "Kohler"
+	Arguments:
+		comet_name -- Name of comet, e.g., "Kohler"
 
-	Returns a dictionary object with the following elements:
-		EpochPeriDay:		Epoch of the perihelion (day)
-		EpochPeriMonth:		Epoch of the perihelion (month)
-		EpochPeriYear:		Epoch of the perihelion (year)
-		ArgPeri:			Longitude of the perihelion (degrees)
-		Node:				Longitude of the ascending node (degrees)
-		PeriDist:			Distance at perihelion (AU)	
-		Incl:				Orbital inclination (degrees)
-	'''
+	Returns:
+		A dictionary object with the following elements:
+
+		EpochPeriDay -- Epoch of the perihelion (day)
+		EpochPeriMonth -- Epoch of the perihelion (month)
+		EpochPeriYear -- Epoch of the perihelion (year)
+		ArgPeri -- Longitude of the perihelion (degrees)
+		Node -- Longitude of the ascending node (degrees)
+		PeriDist -- Distance at perihelion (AU)	
+		Incl -- Orbital inclination (degrees)
+	"""
 	return CometDataParabolic.get(comet_name)

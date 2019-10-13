@@ -3,19 +3,19 @@ from . import pa_macro as PM
 from . import pa_binary_data as PBD
 
 def binary_star_orbit(greenwich_date_day, greenwich_date_month, greenwich_date_year, binary_name):
-	'''
+	"""
 	Calculate orbital data for binary star.
 
-	Parameters:
-		greenwich_date_day:		Greenwich date (day)
-		greenwich_date_month:	Greenwich date (month)
-		greenwich_date_year:	Greenwich date (year)
-		binary_name:			Abbreviated name of binary
+	Arguments:
+		greenwich_date_day -- Greenwich date (day)
+		greenwich_date_month -- Greenwich date (month)
+		greenwich_date_year -- Greenwich date (year)
+		binary_name -- Abbreviated name of binary
 
 	Returns:
-		position_angle_deg:		Position angle (degrees)	
-		separation_arcsec:		Separation of binary members (arcseconds)
-	'''
+		position_angle_deg -- Position angle (degrees)	
+		separation_arcsec -- Separation of binary members (arcseconds)
+	"""
 
 	y_years = (greenwich_date_year+(PM.cd_jd(greenwich_date_day,greenwich_date_month,greenwich_date_year)-PM.cd_jd(0,1,greenwich_date_year))/365.242191)-PBD.get_binary_data(binary_name)['EpochPeri']
 	m_deg = 360*y_years / PBD.get_binary_data(binary_name)['Period']

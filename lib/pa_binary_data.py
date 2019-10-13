@@ -98,16 +98,18 @@ def get_binary_data(binary_name):
 	Example, retrieving orbital inclination of eta-Cor:
 		get_binary_data("eta-Cor")['Incl']
 
-	Parameters:
-		binary_name:	Name of binary, e.g., "eta-Cor"
+	Arguments:
+		binary_name -- Name of binary, e.g., "eta-Cor"
 
-	Returns a dictionary object with the following elements:
-		Period:		Period of the orbit.
-		EpochPeri:	Epoch of the perihelion.
-		LongPeri	Longitude of the perihelion.
-		Ecc			Eccentricity of the orbit.
-		Axis:		Semi-major axis of the orbit.
-		Incl:		Orbital inclination.
-		PANode:		Position angle of the ascending node.
+	Returns:
+		A dictionary object with the following elements:
+
+		Period -- Period of the orbit.
+		EpochPeri -- Epoch of the perihelion.
+		LongPeri -- Longitude of the perihelion.
+		Ecc -- Eccentricity of the orbit.
+		Axis -- Semi-major axis of the orbit.
+		Incl -- Orbital inclination.
+		PANode -- Position angle of the ascending node.
 	'''
 	return BinaryData.get(binary_name)

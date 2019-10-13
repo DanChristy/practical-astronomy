@@ -7,3 +7,11 @@ def is_leap_year(year):
 			return True
 	else:
 		return False
+
+def mi_to_km(miles):
+	""" Convert miles to kilometers. """
+	return miles * 1.609344
+
+def km_to_mi(kilometers):
+	""" Convert kilometers to miles. """
+	return kilometers * 0.6213712

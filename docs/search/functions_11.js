@@ -1,8 +1,25 @@
 var searchData=
 [
-  ['true_5fanomaly',['true_anomaly',['../namespacepa__macro.html#aff4d796cd3ee56fb99c5a11c3cd99e95',1,'pa_macro']]],
-  ['twilight_5fam_5flct',['twilight_am_lct',['../namespacepa__macro.html#a8190c68d1f544b73d2a9e2bac92d2dda',1,'pa_macro']]],
-  ['twilight_5fam_5flct_5fl3710',['twilight_am_lct_l3710',['../namespacepa__macro.html#a5b9b0bfd7fd3fdd0b0d2073273c703a0',1,'pa_macro']]],
-  ['twilight_5fpm_5flct',['twilight_pm_lct',['../namespacepa__macro.html#a5c98059f4eaadbc40c71def442ee4989',1,'pa_macro']]],
-  ['twilight_5fpm_5flct_5fl3710',['twilight_pm_lct_l3710',['../namespacepa__macro.html#a0c5ca31bf8867ee70df5093955b0890f',1,'pa_macro']]]
+  ['selenographic_5fcoordinates_5f1',['selenographic_coordinates_1',['../namespacepa__coordinate.html#a296d92105e1a1727cb0fd7ba00fbdec9',1,'pa_coordinate']]],
+  ['selenographic_5fcoordinates_5f2',['selenographic_coordinates_2',['../namespacepa__coordinate.html#aad5dd2620ad98a2e495efd80997d577c',1,'pa_coordinate']]],
+  ['solar_5felongation',['solar_elongation',['../namespacepa__sun.html#a6a5fda282476b9f20ed1d0f02e735121',1,'pa_sun']]],
+  ['solve_5fcubic',['solve_cubic',['../namespacepa__macro.html#a07da5981ab4bf53d59eaf93a286bf2b6',1,'pa_macro']]],
+  ['sun_5fdia',['sun_dia',['../namespacepa__macro.html#a4acfd38976de6a73c46bacea9131361a',1,'pa_macro']]],
+  ['sun_5fdist',['sun_dist',['../namespacepa__macro.html#aa3861836e16d06eda4eba435e4cd3064',1,'pa_macro']]],
+  ['sun_5fdistance_5fand_5fangular_5fsize',['sun_distance_and_angular_size',['../namespacepa__sun.html#a3ba4cb9b28e2932ac7bceef35b7acad8',1,'pa_sun']]],
+  ['sun_5fe_5flong',['sun_e_long',['../namespacepa__macro.html#ac71f2da40f97b55094c6c7161d0b3957',1,'pa_macro']]],
+  ['sun_5fecc',['sun_ecc',['../namespacepa__macro.html#a03515f64d57833f7a00a09c16627547d',1,'pa_macro']]],
+  ['sun_5flong',['sun_long',['../namespacepa__macro.html#a69983584707323ffcddb8c405d4ebd8c',1,'pa_macro']]],
+  ['sun_5fmean_5fanomaly',['sun_mean_anomaly',['../namespacepa__macro.html#a86c2766766761a45e827878df2ff23ff',1,'pa_macro']]],
+  ['sun_5fperi',['sun_peri',['../namespacepa__macro.html#aaae1d185651909109c210b6a826ceb11',1,'pa_macro']]],
+  ['sun_5ftrue_5fanomaly',['sun_true_anomaly',['../namespacepa__macro.html#a12f81c35f2d5ec5a47cf8bdd441db3f0',1,'pa_macro']]],
+  ['sunrise_5fand_5fsunset',['sunrise_and_sunset',['../namespacepa__sun.html#adfd57311af306901f51636873da1d661',1,'pa_sun']]],
+  ['sunrise_5faz',['sunrise_az',['../namespacepa__macro.html#a4332e6c35f276fac7d90d64c8c255eee',1,'pa_macro']]],
+  ['sunrise_5faz_5fl3710',['sunrise_az_l3710',['../namespacepa__macro.html#a804ab7435cc52c24a25754fd06154433',1,'pa_macro']]],
+  ['sunrise_5flct',['sunrise_lct',['../namespacepa__macro.html#abb331ee01a10fc024c17520874ee6439',1,'pa_macro']]],
+  ['sunrise_5flct_5fl3710',['sunrise_lct_l3710',['../namespacepa__macro.html#abc47ca76b81c43e7eff66cb672f10937',1,'pa_macro']]],
+  ['sunset_5faz',['sunset_az',['../namespacepa__macro.html#a4c011cb856048b566859566725383474',1,'pa_macro']]],
+  ['sunset_5faz_5fl3710',['sunset_az_l3710',['../namespacepa__macro.html#ab18469b9276e498c2130465d3a4e06e9',1,'pa_macro']]],
+  ['sunset_5flct',['sunset_lct',['../namespacepa__macro.html#a9f7f91e02426b675935e6011ee9c34c5',1,'pa_macro']]],
+  ['sunset_5flct_5fl3710',['sunset_lct_l3710',['../namespacepa__macro.html#a86d6e330fe23847a5a2f7ff2b77f397e',1,'pa_macro']]]
 ];

@@ -1,9 +1,10 @@
 var searchData=
 [
-  ['mean_5fobliquity_5fof_5fthe_5fecliptic',['mean_obliquity_of_the_ecliptic',['../namespacepa__coordinate.html#a9df16e874b567885215c14d9592005d1',1,'pa_coordinate']]],
-  ['moon_5fhp',['moon_hp',['../namespacepa__macro.html#a6a2df9a9db882a45bddeb2a6616abebf',1,'pa_macro']]],
-  ['moon_5flat',['moon_lat',['../namespacepa__macro.html#a96e5d193ae2c8a0f669d5b51c6fd3db5',1,'pa_macro']]],
-  ['moon_5flong',['moon_long',['../namespacepa__macro.html#ae33b914a26eca9c1ea020ac38cb2b19a',1,'pa_macro']]],
-  ['moon_5flong_5flat_5fhp',['moon_long_lat_hp',['../namespacepa__macro.html#aa241d210fef6ca0d9a1c936eb4bde7d9',1,'pa_macro']]],
-  ['morning_5fand_5fevening_5ftwilight',['morning_and_evening_twilight',['../namespacepa__sun.html#a6594d13cff2aa9061039c61ec1498adf',1,'pa_sun']]]
+  ['lct_5fgday',['lct_gday',['../namespacepa__macro.html#ac3515e60beb349c18934349a8f86e300',1,'pa_macro']]],
+  ['lct_5fgmonth',['lct_gmonth',['../namespacepa__macro.html#a2d895c8f39905815d1e4cf38fccdea3c',1,'pa_macro']]],
+  ['lct_5fgyear',['lct_gyear',['../namespacepa__macro.html#af042b8be20b23915e7218457a1e5c1c7',1,'pa_macro']]],
+  ['lct_5fut',['lct_ut',['../namespacepa__macro.html#a650ef8b1c7d36fff1cef653d8cff0146',1,'pa_macro']]],
+  ['local_5fcivil_5ftime_5fto_5funiversal_5ftime',['local_civil_time_to_universal_time',['../namespacepa__datetime.html#aef134ff8b3af5038ce10506738d532a5',1,'pa_datetime']]],
+  ['local_5fsidereal_5ftime_5fto_5fgreenwich_5fsidereal_5ftime',['local_sidereal_time_to_greenwich_sidereal_time',['../namespacepa__datetime.html#aadd11efdc93379bb32933b839c45440f',1,'pa_datetime']]],
+  ['lst_5fgst',['lst_gst',['../namespacepa__macro.html#a8a3cb1b511e30e3c296fae5333b492ca',1,'pa_macro']]]
 ];

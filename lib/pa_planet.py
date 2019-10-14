@@ -66,11 +66,11 @@ def approximate_position_of_planet(lct_hour, lct_min, lct_sec, is_daylight_savin
 	psi_rad = math.asin(math.sin(lp_node_rad)*math.sin(math.radians(planet_incl_from_table)))
 	y = math.sin(lp_node_rad)*math.cos(math.radians(planet_incl_from_table))
 	x = math.cos(lp_node_rad)
-	ld_deg = PM.degrees(PM.atan2(x,y))+planet_node_from_table
+	ld_deg = PM.degrees(math.atan2(y,x))+planet_node_from_table
 	rd_au = r_au*math.cos(psi_rad)
 	le_ld_rad = math.radians(le_deg2-ld_deg)
-	atan2_type_1 = PM.atan2(r_au2-rd_au*math.cos(le_ld_rad),rd_au*math.sin(le_ld_rad))
-	atan2_type_2 = PM.atan2(rd_au-r_au2*math.cos(le_ld_rad),r_au2*math.sin(-le_ld_rad))
+	atan2_type_1 = math.atan2(rd_au*math.sin(le_ld_rad),r_au2-rd_au*math.cos(le_ld_rad))
+	atan2_type_2 = math.atan2(r_au2*math.sin(-le_ld_rad),rd_au-r_au2*math.cos(le_ld_rad))
 	a_rad = atan2_type_1 if rd_au < 1 else atan2_type_2 
 	lamda_deg1 =  180 + le_deg2 + PM.degrees(a_rad) if rd_au < 1 else PM.degrees(a_rad) + ld_deg
 	lamda_deg2 = lamda_deg1-360*math.floor(lamda_deg1/360)
@@ -177,7 +177,7 @@ def visual_aspects_of_a_planet(lct_hour, lct_min, lct_sec, is_daylight_saving, z
 	y = math.cos(sun_dec_rad) * math.sin(sun_ra_rad-planet_ra_rad)
 	x = math.cos(planet_dec_rad) * math.sin(sun_dec_rad) - math.sin(planet_dec_rad) * math.cos(sun_dec_rad) * math.cos(sun_ra_rad-planet_ra_rad)
 
-	chi_deg = PM.degrees(PM.atan2(x,y))
+	chi_deg = PM.degrees(math.atan2(y,x))
 	radius_vector_au = planet_r_vect
 	approximate_magnitude1 = 5 * math.log10(radius_vector_au*planet_dist_au/math.sqrt(phase1)) + PPD.get_planet_data(planet_name)['V0']
 

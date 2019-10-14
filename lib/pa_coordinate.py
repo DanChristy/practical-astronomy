@@ -107,7 +107,7 @@ def ecliptic_coordinate_to_equatorial_coordinate(ecliptic_longitude_degrees,ecli
 	dec_deg = PM.degrees(dec_rad)
 	y = math.sin(eclon_rad) * math.cos(obliq_rad) - math.tan(eclat_rad) * math.sin(obliq_rad)
 	x = math.cos(eclon_rad)
-	ra_rad = PM.atan2(x,y)
+	ra_rad = math.atan2(y,x)
 	ra_deg1 = PM.degrees(ra_rad)
 	ra_deg2 = ra_deg1 - 360 * math.floor(ra_deg1/360)
 	ra_hours = PM.dd_dh(ra_deg2)
@@ -134,7 +134,7 @@ def equatorial_coordinate_to_ecliptic_coordinate(ra_hours,ra_minutes,ra_seconds,
 	ecl_lat_deg = PM.degrees(ecl_lat_rad)
 	y = math.sin(ra_rad) * math.cos(obliq_rad) + math.tan(dec_rad) * math.sin(obliq_rad)
 	x = math.cos(ra_rad)
-	ecl_long_rad = PM.atan2(x,y)
+	ecl_long_rad = math.atan2(y,x)
 	ecl_long_deg1 = PM.degrees(ecl_long_rad)
 	ecl_long_deg2 = ecl_long_deg1 - 360 * math.floor(ecl_long_deg1/360)
 
@@ -158,7 +158,7 @@ def equatorial_coordinate_to_galactic_coordinate(ra_hours,ra_minutes,ra_seconds,
 	b_deg = PM.degrees(b_radians)
 	y = math.sin(dec_rad) - sin_b * math.sin(math.radians(27.4))
 	x = math.cos(dec_rad) * math.sin(ra_rad - math.radians(192.25)) * math.cos(math.radians(27.4))
-	long_deg1 = PM.degrees(PM.atan2(x,y)) + 33
+	long_deg1 = PM.degrees(math.atan2(y,x)) + 33
 	long_deg2 = long_deg1 - 360 * math.floor(long_deg1/360)
 
 	gal_long_deg = PM.dd_deg(long_deg2)
@@ -182,7 +182,7 @@ def galactic_coordinate_to_equatorial_coordinate(gal_long_deg,gal_long_min,gal_l
 	y = math.cos(glat_rad) *math.cos(glong_rad - math.radians(33))
 	x = math.sin(glat_rad) * math.cos(math.radians(27.4)) - math.cos(glat_rad) * math.sin(math.radians(27.4)) * math.sin(glong_rad - math.radians(33))
 	
-	ra_deg1 = PM.degrees(PM.atan2(x,y)) + 192.25
+	ra_deg1 = PM.degrees(math.atan2(y,x)) + 192.25
 	ra_deg2 = ra_deg1 - 360 * math.floor(ra_deg1/360)
 	ra_hours1 = PM.dd_dh(ra_deg2)
 
@@ -427,7 +427,7 @@ def heliographic_coordinates(helio_position_angle_deg,helio_displacement_arcmin,
 	sun_long_deg = PM.sun_long(0,0,0,0,0,gwdate_day,gwdate_month,gwdate_year)
 	y = math.sin(math.radians(long_asc_node_deg-sun_long_deg))*math.cos(math.radians(PM.dms_dd(7,15,0)))
 	x = -math.cos(math.radians(long_asc_node_deg-sun_long_deg))
-	a_deg = PM.degrees(PM.atan2(x,y))
+	a_deg = PM.degrees(math.atan2(y,x))
 	m_deg1 = 360-(360*(julian_date_days-2398220)/25.38)
 	m_deg2 = m_deg1-360*math.floor(m_deg1/360)
 	l0_deg1 = m_deg2 + a_deg
@@ -480,7 +480,7 @@ def selenographic_coordinates_1(gwdate_day,gwdate_month,gwdate_year):
 	node_long_rad = math.radians(long_asc_node_deg-geocentric_moon_long_deg)
 	sin_be = -math.cos(inclination_rad)*math.sin(geocentric_moon_lat_rad)+math.sin(inclination_rad)*math.cos(geocentric_moon_lat_rad)*math.sin(node_long_rad)
 	sub_earth_lat_deg = PM.degrees(math.asin(sin_be))
-	a_rad = PM.atan2(math.cos(geocentric_moon_lat_rad)*math.cos(node_long_rad),-math.sin(geocentric_moon_lat_rad)*math.sin(inclination_rad)-math.cos(geocentric_moon_lat_rad)*math.cos(inclination_rad)*math.sin(node_long_rad))
+	a_rad = math.atan2(-math.sin(geocentric_moon_lat_rad)*math.sin(inclination_rad)-math.cos(geocentric_moon_lat_rad)*math.cos(inclination_rad)*math.sin(node_long_rad),math.cos(geocentric_moon_lat_rad)*math.cos(node_long_rad))
 	a_deg = PM.degrees(a_rad)
 	sub_earth_long_deg1 = a_deg - F2
 	sub_earth_long_deg2 = sub_earth_long_deg1-360*math.floor(sub_earth_long_deg1/360)
@@ -521,7 +521,7 @@ def selenographic_coordinates_2(gwdate_day,gwdate_month,gwdate_year):
 	node_long_rad = math.radians(long_asc_node_deg-adjusted_moon_long_deg)
 	sin_bs = -math.cos(inclination_rad)*math.sin(adjusted_moon_lat_rad)+math.sin(inclination_rad)*math.cos(adjusted_moon_lat_rad)*math.sin(node_long_rad)
 	sub_solar_lat_deg = PM.degrees(math.asin(sin_bs))
-	a_rad = PM.atan2(math.cos(adjusted_moon_lat_rad)*math.cos(node_long_rad),-math.sin(adjusted_moon_lat_rad)*math.sin(inclination_rad)-math.cos(adjusted_moon_lat_rad)*math.cos(inclination_rad)*math.sin(node_long_rad))
+	a_rad = math.atan2(-math.sin(adjusted_moon_lat_rad)*math.sin(inclination_rad)-math.cos(adjusted_moon_lat_rad)*math.cos(inclination_rad)*math.sin(node_long_rad),math.cos(adjusted_moon_lat_rad)*math.cos(node_long_rad))
 	a_deg = PM.degrees(a_rad)
 	sub_solar_long_deg1 = a_deg - F2
 	sub_solar_long_deg2 = sub_solar_long_deg1-360*math.floor(sub_solar_long_deg1/360)

@@ -26,7 +26,7 @@ def binary_star_orbit(greenwich_date_day, greenwich_date_month, greenwich_date_y
 	ta_peri_rad = true_anomaly_rad+math.radians(PBD.get_binary_data(binary_name)['LongPeri'])
 	y = math.sin(ta_peri_rad)*math.cos(math.radians(PBD.get_binary_data(binary_name)['Incl']))
 	x = math.cos(ta_peri_rad)
-	a_deg = PM.degrees(PM.atan2(x,y))
+	a_deg = PM.degrees(math.atan2(y,x))
 	theta_deg1 = a_deg + PBD.get_binary_data(binary_name)['PANode']
 	theta_deg2 = theta_deg1-360*math.floor(theta_deg1/360)
 	rho_arcsec = r_arcsec*math.cos(ta_peri_rad)/math.cos(math.radians(theta_deg2-PBD.get_binary_data(binary_name)['PANode']))

@@ -491,7 +491,7 @@ def eq_az(hour_angle_hours,hour_angle_minutes,hour_angle_seconds,declination_deg
 	G = math.sin(E) * math.sin(F) + math.cos(E) * math.cos(F) * math.cos(C)
 	H = -math.cos(E) * math.cos(F) * math.sin(C)
 	I = math.sin(E) - (math.sin(F) * G)
-	J = degrees(atan2(I,H))
+	J = degrees(math.atan2(H,I))
 	
 	return J - 360 * math.floor(J / 360)
 
@@ -540,7 +540,7 @@ def hor_ha(azimuth_degrees,azimuth_minutes,azimuth_seconds,altitude_degrees,alti
 	F = math.sin(D) * math.sin(E) + math.cos(D) * math.cos(E) * math.cos(C)
 	G = -math.cos(D) * math.cos(E) * math.sin(C)
 	H = math.sin(D) - math.sin(E) * F
-	I = dd_dh(degrees(atan2(H, G)))
+	I = dd_dh(degrees(math.atan2(G,H)))
 	
 	return I - 24 * math.floor(I / 24)
 
@@ -1324,7 +1324,7 @@ def ec_ra(ELD,ELM,ELS,BD,BM,BS,GD,GM,GY):
 	C = math.radians(obliq(GD, GM, GY))
 	D = math.sin(A) * math.cos(C) - math.tan(B) * math.sin(C)
 	E = math.cos(A)
-	F = degrees(atan2(E, D))
+	F = degrees(math.atan2(D,E))
 	
 	return F - 360 * math.floor(F / 360)
 
@@ -2459,7 +2459,7 @@ def planet_coordinates(LH, LM, LS, DS, ZC, DY, MN, YR, S):
 		Y = SO * math.cos(INN)
 		PS = math.asin(SP) + QG
 		SP = math.sin(PS)
-		PD = atan2(CO, Y) + OM + math.radians(QA)
+		PD = math.atan2(Y, CO) + OM + math.radians(QA)
 		PD = unwind(PD)
 		CI = math.cos(PS)
 		RD = PVV * CI
@@ -2878,7 +2878,7 @@ def p_comet_long_lat_dist(LH, LM, LS, DS, ZC, DY, MN, YR, TD, TM, TY, Q, I, P, N
 		S2 = S1 * math.sin(I1)
 		PS = math.asin(S2)
 		Y = S1 * math.cos(I1)
-		LC = atan2(C1, Y) + math.radians(N)
+		LC = math.atan2(Y, C1) + math.radians(N)
 		C2 = math.cos(PS)
 		RD = R * C2
 		LL = LC - LG

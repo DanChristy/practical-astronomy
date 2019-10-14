@@ -54,7 +54,7 @@ def approximate_position_of_moon(lct_hour, lct_min, lct_sec, is_daylight_saving,
 	y = math.sin(math.radians(ldd_deg-nd_deg))*math.cos(math.radians(i))
 	x = math.cos(math.radians(ldd_deg-nd_deg))
 
-	moon_long_deg = PM.unwind_deg(PM.degrees(PM.atan2(x,y))+nd_deg)
+	moon_long_deg = PM.unwind_deg(PM.degrees(math.atan2(y,x))+nd_deg)
 	moon_lat_deg = PM.degrees(math.asin(math.sin(math.radians(ldd_deg-nd_deg))*math.sin(math.radians(i))))
 	moon_ra_hours1 = PM.dd_dh(PM.ec_ra(moon_long_deg,0,0,moon_lat_deg,0,0,gdate_day,gdate_month,gdate_year))
 	moon_dec_deg1 = PM.ec_dec(moon_long_deg,0,0,moon_lat_deg,0,0,gdate_day,gdate_month,gdate_year)

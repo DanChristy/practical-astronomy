@@ -43,14 +43,14 @@ def position_of_elliptical_comet(lct_hour, lct_min, lct_sec, is_daylight_saving,
 	y = math.sin(lc_node_rad)*math.cos(math.radians(PCD.get_comet_data_elliptical("Halley")['Incl']))
 	x = math.cos(lc_node_rad)
 
-	ld_deg = PM.degrees(PM.atan2(x,y)) + PCD.get_comet_data_elliptical("Halley")['Node']
+	ld_deg = PM.degrees(math.atan2(y,x)) + PCD.get_comet_data_elliptical("Halley")['Node']
 	rd_au = r_au * math.cos(psi_rad)
 
 	earth_longitude_le_deg = PM.sun_long(lct_hour, lct_min, lct_sec, is_daylight_saving, zone_correction_hours, local_date_day, local_date_month, local_date_year) + 180
 	earth_radius_vector_au = PM.sun_dist(lct_hour, lct_min, lct_sec, is_daylight_saving, zone_correction_hours, local_date_day, local_date_month, local_date_year)
 
 	le_ld_rad = math.radians(earth_longitude_le_deg - ld_deg)
-	a_rad = PM.atan2(earth_radius_vector_au-rd_au*math.cos(le_ld_rad),rd_au*math.sin(le_ld_rad)) if rd_au < earth_radius_vector_au else PM.atan2(rd_au-earth_radius_vector_au*math.cos(le_ld_rad),earth_radius_vector_au*math.sin(-le_ld_rad))
+	a_rad = math.atan2(rd_au*math.sin(le_ld_rad),earth_radius_vector_au-rd_au*math.cos(le_ld_rad)) if rd_au < earth_radius_vector_au else math.atan2(earth_radius_vector_au*math.sin(-le_ld_rad),rd_au-earth_radius_vector_au*math.cos(le_ld_rad))
 
 	comet_long_deg1 = 180 + earth_longitude_le_deg + PM.degrees(a_rad) if rd_au < earth_radius_vector_au else PM.degrees(a_rad) + ld_deg
 	comet_long_deg = comet_long_deg1 - 360 * math.floor(comet_long_deg1/360)

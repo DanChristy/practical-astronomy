@@ -2,6 +2,7 @@ var searchData=
 [
   ['selenographic_5fcoordinates_5f1',['selenographic_coordinates_1',['../namespacepa__coordinate.html#a296d92105e1a1727cb0fd7ba00fbdec9',1,'pa_coordinate']]],
   ['selenographic_5fcoordinates_5f2',['selenographic_coordinates_2',['../namespacepa__coordinate.html#aad5dd2620ad98a2e495efd80997d577c',1,'pa_coordinate']]],
+  ['sgn',['sgn',['../namespacepa__macro.html#a18748baf1ce4e5f0fa5462df4bdcd076',1,'pa_macro']]],
   ['solar_5felongation',['solar_elongation',['../namespacepa__sun.html#a6a5fda282476b9f20ed1d0f02e735121',1,'pa_sun']]],
   ['solve_5fcubic',['solve_cubic',['../namespacepa__macro.html#a07da5981ab4bf53d59eaf93a286bf2b6',1,'pa_macro']]],
   ['sun_5fdia',['sun_dia',['../namespacepa__macro.html#a4acfd38976de6a73c46bacea9131361a',1,'pa_macro']]],

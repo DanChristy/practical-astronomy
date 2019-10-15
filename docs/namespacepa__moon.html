@@ -94,6 +94,8 @@ Functions</h2></td></tr>
 <tr class="separator:aa51838973b55a7fb3ead5f0f32a8a0b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab6e5383453fb7661762aa2c5692d31e0"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepa__moon.html#ab6e5383453fb7661762aa2c5692d31e0">moon_phase</a> (lct_hour, lct_min, lct_sec, is_daylight_saving, zone_correction_hours, local_date_day, local_date_month, local_date_year, accuracy_level=&quot;A&quot;)</td></tr>
 <tr class="separator:ab6e5383453fb7661762aa2c5692d31e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a765d28b24a240bf85281df1828df9af6"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepa__moon.html#a765d28b24a240bf85281df1828df9af6">times_of_new_moon_and_full_moon</a> (is_daylight_saving, zone_correction_hours, local_date_day, local_date_month, local_date_year)</td></tr>
+<tr class="separator:a765d28b24a240bf85281df1828df9af6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="a7234565a6d344a572e6e93d672f379e3"></a>
@@ -347,6 +349,72 @@ Returns:
     moon_dec_sec -- Declination of Moon (seconds part)
     earth_moon_dist_km -- Distance from Earth to Moon (km)
     moon_hor_parallax_deg -- Horizontal parallax of Moon (degrees)
+</pre> 
+</div>
+</div>
+<a id="a765d28b24a240bf85281df1828df9af6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a765d28b24a240bf85281df1828df9af6">&#9670;&nbsp;</a></span>times_of_new_moon_and_full_moon()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def pa_moon.times_of_new_moon_and_full_moon </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>is_daylight_saving</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>zone_correction_hours</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>local_date_day</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>local_date_month</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>local_date_year</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Calculate new moon and full moon instances.
+
+Arguments:
+    is_daylight_saving -- Is daylight savings in effect?
+    zone_correction_hours -- Time zone correction, in hours.
+    local_date_day -- Local date, day part.
+    local_date_month -- Local date, month part.
+    local_date_year -- Local date, year part.
+
+Returns:
+    nm_local_time_hour -- new Moon instant - local time (hour)
+    nm_local_time_min -- new Moon instant - local time (minutes)
+    nm_local_date_day -- new Moon instance - local date (day)
+    nm_local_date_month -- new Moon instance - local date (month)
+    nm_local_date_year -- new Moon instance - local date (year)
+    fm_local_time_hour -- full Moon instant - local time (hour)
+    fm_local_time_min -- full Moon instant - local time (minutes)
+    fm_local_date_day -- full Moon instance - local date (day)
+    fm_local_date_month -- full Moon instance - local date (month)
+    fm_local_date_year -- full Moon instance - local date (year)
 </pre> 
 </div>
 </div>

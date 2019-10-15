@@ -48,6 +48,19 @@ class test_moon_position(UT.TestCase):
 		self.assertEqual(moon_phase,0.22,"Moon Phase")
 		self.assertEqual(pa_bright_limb_deg,-71.58,"Position Angle of Bright Limb")
 
+class test_new_moon_and_full_moon(UT.TestCase):
+	def setUp(self):
+		self.is_daylight_saving = False 
+		self.zone_correction_hours = 0 
+		self.local_date_day = 1 
+		self.local_date_month = 9 
+		self.local_date_year = 2003 
+
+	def test_times_of_new_moon_and_full_moon(self):
+		nm_local_time_hour, nm_local_time_min, nm_local_date_day, nm_local_date_month, nm_local_date_year, fm_local_time_hour, fm_local_time_min, fm_local_date_day, fm_local_date_month, fm_local_date_year = PMO.times_of_new_moon_and_full_moon(self.is_daylight_saving, self.zone_correction_hours, self.local_date_day, self.local_date_month, self.local_date_year)
+	
+		print(f"New moon and full moon: [DST?] {self.is_daylight_saving} [Zone Correction] {self.zone_correction_hours} [Local Date] {self.local_date_month}/{self.local_date_day}/{self.local_date_year} = [New Moon] {nm_local_time_hour}:{nm_local_time_min} on {nm_local_date_month}/{nm_local_date_day}/{nm_local_date_year} [Full Moon] {fm_local_time_hour}:{fm_local_time_min} on {fm_local_date_month}/{fm_local_date_day}/{fm_local_date_year}")
+
 
 if __name__ == '__main__':
 	UT.main()

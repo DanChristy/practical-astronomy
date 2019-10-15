@@ -61,6 +61,17 @@ class test_new_moon_and_full_moon(UT.TestCase):
 	
 		print(f"New moon and full moon: [DST?] {self.is_daylight_saving} [Zone Correction] {self.zone_correction_hours} [Local Date] {self.local_date_month}/{self.local_date_day}/{self.local_date_year} = [New Moon] {nm_local_time_hour}:{nm_local_time_min} on {nm_local_date_month}/{nm_local_date_day}/{nm_local_date_year} [Full Moon] {fm_local_time_hour}:{fm_local_time_min} on {fm_local_date_month}/{fm_local_date_day}/{fm_local_date_year}")
 
+		self.assertEqual(nm_local_time_hour,17,"new Moon instant - local time (hour)")
+		self.assertEqual(nm_local_time_min,27,"new Moon instant - local time (minutes)")
+		self.assertEqual(nm_local_date_day,27,"new Moon instance - local date (day)")
+		self.assertEqual(nm_local_date_month,8,"new Moon instance - local date (month)")
+		self.assertEqual(nm_local_date_year,2003,"new Moon instance - local date (year)")
+		self.assertEqual(fm_local_time_hour,16,"full Moon instant - local time (hour)")
+		self.assertEqual(fm_local_time_min,36,"full Moon instant - local time (minutes)")
+		self.assertEqual(fm_local_date_day,10,"full Moon instance - local date (day)")
+		self.assertEqual(fm_local_date_month,9,"full Moon instance - local date (month)")
+		self.assertEqual(fm_local_date_year,2003,"full Moon instance - local date (year)")
+
 
 if __name__ == '__main__':
 	UT.main()

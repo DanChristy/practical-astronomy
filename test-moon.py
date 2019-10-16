@@ -3,7 +3,7 @@
 import lib.pa_moon as PMO
 import unittest as UT
 
-class test_moon_position(UT.TestCase):
+class test_moon_position_and_info(UT.TestCase):
 	def setUp(self):
 		self.lct_hour = 0 
 		self.lct_min = 0 
@@ -47,6 +47,18 @@ class test_moon_position(UT.TestCase):
 
 		self.assertEqual(moon_phase,0.22,"Moon Phase")
 		self.assertEqual(pa_bright_limb_deg,-71.58,"Position Angle of Bright Limb")
+
+	def test_moon_dist_ang_diam_hor_parallax(self):
+		earth_moon_dist, ang_diameter_deg, ang_diameter_min, hor_parallax_deg, hor_parallax_min, hor_parallax_sec = PMO.moon_dist_ang_diam_hor_parallax(self.lct_hour, self.lct_min, self.lct_sec, self.is_daylight_saving, self.zone_correction_hours, self.local_date_day, self.local_date_month, self.local_date_year)
+
+		print(f"Moon distance, angular diameter, and horizontal parallax: [Local Time] {self.lct_hour}:{self.lct_min}:{self.lct_sec} [DST?] {self.is_daylight_saving} [Zone Correction] {self.zone_correction_hours} [Local Date] {self.local_date_month}/{self.local_date_day}/{self.local_date_year} = [Earth-Moon Dist] {earth_moon_dist} km [Angular Diameter] {ang_diameter_deg}d {ang_diameter_min}m [Horizontal Parallax] {hor_parallax_deg}d {hor_parallax_min}m {hor_parallax_sec}s")
+
+		self.assertEqual(earth_moon_dist,367960,"Earth-Moon distance (km)")
+		self.assertEqual(ang_diameter_deg,0,"Angular diameter (degrees part)")
+		self.assertEqual(ang_diameter_min,32,"Angular diameter (minutes part)")
+		self.assertEqual(hor_parallax_deg,0,"Horizontal parallax (degrees part)")
+		self.assertEqual(hor_parallax_min,59,"Horizontal parallax (minutes part)")
+		self.assertEqual(hor_parallax_sec,35.49,"Horizontal parallax (seconds part)")
 
 class test_new_moon_and_full_moon(UT.TestCase):
 	def setUp(self):

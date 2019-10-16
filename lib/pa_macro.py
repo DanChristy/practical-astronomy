@@ -1265,6 +1265,29 @@ def moon_hp(LH,LM,LS,DS,ZC,DY,MN,YR):
 
 	return PM
 
+def moon_dist(LH, LM, LS, DS, ZC, DY, MN, YR):
+	"""
+	Calculate distance from the Earth to the Moon (km)
+
+	Original macro name: MoonDist
+	"""
+	HP = math.radians(moon_hp(LH, LM, LS, DS, ZC, DY, MN, YR))
+	R = 6378.14 / math.sin(HP)
+
+	return R
+
+def moon_size(LH, LM, LS, DS, ZC, DY, MN, YR):
+	"""
+	Calculate the Moon's angular diameter (degrees)
+
+	Original macro name: MoonSize
+	"""
+	HP = math.radians(moon_hp(LH, LM, LS, DS, ZC, DY, MN, YR))
+	R = 6378.14 / math.sin(HP)
+	TH = 384401 * 0.5181 / R
+
+	return TH
+
 def sun_e_long(GD,GM,GY):
 	"""
 	Mean ecliptic longitude of the Sun at the epoch

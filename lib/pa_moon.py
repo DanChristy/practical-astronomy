@@ -220,3 +220,40 @@ def times_of_new_moon_and_full_moon(is_daylight_saving, zone_correction_hours, l
 	fm_local_date_year = PM.ut_lc_year(ut_of_full_moon_hours,0,0,daylight_saving,zone_correction_hours,integer_day2,g_date_of_full_moon_month,g_date_of_full_moon_year)
 
 	return nm_local_time_hour, nm_local_time_min, nm_local_date_day, nm_local_date_month, nm_local_date_year, fm_local_time_hour, fm_local_time_min, fm_local_date_day, fm_local_date_month, fm_local_date_year
+
+def moon_dist_ang_diam_hor_parallax(lct_hour, lct_min, lct_sec, is_daylight_saving, zone_correction_hours, local_date_day, local_date_month, local_date_year):
+	"""
+	Calculate Moon's distance, angular diameter, and horizontal parallax.
+
+	Arguments:
+		lct_hour -- Local civil time, in hours.
+		lct_min -- Local civil time, in minutes.
+		lct_sec -- Local civil time, in seconds.
+		is_daylight_saving -- Is daylight savings in effect?
+		zone_correction_hours -- Time zone correction, in hours.
+		local_date_day -- Local date, day part.
+		local_date_month -- Local date, month part.
+		local_date_year -- Local date, year part.
+
+	Returns:
+		earth_moon_dist -- Earth-Moon distance (km)
+		ang_diameter_deg -- Angular diameter (degrees part)
+		ang_diameter_min -- Angular diameter (minutes part)
+		hor_parallax_deg -- Horizontal parallax (degrees part)
+		hor_parallax_min -- Horizontal parallax (minutes part)
+		hor_parallax_sec -- Horizontal parallax (seconds part)
+	"""
+	daylight_saving = 1 if is_daylight_saving == True else 0
+
+	moon_distance = PM.moon_dist(lct_hour, lct_min, lct_sec, daylight_saving, zone_correction_hours, local_date_day, local_date_month, local_date_year)
+	moon_angular_diameter = PM.moon_size(lct_hour, lct_min, lct_sec, daylight_saving, zone_correction_hours, local_date_day, local_date_month, local_date_year)
+	moon_horizontal_parallax = PM.moon_hp(lct_hour, lct_min, lct_sec, daylight_saving, zone_correction_hours, local_date_day, local_date_month, local_date_year)
+
+	earth_moon_dist = round(moon_distance,-1)
+	ang_diameter_deg = PM.dd_deg(moon_angular_diameter+0.008333)
+	ang_diameter_min = PM.dd_min(moon_angular_diameter+0.008333)
+	hor_parallax_deg = PM.dd_deg(moon_horizontal_parallax)
+	hor_parallax_min = PM.dd_min(moon_horizontal_parallax)
+	hor_parallax_sec = PM.dd_sec(moon_horizontal_parallax)
+
+	return earth_moon_dist, ang_diameter_deg, ang_diameter_min, hor_parallax_deg, hor_parallax_min, hor_parallax_sec

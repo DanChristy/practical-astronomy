@@ -3996,6 +3996,748 @@ def lunar_eclipse_occurrence_l6855(T,K):
 
 	return F,DD,E1,B,B1,A,B
 
+def mag_lunar_eclipse(DY, MN, YR, DS, ZC):
+	"""
+	Calculate magnitude of lunar eclipse.
+
+	Original macro name: MagLunarEclipse
+	"""
+	TP = 2 * math.pi
+
+	if (lunar_eclipse_occurrence(DS, ZC, DY, MN, YR) == "No lunar eclipse"):
+		MG = -99#
+		return MG
+
+	DJ = full_moon(DS, ZC, DY, MN, YR)
+	DP = 0
+	GDay = jdc_day(DJ)
+	GMonth = jdc_month(DJ)
+	GYear = jdc_year(DJ)
+	IGDay = math.floor(GDay)
+	XI = GDay - IGDay
+	UTFM = XI * 24
+	UT = UTFM - 1
+	LY = math.radians(sun_long(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+	MY = math.radians(moon_long(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+	BY = math.radians(moon_lat(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+	HY = math.radians(moon_hp(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+	UT = UTFM + 1
+	SB = math.radians(sun_long(UT, 0, 0, 0, 0, IGDay, GMonth, GYear)) - LY
+	MZ = math.radians(moon_long(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+	BZ = math.radians(moon_lat(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+	HZ = math.radians(moon_hp(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+
+	if SB < 0:
+		SB = SB + TP
+
+	XH = UTFM
+	X0 = XH + 1 - (2 * BZ / (BZ - BY))
+	DM = MZ - MY
+
+	if DM < 0:
+		DM = DM + TP
+
+	LJ = (DM - SB) / 2
+	Q = 0
+	MR = MY + (DM * (X0 - XH + 1) / 2)
+	UT = X0 - 0.13851852
+	RR = sun_dist(UT, 0, 0, 0, 0, IGDay, GMonth, GYear)
+	SR = math.radians(sun_long(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+	SR = SR + math.radians(nutat_long(IGDay, GMonth, GYear) - 0.00569)
+	SR = SR + math.pi - lint((SR + math.pi) / TP) * TP
+	BY = BY - Q
+	BZ = BZ - Q
+	P3 = 0.00004263
+	ZH = (SR - MR) / LJ
+	TC = X0 + ZH
+	SH = (((BZ - BY) * (TC - XH - 1) / 2) + BZ) / LJ
+	S2 = SH * SH
+	Z2 = ZH * ZH
+	PS = P3 / (RR * LJ)
+	Z1 = (ZH * Z2 / (Z2 + S2)) + X0
+	H0 = (HY + HZ) / (2 * LJ)
+	RM = 0.272446 * H0
+	RN = 0.00465242 / (LJ * RR)
+	HD = H0 * 0.99834
+	RU = (HD - RN + PS) * 1.02
+	RP = (HD + RN + PS) * 1.02
+	PJ = abs(SH * ZH / math.sqrt(S2 + Z2))
+	R = RM + RP
+	DD = Z1 - X0
+	DD = DD * DD - ((Z2 - (R * R)) * DD / ZH)
+
+	if DD < 0:
+		MG = -99
+		return MG
+
+	ZD = math.sqrt(DD)
+	Z6 = Z1 - ZD
+	Z7 = Z1 + ZD - lint((Z1 + ZD) / 24) * 24
+
+	if Z6 < 0:
+		Z6 = Z6 + 24
+
+	R = RM + RU
+	DD = Z1 - X0
+	DD = DD * DD - ((Z2 - (R * R)) * DD / ZH)
+	MG = (RM + RP - PJ) / (2 * RM)
+
+	if DD < 0:
+		return MG
+
+	ZD = math.sqrt(DD)
+	Z8 = Z1 - ZD
+	Z9 = Z1 + ZD - lint((Z1 + ZD) / 24) * 24
+
+	if Z8 < 0:
+		Z8 = Z8 + 24
+
+	R = RU - RM
+	DD = Z1 - X0
+	DD = DD * DD - ((Z2 - (R * R)) * DD / ZH)
+	MG = (RM + RU - PJ) / (2 * RM)
+
+	return MG
+
+def ut_end_total_lunar_eclipse(DY, MN, YR, DS, ZC):
+	"""
+	Calculate end time of total phase of lunar eclipse (UT)
+
+	Original macro name: UTEndTotalLunarEclipse
+	"""
+	TP = 2 * math.pi
+
+	if (lunar_eclipse_occurrence(DS, ZC, DY, MN, YR) == "No lunar eclipse"):
+		return -99
+
+	DJ = full_moon(DS, ZC, DY, MN, YR)
+	DP = 0
+	GDay = jdc_day(DJ)
+	GMonth = jdc_month(DJ)
+	GYear = jdc_year(DJ)
+	IGDay = math.floor(GDay)
+	XI = GDay - IGDay
+	UTFM = XI * 24
+	UT = UTFM - 1
+	LY = math.radians(sun_long(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+	MY = math.radians(moon_long(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+	BY = math.radians(moon_lat(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+	HY = math.radians(moon_hp(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+	UT = UTFM + 1
+	SB = math.radians(sun_long(UT, 0, 0, 0, 0, IGDay, GMonth, GYear)) - LY
+	MZ = math.radians(moon_long(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+	BZ = math.radians(moon_lat(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+	HZ = math.radians(moon_hp(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+
+	if SB < 0:
+		SB = SB + TP
+
+	XH = UTFM
+	X0 = XH + 1 - (2 * BZ / (BZ - BY))
+	DM = MZ - MY
+
+	if DM < 0:
+		DM = DM + TP
+
+	LJ = (DM - SB) / 2
+	Q = 0
+	MR = MY + (DM * (X0 - XH + 1) / 2)
+	UT = X0 - 0.13851852
+	RR = sun_dist(UT, 0, 0, 0, 0, IGDay, GMonth, GYear)
+	SR = math.radians(sun_long(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+	SR = SR + math.radians(nutat_long(IGDay, GMonth, GYear) - 0.00569)
+	SR = SR + math.pi - lint((SR + math.pi) / TP) * TP
+	BY = BY - Q
+	BZ = BZ - Q
+	P3 = 0.00004263
+	ZH = (SR - MR) / LJ
+	TC = X0 + ZH
+	SH = (((BZ - BY) * (TC - XH - 1) / 2) + BZ) / LJ
+	S2 = SH * SH
+	Z2 = ZH * ZH
+	PS = P3 / (RR * LJ)
+	Z1 = (ZH * Z2 / (Z2 + S2)) + X0
+	H0 = (HY + HZ) / (2 * LJ)
+	RM = 0.272446 * H0
+	RN = 0.00465242 / (LJ * RR)
+	HD = H0 * 0.99834
+	RU = (HD - RN + PS) * 1.02
+	RP = (HD + RN + PS) * 1.02
+	PJ = abs(SH * ZH / math.sqrt(S2 + Z2))
+	R = RM + RP
+	DD = Z1 - X0
+	DD = DD * DD - ((Z2 - (R * R)) * DD / ZH)
+
+	if DD < 0:
+		return -99
+
+	ZD = math.sqrt(DD)
+	Z6 = Z1 - ZD
+	Z7 = Z1 + ZD - lint((Z1 + ZD) / 24) * 24
+
+	if Z6 < 0:
+		Z6 = Z6 + 24
+
+	R = RM + RU
+	DD = Z1 - X0
+	DD = DD * DD - ((Z2 - (R * R)) * DD / ZH)
+	MG = (RM + RP - PJ) / (2 * RM)
+
+	if DD < 0:
+		return -99
+
+	ZD = math.sqrt(DD)
+	Z8 = Z1 - ZD
+	Z9 = Z1 + ZD - lint((Z1 + ZD) / 24) * 24
+
+	if Z8 < 0:
+		Z8 = Z8 + 24
+
+	R = RU - RM
+	DD = Z1 - X0
+	DD = DD * DD - ((Z2 - (R * R)) * DD / ZH)
+	MG = (RM + RU - PJ) / (2 * RM)
+
+	if DD < 0:
+		return -99
+
+	ZD = math.sqrt(DD)
+	ZB = Z1 + ZD - lint((Z1 + ZD) / 24) * 24
+
+	return ZB
+
+def ut_end_umbra_lunar_eclipse(DY, MN, YR, DS, ZC):
+	"""
+	Calculate end time of umbra phase of lunar eclipse (UT)
+
+	Original macro name: UTEndUmbraLunarEclipse
+	"""
+	TP = 2 * math.pi
+
+	if (lunar_eclipse_occurrence(DS, ZC, DY, MN, YR) == "No lunar eclipse"):
+		return -99
+
+	DJ = full_moon(DS, ZC, DY, MN, YR)
+	DP = 0
+	GDay = jdc_day(DJ)
+	GMonth = jdc_month(DJ)
+	GYear = jdc_year(DJ)
+	IGDay = math.floor(GDay)
+	XI = GDay - IGDay
+	UTFM = XI * 24
+	UT = UTFM - 1
+	LY = math.radians(sun_long(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+	MY = math.radians(moon_long(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+	BY = math.radians(moon_lat(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+	HY = math.radians(moon_hp(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+	UT = UTFM + 1
+	SB = math.radians(sun_long(UT, 0, 0, 0, 0, IGDay, GMonth, GYear)) - LY
+	MZ = math.radians(moon_long(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+	BZ = math.radians(moon_lat(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+	HZ = math.radians(moon_hp(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+
+	if SB < 0:
+		SB = SB + TP
+
+	XH = UTFM
+	X0 = XH + 1 - (2 * BZ / (BZ - BY))
+	DM = MZ - MY
+
+	if DM < 0:
+		DM = DM + TP
+
+	LJ = (DM - SB) / 2
+	Q = 0
+	MR = MY + (DM * (X0 - XH + 1) / 2)
+	UT = X0 - 0.13851852
+	RR = sun_dist(UT, 0, 0, 0, 0, IGDay, GMonth, GYear)
+	SR = math.radians(sun_long(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+	SR = SR + math.radians(nutat_long(IGDay, GMonth, GYear) - 0.00569)
+	SR = SR + math.pi - lint((SR + math.pi) / TP) * TP
+	BY = BY - Q
+	BZ = BZ - Q
+	P3 = 0.00004263
+	ZH = (SR - MR) / LJ
+	TC = X0 + ZH
+	SH = (((BZ - BY) * (TC - XH - 1) / 2) + BZ) / LJ
+	S2 = SH * SH
+	Z2 = ZH * ZH
+	PS = P3 / (RR * LJ)
+	Z1 = (ZH * Z2 / (Z2 + S2)) + X0
+	H0 = (HY + HZ) / (2 * LJ)
+	RM = 0.272446 * H0
+	RN = 0.00465242 / (LJ * RR)
+	HD = H0 * 0.99834
+	RU = (HD - RN + PS) * 1.02
+	RP = (HD + RN + PS) * 1.02
+	PJ = abs(SH * ZH / math.sqrt(S2 + Z2))
+	R = RM + RP
+	DD = Z1 - X0
+	DD = DD * DD - ((Z2 - (R * R)) * DD / ZH)
+
+	if DD < 0:
+		return -99
+
+	ZD = math.sqrt(DD)
+	Z6 = Z1 - ZD
+	Z7 = Z1 + ZD - lint((Z1 + ZD) / 24) * 24
+
+	if Z6 < 0:
+		Z6 = Z6 + 24
+
+	R = RM + RU
+	DD = Z1 - X0
+	DD = DD * DD - ((Z2 - (R * R)) * DD / ZH)
+	MG = (RM + RP - PJ) / (2 * RM)
+
+	if DD < 0:
+		return -99
+
+	ZD = math.sqrt(DD)
+	Z8 = Z1 - ZD
+	Z9 = Z1 + ZD - lint((Z1 + ZD) / 24) * 24
+
+	return Z9
+
+def ut_first_contact_lunar_eclipse(DY, MN, YR, DS, ZC):
+	"""
+	Calculate time of first shadow contact for lunar eclipse (UT)
+
+	Original macro name: UTFirstContactLunarEclipse
+	"""
+	TP = 2 * math.pi
+
+	if (lunar_eclipse_occurrence(DS, ZC, DY, MN, YR) == "No lunar eclipse"):
+		return -99
+
+	DJ = full_moon(DS, ZC, DY, MN, YR)
+	DP = 0
+	GDay = jdc_day(DJ)
+	GMonth = jdc_month(DJ)
+	GYear = jdc_year(DJ)
+	IGDay = math.floor(GDay)
+	XI = GDay - IGDay
+	UTFM = XI * 24
+	UT = UTFM - 1
+	LY = math.radians(sun_long(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+	MY = math.radians(moon_long(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+	BY = math.radians(moon_lat(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+	HY = math.radians(moon_hp(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+	UT = UTFM + 1
+	SB = math.radians(sun_long(UT, 0, 0, 0, 0, IGDay, GMonth, GYear)) - LY
+	MZ = math.radians(moon_long(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+	BZ = math.radians(moon_lat(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+	HZ = math.radians(moon_hp(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+
+	if SB < 0:
+		SB = SB + TP
+
+	XH = UTFM
+	X0 = XH + 1 - (2 * BZ / (BZ - BY))
+	DM = MZ - MY
+
+	if DM < 0:
+		DM = DM + TP
+
+	LJ = (DM - SB) / 2
+	Q = 0
+	MR = MY + (DM * (X0 - XH + 1) / 2)
+	UT = X0 - 0.13851852
+	RR = sun_dist(UT, 0, 0, 0, 0, IGDay, GMonth, GYear)
+	SR = math.radians(sun_long(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+	SR = SR + math.radians(nutat_long(IGDay, GMonth, GYear) - 0.00569)
+	SR = SR + math.pi - lint((SR + math.pi) / TP) * TP
+	BY = BY - Q
+	BZ = BZ - Q
+	P3 = 0.00004263
+	ZH = (SR - MR) / LJ
+	TC = X0 + ZH
+	SH = (((BZ - BY) * (TC - XH - 1) / 2) + BZ) / LJ
+	S2 = SH * SH
+	Z2 = ZH * ZH
+	PS = P3 / (RR * LJ)
+	Z1 = (ZH * Z2 / (Z2 + S2)) + X0
+	H0 = (HY + HZ) / (2 * LJ)
+	RM = 0.272446 * H0
+	RN = 0.00465242 / (LJ * RR)
+	HD = H0 * 0.99834
+	RU = (HD - RN + PS) * 1.02
+	RP = (HD + RN + PS) * 1.02
+	PJ = abs(SH * ZH / math.sqrt(S2 + Z2))
+	R = RM + RP
+	DD = Z1 - X0
+	DD = DD * DD - ((Z2 - (R * R)) * DD / ZH)
+
+	if DD < 0:
+		return -99
+
+	ZD = math.sqrt(DD)
+	Z6 = Z1 - ZD
+
+	if Z6 < 0:
+		Z6 = Z6 + 24
+
+	return Z6
+
+def ut_last_contact_lunar_eclipse(DY, MN, YR, DS, ZC):
+	"""
+	Calculate time of last shadow contact for lunar eclipse (UT)
+
+	Original macro name: UTLastContactLunarEclipse
+	"""
+	TP = 2 * math.pi
+
+	if (lunar_eclipse_occurrence(DS, ZC, DY, MN, YR) == "No lunar eclipse"):
+		return -99
+
+	DJ = full_moon(DS, ZC, DY, MN, YR)
+	DP = 0
+	GDay = jdc_day(DJ)
+	GMonth = jdc_month(DJ)
+	GYear = jdc_year(DJ)
+	IGDay = math.floor(GDay)
+	XI = GDay - IGDay
+	UTFM = XI * 24
+	UT = UTFM - 1
+	LY = math.radians(sun_long(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+	MY = math.radians(moon_long(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+	BY = math.radians(moon_lat(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+	HY = math.radians(moon_hp(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+	UT = UTFM + 1
+	SB = math.radians(sun_long(UT, 0, 0, 0, 0, IGDay, GMonth, GYear)) - LY
+	MZ = math.radians(moon_long(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+	BZ = math.radians(moon_lat(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+	HZ = math.radians(moon_hp(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+
+	if SB < 0:
+		SB = SB + TP
+
+	XH = UTFM
+	X0 = XH + 1 - (2 * BZ / (BZ - BY))
+	DM = MZ - MY
+
+	if DM < 0:
+		DM = DM + TP
+
+	LJ = (DM - SB) / 2
+	Q = 0
+	MR = MY + (DM * (X0 - XH + 1) / 2)
+	UT = X0 - 0.13851852
+	RR = sun_dist(UT, 0, 0, 0, 0, IGDay, GMonth, GYear)
+	SR = math.radians(sun_long(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+	SR = SR + math.radians(nutat_long(IGDay, GMonth, GYear) - 0.00569)
+	SR = SR + math.pi - lint((SR + math.pi) / TP) * TP
+	BY = BY - Q
+	BZ = BZ - Q
+	P3 = 0.00004263
+	ZH = (SR - MR) / LJ
+	TC = X0 + ZH
+	SH = (((BZ - BY) * (TC - XH - 1) / 2) + BZ) / LJ
+	S2 = SH * SH
+	Z2 = ZH * ZH
+	PS = P3 / (RR * LJ)
+	Z1 = (ZH * Z2 / (Z2 + S2)) + X0
+	H0 = (HY + HZ) / (2 * LJ)
+	RM = 0.272446 * H0
+	RN = 0.00465242 / (LJ * RR)
+	HD = H0 * 0.99834
+	RU = (HD - RN + PS) * 1.02
+	RP = (HD + RN + PS) * 1.02
+	PJ = abs(SH * ZH / math.sqrt(S2 + Z2))
+	R = RM + RP
+	DD = Z1 - X0
+	DD = DD * DD - ((Z2 - (R * R)) * DD / ZH)
+
+	if DD < 0:
+		return -99
+
+	ZD = math.sqrt(DD)
+	Z6 = Z1 - ZD
+	Z7 = Z1 + ZD - lint((Z1 + ZD) / 24) * 24
+
+	return Z7
+
+def ut_max_lunar_eclipse(DY, MN, YR, DS, ZC):
+	"""
+	Calculate time of maximum shadow for lunar eclipse (UT)
+
+	Original macro name: UTMaxLunarEclipse
+	"""
+	TP = 2 * math.pi
+
+	if (lunar_eclipse_occurrence(DS, ZC, DY, MN, YR) == "No lunar eclipse"):
+		return -99
+
+	DJ = full_moon(DS, ZC, DY, MN, YR)
+	DP = 0
+	GDay = jdc_day(DJ)
+	GMonth = jdc_month(DJ)
+	GYear = jdc_year(DJ)
+	IGDay = math.floor(GDay)
+	XI = GDay - IGDay
+	UTFM = XI * 24
+	UT = UTFM - 1
+	LY = math.radians(sun_long(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+	MY = math.radians(moon_long(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+	BY = math.radians(moon_lat(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+	HY = math.radians(moon_hp(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+	UT = UTFM + 1
+	SB = math.radians(sun_long(UT, 0, 0, 0, 0, IGDay, GMonth, GYear)) - LY
+	MZ = math.radians(moon_long(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+	BZ = math.radians(moon_lat(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+	HZ = math.radians(moon_hp(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+
+	if SB < 0:
+		SB = SB + TP
+
+	XH = UTFM
+	X0 = XH + 1 - (2 * BZ / (BZ - BY))
+	DM = MZ - MY
+
+	if DM < 0:
+		DM = DM + TP
+
+	LJ = (DM - SB) / 2
+	Q = 0
+	MR = MY + (DM * (X0 - XH + 1) / 2)
+	UT = X0 - 0.13851852
+	RR = sun_dist(UT, 0, 0, 0, 0, IGDay, GMonth, GYear)
+	SR = math.radians(sun_long(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+	SR = SR + math.radians(nutat_long(IGDay, GMonth, GYear) - 0.00569)
+	SR = SR + math.pi - lint((SR + math.pi) / TP) * TP
+	BY = BY - Q
+	BZ = BZ - Q
+	P3 = 0.00004263
+	ZH = (SR - MR) / LJ
+	TC = X0 + ZH
+	SH = (((BZ - BY) * (TC - XH - 1) / 2) + BZ) / LJ
+	S2 = SH * SH
+	Z2 = ZH * ZH
+	PS = P3 / (RR * LJ)
+	Z1 = (ZH * Z2 / (Z2 + S2)) + X0
+	H0 = (HY + HZ) / (2 * LJ)
+	RM = 0.272446 * H0
+	RN = 0.00465242 / (LJ * RR)
+	HD = H0 * 0.99834
+	RU = (HD - RN + PS) * 1.02
+	RP = (HD + RN + PS) * 1.02
+	PJ = abs(SH * ZH / math.sqrt(S2 + Z2))
+	R = RM + RP
+	DD = Z1 - X0
+	DD = DD * DD - ((Z2 - (R * R)) * DD / ZH)
+
+	if DD < 0:
+		return -99
+
+	return Z1
+
+def ut_start_total_lunar_eclipse(DY, MN, YR, DS, ZC):
+	"""
+	Calculate start time of total phase of lunar eclipse (UT)
+
+	Original macro name: UTStartTotalLunarEclipse
+	"""
+	TP = 2 * math.pi
+
+	if (lunar_eclipse_occurrence(DS, ZC, DY, MN, YR) == "No lunar eclipse"):
+		return -99
+
+	DJ = full_moon(DS, ZC, DY, MN, YR)
+	DP = 0
+	GDay = jdc_day(DJ)
+	GMonth = jdc_month(DJ)
+	GYear = jdc_year(DJ)
+	IGDay = math.floor(GDay)
+	XI = GDay - IGDay
+	UTFM = XI * 24
+	UT = UTFM - 1
+	LY = math.radians(sun_long(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+	MY = math.radians(moon_long(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+	BY = math.radians(moon_lat(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+	HY = math.radians(moon_hp(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+	UT = UTFM + 1
+	SB = math.radians(sun_long(UT, 0, 0, 0, 0, IGDay, GMonth, GYear)) - LY
+	MZ = math.radians(moon_long(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+	BZ = math.radians(moon_lat(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+	HZ = math.radians(moon_hp(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+
+	if SB < 0:
+		SB = SB + TP
+
+	XH = UTFM
+	X0 = XH + 1 - (2 * BZ / (BZ - BY))
+	DM = MZ - MY
+
+	if DM < 0:
+		DM = DM + TP
+
+	LJ = (DM - SB) / 2
+	Q = 0
+	MR = MY + (DM * (X0 - XH + 1) / 2)
+	UT = X0 - 0.13851852
+	RR = sun_dist(UT, 0, 0, 0, 0, IGDay, GMonth, GYear)
+	SR = math.radians(sun_long(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+	SR = SR + math.radians(nutat_long(IGDay, GMonth, GYear) - 0.00569)
+	SR = SR + math.pi - lint((SR + math.pi) / TP) * TP
+	BY = BY - Q
+	BZ = BZ - Q
+	P3 = 0.00004263
+	ZH = (SR - MR) / LJ
+	TC = X0 + ZH
+	SH = (((BZ - BY) * (TC - XH - 1) / 2) + BZ) / LJ
+	S2 = SH * SH
+	Z2 = ZH * ZH
+	PS = P3 / (RR * LJ)
+	Z1 = (ZH * Z2 / (Z2 + S2)) + X0
+	H0 = (HY + HZ) / (2 * LJ)
+	RM = 0.272446 * H0
+	RN = 0.00465242 / (LJ * RR)
+	HD = H0 * 0.99834
+	RU = (HD - RN + PS) * 1.02
+	RP = (HD + RN + PS) * 1.02
+	PJ = abs(SH * ZH / math.sqrt(S2 + Z2))
+	R = RM + RP
+	DD = Z1 - X0
+	DD = DD * DD - ((Z2 - (R * R)) * DD / ZH)
+
+	if DD < 0:
+		return -99
+
+	ZD = math.sqrt(DD)
+	Z6 = Z1 - ZD
+	Z7 = Z1 + ZD - lint((Z1 + ZD) / 24) * 24
+
+	if Z6 < 0:
+		Z6 = Z6 + 24
+
+	R = RM + RU
+	DD = Z1 - X0
+	DD = DD * DD - ((Z2 - (R * R)) * DD / ZH)
+	MG = (RM + RP - PJ) / (2 * RM)
+
+	if DD < 0:
+		return -99
+
+	ZD = math.sqrt(DD)
+	Z8 = Z1 - ZD
+	Z9 = Z1 + ZD - lint((Z1 + ZD) / 24) * 24
+
+	if Z8 < 0:
+		Z8 = Z8 + 24
+
+	R = RU - RM
+	DD = Z1 - X0
+	DD = DD * DD - ((Z2 - (R * R)) * DD / ZH)
+	MG = (RM + RU - PJ) / (2 * RM)
+
+	if DD < 0:
+		return -99
+
+	ZD = math.sqrt(DD)
+	ZCC = Z1 - ZD
+	ZB = Z1 + ZD - lint((Z1 + ZD) / 24) * 24
+
+	if ZCC < 0:
+		ZCC = ZC + 24
+
+	return ZCC
+
+def ut_start_umbra_lunar_eclipse(DY, MN, YR, DS, ZC):
+	"""
+	Calculate start time of umbra phase of lunar eclipse (UT)
+
+	Original macro name: UTStartUmbraLunarEclipse
+	"""
+	TP = 2 * math.pi
+
+	if (lunar_eclipse_occurrence(DS, ZC, DY, MN, YR) == "No lunar eclipse"):
+		return -99
+
+	DJ = full_moon(DS, ZC, DY, MN, YR)
+	DP = 0
+	GDay = jdc_day(DJ)
+	GMonth = jdc_month(DJ)
+	GYear = jdc_year(DJ)
+	IGDay = math.floor(GDay)
+	XI = GDay - IGDay
+	UTFM = XI * 24
+	UT = UTFM - 1
+	LY = math.radians(sun_long(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+	MY = math.radians(moon_long(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+	BY = math.radians(moon_lat(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+	HY = math.radians(moon_hp(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+	UT = UTFM + 1
+	SB = math.radians(sun_long(UT, 0, 0, 0, 0, IGDay, GMonth, GYear)) - LY
+	MZ = math.radians(moon_long(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+	BZ = math.radians(moon_lat(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+	HZ = math.radians(moon_hp(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+
+	if SB < 0:
+		SB = SB + TP
+
+	XH = UTFM
+	X0 = XH + 1 - (2 * BZ / (BZ - BY))
+	DM = MZ - MY
+
+	if DM < 0:
+		DM = DM + TP
+
+	LJ = (DM - SB) / 2
+	Q = 0
+	MR = MY + (DM * (X0 - XH + 1) / 2)
+	UT = X0 - 0.13851852
+	RR = sun_dist(UT, 0, 0, 0, 0, IGDay, GMonth, GYear)
+	SR = math.radians(sun_long(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+	SR = SR + math.radians(nutat_long(IGDay, GMonth, GYear) - 0.00569)
+	SR = SR + math.pi - lint((SR + math.pi) / TP) * TP
+	BY = BY - Q
+	BZ = BZ - Q
+	P3 = 0.00004263
+	ZH = (SR - MR) / LJ
+	TC = X0 + ZH
+	SH = (((BZ - BY) * (TC - XH - 1) / 2) + BZ) / LJ
+	S2 = SH * SH
+	Z2 = ZH * ZH
+	PS = P3 / (RR * LJ)
+	Z1 = (ZH * Z2 / (Z2 + S2)) + X0
+	H0 = (HY + HZ) / (2 * LJ)
+	RM = 0.272446 * H0
+	RN = 0.00465242 / (LJ * RR)
+	HD = H0 * 0.99834
+	RU = (HD - RN + PS) * 1.02
+	RP = (HD + RN + PS) * 1.02
+	PJ = abs(SH * ZH / math.sqrt(S2 + Z2))
+	R = RM + RP
+	DD = Z1 - X0
+	DD = DD * DD - ((Z2 - (R * R)) * DD / ZH)
+
+	if DD < 0:
+		return -99
+
+	ZD = math.sqrt(DD)
+	Z6 = Z1 - ZD
+	Z7 = Z1 + ZD - lint((Z1 + ZD) / 24) * 24
+
+	if Z6 < 0:
+		Z6 = Z6 + 24
+
+	R = RM + RU
+	DD = Z1 - X0
+	DD = DD * DD - ((Z2 - (R * R)) * DD / ZH)
+	MG = (RM + RP - PJ) / (2 * RM)
+
+	if DD < 0:
+		return -99
+
+	ZD = math.sqrt(DD)
+	Z8 = Z1 - ZD
+	Z9 = Z1 + ZD - lint((Z1 + ZD) / 24) * 24
+
+	if Z8 < 0:
+		Z8 = Z8 + 24
+
+	return Z8
+
 def fract(W):
 	"""
 	Original macro name: FRACT
@@ -4047,7 +4789,6 @@ def ut_day_adjust(UT, G1):
 		return_value = UT - 24
 
 	return return_value
-
 
 def f_part(W):
 	"""

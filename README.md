@@ -75,4 +75,4 @@ Calculate | Local moonrise and moonset
 
 Type | Description
 -----|------------
-Calculate | Lunar eclipse occurrence
+Calculate | Lunar eclipse occurrence and circumstances

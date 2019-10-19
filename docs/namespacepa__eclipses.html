@@ -90,8 +90,84 @@ $(document).ready(function(){initNavTree('namespacepa__eclipses.html','');});
 Functions</h2></td></tr>
 <tr class="memitem:ae5253df5fd092e44c9adc85c093305aa"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepa__eclipses.html#ae5253df5fd092e44c9adc85c093305aa">lunar_eclipse_occurrence</a> (local_date_day, local_date_month, local_date_year, is_daylight_saving, zone_correction_hours)</td></tr>
 <tr class="separator:ae5253df5fd092e44c9adc85c093305aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab3c7621085cfe7c0d41a84c629a81275"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepa__eclipses.html#ab3c7621085cfe7c0d41a84c629a81275">lunar_eclipse_circumstances</a> (local_date_day, local_date_month, local_date_year, is_daylight_saving, zone_correction_hours)</td></tr>
+<tr class="separator:ab3c7621085cfe7c0d41a84c629a81275"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="ab3c7621085cfe7c0d41a84c629a81275"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab3c7621085cfe7c0d41a84c629a81275">&#9670;&nbsp;</a></span>lunar_eclipse_circumstances()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def pa_eclipses.lunar_eclipse_circumstances </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>local_date_day</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>local_date_month</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>local_date_year</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>is_daylight_saving</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>zone_correction_hours</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Determine if a lunar eclipse is likely to occur.
+
+Arguments:
+    local_date_day -- Local date, day part.
+    local_date_month -- Local date, month part.
+    local_date_year -- Local date, year part.
+    is_daylight_saving -- Is daylight savings in effect?
+    zone_correction_hours -- Time zone correction, in hours.
+
+Returns:
+    lunar_eclipse_certain_date_day -- Lunar eclipse date (day)
+    lunar_eclipse_certain_date_month -- Lunar eclipse date (month)
+    lunar_eclipse_certain_date_year -- Lunar eclipse date (year)
+    ut_start_pen_phase_hour -- Start of penumbral phase (hour)
+    ut_start_pen_phase_minutes -- Start of penumbral phase (minutes)
+    ut_start_umbral_phase_hour -- Start of umbral phase (hour)
+    ut_start_umbral_phase_minutes -- Start of umbral phase (minutes)
+    ut_start_total_phase_hour -- Start of total phase (hour)
+    ut_start_total_phase_minutes -- Start of total phase (minutes)
+    ut_mid_eclipse_hour -- Mid-eclipse (hour)
+    ut_mid_eclipse_minutes -- Mid-eclipse (minutes)
+    ut_end_total_phase_hour -- End of total phase (hour)
+    ut_end_total_phase_minutes -- End of total phase (minutes)
+    ut_end_umbral_phase_hour -- End of umbral phase (hour)
+    ut_end_umbral_phase_minutes -- End of umbral phase (minutes)
+    ut_end_pen_phase_hour -- End of penumbral phase (hour)
+    ut_end_pen_phase_minutes -- End of penumbral phase (minutes)
+    eclipse_magnitude -- Eclipse magnitude
+</pre> 
+</div>
+</div>
 <a id="ae5253df5fd092e44c9adc85c093305aa"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae5253df5fd092e44c9adc85c093305aa">&#9670;&nbsp;</a></span>lunar_eclipse_occurrence()</h2>
 

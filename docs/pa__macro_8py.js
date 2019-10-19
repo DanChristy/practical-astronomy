@@ -52,6 +52,7 @@ var pa__macro_8py =
     [ "lst_gst", "pa__macro_8py.html#a8a3cb1b511e30e3c296fae5333b492ca", null ],
     [ "lunar_eclipse_occurrence", "pa__macro_8py.html#a7ea72597ccb207c2b64c6fbd943a56ca", null ],
     [ "lunar_eclipse_occurrence_l6855", "pa__macro_8py.html#a39beb271e4b7dc42f373c7616a53196e", null ],
+    [ "mag_lunar_eclipse", "pa__macro_8py.html#af9f493e08326d0ba13bdadb29e50d721", null ],
     [ "moon_dist", "pa__macro_8py.html#a3f40acf2a6b668329e95d6f9db64a2fb", null ],
     [ "moon_hp", "pa__macro_8py.html#a6a2df9a9db882a45bddeb2a6616abebf", null ],
     [ "moon_lat", "pa__macro_8py.html#a96e5d193ae2c8a0f669d5b51c6fd3db5", null ],
@@ -127,9 +128,16 @@ var pa__macro_8py =
     [ "unwind_deg", "pa__macro_8py.html#a68ac9cc5a251b375c0ace75068db9c06", null ],
     [ "unwind_rad", "pa__macro_8py.html#aa34f239461425c9e166a7bd30bbe4d6e", null ],
     [ "ut_day_adjust", "pa__macro_8py.html#a73a33dc5480b3252b3c3ff118864de9f", null ],
+    [ "ut_end_total_lunar_eclipse", "pa__macro_8py.html#a665190c59d1a05102e93625bdefe9a49", null ],
+    [ "ut_end_umbra_lunar_eclipse", "pa__macro_8py.html#a0e46aac34a79820a2adb73f187371ec1", null ],
+    [ "ut_first_contact_lunar_eclipse", "pa__macro_8py.html#a8631aa553e4550908ea64f76f356f8b5", null ],
     [ "ut_gst", "pa__macro_8py.html#a62aa239414a03fc606ab17346561c27f", null ],
+    [ "ut_last_contact_lunar_eclipse", "pa__macro_8py.html#a6a1e9c0604112a321ca6ba49efa6b9d6", null ],
     [ "ut_lc_day", "pa__macro_8py.html#a37484b48ac497ad77997a237ea05a2bd", null ],
     [ "ut_lc_month", "pa__macro_8py.html#a0003fc20ba90db8f95bdd6ef2236b4f6", null ],
     [ "ut_lc_year", "pa__macro_8py.html#a84014b869bc18361f13fdd339cb400fc", null ],
-    [ "ut_lct", "pa__macro_8py.html#a7e1ab4d73834e8c9129b8013e2b017cd", null ]
+    [ "ut_lct", "pa__macro_8py.html#a7e1ab4d73834e8c9129b8013e2b017cd", null ],
+    [ "ut_max_lunar_eclipse", "pa__macro_8py.html#aa0516556f61550039d5bacfe03c4dfed", null ],
+    [ "ut_start_total_lunar_eclipse", "pa__macro_8py.html#a4a7c9f37745def2937a10ecc66427a93", null ],
+    [ "ut_start_umbra_lunar_eclipse", "pa__macro_8py.html#a20a424f7c83b06d3bfb351daaf876296", null ]
 ];

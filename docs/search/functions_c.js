@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['mag_5flunar_5feclipse',['mag_lunar_eclipse',['../namespacepa__macro.html#af9f493e08326d0ba13bdadb29e50d721',1,'pa_macro']]],
   ['mean_5fobliquity_5fof_5fthe_5fecliptic',['mean_obliquity_of_the_ecliptic',['../namespacepa__coordinate.html#a9df16e874b567885215c14d9592005d1',1,'pa_coordinate']]],
   ['mi_5fto_5fkm',['mi_to_km',['../namespacepa__util.html#af98ae1bfa67d2a249a91a50ade032fa0',1,'pa_util']]],
   ['moon_5fdist',['moon_dist',['../namespacepa__macro.html#a3f40acf2a6b668329e95d6f9db64a2fb',1,'pa_macro']]],

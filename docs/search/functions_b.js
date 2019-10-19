@@ -8,6 +8,7 @@ var searchData=
   ['local_5fcivil_5ftime_5fto_5funiversal_5ftime',['local_civil_time_to_universal_time',['../namespacepa__datetime.html#aef134ff8b3af5038ce10506738d532a5',1,'pa_datetime']]],
   ['local_5fsidereal_5ftime_5fto_5fgreenwich_5fsidereal_5ftime',['local_sidereal_time_to_greenwich_sidereal_time',['../namespacepa__datetime.html#aadd11efdc93379bb32933b839c45440f',1,'pa_datetime']]],
   ['lst_5fgst',['lst_gst',['../namespacepa__macro.html#a8a3cb1b511e30e3c296fae5333b492ca',1,'pa_macro']]],
+  ['lunar_5feclipse_5fcircumstances',['lunar_eclipse_circumstances',['../namespacepa__eclipses.html#ab3c7621085cfe7c0d41a84c629a81275',1,'pa_eclipses']]],
   ['lunar_5feclipse_5foccurrence',['lunar_eclipse_occurrence',['../namespacepa__eclipses.html#ae5253df5fd092e44c9adc85c093305aa',1,'pa_eclipses.lunar_eclipse_occurrence()'],['../namespacepa__macro.html#a7ea72597ccb207c2b64c6fbd943a56ca',1,'pa_macro.lunar_eclipse_occurrence()']]],
   ['lunar_5feclipse_5foccurrence_5fl6855',['lunar_eclipse_occurrence_l6855',['../namespacepa__macro.html#a39beb271e4b7dc42f373c7616a53196e',1,'pa_macro']]]
 ];

@@ -6,6 +6,7 @@ var namespaces =
     [ "pa_comet_data", "namespacepa__comet__data.html", null ],
     [ "pa_coordinate", "namespacepa__coordinate.html", null ],
     [ "pa_datetime", "namespacepa__datetime.html", null ],
+    [ "pa_eclipses", "namespacepa__eclipses.html", null ],
     [ "pa_macro", "namespacepa__macro.html", null ],
     [ "pa_moon", "namespacepa__moon.html", null ],
     [ "pa_planet", "namespacepa__planet.html", null ],

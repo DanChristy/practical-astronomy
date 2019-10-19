@@ -70,3 +70,9 @@ Calculate | Moon phase and position angle of bright limb
 Calculate | Times of new Moon and full Moon
 Calculate | Moon's distance, angular diameter, and horizontal parallax
 Calculate | Local moonrise and moonset
+
+### Eclipse Functions
+
+Type | Description
+-----|------------
+Calculate | Lunar eclipse occurrence

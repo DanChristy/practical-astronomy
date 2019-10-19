@@ -3917,6 +3917,85 @@ def moon_set_az_l6700(LCT,DS,ZC,DY1,MN1,YR1,GDY,GMN,GYR,GLat):
 
 	return MM,BM,PM,DP,TH,DI,P,Q,LU,LCT,AU
 
+def lunar_eclipse_occurrence(DS, ZC, DY, MN, YR):
+	"""
+	Determine if a lunar eclipse is likely to occur.
+
+	Original macro name: LEOccurrence
+	"""
+	D0 = lct_gday(12, 0, 0, DS, ZC, DY, MN, YR)
+	M0 = lct_gmonth(12, 0, 0, DS, ZC, DY, MN, YR)
+	Y0 = lct_gyear(12, 0, 0, DS, ZC, DY, MN, YR)
+
+	if Y0 < 0:
+		Y0 = Y0 + 1
+
+	J0 = cd_jd(0, 1, Y0)
+	DJ = cd_jd(D0, M0, Y0)
+	K = ((Y0 - 1900 + ((DJ - J0) * 1 / 365)) * 12.3685)
+	K = lint(K + 0.5)
+	TN = K / 1236.85
+	TF = (K + 0.5) / 1236.85
+	T = TN
+	F,DD,E1,B,B1,A,B = lunar_eclipse_occurrence_l6855(T,K)
+	NI = A
+	NF = B
+	NB = F
+	T = TF
+	K = K + 0.5
+	F,DD,E1,B,B1,A,B = lunar_eclipse_occurrence_l6855(T,K)
+	FI = A
+	FF = B
+	FB = F
+
+	DF = abs(FB - 3.141592654 * lint(FB / 3.141592654))
+
+	if DF > 0.37:
+		DF = 3.141592654 - DF
+
+	S = "Lunar eclipse certain"
+	if DF >= 0.242600766:
+		S = "Lunar eclipse possible"
+		if DF > 0.37:
+			S = "No lunar eclipse"
+
+	return S
+
+def lunar_eclipse_occurrence_l6855(T,K):
+	""" Helper function for lunar_eclipse_occurrence """
+	T2 = T * T
+	E = 29.53 * K
+	C = 166.56 + (132.87 - 0.009173 * T) * T
+	C = math.radians(C)
+	B = 0.00058868 * K + (0.0001178 - 0.000000155 * T) * T2
+	B = B + 0.00033 * math.sin(C) + 0.75933
+	A = K / 12.36886
+	A1 = 359.2242 + 360 * f_part(A) - (0.0000333 + 0.00000347 * T) * T2
+	A2 = 306.0253 + 360 * f_part(K / 0.9330851)
+	A2 = A2 + (0.0107306 + 0.00001236 * T) * T2
+	A = K / 0.9214926
+	F = 21.2964 + 360 * f_part(A) - (0.0016528 + 0.00000239 * T) * T2
+	A1 = unwind_deg(A1)
+	A2 = unwind_deg(A2)
+	F = unwind_deg(F)
+	A1 = math.radians(A1)
+	A2 = math.radians(A2)
+	F = math.radians(F)
+
+	DD = (0.1734 - 0.000393 * T) * math.sin(A1) + 0.0021 * math.sin(2 * A1)
+	DD = DD - 0.4068 * math.sin(A2) + 0.0161 * math.sin(2 * A2) - 0.0004 * math.sin(3 * A2)
+	DD = DD + 0.0104 * math.sin(2 * F) - 0.0051 * math.sin(A1 + A2)
+	DD = DD - 0.0074 * math.sin(A1 - A2) + 0.0004 * math.sin(2 * F + A1)
+	DD = DD - 0.0004 * math.sin(2 * F - A1) - 0.0006 * math.sin(2 * F + A2) + 0.001 * math.sin(2 * F - A2)
+	DD = DD + 0.0005 * math.sin(A1 + 2 * A2)
+	E1 = math.floor(E)
+	B = B + DD + (E - E1)
+	B1 = math.floor(B)
+	A = E1 + B1
+	B = B - B1
+
+	return F,DD,E1,B,B1,A,B
+
 def fract(W):
 	"""
 	Original macro name: FRACT
@@ -3968,3 +4047,11 @@ def ut_day_adjust(UT, G1):
 		return_value = UT - 24
 
 	return return_value
+
+
+def f_part(W):
+	"""
+	Original macro name: Fpart
+	"""
+
+	return W - lint(W)

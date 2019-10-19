@@ -6,6 +6,7 @@ var dir_97aefd0d527b934f1d99a682da8fe6a9 =
     [ "pa_comet_data.py", "pa__comet__data_8py.html", "pa__comet__data_8py" ],
     [ "pa_coordinate.py", "pa__coordinate_8py.html", "pa__coordinate_8py" ],
     [ "pa_datetime.py", "pa__datetime_8py.html", "pa__datetime_8py" ],
+    [ "pa_eclipses.py", "pa__eclipses_8py.html", "pa__eclipses_8py" ],
     [ "pa_macro.py", "pa__macro_8py.html", "pa__macro_8py" ],
     [ "pa_moon.py", "pa__moon_8py.html", "pa__moon_8py" ],
     [ "pa_planet.py", "pa__planet_8py.html", "pa__planet_8py" ],

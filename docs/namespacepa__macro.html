@@ -336,6 +336,10 @@ Functions</h2></td></tr>
 <tr class="separator:ac635ce9656a56c55fc5ca338fd960fa2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a038bd35d1e7a9cdff9ffd5db2aa18318"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepa__macro.html#a038bd35d1e7a9cdff9ffd5db2aa18318">moon_set_az_l6700</a> (LCT, DS, ZC, DY1, MN1, YR1, GDY, GMN, GYR, GLat)</td></tr>
 <tr class="separator:a038bd35d1e7a9cdff9ffd5db2aa18318"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7ea72597ccb207c2b64c6fbd943a56ca"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepa__macro.html#a7ea72597ccb207c2b64c6fbd943a56ca">lunar_eclipse_occurrence</a> (DS, ZC, DY, MN, YR)</td></tr>
+<tr class="separator:a7ea72597ccb207c2b64c6fbd943a56ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a39beb271e4b7dc42f373c7616a53196e"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepa__macro.html#a39beb271e4b7dc42f373c7616a53196e">lunar_eclipse_occurrence_l6855</a> (T, K)</td></tr>
+<tr class="separator:a39beb271e4b7dc42f373c7616a53196e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5ca17cc4cbd2100061766bdfd3a53f0f"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepa__macro.html#a5ca17cc4cbd2100061766bdfd3a53f0f">fract</a> (W)</td></tr>
 <tr class="separator:a5ca17cc4cbd2100061766bdfd3a53f0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a338879cc3995e9e6da231cbe30066b42"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepa__macro.html#a338879cc3995e9e6da231cbe30066b42">lint</a> (W)</td></tr>
@@ -346,6 +350,8 @@ Functions</h2></td></tr>
 <tr class="separator:a18748baf1ce4e5f0fa5462df4bdcd076"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a73a33dc5480b3252b3c3ff118864de9f"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepa__macro.html#a73a33dc5480b3252b3c3ff118864de9f">ut_day_adjust</a> (UT, G1)</td></tr>
 <tr class="separator:a73a33dc5480b3252b3c3ff118864de9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:add56f37d15cab58aa13373a2e6ce646e"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepa__macro.html#add56f37d15cab58aa13373a2e6ce646e">f_part</a> (W)</td></tr>
+<tr class="separator:add56f37d15cab58aa13373a2e6ce646e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="a1ac57720babc432eb28993f3b63de5cf"></a>
@@ -1864,6 +1870,25 @@ Original macro name: FDOW
 </pre> 
 </div>
 </div>
+<a id="add56f37d15cab58aa13373a2e6ce646e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#add56f37d15cab58aa13373a2e6ce646e">&#9670;&nbsp;</a></span>f_part()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def pa_macro.f_part </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>W</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Original macro name: Fpart
+</pre> 
+</div>
+</div>
 <a id="a5ca17cc4cbd2100061766bdfd3a53f0f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5ca17cc4cbd2100061766bdfd3a53f0f">&#9670;&nbsp;</a></span>fract()</h2>
 
@@ -2697,6 +2722,83 @@ Original macro name: LctUT
 
 Original macro name: LSTGST
 </pre> 
+</div>
+</div>
+<a id="a7ea72597ccb207c2b64c6fbd943a56ca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7ea72597ccb207c2b64c6fbd943a56ca">&#9670;&nbsp;</a></span>lunar_eclipse_occurrence()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def pa_macro.lunar_eclipse_occurrence </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>DS</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>ZC</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>DY</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>MN</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>YR</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Determine if a lunar eclipse is likely to occur.
+
+Original macro name: LEOccurrence
+</pre> 
+</div>
+</div>
+<a id="a39beb271e4b7dc42f373c7616a53196e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a39beb271e4b7dc42f373c7616a53196e">&#9670;&nbsp;</a></span>lunar_eclipse_occurrence_l6855()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def pa_macro.lunar_eclipse_occurrence_l6855 </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>T</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>K</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Helper function for lunar_eclipse_occurrence </pre> 
 </div>
 </div>
 <a id="a3f40acf2a6b668329e95d6f9db64a2fb"></a>

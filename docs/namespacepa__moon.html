@@ -98,6 +98,8 @@ Functions</h2></td></tr>
 <tr class="separator:a765d28b24a240bf85281df1828df9af6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acf75a2e64f1c8138a6421a45131f085c"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepa__moon.html#acf75a2e64f1c8138a6421a45131f085c">moon_dist_ang_diam_hor_parallax</a> (lct_hour, lct_min, lct_sec, is_daylight_saving, zone_correction_hours, local_date_day, local_date_month, local_date_year)</td></tr>
 <tr class="separator:acf75a2e64f1c8138a6421a45131f085c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f0502cab9d05a7abe6d24c3f69a8b34"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepa__moon.html#a1f0502cab9d05a7abe6d24c3f69a8b34">moonrise_and_moonset</a> (local_date_day, local_date_month, local_date_year, is_daylight_saving, zone_correction_hours, geog_long_deg, geog_lat_deg)</td></tr>
+<tr class="separator:a1f0502cab9d05a7abe6d24c3f69a8b34"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="a7234565a6d344a572e6e93d672f379e3"></a>
@@ -349,6 +351,88 @@ Arguments:
 Returns:
     moon_phase -- Phase of Moon, between 0 and 1, where 0 is New and 1 is Full.
     pa_bright_limb_deg -- Position angle of the bright limb (degrees)
+</pre> 
+</div>
+</div>
+<a id="a1f0502cab9d05a7abe6d24c3f69a8b34"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1f0502cab9d05a7abe6d24c3f69a8b34">&#9670;&nbsp;</a></span>moonrise_and_moonset()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def pa_moon.moonrise_and_moonset </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>local_date_day</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>local_date_month</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>local_date_year</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>is_daylight_saving</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>zone_correction_hours</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>geog_long_deg</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>geog_lat_deg</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Calculate date/time of local moonrise and moonset.
+
+Arguments:
+    local_date_day -- Local date, day part.
+    local_date_month -- Local date, month part.
+    local_date_year -- Local date, year part.
+    is_daylight_saving -- Is daylight savings in effect?
+    zone_correction_hours -- Time zone correction, in hours.
+    geog_long_deg -- Geographical longitude, in degrees.
+    geog_lat_deg -- Geographical latitude, in degrees.
+
+Returns:
+    mr_lt_hour -- Moonrise, local time (hour part)
+    mr_lt_min -- Moonrise, local time (minutes part)
+    mr_local_date_day -- Moonrise, local date (day)
+    mr_local_date_month -- Moonrise, local date (month)
+    mr_local_date_year -- Moonrise, local date (year)
+    mr_azimuth_deg -- Moonrise, azimuth (degrees)
+    ms_lt_hour -- Moonset, local time (hour part)
+    ms_lt_min -- Moonset, local time (minutes part)
+    ms_local_date_day -- Moonset, local date (day)
+    ms_local_date_month -- Moonset, local date (month)
+    ms_local_date_year -- Moonset, local date (year)
+    ms_azimuth_deg -- Moonset, azimuth (degrees)
 </pre> 
 </div>
 </div>

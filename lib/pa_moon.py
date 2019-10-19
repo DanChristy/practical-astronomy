@@ -257,3 +257,57 @@ def moon_dist_ang_diam_hor_parallax(lct_hour, lct_min, lct_sec, is_daylight_savi
 	hor_parallax_sec = PM.dd_sec(moon_horizontal_parallax)
 
 	return earth_moon_dist, ang_diameter_deg, ang_diameter_min, hor_parallax_deg, hor_parallax_min, hor_parallax_sec
+
+def moonrise_and_moonset(local_date_day, local_date_month, local_date_year, is_daylight_saving, zone_correction_hours, geog_long_deg, geog_lat_deg):
+	"""
+	Calculate date/time of local moonrise and moonset.
+
+	Arguments:
+		local_date_day -- Local date, day part.
+		local_date_month -- Local date, month part.
+		local_date_year -- Local date, year part.
+		is_daylight_saving -- Is daylight savings in effect?
+		zone_correction_hours -- Time zone correction, in hours.
+		geog_long_deg -- Geographical longitude, in degrees.
+		geog_lat_deg -- Geographical latitude, in degrees.
+
+	Returns:
+		mr_lt_hour -- Moonrise, local time (hour part)
+		mr_lt_min -- Moonrise, local time (minutes part)
+		mr_local_date_day -- Moonrise, local date (day)
+		mr_local_date_month -- Moonrise, local date (month)
+		mr_local_date_year -- Moonrise, local date (year)
+		mr_azimuth_deg -- Moonrise, azimuth (degrees)
+		ms_lt_hour -- Moonset, local time (hour part)
+		ms_lt_min -- Moonset, local time (minutes part)
+		ms_local_date_day -- Moonset, local date (day)
+		ms_local_date_month -- Moonset, local date (month)
+		ms_local_date_year -- Moonset, local date (year)
+		ms_azimuth_deg -- Moonset, azimuth (degrees)
+	"""
+	daylight_saving = 1 if is_daylight_saving == True else 0
+
+	local_time_of_moonrise_hours = PM.moon_rise_lct(local_date_day,local_date_month,local_date_year,daylight_saving,zone_correction_hours,geog_long_deg,geog_lat_deg)
+	local_moonrise_status1 = PM.e_moon_rise(local_date_day,local_date_month,local_date_year,daylight_saving,zone_correction_hours,geog_long_deg,geog_lat_deg)
+	local_date_of_moonrise_day,local_date_of_moonrise_month,local_date_of_moonrise_year = PM.moon_rise_lc_dmy(local_date_day,local_date_month,local_date_year,daylight_saving,zone_correction_hours,geog_long_deg,geog_lat_deg)
+	local_azimuth_deg1 = PM.moon_rise_az(local_date_day,local_date_month,local_date_year,daylight_saving,zone_correction_hours,geog_long_deg,geog_lat_deg)
+
+	local_time_of_moonset_hours = PM.moon_set_lct(local_date_day,local_date_month,local_date_year,daylight_saving,zone_correction_hours,geog_long_deg,geog_lat_deg)
+	local_moonset_status1 = PM.e_moon_set(local_date_day,local_date_month,local_date_year,daylight_saving,zone_correction_hours,geog_long_deg,geog_lat_deg)
+	local_date_of_moonset_day,local_date_of_moonset_month,local_date_of_moonset_year = PM.moon_set_lc_dmy(local_date_day,local_date_month,local_date_year,daylight_saving,zone_correction_hours,geog_long_deg,geog_lat_deg)
+	local_azimuth_deg2 = PM.moon_set_az(local_date_day,local_date_month,local_date_year,daylight_saving,zone_correction_hours,geog_long_deg,geog_lat_deg)
+
+	mr_lt_hour = PM.dh_hour(local_time_of_moonrise_hours + 0.008333)
+	mr_lt_min = PM.dh_min(local_time_of_moonrise_hours + 0.008333)
+	mr_local_date_day = local_date_of_moonrise_day
+	mr_local_date_month = local_date_of_moonrise_month
+	mr_local_date_year = local_date_of_moonrise_year
+	mr_azimuth_deg = round(local_azimuth_deg1,2)
+	ms_lt_hour = PM.dh_hour(local_time_of_moonset_hours + 0.008333)
+	ms_lt_min = PM.dh_min(local_time_of_moonset_hours + 0.008333)
+	ms_local_date_day = local_date_of_moonset_day
+	ms_local_date_month = local_date_of_moonset_month
+	ms_local_date_year = local_date_of_moonset_year
+	ms_azimuth_deg = round(local_azimuth_deg2,2)
+
+	return mr_lt_hour, mr_lt_min, mr_local_date_day, mr_local_date_month, mr_local_date_year, mr_azimuth_deg, ms_lt_hour, ms_lt_min, ms_local_date_day, ms_local_date_month, ms_local_date_year, ms_azimuth_deg

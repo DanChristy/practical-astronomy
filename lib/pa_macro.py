@@ -3271,6 +3271,652 @@ def new_moon_full_moon_l6855(K,T):
 
 	return A,B,F
 
+def moon_rise_lct(DY, MN, YR, DS, ZC, GLong, GLat):
+	"""
+	Local time of moonrise.
+
+	Original macro name: MoonRiseLCT
+
+	Returns:
+		hours
+	"""
+	GDY = lct_gday(12, 0, 0, DS, ZC, DY, MN, YR)
+	GMN = lct_gmonth(12, 0, 0, DS, ZC, DY, MN, YR)
+	GYR = lct_gyear(12, 0, 0, DS, ZC, DY, MN, YR)
+	LCT = 12
+	DY1 = DY
+	MN1 = MN
+	YR1 = YR
+	MM,BM,PM,DP,TH,DI,P,Q,LU,LCT = moon_rise_lct_l6700(LCT,DS,ZC,DY1,MN1,YR1,GDY,GMN,GYR,GLat)
+	if LCT == -99:
+		return LCT
+	LA = LU
+
+	for K in range(1,9):
+		X = lst_gst(LA, 0, 0, GLong)
+		UT = gst_ut(X, 0, 0, GDY, GMN, GYR)
+
+		G1 = UT if K == 1 else GU
+
+		GU = UT
+		UT = GU
+		UT,LCT,DY1,MN1,YR1,GDY,GMN,GYR = moon_rise_lct_l6680(X, DS, ZC, GDY, GMN, GYR, G1, UT)
+		MM,BM,PM,DP,TH,DI,P,Q,LU,LCT = moon_rise_lct_l6700(LCT,DS,ZC,DY1,MN1,YR1,GDY,GMN,GYR,GLat)
+		if LCT == -99:
+			return LCT
+		LA = LU
+
+	X = lst_gst(LA, 0, 0, GLong)
+	UT = gst_ut(X, 0, 0, GDY, GMN, GYR)
+
+	if e_gst_ut(X, 0, 0, GDY, GMN, GYR) != "OK":
+		if abs(G1 - UT) > 0.5:
+			UT = UT + 23.93447
+
+	UT = ut_day_adjust(UT, G1)
+	LCT = ut_lct(UT, 0, 0, DS, ZC, GDY, GMN, GYR)
+
+	return LCT
+
+def moon_rise_lct_l6680(X, DS, ZC, GDY, GMN, GYR, G1, UT):
+	""" Helper function for moon_rise_lct """
+	if e_gst_ut(X, 0, 0, GDY, GMN, GYR) != "OK":
+		if abs(G1 - UT) > 0.5:
+			UT = UT + 23.93447
+
+	UT = ut_day_adjust(UT, G1)
+	LCT = ut_lct(UT, 0, 0, DS, ZC, GDY, GMN, GYR)
+	DY1 = ut_lc_day(UT, 0, 0, DS, ZC, GDY, GMN, GYR)
+	MN1 = ut_lc_month(UT, 0, 0, DS, ZC, GDY, GMN, GYR)
+	YR1 = ut_lc_year(UT, 0, 0, DS, ZC, GDY, GMN, GYR)
+	GDY = lct_gday(LCT, 0, 0, DS, ZC, DY1, MN1, YR1)
+	GMN = lct_gmonth(LCT, 0, 0, DS, ZC, DY1, MN1, YR1)
+	GYR = lct_gyear(LCT, 0, 0, DS, ZC, DY1, MN1, YR1)
+	UT = UT - 24 * math.floor(UT / 24)
+
+	return UT,LCT,DY1,MN1,YR1,GDY,GMN,GYR
+
+def moon_rise_lct_l6700(LCT,DS,ZC,DY1,MN1,YR1,GDY,GMN,GYR,GLat):
+	""" Helper function for moon_rise_lct """
+	MM = moon_long(LCT, 0, 0, DS, ZC, DY1, MN1, YR1)
+	BM = moon_lat(LCT, 0, 0, DS, ZC, DY1, MN1, YR1)
+	PM = math.radians(moon_hp(LCT, 0, 0, DS, ZC, DY1, MN1, YR1))
+	DP = nutat_long(GDY, GMN, GYR)
+	TH = 0.27249 * math.sin(PM)
+	DI = TH + 0.0098902 - PM
+	P = dd_dh(ec_ra(MM + DP, 0, 0, BM, 0, 0, GDY, GMN, GYR))
+	Q = ec_dec(MM + DP, 0, 0, BM, 0, 0, GDY, GMN, GYR)
+	LU = rise_set_local_sidereal_time_rise(P, 0, 0, Q, 0, 0, degrees(DI), GLat)
+
+	if e_rs(P, 0, 0, Q, 0, 0, degrees(DI), GLat) != "OK":
+		LCT = -99
+
+	return MM,BM,PM,DP,TH,DI,P,Q,LU,LCT
+
+def e_moon_rise(DY, MN, YR, DS, ZC, GLong, GLat):
+	"""
+	Moonrise calculation status.
+
+	Original macro name: eMoonRise
+	"""
+	S4 = "OK"
+	GDY = lct_gday(12, 0, 0, DS, ZC, DY, MN, YR)
+	GMN = lct_gmonth(12, 0, 0, DS, ZC, DY, MN, YR)
+	GYR = lct_gyear(12, 0, 0, DS, ZC, DY, MN, YR)
+	LCT = 12
+	DY1 = DY
+	MN1 = MN
+	YR1 = YR
+	
+	MM,BM,PM,DP,TH,DI,P,Q,LU,S1 = e_moon_rise_l6700(LCT,DS,ZC,DY1,MN1,YR1,GDY,GMN,GYR,GLat)
+	LA = LU
+
+	if S1 != "OK":
+		S4 = S1
+		return S4
+
+	for K in range(1,9):
+		X = lst_gst(LA, 0, 0, GLong)
+		UT = gst_ut(X, 0, 0, GDY, GMN, GYR)
+		S3 = e_gst_ut(X, 0, 0, GDY, GMN, GYR)
+
+		if S3 != "OK":
+			S4 = "GST conversion: " + S3
+
+		G1 = UT if K == 1 else GU
+
+		GU = UT
+		UT = GU
+		UT,LCT,DY1,MN1,YR1,GDY,GMN,GYR = e_moon_rise_l6680(S3,G1,UT,DS,ZC,GDY,GMN,GYR,DY1,MN1,YR1)
+		MM,BM,PM,DP,TH,DI,P,Q,LU,S1 = e_moon_rise_l6700(LCT,DS,ZC,DY1,MN1,YR1,GDY,GMN,GYR,GLat)
+		LA = LU
+
+		if S1 != "OK":
+			S4 = S1
+			return S4
+
+	X = lst_gst(LA, 0, 0, GLong)
+	UT = gst_ut(X, 0, 0, GDY, GMN, GYR)
+	S3 = e_gst_ut(X, 0, 0, GDY, GMN, GYR)
+
+	if S3 != "OK":
+		S4 = "GST conversion: " + S3
+
+	return S4
+    
+def e_moon_rise_l6680(S3,G1,UT,DS,ZC,GDY,GMN,GYR,DY1,MN1,YR1):
+	""" Helper function for e_moon_rise() """
+	if S3 != "OK":
+		if abs(G1 - UT) > 0.5:
+			UT = UT + 23.93447
+
+	UT = ut_day_adjust(UT, G1)
+	LCT = ut_lct(UT, 0, 0, DS, ZC, GDY, GMN, GYR)
+	DY1 = ut_lc_day(UT, 0, 0, DS, ZC, GDY, GMN, GYR)
+	MN1 = ut_lc_month(UT, 0, 0, DS, ZC, GDY, GMN, GYR)
+	YR1 = ut_lc_year(UT, 0, 0, DS, ZC, GDY, GMN, GYR)
+	GDY = lct_gday(LCT, 0, 0, DS, ZC, DY1, MN1, YR1)
+	GMN = lct_gmonth(LCT, 0, 0, DS, ZC, DY1, MN1, YR1)
+	GYR = lct_gyear(LCT, 0, 0, DS, ZC, DY1, MN1, YR1)
+	UT = UT - 24 * math.floor(UT / 24)
+
+	return UT,LCT,DY1,MN1,YR1,GDY,GMN,GYR
+        
+def e_moon_rise_l6700(LCT,DS,ZC,DY1,MN1,YR1,GDY,GMN,GYR,GLat):
+	""" Helper function for e_moon_rise() """
+	MM = moon_long(LCT, 0, 0, DS, ZC, DY1, MN1, YR1)
+	BM = moon_lat(LCT, 0, 0, DS, ZC, DY1, MN1, YR1)
+	PM = math.radians(moon_hp(LCT, 0, 0, DS, ZC, DY1, MN1, YR1))
+	DP = nutat_long(GDY, GMN, GYR)
+	TH = 0.27249 * math.sin(PM)
+	DI = TH + 0.0098902 - PM
+	P = dd_dh(ec_ra(MM + DP, 0, 0, BM, 0, 0, GDY, GMN, GYR))
+	Q = ec_dec(MM + DP, 0, 0, BM, 0, 0, GDY, GMN, GYR)
+	LU = rise_set_local_sidereal_time_rise(P, 0, 0, Q, 0, 0, degrees(DI), GLat)
+	S1 = e_rs(P, 0, 0, Q, 0, 0, degrees(DI), GLat)
+
+	return MM,BM,PM,DP,TH,DI,P,Q,LU,S1
+
+def moon_rise_lc_dmy(DY, MN, YR, DS, ZC, GLong, GLat):
+	"""
+	Local date of moonrise.
+	
+	Original macro names: MoonRiseLcDay, MoonRiseLcMonth, MoonRiseLcYear
+
+	Returns:
+		Local date (day)
+		Local date (month)
+		Local date (year)
+	"""
+	GDY = lct_gday(12, 0, 0, DS, ZC, DY, MN, YR)
+	GMN = lct_gmonth(12, 0, 0, DS, ZC, DY, MN, YR)
+	GYR = lct_gyear(12, 0, 0, DS, ZC, DY, MN, YR)
+	LCT = 12
+	DY1 = DY
+	MN1 = MN
+	YR1 = YR
+	MM,BM,PM,DP,TH,DI,P,Q,LU,LCT = moon_rise_lc_dmy_l6700(LCT,DS,ZC,DY1,MN1,YR1,GDY,GMN,GYR,GLat)
+	if LCT == -99:
+		return LCT,LCT,LCT
+	LA = LU
+
+	for K in range(1,9):
+		X = lst_gst(LA, 0, 0, GLong)
+		UT = gst_ut(X, 0, 0, GDY, GMN, GYR)
+
+		G1 = UT if K == 1 else GU
+
+		GU = UT
+		UT = GU
+		UT,LCT,DY1,MN1,YR1,GDY,GMN,GYR = moon_rise_lc_dmy_l6680(X, DS, ZC, GDY, GMN, GYR, G1, UT)
+		MM,BM,PM,DP,TH,DI,P,Q,LU,LCT = moon_rise_lc_dmy_l6700(LCT,DS,ZC,DY1,MN1,YR1,GDY,GMN,GYR,GLat)
+		if LCT == -99:
+			return LCT,LCT,LCT
+		LA = LU
+
+	X = lst_gst(LA, 0, 0, GLong)
+	UT = gst_ut(X, 0, 0, GDY, GMN, GYR)
+
+	if e_gst_ut(X, 0, 0, GDY, GMN, GYR) != "OK":
+		if abs(G1 - UT) > 0.5:
+			UT = UT + 23.93447
+
+	UT = ut_day_adjust(UT, G1)
+	LCT = ut_lct(UT, 0, 0, DS, ZC, GDY, GMN, GYR)
+	DY1 = ut_lc_day(UT, 0, 0, DS, ZC, GDY, GMN, GYR)
+	MN1 = ut_lc_month(UT, 0, 0, DS, ZC, GDY, GMN, GYR)
+	YR1 = ut_lc_year(UT, 0, 0, DS, ZC, GDY, GMN, GYR)
+
+	return DY1,MN1,YR1
+
+def moon_rise_lc_dmy_l6680(X, DS, ZC, GDY, GMN, GYR, G1, UT):
+	""" Helper function for moon_rise_lc_dmy """
+	if e_gst_ut(X, 0, 0, GDY, GMN, GYR) != "OK":
+		if abs(G1 - UT) > 0.5:
+			UT = UT + 23.93447
+
+	UT = ut_day_adjust(UT, G1)
+	LCT = ut_lct(UT, 0, 0, DS, ZC, GDY, GMN, GYR)
+	DY1 = ut_lc_day(UT, 0, 0, DS, ZC, GDY, GMN, GYR)
+	MN1 = ut_lc_month(UT, 0, 0, DS, ZC, GDY, GMN, GYR)
+	YR1 = ut_lc_year(UT, 0, 0, DS, ZC, GDY, GMN, GYR)
+	GDY = lct_gday(LCT, 0, 0, DS, ZC, DY1, MN1, YR1)
+	GMN = lct_gmonth(LCT, 0, 0, DS, ZC, DY1, MN1, YR1)
+	GYR = lct_gyear(LCT, 0, 0, DS, ZC, DY1, MN1, YR1)
+	UT = UT - 24 * math.floor(UT / 24)
+
+	return UT,LCT,DY1,MN1,YR1,GDY,GMN,GYR
+
+def moon_rise_lc_dmy_l6700(LCT,DS,ZC,DY1,MN1,YR1,GDY,GMN,GYR,GLat):
+	""" Helper function for moon_rise_lc_dmy """
+	MM = moon_long(LCT, 0, 0, DS, ZC, DY1, MN1, YR1)
+	BM = moon_lat(LCT, 0, 0, DS, ZC, DY1, MN1, YR1)
+	PM = math.radians(moon_hp(LCT, 0, 0, DS, ZC, DY1, MN1, YR1))
+	DP = nutat_long(GDY, GMN, GYR)
+	TH = 0.27249 * math.sin(PM)
+	DI = TH + 0.0098902 - PM
+	P = dd_dh(ec_ra(MM + DP, 0, 0, BM, 0, 0, GDY, GMN, GYR))
+	Q = ec_dec(MM + DP, 0, 0, BM, 0, 0, GDY, GMN, GYR)
+	LU = rise_set_local_sidereal_time_rise(P, 0, 0, Q, 0, 0, degrees(DI), GLat)
+
+	return MM,BM,PM,DP,TH,DI,P,Q,LU,LCT
+
+def moon_rise_az(DY, MN, YR, DS, ZC, GLong, GLat):
+	"""
+	Local azimuth of moonrise.
+
+	Original macro name: MoonRiseAz
+
+	Returns:
+		degrees
+	"""
+	GDY = lct_gday(12, 0, 0, DS, ZC, DY, MN, YR)
+	GMN = lct_gmonth(12, 0, 0, DS, ZC, DY, MN, YR)
+	GYR = lct_gyear(12, 0, 0, DS, ZC, DY, MN, YR)
+	LCT = 12
+	DY1 = DY
+	MN1 = MN
+	YR1 = YR
+	MM,BM,PM,DP,TH,DI,P,Q,LU,LCT,AU = moon_rise_az_l6700(LCT,DS,ZC,DY1,MN1,YR1,GDY,GMN,GYR,GLat)
+	if LCT == -99:
+		return LCT
+	LA = LU
+
+	for K in range(1,9):
+		X = lst_gst(LA, 0, 0, GLong)
+		UT = gst_ut(X, 0, 0, GDY, GMN, GYR)
+
+		G1 = UT if K == 1 else GU
+
+		GU = UT
+		UT = GU
+		UT,LCT,DY1,MN1,YR1,GDY,GMN,GYR = moon_rise_az_l6680(X, DS, ZC, GDY, GMN, GYR, G1, UT)
+		MM,BM,PM,DP,TH,DI,P,Q,LU,LCT,AU = moon_rise_az_l6700(LCT,DS,ZC,DY1,MN1,YR1,GDY,GMN,GYR,GLat)
+		if LCT == -99:
+			return LCT
+		LA = LU
+		AA = AU
+
+	AU = AA
+
+	return AU
+
+def moon_rise_az_l6680(X, DS, ZC, GDY, GMN, GYR, G1, UT):
+	""" Helper function for moon_rise_az """
+	if e_gst_ut(X, 0, 0, GDY, GMN, GYR) != "OK":
+		if abs(G1 - UT) > 0.5:
+			UT = UT + 23.93447
+
+	UT = ut_day_adjust(UT, G1)
+	LCT = ut_lct(UT, 0, 0, DS, ZC, GDY, GMN, GYR)
+	DY1 = ut_lc_day(UT, 0, 0, DS, ZC, GDY, GMN, GYR)
+	MN1 = ut_lc_month(UT, 0, 0, DS, ZC, GDY, GMN, GYR)
+	YR1 = ut_lc_year(UT, 0, 0, DS, ZC, GDY, GMN, GYR)
+	GDY = lct_gday(LCT, 0, 0, DS, ZC, DY1, MN1, YR1)
+	GMN = lct_gmonth(LCT, 0, 0, DS, ZC, DY1, MN1, YR1)
+	GYR = lct_gyear(LCT, 0, 0, DS, ZC, DY1, MN1, YR1)
+	UT = UT - 24 * math.floor(UT / 24)
+
+	return UT,LCT,DY1,MN1,YR1,GDY,GMN,GYR
+
+def moon_rise_az_l6700(LCT,DS,ZC,DY1,MN1,YR1,GDY,GMN,GYR,GLat):
+	""" Helper function for moon_rise_az """
+	MM = moon_long(LCT, 0, 0, DS, ZC, DY1, MN1, YR1)
+	BM = moon_lat(LCT, 0, 0, DS, ZC, DY1, MN1, YR1)
+	PM = math.radians(moon_hp(LCT, 0, 0, DS, ZC, DY1, MN1, YR1))
+	DP = nutat_long(GDY, GMN, GYR)
+	TH = 0.27249 * math.sin(PM)
+	DI = TH + 0.0098902 - PM
+	P = dd_dh(ec_ra(MM + DP, 0, 0, BM, 0, 0, GDY, GMN, GYR))
+	Q = ec_dec(MM + DP, 0, 0, BM, 0, 0, GDY, GMN, GYR)
+	LU = rise_set_local_sidereal_time_rise(P, 0, 0, Q, 0, 0, degrees(DI), GLat)
+	AU = rise_set_azimuth_rise(P, 0, 0, Q, 0, 0, degrees(DI), GLat)
+
+	return MM,BM,PM,DP,TH,DI,P,Q,LU,LCT,AU
+
+def moon_set_lct(DY, MN, YR, DS, ZC, GLong, GLat):
+	"""
+	Local time of moonset.
+
+	Original macro name: MoonSetLCT
+
+	Returns:
+		hours
+	"""
+	GDY = lct_gday(12, 0, 0, DS, ZC, DY, MN, YR)
+	GMN = lct_gmonth(12, 0, 0, DS, ZC, DY, MN, YR)
+	GYR = lct_gyear(12, 0, 0, DS, ZC, DY, MN, YR)
+	LCT = 12
+	DY1 = DY
+	MN1 = MN
+	YR1 = YR
+	MM,BM,PM,DP,TH,DI,P,Q,LU,LCT = moon_set_lct_l6700(LCT,DS,ZC,DY1,MN1,YR1,GDY,GMN,GYR,GLat)
+	if LCT == -99:
+		return LCT
+	LA = LU
+
+	for K in range(1,9):
+		X = lst_gst(LA, 0, 0, GLong)
+		UT = gst_ut(X, 0, 0, GDY, GMN, GYR)
+
+		G1 = UT if K == 1 else GU
+
+		GU = UT
+		UT = GU
+		UT,LCT,DY1,MN1,YR1,GDY,GMN,GYR = moon_set_lct_l6680(X, DS, ZC, GDY, GMN, GYR, G1, UT)
+		MM,BM,PM,DP,TH,DI,P,Q,LU,LCT = moon_set_lct_l6700(LCT,DS,ZC,DY1,MN1,YR1,GDY,GMN,GYR,GLat)
+		if LCT == -99:
+			return LCT
+		LA = LU
+
+	X = lst_gst(LA, 0, 0, GLong)
+	UT = gst_ut(X, 0, 0, GDY, GMN, GYR)
+
+	if e_gst_ut(X, 0, 0, GDY, GMN, GYR) != "OK":
+		if abs(G1 - UT) > 0.5:
+			UT = UT + 23.93447
+
+	UT = ut_day_adjust(UT, G1)
+	LCT = ut_lct(UT, 0, 0, DS, ZC, GDY, GMN, GYR)
+
+	return LCT
+
+def moon_set_lct_l6680(X, DS, ZC, GDY, GMN, GYR, G1, UT):
+	""" Helper function for moon_set_lct """
+	if e_gst_ut(X, 0, 0, GDY, GMN, GYR) != "OK":
+		if abs(G1 - UT) > 0.5:
+			UT = UT + 23.93447
+
+	UT = ut_day_adjust(UT, G1)
+	LCT = ut_lct(UT, 0, 0, DS, ZC, GDY, GMN, GYR)
+	DY1 = ut_lc_day(UT, 0, 0, DS, ZC, GDY, GMN, GYR)
+	MN1 = ut_lc_month(UT, 0, 0, DS, ZC, GDY, GMN, GYR)
+	YR1 = ut_lc_year(UT, 0, 0, DS, ZC, GDY, GMN, GYR)
+	GDY = lct_gday(LCT, 0, 0, DS, ZC, DY1, MN1, YR1)
+	GMN = lct_gmonth(LCT, 0, 0, DS, ZC, DY1, MN1, YR1)
+	GYR = lct_gyear(LCT, 0, 0, DS, ZC, DY1, MN1, YR1)
+	UT = UT - 24 * math.floor(UT / 24)
+
+	return UT,LCT,DY1,MN1,YR1,GDY,GMN,GYR
+
+def moon_set_lct_l6700(LCT,DS,ZC,DY1,MN1,YR1,GDY,GMN,GYR,GLat):
+	""" Helper function for moon_set_lct """
+	MM = moon_long(LCT, 0, 0, DS, ZC, DY1, MN1, YR1)
+	BM = moon_lat(LCT, 0, 0, DS, ZC, DY1, MN1, YR1)
+	PM = math.radians(moon_hp(LCT, 0, 0, DS, ZC, DY1, MN1, YR1))
+	DP = nutat_long(GDY, GMN, GYR)
+	TH = 0.27249 * math.sin(PM)
+	DI = TH + 0.0098902 - PM
+	P = dd_dh(ec_ra(MM + DP, 0, 0, BM, 0, 0, GDY, GMN, GYR))
+	Q = ec_dec(MM + DP, 0, 0, BM, 0, 0, GDY, GMN, GYR)
+	LU = rise_set_local_sidereal_time_set(P, 0, 0, Q, 0, 0, degrees(DI), GLat)
+
+	if e_rs(P, 0, 0, Q, 0, 0, degrees(DI), GLat) != "OK":
+		LCT = -99
+
+	return MM,BM,PM,DP,TH,DI,P,Q,LU,LCT
+
+def e_moon_set(DY, MN, YR, DS, ZC, GLong, GLat):
+	"""
+	Moonset calculation status.
+
+	Original macro name: eMoonSet
+	"""
+	S4 = "OK"
+	GDY = lct_gday(12, 0, 0, DS, ZC, DY, MN, YR)
+	GMN = lct_gmonth(12, 0, 0, DS, ZC, DY, MN, YR)
+	GYR = lct_gyear(12, 0, 0, DS, ZC, DY, MN, YR)
+	LCT = 12
+	DY1 = DY
+	MN1 = MN
+	YR1 = YR
+	
+	MM,BM,PM,DP,TH,DI,P,Q,LU,S1 = e_moon_set_l6700(LCT,DS,ZC,DY1,MN1,YR1,GDY,GMN,GYR,GLat)
+	LA = LU
+
+	if S1 != "OK":
+		S4 = S1
+		return S4
+
+	for K in range(1,9):
+		X = lst_gst(LA, 0, 0, GLong)
+		UT = gst_ut(X, 0, 0, GDY, GMN, GYR)
+		S3 = e_gst_ut(X, 0, 0, GDY, GMN, GYR)
+
+		if S3 != "OK":
+			S4 = "GST conversion: " + S3
+
+		G1 = UT if K == 1 else GU
+
+		GU = UT
+		UT = GU
+		UT,LCT,DY1,MN1,YR1,GDY,GMN,GYR = e_moon_set_l6680(X,S3,G1,UT,DS,ZC,GDY,GMN,GYR,DY1,MN1,YR1)
+		MM,BM,PM,DP,TH,DI,P,Q,LU,S1 = e_moon_set_l6700(LCT,DS,ZC,DY1,MN1,YR1,GDY,GMN,GYR,GLat)
+		LA = LU
+
+		if S1 != "OK":
+			S4 = S1
+			return S4
+
+	X = lst_gst(LA, 0, 0, GLong)
+	UT = gst_ut(X, 0, 0, GDY, GMN, GYR)
+	S3 = e_gst_ut(X, 0, 0, GDY, GMN, GYR)
+
+	if S3 != "OK":
+		S4 = "GST conversion: " + S3
+
+	return S4
+    
+def e_moon_set_l6680(X,S3,G1,UT,DS,ZC,GDY,GMN,GYR,DY1,MN1,YR1):
+	""" Helper function for e_moon_set() """
+	if e_gst_ut(X, 0, 0, GDY, GMN, GYR) != "OK":
+		if abs(G1 - UT) > 0.5:
+			UT = UT + 23.93447
+
+	UT = ut_day_adjust(UT, G1)
+	LCT = ut_lct(UT, 0, 0, DS, ZC, GDY, GMN, GYR)
+	DY1 = ut_lc_day(UT, 0, 0, DS, ZC, GDY, GMN, GYR)
+	MN1 = ut_lc_month(UT, 0, 0, DS, ZC, GDY, GMN, GYR)
+	YR1 = ut_lc_year(UT, 0, 0, DS, ZC, GDY, GMN, GYR)
+	GDY = lct_gday(LCT, 0, 0, DS, ZC, DY1, MN1, YR1)
+	GMN = lct_gmonth(LCT, 0, 0, DS, ZC, DY1, MN1, YR1)
+	GYR = lct_gyear(LCT, 0, 0, DS, ZC, DY1, MN1, YR1)
+	UT = UT - 24 * math.floor(UT / 24)
+
+	return UT,LCT,DY1,MN1,YR1,GDY,GMN,GYR
+        
+def e_moon_set_l6700(LCT,DS,ZC,DY1,MN1,YR1,GDY,GMN,GYR,GLat):
+	""" Helper function for e_moon_set() """
+	MM = moon_long(LCT, 0, 0, DS, ZC, DY1, MN1, YR1)
+	BM = moon_lat(LCT, 0, 0, DS, ZC, DY1, MN1, YR1)
+	PM = math.radians(moon_hp(LCT, 0, 0, DS, ZC, DY1, MN1, YR1))
+	DP = nutat_long(GDY, GMN, GYR)
+	TH = 0.27249 * math.sin(PM)
+	DI = TH + 0.0098902 - PM
+	P = dd_dh(ec_ra(MM + DP, 0, 0, BM, 0, 0, GDY, GMN, GYR))
+	Q = ec_dec(MM + DP, 0, 0, BM, 0, 0, GDY, GMN, GYR)
+	LU = rise_set_local_sidereal_time_set(P, 0, 0, Q, 0, 0, degrees(DI), GLat)
+	S1 = e_rs(P, 0, 0, Q, 0, 0, degrees(DI), GLat)
+
+	return MM,BM,PM,DP,TH,DI,P,Q,LU,S1
+
+def moon_set_lc_dmy(DY, MN, YR, DS, ZC, GLong, GLat):
+	"""
+	Local date of moonset.
+	
+	Original macro names: MoonSetLcDay, MoonSetLcMonth, MoonSetLcYear
+
+	Returns:
+		Local date (day)
+		Local date (month)
+		Local date (year)
+	"""
+	GDY = lct_gday(12, 0, 0, DS, ZC, DY, MN, YR)
+	GMN = lct_gmonth(12, 0, 0, DS, ZC, DY, MN, YR)
+	GYR = lct_gyear(12, 0, 0, DS, ZC, DY, MN, YR)
+	LCT = 12
+	DY1 = DY
+	MN1 = MN
+	YR1 = YR
+	MM,BM,PM,DP,TH,DI,P,Q,LU,LCT = moon_set_lc_dmy_l6700(LCT,DS,ZC,DY1,MN1,YR1,GDY,GMN,GYR,GLat)
+	if LCT == -99:
+		return LCT,LCT,LCT
+	LA = LU
+
+	for K in range(1,9):
+		X = lst_gst(LA, 0, 0, GLong)
+		UT = gst_ut(X, 0, 0, GDY, GMN, GYR)
+
+		G1 = UT if K == 1 else GU
+
+		GU = UT
+		UT = GU
+		UT,LCT,DY1,MN1,YR1,GDY,GMN,GYR = moon_set_lc_dmy_l6680(X, DS, ZC, GDY, GMN, GYR, G1, UT)
+		MM,BM,PM,DP,TH,DI,P,Q,LU,LCT = moon_set_lc_dmy_l6700(LCT,DS,ZC,DY1,MN1,YR1,GDY,GMN,GYR,GLat)
+		if LCT == -99:
+			return LCT,LCT,LCT
+		LA = LU
+
+	X = lst_gst(LA, 0, 0, GLong)
+	UT = gst_ut(X, 0, 0, GDY, GMN, GYR)
+
+	if e_gst_ut(X, 0, 0, GDY, GMN, GYR) != "OK":
+		if abs(G1 - UT) > 0.5:
+			UT = UT + 23.93447
+
+	UT = ut_day_adjust(UT, G1)
+	LCT = ut_lct(UT, 0, 0, DS, ZC, GDY, GMN, GYR)
+	DY1 = ut_lc_day(UT, 0, 0, DS, ZC, GDY, GMN, GYR)
+	MN1 = ut_lc_month(UT, 0, 0, DS, ZC, GDY, GMN, GYR)
+	YR1 = ut_lc_year(UT, 0, 0, DS, ZC, GDY, GMN, GYR)
+
+	return DY1,MN1,YR1
+
+def moon_set_lc_dmy_l6680(X, DS, ZC, GDY, GMN, GYR, G1, UT):
+	""" Helper function for moon_set_lc_dmy """
+	if e_gst_ut(X, 0, 0, GDY, GMN, GYR) != "OK":
+		if abs(G1 - UT) > 0.5:
+			UT = UT + 23.93447
+
+	UT = ut_day_adjust(UT, G1)
+	LCT = ut_lct(UT, 0, 0, DS, ZC, GDY, GMN, GYR)
+	DY1 = ut_lc_day(UT, 0, 0, DS, ZC, GDY, GMN, GYR)
+	MN1 = ut_lc_month(UT, 0, 0, DS, ZC, GDY, GMN, GYR)
+	YR1 = ut_lc_year(UT, 0, 0, DS, ZC, GDY, GMN, GYR)
+	GDY = lct_gday(LCT, 0, 0, DS, ZC, DY1, MN1, YR1)
+	GMN = lct_gmonth(LCT, 0, 0, DS, ZC, DY1, MN1, YR1)
+	GYR = lct_gyear(LCT, 0, 0, DS, ZC, DY1, MN1, YR1)
+	UT = UT - 24 * math.floor(UT / 24)
+
+	return UT,LCT,DY1,MN1,YR1,GDY,GMN,GYR
+
+def moon_set_lc_dmy_l6700(LCT,DS,ZC,DY1,MN1,YR1,GDY,GMN,GYR,GLat):
+	""" Helper function for moon_set_lc_dmy """
+	MM = moon_long(LCT, 0, 0, DS, ZC, DY1, MN1, YR1)
+	BM = moon_lat(LCT, 0, 0, DS, ZC, DY1, MN1, YR1)
+	PM = math.radians(moon_hp(LCT, 0, 0, DS, ZC, DY1, MN1, YR1))
+	DP = nutat_long(GDY, GMN, GYR)
+	TH = 0.27249 * math.sin(PM)
+	DI = TH + 0.0098902 - PM
+	P = dd_dh(ec_ra(MM + DP, 0, 0, BM, 0, 0, GDY, GMN, GYR))
+	Q = ec_dec(MM + DP, 0, 0, BM, 0, 0, GDY, GMN, GYR)
+	LU = rise_set_local_sidereal_time_set(P, 0, 0, Q, 0, 0, degrees(DI), GLat)
+
+	return MM,BM,PM,DP,TH,DI,P,Q,LU,LCT
+
+def moon_set_az(DY, MN, YR, DS, ZC, GLong, GLat):
+	"""
+	Local azimuth of moonset.
+
+	Original macro name: MoonSetAz
+
+	Returns:
+		degrees
+	"""
+	GDY = lct_gday(12, 0, 0, DS, ZC, DY, MN, YR)
+	GMN = lct_gmonth(12, 0, 0, DS, ZC, DY, MN, YR)
+	GYR = lct_gyear(12, 0, 0, DS, ZC, DY, MN, YR)
+	LCT = 12
+	DY1 = DY
+	MN1 = MN
+	YR1 = YR
+	MM,BM,PM,DP,TH,DI,P,Q,LU,LCT,AU = moon_set_az_l6700(LCT,DS,ZC,DY1,MN1,YR1,GDY,GMN,GYR,GLat)
+	if LCT == -99:
+		return LCT
+	LA = LU
+
+	for K in range(1,9):
+		X = lst_gst(LA, 0, 0, GLong)
+		UT = gst_ut(X, 0, 0, GDY, GMN, GYR)
+
+		G1 = UT if K == 1 else GU
+
+		GU = UT
+		UT = GU
+		UT,LCT,DY1,MN1,YR1,GDY,GMN,GYR = moon_set_az_l6680(X, DS, ZC, GDY, GMN, GYR, G1, UT)
+		MM,BM,PM,DP,TH,DI,P,Q,LU,LCT,AU = moon_set_az_l6700(LCT,DS,ZC,DY1,MN1,YR1,GDY,GMN,GYR,GLat)
+		if LCT == -99:
+			return LCT
+		LA = LU
+		AA = AU
+
+	AU = AA
+
+	return AU
+
+def moon_set_az_l6680(X, DS, ZC, GDY, GMN, GYR, G1, UT):
+	""" Helper function for moon_set_az """
+	if e_gst_ut(X, 0, 0, GDY, GMN, GYR) != "OK":
+		if abs(G1 - UT) > 0.5:
+			UT = UT + 23.93447
+
+	UT = ut_day_adjust(UT, G1)
+	LCT = ut_lct(UT, 0, 0, DS, ZC, GDY, GMN, GYR)
+	DY1 = ut_lc_day(UT, 0, 0, DS, ZC, GDY, GMN, GYR)
+	MN1 = ut_lc_month(UT, 0, 0, DS, ZC, GDY, GMN, GYR)
+	YR1 = ut_lc_year(UT, 0, 0, DS, ZC, GDY, GMN, GYR)
+	GDY = lct_gday(LCT, 0, 0, DS, ZC, DY1, MN1, YR1)
+	GMN = lct_gmonth(LCT, 0, 0, DS, ZC, DY1, MN1, YR1)
+	GYR = lct_gyear(LCT, 0, 0, DS, ZC, DY1, MN1, YR1)
+	UT = UT - 24 * math.floor(UT / 24)
+
+	return UT,LCT,DY1,MN1,YR1,GDY,GMN,GYR
+
+def moon_set_az_l6700(LCT,DS,ZC,DY1,MN1,YR1,GDY,GMN,GYR,GLat):
+	""" Helper function for moon_set_az """
+	MM = moon_long(LCT, 0, 0, DS, ZC, DY1, MN1, YR1)
+	BM = moon_lat(LCT, 0, 0, DS, ZC, DY1, MN1, YR1)
+	PM = math.radians(moon_hp(LCT, 0, 0, DS, ZC, DY1, MN1, YR1))
+	DP = nutat_long(GDY, GMN, GYR)
+	TH = 0.27249 * math.sin(PM)
+	DI = TH + 0.0098902 - PM
+	P = dd_dh(ec_ra(MM + DP, 0, 0, BM, 0, 0, GDY, GMN, GYR))
+	Q = ec_dec(MM + DP, 0, 0, BM, 0, 0, GDY, GMN, GYR)
+	LU = rise_set_local_sidereal_time_set(P, 0, 0, Q, 0, 0, degrees(DI), GLat)
+	AU = rise_set_azimuth_set(P, 0, 0, Q, 0, 0, degrees(DI), GLat)
+
+	return MM,BM,PM,DP,TH,DI,P,Q,LU,LCT,AU
+
 def fract(W):
 	"""
 	Original macro name: FRACT
@@ -3308,3 +3954,17 @@ def sgn(number_to_check):
 		sign_value = 1
 
 	return sign_value
+
+def ut_day_adjust(UT, G1):
+	"""
+	Original macro name: UTDayAdjust
+	"""
+	return_value = UT
+
+	if (UT - G1) < -6:
+		return_value = UT + 24
+
+	if (UT - G1) > 6:
+		return_value = UT - 24
+
+	return return_value

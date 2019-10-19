@@ -5,6 +5,7 @@ var searchData=
   ['unwind',['unwind',['../namespacepa__macro.html#a28e8da86f83fff822c048e1db3cead92',1,'pa_macro']]],
   ['unwind_5fdeg',['unwind_deg',['../namespacepa__macro.html#a68ac9cc5a251b375c0ace75068db9c06',1,'pa_macro']]],
   ['unwind_5frad',['unwind_rad',['../namespacepa__macro.html#aa34f239461425c9e166a7bd30bbe4d6e',1,'pa_macro']]],
+  ['ut_5fday_5fadjust',['ut_day_adjust',['../namespacepa__macro.html#a73a33dc5480b3252b3c3ff118864de9f',1,'pa_macro']]],
   ['ut_5fgst',['ut_gst',['../namespacepa__macro.html#a62aa239414a03fc606ab17346561c27f',1,'pa_macro']]],
   ['ut_5flc_5fday',['ut_lc_day',['../namespacepa__macro.html#a37484b48ac497ad77997a237ea05a2bd',1,'pa_macro']]],
   ['ut_5flc_5fmonth',['ut_lc_month',['../namespacepa__macro.html#a0003fc20ba90db8f95bdd6ef2236b4f6',1,'pa_macro']]],

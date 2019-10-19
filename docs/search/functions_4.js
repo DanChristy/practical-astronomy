@@ -1,6 +1,12 @@
 var searchData=
 [
   ['e_5fgst_5fut',['e_gst_ut',['../namespacepa__macro.html#a35f702d1dc323f69f0ccac2c860a4ad5',1,'pa_macro']]],
+  ['e_5fmoon_5frise',['e_moon_rise',['../namespacepa__macro.html#a9e003b87978ec49b4dfc4916240bf874',1,'pa_macro']]],
+  ['e_5fmoon_5frise_5fl6680',['e_moon_rise_l6680',['../namespacepa__macro.html#a767c30850cbfe72dc674d4210333ff31',1,'pa_macro']]],
+  ['e_5fmoon_5frise_5fl6700',['e_moon_rise_l6700',['../namespacepa__macro.html#abd0c9672543cbb27e8b507087a0f708f',1,'pa_macro']]],
+  ['e_5fmoon_5fset',['e_moon_set',['../namespacepa__macro.html#a42b77f1e659a485a09b99c35bf348962',1,'pa_macro']]],
+  ['e_5fmoon_5fset_5fl6680',['e_moon_set_l6680',['../namespacepa__macro.html#a962d98710e5c59376b1abf26b72629a0',1,'pa_macro']]],
+  ['e_5fmoon_5fset_5fl6700',['e_moon_set_l6700',['../namespacepa__macro.html#a5f5101ad552c14a963f4be9c630fe9b6',1,'pa_macro']]],
   ['e_5frs',['e_rs',['../namespacepa__macro.html#afda65e6ca57233046d3ada0e2ebb34e7',1,'pa_macro']]],
   ['e_5fsun_5frs',['e_sun_rs',['../namespacepa__macro.html#ad2c07dea1bbe21a6d0d0505da3cd6b21',1,'pa_macro']]],
   ['e_5fsun_5frs_5fl3710',['e_sun_rs_l3710',['../namespacepa__macro.html#a5963dbb10da2ef3bbb94c8247dae5b84',1,'pa_macro']]],

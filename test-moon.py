@@ -84,6 +84,34 @@ class test_new_moon_and_full_moon(UT.TestCase):
 		self.assertEqual(fm_local_date_month,9,"full Moon instance - local date (month)")
 		self.assertEqual(fm_local_date_year,2003,"full Moon instance - local date (year)")
 
+class test_moonrise_moonset(UT.TestCase):
+	def setUp(self):
+		self.local_date_day = 6
+		self.local_date_month = 3
+		self.local_date_year = 1986
+		self.is_daylight_saving = False
+		self.zone_correction_hours = -5
+		self.geog_long_deg = -71.05
+		self.geog_lat_deg = 42.3667
+
+	def test_moonrise_moonset(self):
+		mr_lt_hour, mr_lt_min, mr_local_date_day, mr_local_date_month, mr_local_date_year, mr_azimuth_deg, ms_lt_hour, ms_lt_min, ms_local_date_day, ms_local_date_month, ms_local_date_year, ms_azimuth_deg = PMO.moonrise_and_moonset(self.local_date_day,self.local_date_month,self.local_date_year,self.is_daylight_saving,self.zone_correction_hours,self.geog_long_deg,self.geog_lat_deg)
+
+		print(f"Moonrise and moonset: [Moonrise] [Time] {mr_lt_hour}:{mr_lt_min} [Date] {mr_local_date_month}/{mr_local_date_day}/{mr_local_date_year} [Azimuth] {mr_azimuth_deg} degrees [Moonset] [Time] {ms_lt_hour}:{ms_lt_min} [Date] {ms_local_date_month}/{ms_local_date_day}/{ms_local_date_year} [Azimuth] {ms_azimuth_deg} degrees")
+
+		self.assertEqual(mr_lt_hour,4,"Moonrise - Local Time (hours)")
+		self.assertEqual(mr_lt_min,21,"Moonrise - Local Time (minutes)")
+		self.assertEqual(mr_local_date_day,6,"Moonrise - Local Date (day)")
+		self.assertEqual(mr_local_date_month,3,"Moonrise - Local Date (month)")
+		self.assertEqual(mr_local_date_year,1986,"Moonrise - Local Date (year)")
+		self.assertEqual(mr_azimuth_deg,127.34,"Moonrise - Azimuth (degrees)")
+		self.assertEqual(ms_lt_hour,13,"Moonset - Local Time (hours)")
+		self.assertEqual(ms_lt_min,8,"Moonset - Local Time (minutes)")
+		self.assertEqual(ms_local_date_day,6,"Moonset - Local Date (day)")
+		self.assertEqual(ms_local_date_month,3,"Moonset - Local Date (month)")
+		self.assertEqual(ms_local_date_year,1986,"Moonset - Local Date (year)")
+		self.assertEqual(ms_azimuth_deg,234.05,"Moonset - Azimuth (degrees)")
+
 
 if __name__ == '__main__':
 	UT.main()

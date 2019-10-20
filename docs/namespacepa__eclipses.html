@@ -92,6 +92,8 @@ Functions</h2></td></tr>
 <tr class="separator:ae5253df5fd092e44c9adc85c093305aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab3c7621085cfe7c0d41a84c629a81275"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepa__eclipses.html#ab3c7621085cfe7c0d41a84c629a81275">lunar_eclipse_circumstances</a> (local_date_day, local_date_month, local_date_year, is_daylight_saving, zone_correction_hours)</td></tr>
 <tr class="separator:ab3c7621085cfe7c0d41a84c629a81275"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aebd6cc146f644c41bbb4053a93b3a6b4"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepa__eclipses.html#aebd6cc146f644c41bbb4053a93b3a6b4">solar_eclipse_occurrence</a> (local_date_day, local_date_month, local_date_year, is_daylight_saving, zone_correction_hours)</td></tr>
+<tr class="separator:aebd6cc146f644c41bbb4053a93b3a6b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="ab3c7621085cfe7c0d41a84c629a81275"></a>
@@ -222,6 +224,66 @@ Arguments:
 
 Returns:
     status -- One of "Lunar eclipse certain", "Lunar eclipse possible", or "No lunar eclipse".
+    event_date_day -- Date of eclipse event (day).
+    event_date_month -- Date of eclipse event (month).
+    event_date_year -- Date of eclipse event (year).
+</pre> 
+</div>
+</div>
+<a id="aebd6cc146f644c41bbb4053a93b3a6b4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aebd6cc146f644c41bbb4053a93b3a6b4">&#9670;&nbsp;</a></span>solar_eclipse_occurrence()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def pa_eclipses.solar_eclipse_occurrence </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>local_date_day</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>local_date_month</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>local_date_year</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>is_daylight_saving</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>zone_correction_hours</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Determine if a solar eclipse is likely to occur.
+
+Arguments:
+    local_date_day -- Local date, day part.
+    local_date_month -- Local date, month part.
+    local_date_year -- Local date, year part.
+    is_daylight_saving -- Is daylight savings in effect?
+    zone_correction_hours -- Time zone correction, in hours.
+
+Returns:
+    status -- One of "Solar eclipse certain", "Solar eclipse possible", or "No solar eclipse".
     event_date_day -- Date of eclipse event (day).
     event_date_month -- Date of eclipse event (month).
     event_date_year -- Date of eclipse event (year).

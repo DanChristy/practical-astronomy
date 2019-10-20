@@ -102,6 +102,8 @@ var pa__macro_8py =
     [ "rise_set_local_sidereal_time_rise", "pa__macro_8py.html#ab24a04a2a0d4ebb2548feeee0a2a81db", null ],
     [ "rise_set_local_sidereal_time_set", "pa__macro_8py.html#a29d6c019074a263481a0d2a6acf53bde", null ],
     [ "sgn", "pa__macro_8py.html#a18748baf1ce4e5f0fa5462df4bdcd076", null ],
+    [ "solar_eclipse_occurrence", "pa__macro_8py.html#a91bf62d4605b7b62245eddf89078d512", null ],
+    [ "solar_eclipse_occurrence_l6855", "pa__macro_8py.html#aa28ce5e8100ea25cdac9c245cfccf67d", null ],
     [ "solve_cubic", "pa__macro_8py.html#a07da5981ab4bf53d59eaf93a286bf2b6", null ],
     [ "sun_dia", "pa__macro_8py.html#a4acfd38976de6a73c46bacea9131361a", null ],
     [ "sun_dist", "pa__macro_8py.html#aa3861836e16d06eda4eba435e4cd3064", null ],

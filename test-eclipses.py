@@ -3,7 +3,7 @@
 import lib.pa_eclipses as PE
 import unittest as UT
 
-class test_lunar_eclipse_occurrence(UT.TestCase):
+class test_lunar_eclipse(UT.TestCase):
 	def setUp(self):
 		self.local_date_day = 1
 		self.local_date_month = 4
@@ -44,6 +44,24 @@ class test_lunar_eclipse_occurrence(UT.TestCase):
 		self.assertEqual(ut_end_pen_phase_hour,15,"End Penumbral Phase (hour)")
 		self.assertEqual(ut_end_pen_phase_minutes,1,"End Penumbral Phase (minutes)")
 		self.assertEqual(eclipse_magnitude,1.01,"Eclipse Magnitude")
+
+class test_solar_eclipse(UT.TestCase):
+	def setUp(self):
+		self.local_date_day = 1
+		self.local_date_month = 4
+		self.local_date_year = 2015
+		self.is_daylight_saving = False
+		self.zone_correction_hours = 0
+
+	def test_solar_eclipse_occurrence(self):
+		status,event_date_day,event_date_month,event_date_year = PE.solar_eclipse_occurrence(self.local_date_day,self.local_date_month,self.local_date_year,self.is_daylight_saving,self.zone_correction_hours)
+
+		print(f"Solar eclipse occurrence: [Local Date] {self.local_date_month}/{self.local_date_day}/{self.local_date_year} [DST?] {self.is_daylight_saving} [Zone Correction] {self.zone_correction_hours}h = [Status] {status} [Event Date] {event_date_month}/{event_date_day}/{event_date_year}")
+
+		self.assertEqual(status,"Solar eclipse certain","Lunar eclipse status")
+		self.assertEqual(event_date_day,20,"Solar eclipse event date (day)")
+		self.assertEqual(event_date_month,3,"Solar eclipse event date (month)")
+		self.assertEqual(event_date_year,2015,"Solar eclipse event date (year)")
 
 
 if __name__ == '__main__':

@@ -4738,6 +4738,85 @@ def ut_start_umbra_lunar_eclipse(DY, MN, YR, DS, ZC):
 
 	return Z8
 
+def solar_eclipse_occurrence(DS, ZC, DY, MN, YR):
+	"""
+	Determine if a solar eclipse is likely to occur.
+
+	Original macro name: SEOccurrence
+	"""
+	D0 = lct_gday(12, 0, 0, DS, ZC, DY, MN, YR)
+	M0 = lct_gmonth(12, 0, 0, DS, ZC, DY, MN, YR)
+	Y0 = lct_gyear(12, 0, 0, DS, ZC, DY, MN, YR)
+
+	if Y0 < 0:
+		Y0 = Y0 + 1
+
+	J0 = cd_jd(0, 1, Y0)
+	DJ = cd_jd(D0, M0, Y0)
+	K = ((Y0 - 1900 + ((DJ - J0) * 1 / 365)) * 12.3685)
+	K = lint(K + 0.5)
+	TN = K / 1236.85
+	TF = (K + 0.5) / 1236.85
+	T = TN
+	F,DD,E1,B,B1,A,B = solar_eclipse_occurrence_l6855(T,K)
+	NI = A
+	NF = B
+	NB = F
+	T = TF
+	K = K + 0.5
+	F,DD,E1,B,B1,A,B = solar_eclipse_occurrence_l6855(T,K)
+	FI = A
+	FF = B
+	FB = F
+
+	DF = abs(NB - 3.141592654 * lint(NB / 3.141592654))
+
+	if DF > 0.37:
+		DF = 3.141592654 - DF
+
+	S = "Solar eclipse certain"
+	if DF >= 0.242600766:
+		S = "Solar eclipse possible"
+		if DF > 0.37:
+			S = "No solar eclipse"
+
+	return S
+
+def solar_eclipse_occurrence_l6855(T,K):
+	""" Helper function for solar_eclipse_occurrence """
+	T2 = T * T
+	E = 29.53 * K
+	C = 166.56 + (132.87 - 0.009173 * T) * T
+	C = math.radians(C)
+	B = 0.00058868 * K + (0.0001178 - 0.000000155 * T) * T2
+	B = B + 0.00033 * math.sin(C) + 0.75933
+	A = K / 12.36886
+	A1 = 359.2242 + 360 * f_part(A) - (0.0000333 + 0.00000347 * T) * T2
+	A2 = 306.0253 + 360 * f_part(K / 0.9330851)
+	A2 = A2 + (0.0107306 + 0.00001236 * T) * T2
+	A = K / 0.9214926
+	F = 21.2964 + 360 * f_part(A) - (0.0016528 + 0.00000239 * T) * T2
+	A1 = unwind_deg(A1)
+	A2 = unwind_deg(A2)
+	F = unwind_deg(F)
+	A1 = math.radians(A1)
+	A2 = math.radians(A2)
+	F = math.radians(F)
+
+	DD = (0.1734 - 0.000393 * T) * math.sin(A1) + 0.0021 * math.sin(2 * A1)
+	DD = DD - 0.4068 * math.sin(A2) + 0.0161 * math.sin(2 * A2) - 0.0004 * math.sin(3 * A2)
+	DD = DD + 0.0104 * math.sin(2 * F) - 0.0051 * math.sin(A1 + A2)
+	DD = DD - 0.0074 * math.sin(A1 - A2) + 0.0004 * math.sin(2 * F + A1)
+	DD = DD - 0.0004 * math.sin(2 * F - A1) - 0.0006 * math.sin(2 * F + A2) + 0.001 * math.sin(2 * F - A2)
+	DD = DD + 0.0005 * math.sin(A1 + 2 * A2)
+	E1 = math.floor(E)
+	B = B + DD + (E - E1)
+	B1 = math.floor(B)
+	A = E1 + B1
+	B = B - B1
+
+	return F,DD,E1,B,B1,A,B
+
 def fract(W):
 	"""
 	Original macro name: FRACT

@@ -6,7 +6,7 @@ If you're interested in this topic, please buy the book!  It provides far more d
 
 ## Done
 
-All spreadsheets and macros from the book, implemented in Python 3.  (See details in lib/README.md.)
+All spreadsheets and macros from the book, implemented in Python 3.  (See details in lib/README.md)
 
 ## Roadmap
 

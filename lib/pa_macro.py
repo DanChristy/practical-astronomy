@@ -4817,6 +4817,470 @@ def solar_eclipse_occurrence_l6855(T,K):
 
 	return F,DD,E1,B,B1,A,B
 
+def mag_solar_eclipse(DY, MN, YR, DS, ZC, GLong, GLat):
+	"""
+	Calculate magnitude of solar eclipse.
+
+	Original macro name: MagSolarEclipse
+	"""
+	TP = 2 * math.pi
+
+	if solar_eclipse_occurrence(DS, ZC, DY, MN, YR) == "No solar eclipse":
+		return -99
+
+	DJ = new_moon(DS, ZC, DY, MN, YR)
+	DP = 0
+	GDay = jdc_day(DJ)
+	GMonth = jdc_month(DJ)
+	GYear = jdc_year(DJ)
+	IGDay = math.floor(GDay)
+	XI = GDay - IGDay
+	UTNM = XI * 24
+	UT = UTNM - 1
+	LY = math.radians(sun_long(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+	MY = math.radians(moon_long(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+	BY = math.radians(moon_lat(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+	HY = math.radians(moon_hp(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+	UT = UTNM + 1
+	SB = math.radians(sun_long(UT, 0, 0, 0, 0, IGDay, GMonth, GYear)) - LY
+	MZ = math.radians(moon_long(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+	BZ = math.radians(moon_lat(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+	HZ = math.radians(moon_hp(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+
+	if SB < 0:
+		SB = SB + TP
+
+	XH = UTNM
+	X = MY
+	Y = BY
+	TM = XH - 1
+	HP = HY
+	PAA,QAA,XAA,PBB,QBB,XBB,P,Q = mag_solar_eclipse_l7390(X,Y,IGDay,GMonth,GYear,TM,GLong,GLat,HP)
+	MY = P
+	BY = Q
+	X = MZ
+	Y = BZ
+	TM = XH + 1
+	HP = HZ
+	PAA,QAA,XAA,PBB,QBB,XBB,P,Q = mag_solar_eclipse_l7390(X,Y,IGDay,GMonth,GYear,TM,GLong,GLat,HP)
+	MZ = P
+	BZ = Q
+
+	X0 = XH + 1 - (2 * BZ / (BZ - BY))
+	DM = MZ - MY
+
+	if DM < 0:
+		DM = DM + TP
+
+	LJ = (DM - SB) / 2
+	Q = 0
+	MR = MY + (DM * (X0 - XH + 1) / 2)
+	UT = X0 - 0.13851852
+	RR = sun_dist(UT, 0, 0, 0, 0, IGDay, GMonth, GYear)
+	SR = math.radians(sun_long(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+	SR = SR + math.radians(nutat_long(IGDay, GMonth, GYear) - 0.00569)
+	X = SR
+	Y = 0
+	TM = UT
+	HP = 0.00004263452 / RR
+	PAA,QAA,XAA,PBB,QBB,XBB,P,Q = mag_solar_eclipse_l7390(X,Y,IGDay,GMonth,GYear,TM,GLong,GLat,HP)
+	SR = P
+	BY = BY - Q
+	BZ = BZ - Q
+	P3 = 0.00004263
+	ZH = (SR - MR) / LJ
+	TC = X0 + ZH
+	SH = (((BZ - BY) * (TC - XH - 1) / 2) + BZ) / LJ
+	S2 = SH * SH
+	Z2 = ZH * ZH
+	PS = P3 / (RR * LJ)
+	Z1 = (ZH * Z2 / (Z2 + S2)) + X0
+	H0 = (HY + HZ) / (2 * LJ)
+	RM = 0.272446 * H0
+	RN = 0.00465242 / (LJ * RR)
+	HD = H0 * 0.99834
+	RU = (HD - RN + PS) * 1.02
+	RP = (HD + RN + PS) * 1.02
+	PJ = abs(SH * ZH / math.sqrt(S2 + Z2))
+	R = RM + RN
+	DD = Z1 - X0
+	DD = DD * DD - ((Z2 - (R * R)) * DD / ZH)
+
+	if DD < 0:
+		return -99
+		
+	ZD = math.sqrt(DD)
+	Z6 = Z1 - ZD
+	Z7 = Z1 + ZD - lint((Z1 + ZD) / 24) * 24
+
+	if Z6 < 0:
+		Z6 = Z6 + 24
+
+	MG = (RM + RN - PJ) / (2 * RN)
+
+	return MG
+
+def mag_solar_eclipse_l7390(X,Y,IGDay,GMonth,GYear,TM,GLong,GLat,HP):
+	""" Helper function for mag_solar_eclipse """
+	PAA = ec_ra(degrees(X), 0, 0, degrees(Y), 0, 0, IGDay, GMonth, GYear)
+	QAA = ec_dec(degrees(X), 0, 0, degrees(Y), 0, 0, IGDay, GMonth, GYear)
+	XAA = ra_ha(dd_dh(PAA), 0, 0, TM, 0, 0, 0, 0, IGDay, GMonth, GYear, GLong)
+	PBB = parallax_ha(XAA, 0, 0, QAA, 0, 0, "True", GLat, 0, degrees(HP))
+	QBB = parallax_dec(XAA, 0, 0, QAA, 0, 0, "True", GLat, 0, degrees(HP))
+	XBB = ha_ra(PBB, 0, 0, TM, 0, 0, 0, 0, IGDay, GMonth, GYear, GLong)
+	P = math.radians(eq_e_long(XBB, 0, 0, QBB, 0, 0, IGDay, GMonth, GYear))
+	Q = math.radians(eq_e_lat(XBB, 0, 0, QBB, 0, 0, IGDay, GMonth, GYear))
+
+	return PAA,QAA,XAA,PBB,QBB,XBB,P,Q
+
+def ut_first_contact_solar_eclipse(DY, MN, YR, DS, ZC, GLong, GLat):
+	"""
+	Calculate time of first contact for solar eclipse (UT)
+
+	Original macro name: UTFirstContactSolarEclipse
+	"""
+	TP = 2 * math.pi
+
+	if solar_eclipse_occurrence(DS, ZC, DY, MN, YR) == "No solar eclipse":
+		return -99
+
+	DJ = new_moon(DS, ZC, DY, MN, YR)
+	DP = 0
+	GDay = jdc_day(DJ)
+	GMonth = jdc_month(DJ)
+	GYear = jdc_year(DJ)
+	IGDay = math.floor(GDay)
+	XI = GDay - IGDay
+	UTNM = XI * 24
+	UT = UTNM - 1
+	LY = math.radians(sun_long(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+	MY = math.radians(moon_long(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+	BY = math.radians(moon_lat(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+	HY = math.radians(moon_hp(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+	UT = UTNM + 1
+	SB = math.radians(sun_long(UT, 0, 0, 0, 0, IGDay, GMonth, GYear)) - LY
+	MZ = math.radians(moon_long(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+	BZ = math.radians(moon_lat(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+	HZ = math.radians(moon_hp(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+
+	if SB < 0:
+		SB = SB + TP
+
+	XH = UTNM
+	X = MY
+	Y = BY
+	TM = XH - 1
+	HP = HY
+	PAA,QAA,XAA,PBB,QBB,XBB,P,Q = ut_first_contact_solar_eclipse_l7390(X,Y,IGDay,GMonth,GYear,TM,GLong,GLat,HP)
+	MY = P
+	BY = Q
+	X = MZ
+	Y = BZ
+	TM = XH + 1
+	HP = HZ
+	PAA,QAA,XAA,PBB,QBB,XBB,P,Q = ut_first_contact_solar_eclipse_l7390(X,Y,IGDay,GMonth,GYear,TM,GLong,GLat,HP)
+	MZ = P
+	BZ = Q
+
+	X0 = XH + 1 - (2 * BZ / (BZ - BY))
+	DM = MZ - MY
+
+	if DM < 0:
+		DM = DM + TP
+
+	LJ = (DM - SB) / 2
+	Q = 0
+	MR = MY + (DM * (X0 - XH + 1) / 2)
+	UT = X0 - 0.13851852
+	RR = sun_dist(UT, 0, 0, 0, 0, IGDay, GMonth, GYear)
+	SR = math.radians(sun_long(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+	SR = SR + math.radians(nutat_long(IGDay, GMonth, GYear) - 0.00569)
+	X = SR
+	Y = 0
+	TM = UT
+	HP = 0.00004263452 / RR
+	PAA,QAA,XAA,PBB,QBB,XBB,P,Q = ut_first_contact_solar_eclipse_l7390(X,Y,IGDay,GMonth,GYear,TM,GLong,GLat,HP)
+	SR = P
+	BY = BY - Q
+	BZ = BZ - Q
+	P3 = 0.00004263
+	ZH = (SR - MR) / LJ
+	TC = X0 + ZH
+	SH = (((BZ - BY) * (TC - XH - 1) / 2) + BZ) / LJ
+	S2 = SH * SH
+	Z2 = ZH * ZH
+	PS = P3 / (RR * LJ)
+	Z1 = (ZH * Z2 / (Z2 + S2)) + X0
+	H0 = (HY + HZ) / (2 * LJ)
+	RM = 0.272446 * H0
+	RN = 0.00465242 / (LJ * RR)
+	HD = H0 * 0.99834
+	RU = (HD - RN + PS) * 1.02
+	RP = (HD + RN + PS) * 1.02
+	PJ = abs(SH * ZH / math.sqrt(S2 + Z2))
+	R = RM + RN
+	DD = Z1 - X0
+	DD = DD * DD - ((Z2 - (R * R)) * DD / ZH)
+
+	if DD < 0:
+		return -99
+		
+	ZD = math.sqrt(DD)
+	Z6 = Z1 - ZD
+	Z7 = Z1 + ZD - lint((Z1 + ZD) / 24) * 24
+
+	if Z6 < 0:
+		Z6 = Z6 + 24
+
+	MG = (RM + RN - PJ) / (2 * RN)
+
+	return Z6
+
+def ut_first_contact_solar_eclipse_l7390(X,Y,IGDay,GMonth,GYear,TM,GLong,GLat,HP):
+	""" Helper function for ut_first_contact_solar_eclipse """
+	PAA = ec_ra(degrees(X), 0, 0, degrees(Y), 0, 0, IGDay, GMonth, GYear)
+	QAA = ec_dec(degrees(X), 0, 0, degrees(Y), 0, 0, IGDay, GMonth, GYear)
+	XAA = ra_ha(dd_dh(PAA), 0, 0, TM, 0, 0, 0, 0, IGDay, GMonth, GYear, GLong)
+	PBB = parallax_ha(XAA, 0, 0, QAA, 0, 0, "True", GLat, 0, degrees(HP))
+	QBB = parallax_dec(XAA, 0, 0, QAA, 0, 0, "True", GLat, 0, degrees(HP))
+	XBB = ha_ra(PBB, 0, 0, TM, 0, 0, 0, 0, IGDay, GMonth, GYear, GLong)
+	P = math.radians(eq_e_long(XBB, 0, 0, QBB, 0, 0, IGDay, GMonth, GYear))
+	Q = math.radians(eq_e_lat(XBB, 0, 0, QBB, 0, 0, IGDay, GMonth, GYear))
+
+	return PAA,QAA,XAA,PBB,QBB,XBB,P,Q
+
+def ut_last_contact_solar_eclipse(DY, MN, YR, DS, ZC, GLong, GLat):
+	"""
+	Calculate time of last contact for solar eclipse (UT)
+
+	Original macro name: UTLastContactSolarEclipse
+	"""
+	TP = 2 * math.pi
+
+	if solar_eclipse_occurrence(DS, ZC, DY, MN, YR) == "No solar eclipse":
+		return -99
+
+	DJ = new_moon(DS, ZC, DY, MN, YR)
+	DP = 0
+	GDay = jdc_day(DJ)
+	GMonth = jdc_month(DJ)
+	GYear = jdc_year(DJ)
+	IGDay = math.floor(GDay)
+	XI = GDay - IGDay
+	UTNM = XI * 24
+	UT = UTNM - 1
+	LY = math.radians(sun_long(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+	MY = math.radians(moon_long(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+	BY = math.radians(moon_lat(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+	HY = math.radians(moon_hp(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+	UT = UTNM + 1
+	SB = math.radians(sun_long(UT, 0, 0, 0, 0, IGDay, GMonth, GYear)) - LY
+	MZ = math.radians(moon_long(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+	BZ = math.radians(moon_lat(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+	HZ = math.radians(moon_hp(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+
+	if SB < 0:
+		SB = SB + TP
+
+	XH = UTNM
+	X = MY
+	Y = BY
+	TM = XH - 1
+	HP = HY
+	PAA,QAA,XAA,PBB,QBB,XBB,P,Q = ut_last_contact_solar_eclipse_l7390(X,Y,IGDay,GMonth,GYear,TM,GLong,GLat,HP)
+	MY = P
+	BY = Q
+	X = MZ
+	Y = BZ
+	TM = XH + 1
+	HP = HZ
+	PAA,QAA,XAA,PBB,QBB,XBB,P,Q = ut_last_contact_solar_eclipse_l7390(X,Y,IGDay,GMonth,GYear,TM,GLong,GLat,HP)
+	MZ = P
+	BZ = Q
+
+	X0 = XH + 1 - (2 * BZ / (BZ - BY))
+	DM = MZ - MY
+
+	if DM < 0:
+		DM = DM + TP
+
+	LJ = (DM - SB) / 2
+	Q = 0
+	MR = MY + (DM * (X0 - XH + 1) / 2)
+	UT = X0 - 0.13851852
+	RR = sun_dist(UT, 0, 0, 0, 0, IGDay, GMonth, GYear)
+	SR = math.radians(sun_long(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+	SR = SR + math.radians(nutat_long(IGDay, GMonth, GYear) - 0.00569)
+	X = SR
+	Y = 0
+	TM = UT
+	HP = 0.00004263452 / RR
+	PAA,QAA,XAA,PBB,QBB,XBB,P,Q = ut_last_contact_solar_eclipse_l7390(X,Y,IGDay,GMonth,GYear,TM,GLong,GLat,HP)
+	SR = P
+	BY = BY - Q
+	BZ = BZ - Q
+	P3 = 0.00004263
+	ZH = (SR - MR) / LJ
+	TC = X0 + ZH
+	SH = (((BZ - BY) * (TC - XH - 1) / 2) + BZ) / LJ
+	S2 = SH * SH
+	Z2 = ZH * ZH
+	PS = P3 / (RR * LJ)
+	Z1 = (ZH * Z2 / (Z2 + S2)) + X0
+	H0 = (HY + HZ) / (2 * LJ)
+	RM = 0.272446 * H0
+	RN = 0.00465242 / (LJ * RR)
+	HD = H0 * 0.99834
+	RU = (HD - RN + PS) * 1.02
+	RP = (HD + RN + PS) * 1.02
+	PJ = abs(SH * ZH / math.sqrt(S2 + Z2))
+	R = RM + RN
+	DD = Z1 - X0
+	DD = DD * DD - ((Z2 - (R * R)) * DD / ZH)
+
+	if DD < 0:
+		return -99
+		
+	ZD = math.sqrt(DD)
+	Z6 = Z1 - ZD
+	Z7 = Z1 + ZD - lint((Z1 + ZD) / 24) * 24
+
+	if Z6 < 0:
+		Z6 = Z6 + 24
+
+	MG = (RM + RN - PJ) / (2 * RN)
+
+	return Z7
+
+def ut_last_contact_solar_eclipse_l7390(X,Y,IGDay,GMonth,GYear,TM,GLong,GLat,HP):
+	""" Helper function for ut_last_contact_solar_eclipse """
+	PAA = ec_ra(degrees(X), 0, 0, degrees(Y), 0, 0, IGDay, GMonth, GYear)
+	QAA = ec_dec(degrees(X), 0, 0, degrees(Y), 0, 0, IGDay, GMonth, GYear)
+	XAA = ra_ha(dd_dh(PAA), 0, 0, TM, 0, 0, 0, 0, IGDay, GMonth, GYear, GLong)
+	PBB = parallax_ha(XAA, 0, 0, QAA, 0, 0, "True", GLat, 0, degrees(HP))
+	QBB = parallax_dec(XAA, 0, 0, QAA, 0, 0, "True", GLat, 0, degrees(HP))
+	XBB = ha_ra(PBB, 0, 0, TM, 0, 0, 0, 0, IGDay, GMonth, GYear, GLong)
+	P = math.radians(eq_e_long(XBB, 0, 0, QBB, 0, 0, IGDay, GMonth, GYear))
+	Q = math.radians(eq_e_lat(XBB, 0, 0, QBB, 0, 0, IGDay, GMonth, GYear))
+
+	return PAA,QAA,XAA,PBB,QBB,XBB,P,Q
+
+def ut_max_solar_eclipse(DY, MN, YR, DS, ZC, GLong, GLat):
+	"""
+	Calculate time of maximum shadow for solar eclipse (UT)
+
+	Original macro name: UTMaxSolarEclipse
+	"""
+	TP = 2 * math.pi
+
+	if solar_eclipse_occurrence(DS, ZC, DY, MN, YR) == "No solar eclipse":
+		return -99
+
+	DJ = new_moon(DS, ZC, DY, MN, YR)
+	DP = 0
+	GDay = jdc_day(DJ)
+	GMonth = jdc_month(DJ)
+	GYear = jdc_year(DJ)
+	IGDay = math.floor(GDay)
+	XI = GDay - IGDay
+	UTNM = XI * 24
+	UT = UTNM - 1
+	LY = math.radians(sun_long(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+	MY = math.radians(moon_long(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+	BY = math.radians(moon_lat(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+	HY = math.radians(moon_hp(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+	UT = UTNM + 1
+	SB = math.radians(sun_long(UT, 0, 0, 0, 0, IGDay, GMonth, GYear)) - LY
+	MZ = math.radians(moon_long(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+	BZ = math.radians(moon_lat(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+	HZ = math.radians(moon_hp(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+
+	if SB < 0:
+		SB = SB + TP
+
+	XH = UTNM
+	X = MY
+	Y = BY
+	TM = XH - 1
+	HP = HY
+	PAA,QAA,XAA,PBB,QBB,XBB,P,Q = ut_max_solar_eclipse_l7390(X,Y,IGDay,GMonth,GYear,TM,GLong,GLat,HP)
+	MY = P
+	BY = Q
+	X = MZ
+	Y = BZ
+	TM = XH + 1
+	HP = HZ
+	PAA,QAA,XAA,PBB,QBB,XBB,P,Q = ut_max_solar_eclipse_l7390(X,Y,IGDay,GMonth,GYear,TM,GLong,GLat,HP)
+	MZ = P
+	BZ = Q
+
+	X0 = XH + 1 - (2 * BZ / (BZ - BY))
+	DM = MZ - MY
+
+	if DM < 0:
+		DM = DM + TP
+
+	LJ = (DM - SB) / 2
+	Q = 0
+	MR = MY + (DM * (X0 - XH + 1) / 2)
+	UT = X0 - 0.13851852
+	RR = sun_dist(UT, 0, 0, 0, 0, IGDay, GMonth, GYear)
+	SR = math.radians(sun_long(UT, 0, 0, 0, 0, IGDay, GMonth, GYear))
+	SR = SR + math.radians(nutat_long(IGDay, GMonth, GYear) - 0.00569)
+	X = SR
+	Y = 0
+	TM = UT
+	HP = 0.00004263452 / RR
+	PAA,QAA,XAA,PBB,QBB,XBB,P,Q = ut_max_solar_eclipse_l7390(X,Y,IGDay,GMonth,GYear,TM,GLong,GLat,HP)
+	SR = P
+	BY = BY - Q
+	BZ = BZ - Q
+	P3 = 0.00004263
+	ZH = (SR - MR) / LJ
+	TC = X0 + ZH
+	SH = (((BZ - BY) * (TC - XH - 1) / 2) + BZ) / LJ
+	S2 = SH * SH
+	Z2 = ZH * ZH
+	PS = P3 / (RR * LJ)
+	Z1 = (ZH * Z2 / (Z2 + S2)) + X0
+	H0 = (HY + HZ) / (2 * LJ)
+	RM = 0.272446 * H0
+	RN = 0.00465242 / (LJ * RR)
+	HD = H0 * 0.99834
+	RU = (HD - RN + PS) * 1.02
+	RP = (HD + RN + PS) * 1.02
+	PJ = abs(SH * ZH / math.sqrt(S2 + Z2))
+	R = RM + RN
+	DD = Z1 - X0
+	DD = DD * DD - ((Z2 - (R * R)) * DD / ZH)
+
+	if DD < 0:
+		return -99
+		
+	ZD = math.sqrt(DD)
+	Z6 = Z1 - ZD
+	Z7 = Z1 + ZD - lint((Z1 + ZD) / 24) * 24
+
+	if Z6 < 0:
+		Z6 = Z6 + 24
+
+	MG = (RM + RN - PJ) / (2 * RN)
+
+	return Z1
+
+def ut_max_solar_eclipse_l7390(X,Y,IGDay,GMonth,GYear,TM,GLong,GLat,HP):
+	""" Helper function for ut_max_solar_eclipse """
+	PAA = ec_ra(degrees(X), 0, 0, degrees(Y), 0, 0, IGDay, GMonth, GYear)
+	QAA = ec_dec(degrees(X), 0, 0, degrees(Y), 0, 0, IGDay, GMonth, GYear)
+	XAA = ra_ha(dd_dh(PAA), 0, 0, TM, 0, 0, 0, 0, IGDay, GMonth, GYear, GLong)
+	PBB = parallax_ha(XAA, 0, 0, QAA, 0, 0, "True", GLat, 0, degrees(HP))
+	QBB = parallax_dec(XAA, 0, 0, QAA, 0, 0, "True", GLat, 0, degrees(HP))
+	XBB = ha_ra(PBB, 0, 0, TM, 0, 0, 0, 0, IGDay, GMonth, GYear, GLong)
+	P = math.radians(eq_e_long(XBB, 0, 0, QBB, 0, 0, IGDay, GMonth, GYear))
+	Q = math.radians(eq_e_lat(XBB, 0, 0, QBB, 0, 0, IGDay, GMonth, GYear))
+
+	return PAA,QAA,XAA,PBB,QBB,XBB,P,Q
+
 def fract(W):
 	"""
 	Original macro name: FRACT
@@ -4875,3 +5339,27 @@ def f_part(W):
 	"""
 
 	return W - lint(W)
+
+def eq_e_lat(RAH, RAM, RAS, DD, DM, DS, GD, GM, GY):
+	"""
+	Original macro name: EQElat
+	"""
+	A = math.radians(dh_dd(hms_dh(RAH, RAM, RAS)))
+	B = math.radians(dms_dd(DD, DM, DS))
+	C = math.radians(obliq(GD, GM, GY))
+	D = math.sin(B) * math.cos(C) - math.cos(B) * math.sin(C) * math.sin(A)
+
+	return degrees(math.asin(D))
+
+def eq_e_long(RAH, RAM, RAS, DD, DM, DS, GD, GM, GY):
+	"""
+	Original macro name: EQElong
+	"""
+	A = math.radians(dh_dd(hms_dh(RAH, RAM, RAS)))
+	B = math.radians(dms_dd(DD, DM, DS))
+	C = math.radians(obliq(GD, GM, GY))
+	D = math.sin(A) * math.cos(C) + math.tan(B) * math.sin(C)
+	E = math.cos(A)
+	F = degrees(math.atan2(D, E))
+
+	return F - 360 * math.floor(F / 360)

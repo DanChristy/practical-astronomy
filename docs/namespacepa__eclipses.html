@@ -94,6 +94,8 @@ Functions</h2></td></tr>
 <tr class="separator:ab3c7621085cfe7c0d41a84c629a81275"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aebd6cc146f644c41bbb4053a93b3a6b4"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepa__eclipses.html#aebd6cc146f644c41bbb4053a93b3a6b4">solar_eclipse_occurrence</a> (local_date_day, local_date_month, local_date_year, is_daylight_saving, zone_correction_hours)</td></tr>
 <tr class="separator:aebd6cc146f644c41bbb4053a93b3a6b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad917bf7926140e06289f017d8d5dd3e9"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepa__eclipses.html#ad917bf7926140e06289f017d8d5dd3e9">solar_eclipse_circumstances</a> (local_date_day, local_date_month, local_date_year, is_daylight_saving, zone_correction_hours, geog_longitude_deg, geog_latitude_deg)</td></tr>
+<tr class="separator:ad917bf7926140e06289f017d8d5dd3e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="ab3c7621085cfe7c0d41a84c629a81275"></a>
@@ -139,7 +141,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<pre class="fragment">Determine if a lunar eclipse is likely to occur.
+<pre class="fragment">Calculate the circumstances of a lunar eclipse.
 
 Arguments:
     local_date_day -- Local date, day part.
@@ -227,6 +229,86 @@ Returns:
     event_date_day -- Date of eclipse event (day).
     event_date_month -- Date of eclipse event (month).
     event_date_year -- Date of eclipse event (year).
+</pre> 
+</div>
+</div>
+<a id="ad917bf7926140e06289f017d8d5dd3e9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad917bf7926140e06289f017d8d5dd3e9">&#9670;&nbsp;</a></span>solar_eclipse_circumstances()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def pa_eclipses.solar_eclipse_circumstances </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>local_date_day</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>local_date_month</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>local_date_year</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>is_daylight_saving</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>zone_correction_hours</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>geog_longitude_deg</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>geog_latitude_deg</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Calculate the circumstances of a lunar eclipse.
+
+Arguments:
+    local_date_day -- Local date, day part.
+    local_date_month -- Local date, month part.
+    local_date_year -- Local date, year part.
+    is_daylight_saving -- Is daylight savings in effect?
+    zone_correction_hours -- Time zone correction, in hours.
+    geog_longitude_deg -- Geographical longitude of observer.
+    geog_latitude_deg -- Geographical latitude of observer.
+
+Returns:
+    solar_eclipse_certain_date_day -- Solar eclipse date (day)
+    solar_eclipse_certain_date_month -- Solar eclipse date (month)
+    solar_eclipse_certain_date_year -- Solar eclipse date (year)
+    ut_first_contact_hour -- First contact of shadow (hour)
+    ut_first_contact_minutes -- First contact of shadow (minutes)
+    ut_mid_eclipse_hour -- Mid-eclipse (hour)
+    ut_mid_eclipse_minutes -- Mid-eclipse (minutes)
+    ut_last_contact_hour -- Last contact of shadow (hour)
+    ut_last_contact_minutes -- Last contact of shadow (minutes)
+    eclipse_magnitude -- Eclipse magnitude
 </pre> 
 </div>
 </div>

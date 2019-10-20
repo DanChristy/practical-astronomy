@@ -3,6 +3,7 @@ var searchData=
   ['selenographic_5fcoordinates_5f1',['selenographic_coordinates_1',['../namespacepa__coordinate.html#a296d92105e1a1727cb0fd7ba00fbdec9',1,'pa_coordinate']]],
   ['selenographic_5fcoordinates_5f2',['selenographic_coordinates_2',['../namespacepa__coordinate.html#aad5dd2620ad98a2e495efd80997d577c',1,'pa_coordinate']]],
   ['sgn',['sgn',['../namespacepa__macro.html#a18748baf1ce4e5f0fa5462df4bdcd076',1,'pa_macro']]],
+  ['solar_5feclipse_5fcircumstances',['solar_eclipse_circumstances',['../namespacepa__eclipses.html#ad917bf7926140e06289f017d8d5dd3e9',1,'pa_eclipses']]],
   ['solar_5feclipse_5foccurrence',['solar_eclipse_occurrence',['../namespacepa__eclipses.html#aebd6cc146f644c41bbb4053a93b3a6b4',1,'pa_eclipses.solar_eclipse_occurrence()'],['../namespacepa__macro.html#a91bf62d4605b7b62245eddf89078d512',1,'pa_macro.solar_eclipse_occurrence()']]],
   ['solar_5feclipse_5foccurrence_5fl6855',['solar_eclipse_occurrence_l6855',['../namespacepa__macro.html#aa28ce5e8100ea25cdac9c245cfccf67d',1,'pa_macro']]],
   ['solar_5felongation',['solar_elongation',['../namespacepa__sun.html#a6a5fda282476b9f20ed1d0f02e735121',1,'pa_sun']]],

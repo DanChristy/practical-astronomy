@@ -45,7 +45,7 @@ class test_lunar_eclipse(UT.TestCase):
 		self.assertEqual(ut_end_pen_phase_minutes,1,"End Penumbral Phase (minutes)")
 		self.assertEqual(eclipse_magnitude,1.01,"Eclipse Magnitude")
 
-class test_solar_eclipse(UT.TestCase):
+class test_solar_eclipse_occurrence(UT.TestCase):
 	def setUp(self):
 		self.local_date_day = 1
 		self.local_date_month = 4
@@ -63,6 +63,31 @@ class test_solar_eclipse(UT.TestCase):
 		self.assertEqual(event_date_month,3,"Solar eclipse event date (month)")
 		self.assertEqual(event_date_year,2015,"Solar eclipse event date (year)")
 
+class test_solar_eclipse_circumstances(UT.TestCase):
+	def setUp(self):
+		self.local_date_day = 20
+		self.local_date_month = 3
+		self.local_date_year = 2015
+		self.is_daylight_saving = False
+		self.zone_correction_hours = 0
+		self.geog_longitude_deg = 0
+		self.geog_latitude_deg = 68.65
+
+	def test_solar_eclipse_circumstances(self):
+		solar_eclipse_certain_date_day, solar_eclipse_certain_date_month, solar_eclipse_certain_date_year, ut_first_contact_hour, ut_first_contact_minutes, ut_mid_eclipse_hour, ut_mid_eclipse_minutes, ut_last_contact_hour, ut_last_contact_minutes, eclipse_magnitude = PE.solar_eclipse_circumstances(self.local_date_day,self.local_date_month,self.local_date_year,self.is_daylight_saving,self.zone_correction_hours, self.geog_longitude_deg, self.geog_latitude_deg)
+
+		print(f"Solar eclipse circumstances: [Local Date] {self.local_date_month}/{self.local_date_day}/{self.local_date_year} [DST?] {self.is_daylight_saving} [Zone Correction] {self.zone_correction_hours} [Longitude] {self.geog_longitude_deg} degrees [Latitude] {self.geog_latitude_deg} degrees = [Eclipse Date] {solar_eclipse_certain_date_month}/{solar_eclipse_certain_date_day}/{solar_eclipse_certain_date_year} [First Contact] {ut_first_contact_hour}:{ut_first_contact_minutes} [Mid-Eclipse] {ut_mid_eclipse_hour}:{ut_mid_eclipse_minutes} [Last Contact] {ut_last_contact_hour}:{ut_last_contact_minutes} [Magnitude] {eclipse_magnitude}")
+
+		self.assertEqual(solar_eclipse_certain_date_day,20,"Eclipse Date (day)")
+		self.assertEqual(solar_eclipse_certain_date_month,3,"Eclipse Date (month)")
+		self.assertEqual(solar_eclipse_certain_date_year,2015,"Eclipse Date (year)")
+		self.assertEqual(ut_first_contact_hour,8,"First Contact (hour)")
+		self.assertEqual(ut_first_contact_minutes,55,"First Contact (minutes)")
+		self.assertEqual(ut_mid_eclipse_hour,9,"Mid Eclipse (hour)")
+		self.assertEqual(ut_mid_eclipse_minutes,57,"Mid Eclipse (minutes)")
+		self.assertEqual(ut_last_contact_hour,10,"Last Contact (hour)")
+		self.assertEqual(ut_last_contact_minutes,58,"Last Contact (minutes)")
+		self.assertEqual(eclipse_magnitude,1.016,"Eclipse Magnitude")
 
 if __name__ == '__main__':
 	UT.main()

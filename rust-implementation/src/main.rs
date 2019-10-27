@@ -1,9 +1,30 @@
+extern crate clap;
+
 mod lib;
 mod tests;
+
+use clap::{App, Arg};
 
 use crate::tests::datetime as DTT;
 
 fn main() {
+    let matches = App::new("Practical Astronomy")
+        .arg(
+            Arg::with_name("tests")
+                .short("t")
+                .long("tests")
+                .takes_value(false)
+                .help("Run unit tests"),
+        )
+        .get_matches();
+
+    if matches.is_present("tests") {
+        run_tests();
+    }
+}
+
+/// Run all tests.
+fn run_tests() {
     DTT::test_easter(4, 20, 2003);
     DTT::test_day_numbers();
 

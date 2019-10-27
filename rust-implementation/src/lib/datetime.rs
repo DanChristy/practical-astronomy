@@ -81,3 +81,81 @@ pub fn decimal_hours_to_civil_time(decimal_hours: f64) -> (u32, u32, u32) {
 
     return (hours, minutes, seconds);
 }
+
+/// Convert local Civil Time to Universal Time
+///
+/// ## Returns
+///
+/// UT hours, UT mins, UT secs, GW day, GW month, GW year
+pub fn local_civil_time_to_universal_time(
+    lct_hours: u32,
+    lct_minutes: u32,
+    lct_seconds: u32,
+    is_daylight_savings: bool,
+    zone_correction: i32,
+    local_day: u32,
+    local_month: u32,
+    local_year: u32,
+) -> (u32, u32, u32, u32, u32, u32) {
+    let lct = civil_time_to_decimal_hours(lct_hours, lct_minutes, lct_seconds);
+
+    let daylight_savings_offset = if is_daylight_savings == true { 1 } else { 0 };
+
+    let ut_interim = lct - daylight_savings_offset as f64 - zone_correction as f64;
+    let gday_interim = local_day as f64 + (ut_interim / 24.0);
+
+    let jd = macros::cd_jd(gday_interim, local_month, local_year);
+
+    let g_day = macros::jdc_day(jd) as f64;
+    let g_month = macros::jdc_month(jd);
+    let g_year = macros::jdc_year(jd);
+
+    let ut = 24.0 * (g_day - g_day.floor());
+
+    return (
+        macros::dh_hour(ut),
+        macros::dh_min(ut),
+        macros::dh_sec(ut),
+        g_day.floor() as u32,
+        g_month,
+        g_year,
+    );
+}
+
+/// Convert Universal Time to local Civil Time
+///
+/// ## Returns
+///
+/// LCT hours, LCT minutes, LCT seconds, day, month, year
+pub fn universal_time_to_local_civil_time(
+    ut_hours: u32,
+    ut_minutes: u32,
+    ut_seconds: u32,
+    is_daylight_savings: bool,
+    zone_correction: i32,
+    gw_day: u32,
+    gw_month: u32,
+    gw_year: u32,
+) -> (u32, u32, u32, u32, u32, u32) {
+    let dst_value = if is_daylight_savings == true { 1 } else { 0 };
+    let ut = macros::hms_dh(ut_hours, ut_minutes, ut_seconds);
+    let zone_time = ut + zone_correction as f64;
+    let local_time = zone_time + dst_value as f64;
+    let local_jd_plus_local_time =
+        macros::cd_jd(gw_day as f64, gw_month, gw_year) + (local_time / 24.0);
+    let local_day = macros::jdc_day(local_jd_plus_local_time) as f64;
+    let integer_day = local_day.floor();
+    let local_month = macros::jdc_month(local_jd_plus_local_time);
+    let local_year = macros::jdc_year(local_jd_plus_local_time);
+
+    let lct = 24.0 * (local_day - integer_day as f64);
+
+    return (
+        macros::dh_hour(lct),
+        macros::dh_min(lct),
+        macros::dh_sec(lct),
+        integer_day as u32,
+        local_month,
+        local_year,
+    );
+}

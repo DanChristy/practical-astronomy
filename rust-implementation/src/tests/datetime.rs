@@ -120,3 +120,117 @@ impl TestCivilTimeScaffold {
         assert_eq!(seconds_part, self.civil_seconds, "Seconds Part");
     }
 }
+
+/// Local Civil Time tests.
+pub struct TestLocalCivilTimeScaffold {
+    pub lct_hours: u32,
+    pub lct_minutes: u32,
+    pub lct_seconds: u32,
+    pub is_daylight_savings: bool,
+    pub zone_correction: i32,
+    pub local_day: u32,
+    pub local_month: u32,
+    pub local_year: u32,
+}
+
+impl TestLocalCivilTimeScaffold {
+    /// Test conversion of local civil time to universal time
+    pub fn test_local_civil_time_to_universal_time(&mut self) {
+        let (ut_hours, ut_minutes, ut_seconds, gw_day, gw_month, gw_year) =
+            DT::local_civil_time_to_universal_time(
+                self.lct_hours,
+                self.lct_minutes,
+                self.lct_seconds,
+                self.is_daylight_savings,
+                self.zone_correction,
+                self.local_day,
+                self.local_month,
+                self.local_year,
+            );
+
+        println!(
+			"Civil time to universal time: [LCT] {}:{}:{} [DST?] {} [ZC] {} [Local Date] {}/{}/{} = [UT] {}:{}:{} [GWD] {}/{}/{}",
+			self.lct_hours,
+			self.lct_minutes,
+			self.lct_seconds,
+			self.is_daylight_savings,
+			self.zone_correction,
+			self.local_month,
+			self.local_day,
+			self.local_year,
+			ut_hours,
+			ut_minutes,
+			ut_seconds,
+			gw_month,
+			gw_day,
+			gw_year
+		);
+
+        assert_eq!(ut_hours, 22, "UT Hours");
+        assert_eq!(ut_minutes, 37, "UT Minutes");
+        assert_eq!(ut_seconds, 0, "UT Seconds");
+        assert_eq!(gw_day, 30, "Greenwich Day");
+        assert_eq!(gw_month, 6, "Greenwich Month");
+        assert_eq!(gw_year, 2013, "Greenwich Year");
+    }
+}
+
+impl TestLocalCivilTimeScaffold {
+    /// Test conversion of local civil time to universal time
+    pub fn test_universal_time_to_local_civil_time(&mut self) {
+        let (ut_hours, ut_minutes, ut_seconds, gw_day, gw_month, gw_year) =
+            DT::local_civil_time_to_universal_time(
+                self.lct_hours,
+                self.lct_minutes,
+                self.lct_seconds,
+                self.is_daylight_savings,
+                self.zone_correction,
+                self.local_day,
+                self.local_month,
+                self.local_year,
+            );
+
+        let (
+            revert_lct_hours,
+            revert_lct_minutes,
+            revert_lct_seconds,
+            revert_day,
+            revert_month,
+            revert_year,
+        ) = DT::universal_time_to_local_civil_time(
+            ut_hours,
+            ut_minutes,
+            ut_seconds,
+            self.is_daylight_savings,
+            self.zone_correction,
+            gw_day,
+            gw_month,
+            gw_year,
+        );
+
+        println!(
+			"Universal time to civil time: [UT] {}:{}:{} [DST?] {} [ZC] {} [GWD] {}/{}/{} = [Local Time] {}:{}:{} [Local Date] {}/{}/{}",
+			ut_hours,
+			ut_minutes,
+			ut_seconds,
+			self.is_daylight_savings,
+			self.zone_correction,
+			gw_month,
+			gw_day,
+			gw_year,
+			revert_lct_hours,
+			revert_lct_minutes,
+			revert_lct_seconds,
+			revert_month,
+			revert_day,
+			revert_year
+		);
+
+        assert_eq!(revert_lct_hours, 3, "LCT Hours");
+        assert_eq!(revert_lct_minutes, 37, "LCT Minutes");
+        assert_eq!(revert_lct_seconds, 0, "LCT Seconds");
+        assert_eq!(revert_day, 1, "Local Day");
+        assert_eq!(revert_month, 7, "Local Month");
+        assert_eq!(revert_year, 2013, "Local Year");
+    }
+}

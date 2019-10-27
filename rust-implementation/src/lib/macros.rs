@@ -75,7 +75,7 @@ pub fn cd_jd(day: f64, month: u32, year: u32) -> f64 {
         f_month
     };
 
-    let mut b: f64 = 0.0;
+    let b: f64;
 
     if f_year > 1582.0 {
         let a = (y / 100.0).floor();
@@ -130,7 +130,7 @@ pub fn jdc_day(julian_date: f64) -> f64 {
 /// Original macro name: JDCMonth
 pub fn jdc_month(julian_date: f64) -> u32 {
     let i = (julian_date + 0.5).floor();
-    let f = julian_date + 0.5 - i;
+    let _f = julian_date + 0.5 - i;
     let a = ((i - 1867216.25) / 36524.25).floor();
     let b = if i > 2299160.0 {
         i + 1.0 + a - (a / 4.0).floor()
@@ -152,7 +152,7 @@ pub fn jdc_month(julian_date: f64) -> u32 {
 /// Original macro name: JDCYear
 pub fn jdc_year(julian_date: f64) -> u32 {
     let i = (julian_date + 0.5).floor();
-    let f = julian_date + 0.5 - i;
+    let _f = julian_date + 0.5 - i;
     let a = ((i - 1867216.25) / 36524.25).floor();
     let b = if i > 2299160.0 {
         i + 1.0 + a - (a / 4.0).floor()

@@ -117,7 +117,7 @@ impl TestCivilTimeScaffold {
 
         assert_eq!(hour_part, self.civil_hours, "Hour Part");
         assert_eq!(minutes_part, self.civil_minutes, "Minutes Part");
-        assert_eq!(seconds_part, self.civil_seconds, "Seconds Part");
+        assert_eq!(seconds_part, self.civil_seconds as f64, "Seconds Part");
     }
 }
 
@@ -138,6 +138,7 @@ impl TestLocalCivilTimeScaffold {
     pub fn test_local_civil_time_to_universal_time(&mut self) {
         let (ut_hours, ut_minutes, ut_seconds, gw_day, gw_month, gw_year) =
             DT::local_civil_time_to_universal_time(
+                // return utHours,utMinutes,utSeconds,warningFlag
                 self.lct_hours,
                 self.lct_minutes,
                 self.lct_seconds,
@@ -232,5 +233,87 @@ impl TestLocalCivilTimeScaffold {
         assert_eq!(revert_day, 1, "Local Day");
         assert_eq!(revert_month, 7, "Local Month");
         assert_eq!(revert_year, 2013, "Local Year");
+    }
+}
+
+/// Universal Time <-> Sidereal Time tests.
+pub struct TestUniversalTimeSiderealTimeScaffold {
+    pub ut_hours: u32,
+    pub ut_minutes: u32,
+    pub ut_seconds: f64,
+    pub gw_day: u32,
+    pub gw_month: u32,
+    pub gw_year: u32,
+}
+
+impl TestUniversalTimeSiderealTimeScaffold {
+    /// Test conversion of universal time to greenwich sidereal time
+    pub fn test_universal_time_to_greenwich_sidereal_time(&mut self) {
+        let (gst_hours, gst_minutes, gst_seconds) = DT::universal_time_to_greenwich_sidereal_time(
+            self.ut_hours,
+            self.ut_minutes,
+            self.ut_seconds,
+            self.gw_day,
+            self.gw_month,
+            self.gw_year,
+        );
+
+        println!(
+			"Universal time to greenwich sidereal time: [UT] {}:{}:{} [GWD] {}/{}/{} = [GST] {}:{}:{}",
+			self.ut_hours,
+			self.ut_minutes,
+			self.ut_seconds,
+			self.gw_month,
+			self.gw_day,
+			self.gw_year,
+			gst_hours,
+			gst_minutes,
+			gst_seconds
+		);
+
+        assert_eq!(gst_hours, 4, "GST Hours");
+        assert_eq!(gst_minutes, 40, "GST Minutes");
+        assert_eq!(gst_seconds, 5.23, "GST Seconds");
+    }
+
+    /// Test conversion of greenwich sidereal time to universal time
+    pub fn test_greenwich_sidereal_time_to_universal_time(&mut self) {
+        let (gst_hours, gst_minutes, gst_seconds) = DT::universal_time_to_greenwich_sidereal_time(
+            self.ut_hours,
+            self.ut_minutes,
+            self.ut_seconds,
+            self.gw_day,
+            self.gw_month,
+            self.gw_year,
+        );
+
+        let (ut_hours, ut_minutes, ut_seconds, warning_flag) =
+            DT::greenwich_sidereal_time_to_universal_time(
+                gst_hours,
+                gst_minutes,
+                gst_seconds,
+                self.gw_day,
+                self.gw_month,
+                self.gw_year,
+            );
+
+        println!(
+			"Greenwich sidereal time to universal time: [GST] {}:{}:{} [GWD] {}/{}/{} = [UT] {}:{}:{} [Warning Flag] {}",
+			gst_hours,
+			gst_minutes,
+			gst_seconds,
+			self.gw_month,
+			self.gw_day,
+			self.gw_year,
+			ut_hours,
+			ut_minutes,
+			ut_seconds,
+			warning_flag
+		);
+
+        assert_eq!(ut_hours, 14, "UT Hours");
+        assert_eq!(ut_minutes, 36, "UT Minutes");
+        assert_eq!(ut_seconds, 51.67, "UT Seconds");
+        assert_eq!(warning_flag, "OK", "Warning Flag");
     }
 }

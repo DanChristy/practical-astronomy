@@ -66,7 +66,7 @@ pub fn civil_date_to_day_number(mut month: u32, day: u32, year: u32) -> u32 {
 
 /// Convert a Civil Time (hours,minutes,seconds) to Decimal Hours
 pub fn civil_time_to_decimal_hours(hours: u32, minutes: u32, seconds: u32) -> f64 {
-    return macros::hms_dh(hours, minutes, seconds);
+    return macros::hms_dh(hours, minutes, seconds as f64);
 }
 
 /// Convert Decimal Hours to Civil Time
@@ -79,7 +79,7 @@ pub fn decimal_hours_to_civil_time(decimal_hours: f64) -> (u32, u32, u32) {
     let minutes = macros::dh_min(decimal_hours);
     let seconds = macros::dh_sec(decimal_hours);
 
-    return (hours, minutes, seconds);
+    return (hours, minutes, seconds as u32);
 }
 
 /// Convert local Civil Time to Universal Time
@@ -115,7 +115,7 @@ pub fn local_civil_time_to_universal_time(
     return (
         macros::dh_hour(ut),
         macros::dh_min(ut),
-        macros::dh_sec(ut),
+        macros::dh_sec(ut) as u32,
         g_day.floor() as u32,
         g_month,
         g_year,
@@ -138,7 +138,7 @@ pub fn universal_time_to_local_civil_time(
     gw_year: u32,
 ) -> (u32, u32, u32, u32, u32, u32) {
     let dst_value = if is_daylight_savings == true { 1 } else { 0 };
-    let ut = macros::hms_dh(ut_hours, ut_minutes, ut_seconds);
+    let ut = macros::hms_dh(ut_hours, ut_minutes, ut_seconds as f64);
     let zone_time = ut + zone_correction as f64;
     let local_time = zone_time + dst_value as f64;
     let local_jd_plus_local_time =
@@ -153,9 +153,69 @@ pub fn universal_time_to_local_civil_time(
     return (
         macros::dh_hour(lct),
         macros::dh_min(lct),
-        macros::dh_sec(lct),
+        macros::dh_sec(lct) as u32,
         integer_day as u32,
         local_month,
         local_year,
     );
+}
+
+/// Convert Universal Time to Greenwich Sidereal Time
+///
+/// ## Returns
+/// GST hours, GST minutes, GST seconds
+pub fn universal_time_to_greenwich_sidereal_time(
+    ut_hours: u32,
+    ut_minutes: u32,
+    ut_seconds: f64,
+    gw_day: u32,
+    gw_month: u32,
+    gw_year: u32,
+) -> (u32, u32, f64) {
+    let jd = macros::cd_jd(gw_day as f64, gw_month, gw_year);
+    let s = jd - 2451545.0;
+    let t = s / 36525.0;
+    let t01 = 6.697374558 + (2400.051336 * t) + (0.000025862 * t * t);
+    let t02 = t01 - (24.0 * (t01 / 24.0).floor());
+    let ut = macros::hms_dh(ut_hours, ut_minutes, ut_seconds);
+    let a = ut * 1.002737909;
+    let gst1 = t02 + a;
+    let gst2 = gst1 - (24.0 * (gst1 / 24.0).floor());
+
+    let gst_hours = macros::dh_hour(gst2);
+    let gst_minutes = macros::dh_min(gst2);
+    let gst_seconds = macros::dh_sec(gst2);
+
+    return (gst_hours, gst_minutes, gst_seconds);
+}
+
+/// Convert Greenwich Sidereal Time to Universal Time
+///
+/// ## Returns
+/// UT hours, UT minutes, UT seconds, Warning Flag
+pub fn greenwich_sidereal_time_to_universal_time(
+    gst_hours: u32,
+    gst_minutes: u32,
+    gst_seconds: f64,
+    gw_day: u32,
+    gw_month: u32,
+    gw_year: u32,
+) -> (u32, u32, f64, String) {
+    let jd = macros::cd_jd(gw_day as f64, gw_month, gw_year);
+    let s = jd - 2451545.0;
+    let t = s / 36525.0;
+    let t01 = 6.697374558 + (2400.051336 * t) + (0.000025862 * t * t);
+    let t02 = t01 - (24.0 * (t01 / 24.0).floor());
+    let gst_hours1 = macros::hms_dh(gst_hours, gst_minutes, gst_seconds);
+
+    let a = gst_hours1 - t02;
+    let b = a - (24.0 * (a / 24.0).floor());
+    let ut = b * 0.9972695663;
+    let ut_hours = macros::dh_hour(ut);
+    let ut_minutes = macros::dh_min(ut);
+    let ut_seconds = macros::dh_sec(ut);
+
+    let warning_flag = if ut < 0.065574 { "Warning" } else { "OK" };
+
+    return (ut_hours, ut_minutes, ut_seconds, warning_flag.to_string());
 }

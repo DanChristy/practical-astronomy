@@ -49,4 +49,16 @@ fn run_tests() {
     };
     test_local_civil_time.test_local_civil_time_to_universal_time();
     test_local_civil_time.test_universal_time_to_local_civil_time();
+
+    // TestUniversalTimeSiderealTimeScaffold
+    let mut test_universal_time_sidereal_time = DTT::TestUniversalTimeSiderealTimeScaffold {
+        ut_hours: 14,
+        ut_minutes: 36,
+        ut_seconds: 51.67,
+        gw_day: 22,
+        gw_month: 4,
+        gw_year: 1980,
+    };
+    test_universal_time_sidereal_time.test_universal_time_to_greenwich_sidereal_time();
+    test_universal_time_sidereal_time.test_greenwich_sidereal_time_to_universal_time();
 }

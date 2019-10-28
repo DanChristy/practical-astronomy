@@ -317,3 +317,71 @@ impl TestUniversalTimeSiderealTimeScaffold {
         assert_eq!(warning_flag, "OK", "Warning Flag");
     }
 }
+
+/// Universal Time <-> Sidereal Time tests.
+pub struct TestGreenwichSiderealLocalSiderealScaffold {
+    pub gst_hours: u32,
+    pub gst_minutes: u32,
+    pub gst_seconds: f64,
+    pub geographical_longitude: f64,
+}
+
+impl TestGreenwichSiderealLocalSiderealScaffold {
+    pub fn test_greenwich_sidereal_time_to_local_sidereal_time(&mut self) {
+        let (lst_hours, lst_minutes, lst_seconds) =
+            DT::greenwich_sidereal_time_to_local_sidereal_time(
+                self.gst_hours,
+                self.gst_minutes,
+                self.gst_seconds,
+                self.geographical_longitude,
+            );
+
+        println!(
+			"Greenwich sidereal time to local sidereal time: [GST] {}:{}:{} [Longitude] {} = [LST] {}:{}:{}",
+			self.gst_hours,
+			self.gst_minutes,
+			self.gst_seconds,
+			self.geographical_longitude,
+			lst_hours,
+			lst_minutes,
+			lst_seconds
+		);
+
+        assert_eq!(lst_hours, 0, "LST Hours");
+        assert_eq!(lst_minutes, 24, "LST Minutes");
+        assert_eq!(lst_seconds, 5.23, "LST Seconds");
+    }
+
+    pub fn test_local_sidereal_time_to_greenwich_sidereal_time(&mut self) {
+        let (lst_hours, lst_minutes, lst_seconds) =
+            DT::greenwich_sidereal_time_to_local_sidereal_time(
+                self.gst_hours,
+                self.gst_minutes,
+                self.gst_seconds,
+                self.geographical_longitude,
+            );
+
+        let (gst_hours, gst_minutes, gst_seconds) =
+            DT::local_sidereal_time_to_greenwich_sidereal_time(
+                lst_hours,
+                lst_minutes,
+                lst_seconds,
+                self.geographical_longitude,
+            );
+
+        println!(
+			"Local sidereal time to greenwich sidereal time: [LST] {}:{}:{} [Longitude] {} = [GST] {}:{}:{}",
+			lst_hours,
+			lst_minutes,
+			lst_seconds,
+			self.geographical_longitude,
+			gst_hours,
+			gst_minutes,
+			gst_seconds
+		);
+
+        assert_eq!(gst_hours, 4, "GST Hours");
+        assert_eq!(gst_minutes, 40, "GST Minutes");
+        assert_eq!(gst_seconds, 5.23, "GST Seconds");
+    }
+}

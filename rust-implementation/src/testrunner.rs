@@ -27,7 +27,6 @@ pub fn run_tests() {
     test_local_civil_time.test_local_civil_time_to_universal_time();
     test_local_civil_time.test_universal_time_to_local_civil_time();
 
-    // TestUniversalTimeSiderealTimeScaffold
     let mut test_universal_time_sidereal_time = DTT::TestUniversalTimeSiderealTimeScaffold {
         ut_hours: 14,
         ut_minutes: 36,
@@ -38,4 +37,14 @@ pub fn run_tests() {
     };
     test_universal_time_sidereal_time.test_universal_time_to_greenwich_sidereal_time();
     test_universal_time_sidereal_time.test_greenwich_sidereal_time_to_universal_time();
+
+    let mut test_greenwich_sidereal_local_sidereal =
+        DTT::TestGreenwichSiderealLocalSiderealScaffold {
+            gst_hours: 4,
+            gst_minutes: 40,
+            gst_seconds: 5.23,
+            geographical_longitude: -64.0,
+        };
+    test_greenwich_sidereal_local_sidereal.test_greenwich_sidereal_time_to_local_sidereal_time();
+    test_greenwich_sidereal_local_sidereal.test_local_sidereal_time_to_greenwich_sidereal_time();
 }

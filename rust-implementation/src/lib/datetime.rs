@@ -219,3 +219,47 @@ pub fn greenwich_sidereal_time_to_universal_time(
 
     return (ut_hours, ut_minutes, ut_seconds, warning_flag.to_string());
 }
+
+/// Convert Greenwich Sidereal Time to Local Sidereal Time
+///
+/// ## Returns
+/// LST hours, LST minutes, LST seconds
+pub fn greenwich_sidereal_time_to_local_sidereal_time(
+    gst_hour: u32,
+    gst_minutes: u32,
+    gst_seconds: f64,
+    geographical_longitude: f64,
+) -> (u32, u32, f64) {
+    let gst = macros::hms_dh(gst_hour, gst_minutes, gst_seconds);
+    let offset = geographical_longitude / 15.0;
+    let lst_hours1 = gst + offset;
+    let lst_hours2 = lst_hours1 - (24.0 * (lst_hours1 / 24.0).floor());
+
+    let lst_hours = macros::dh_hour(lst_hours2);
+    let lst_minutes = macros::dh_min(lst_hours2);
+    let lst_seconds = macros::dh_sec(lst_hours2);
+
+    return (lst_hours, lst_minutes, lst_seconds);
+}
+
+/// Convert Local Sidereal Time to Greenwich Sidereal Time
+///
+/// ## Returns
+/// GST hours, GST minutes, GST seconds
+pub fn local_sidereal_time_to_greenwich_sidereal_time(
+    lst_hours: u32,
+    lst_minutes: u32,
+    lst_seconds: f64,
+    geographical_longitude: f64,
+) -> (u32, u32, f64) {
+    let gst = macros::hms_dh(lst_hours, lst_minutes, lst_seconds);
+    let long_hours = geographical_longitude / 15.0;
+    let gst1 = gst - long_hours;
+    let gst2 = gst1 - (24.0 * (gst1 / 24.0).floor());
+
+    let gst_hours = macros::dh_hour(gst2);
+    let gst_minutes = macros::dh_min(gst2);
+    let gst_seconds = macros::dh_sec(gst2);
+
+    return (gst_hours, gst_minutes, gst_seconds);
+}

@@ -385,3 +385,17 @@ impl TestGreenwichSiderealLocalSiderealScaffold {
         assert_eq!(gst_seconds, 5.23, "GST Seconds");
     }
 }
+
+/// Test Julian Date to Day of Week
+pub fn test_julian_date_to_day_of_week() {
+    let julian_date = 2455001.5;
+
+    let day_of_week = MA::f_dow(julian_date);
+
+    println!(
+        "Julian date to day of week: [JD] {} = [Day of Week] {}",
+        julian_date, day_of_week
+    );
+
+    assert_eq!(day_of_week, "Friday", "Day of Week");
+}

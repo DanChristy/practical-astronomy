@@ -47,4 +47,6 @@ pub fn run_tests() {
         };
     test_greenwich_sidereal_local_sidereal.test_greenwich_sidereal_time_to_local_sidereal_time();
     test_greenwich_sidereal_local_sidereal.test_local_sidereal_time_to_greenwich_sidereal_time();
+
+    DTT::test_julian_date_to_day_of_week();
 }

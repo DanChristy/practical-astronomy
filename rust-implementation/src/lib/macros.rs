@@ -169,3 +169,25 @@ pub fn jdc_year(julian_date: f64) -> u32 {
 
     return return_value as u32;
 }
+
+/// Convert a Julian Date to Day-of-Week (e.g., Sunday)
+///
+/// Original macro name: FDOW
+pub fn f_dow(julian_date: f64) -> String {
+    let j = (julian_date - 0.5).floor() + 0.5;
+    let n = (j + 1.5) % 7.0;
+
+    let return_value: &str;
+    match n as u32 {
+        0 => return_value = "Sunday",
+        1 => return_value = "Monday",
+        2 => return_value = "Tuesday",
+        3 => return_value = "Wednesday",
+        4 => return_value = "Thursday",
+        5 => return_value = "Friday",
+        6 => return_value = "Saturday",
+        _ => return_value = "Unknown",
+    }
+
+    return return_value.to_string();
+}

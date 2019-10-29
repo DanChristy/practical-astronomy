@@ -10,4 +10,4 @@ All spreadsheets and macros from the book, implemented in Python 3.  (See detail
 
 ## Roadmap
 
-The Python 3 implementation is intended as a learning tool.  The code is easier to read and understand, but won't hold up as well where speed is required.  So, the next step will be re-implementing the Python code in [Rust](https://www.rust-lang.org/).
+The Python 3 implementation is intended as a learning tool.  The code is easier to read and understand, but won't hold up as well where speed is required.  So, the next step will be re-implementing the Python code in [Rust](https://www.rust-lang.org/).  You can follow that work in the [rust-implementation branch](https://github.com/jfcarr-astronomy/practical-astronomy/tree/rust-implementation/rust-implementation).

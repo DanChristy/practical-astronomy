@@ -13,3 +13,9 @@ Convert | Local Civil Time <-> Universal Time
 Convert | Universal Time <-> Greenwich Sidereal Time
 Convert | Greenwich Sidereal Time <-> Local Sidereal Time
 Calculate | Day of Week for Julian Date
+
+### Coordinates
+
+Type | Description
+-----|------------
+Convert | Angle <-> Decimal Degrees

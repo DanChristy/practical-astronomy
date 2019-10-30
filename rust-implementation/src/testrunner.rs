@@ -1,7 +1,14 @@
+use crate::tests::coordinates as CST;
 use crate::tests::datetime as DTT;
 
 /// Run all functional tests.
 pub fn run_tests() {
+    run_datetime_tests();
+
+    run_coordinate_tests();
+}
+
+pub fn run_datetime_tests() {
     DTT::test_easter(4, 20, 2003);
     DTT::test_day_numbers();
 
@@ -49,4 +56,14 @@ pub fn run_tests() {
     test_greenwich_sidereal_local_sidereal.test_local_sidereal_time_to_greenwich_sidereal_time();
 
     DTT::test_julian_date_to_day_of_week();
+}
+
+pub fn run_coordinate_tests() {
+    let mut test_angle_decimal_degrees = CST::TestAngleDecimalDegreesScaffold {
+        degrees: 182.0,
+        minutes: 31.0,
+        seconds: 27.0,
+    };
+    test_angle_decimal_degrees.test_angle_to_decimal_degrees();
+    test_angle_decimal_degrees.test_decimal_degrees_to_angle();
 }
